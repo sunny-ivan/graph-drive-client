@@ -1,0 +1,28 @@
+{
+  "name": "graph-driver-client",
+  "license": "MIT",
+  "main": "dist/graphDriverClient.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunny-ivan/graph-driver-client.git"
+  },
+  "version": "1.14.1",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@microsoft/kiota-abstractions": "1.0.0-preview.51",
+    "@microsoft/kiota-authentication-azure": "1.0.0-preview.46",
+    "@microsoft/kiota-http-fetchlibrary": "1.0.0-preview.50",
+    "@microsoft/kiota-serialization-form": "1.0.0-preview.40",
+    "@microsoft/kiota-serialization-json": "1.0.0-preview.51",
+    "@microsoft/kiota-serialization-multipart": "1.0.0-preview.29",
+    "@microsoft/kiota-serialization-text": "1.0.0-preview.48"
+  }
+}
