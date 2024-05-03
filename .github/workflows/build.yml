@@ -1,1 +1,91 @@
+name: Generate SDK Weekly
 
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/build.yml"
+  schedule:
+    - cron: "0 0 * * 1" # This cron schedule runs the workflow every Monday at midnight
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set identity
+        run: |
+          # git config --global user.name "$GITHUB_ACTOR"
+          # git config --global user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo Commit as "$(git config user.name) <$(git config user.email)>"
+
+      - name: Check for updates, generate code and build package
+        id: generate
+        uses: sunny-ivan/generate-kiota-typescript@main
+        with:
+          kiota_generate_options: --class-name GraphDriverClient --include-path '/drives/**'
+
+      - name: Set version
+        if: ${{ steps.generate.outputs.should_tag == '1' }}
+        run: |
+          npm pkg set version=${{ steps.generate.outputs.suggested_pkg_version }}
+
+      - name: Commit changes
+        run: |
+          # Check if there are any changes to commit and push
+          if [[ -n $(git status -s) ]]; then
+              # Changes exist, proceed with the commit and push
+              git add .
+              git commit -m "Automatic SDK building"
+              git push https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git HEAD:main
+          else
+              # No changes to commit
+              echo "No changes to commit."
+              echo "Skipping push."
+          fi
+
+      - name: Create tag
+        id: create_tag
+        if: ${{ steps.generate.outputs.should_tag == '1' }}
+        run: |
+          git tag v${{ steps.generate.outputs.suggested_pkg_version }}
+          git push
+
+      - name: Create zip archive file
+        id: create_zip
+        if: ${{ steps.generate.outputs.should_tag == '1' }}
+        run: |
+          tempd=$(mktemp -d)
+          workd=$(pwd)
+          dist_zip=$tempd/dist.zip
+          dist_sha1=$tempd/dist.sha1
+          zip -r $dist_zip dist LICENSE package.json README.md yarn.lock 
+          cd $tempd
+          sha1sum dist.zip | cut -d ' ' -f1 >> $dist_sha1
+          cd $workd
+          echo "zip=$dist_zip" >> $GITHUB_OUTPUT
+          echo "sha1=$dist_sha1" >> $GITHUB_OUTPUT
+
+      - name: GH Release
+        if: ${{ steps.generate.outputs.should_tag == '1' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.generate.outputs.suggested_pkg_version }}
+          name: v${{ steps.generate.outputs.suggested_pkg_version }}
+          files: |
+            ${{ steps.create_zip.outputs.zip }}
+            ${{ steps.create_zip.outputs.sha1 }}
+
+      - name: NPM Publish
+        if: ${{ steps.generate.outputs.should_tag == '1' }}
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
