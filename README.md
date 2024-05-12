@@ -1,4 +1,5 @@
-# graph-driver-client
+# graph-drive-client
+
 Unofficial Graph API OneDrive client
 
 Graph metadata https://github.com/microsoftgraph/msgraph-metadata (MIT license)
