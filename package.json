@@ -1,10 +1,10 @@
 {
-  "name": "graph-driver-client",
+  "name": "graph-drive-client",
   "license": "MIT",
-  "main": "dist/graphDriverClient.js",
+  "main": "dist/graphDriveClient.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sunny-ivan/graph-driver-client.git"
+    "url": "https://github.com/sunny-ivan/graph-drive-client.git"
   },
   "version": "1.14.0",
   "description": "",
