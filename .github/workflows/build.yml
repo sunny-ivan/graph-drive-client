@@ -31,7 +31,7 @@ jobs:
         id: generate
         uses: sunny-ivan/generate-kiota-typescript@main
         with:
-          kiota_generate_options: --class-name GraphDriverClient --include-path '/drives/**'
+          kiota_generate_options: --class-name GraphDriveClient --include-path '/drives/**'
 
       - name: Set version
         if: ${{ steps.generate.outputs.should_tag == '1' }}
