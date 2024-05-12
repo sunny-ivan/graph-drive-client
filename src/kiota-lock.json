@@ -1,9 +1,9 @@
 {
-  "descriptionHash": "479E8FF0955FC1D487DD487BC02C03F02451363F71198A2663E9DFC26803B0C160A365A5A3786CE97E75811CE91021EE50CD3D828C5D708C388C8F1F3F930017",
+  "descriptionHash": "E2DB62371D36F293F9E2F0934EC4BC0BA1563BE0566E9A51F4BB5DA8ED010F10D6DDBEAC545474CCF6545807CBDA2CC515D22E8C9EA73958875CA17A72F5BE91",
   "descriptionLocation": "../data/openapi.yaml",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.14.0",
-  "clientClassName": "GraphDriverClient",
+  "clientClassName": "GraphDriveClient",
   "clientNamespaceName": "ApiSdk",
   "language": "TypeScript",
   "usesBackingStore": false,

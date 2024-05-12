@@ -483,7 +483,7 @@ export interface CasesRoot extends Entity, Parsable {
 export type CaseStatus = (typeof CaseStatusObject)[keyof typeof CaseStatusObject];
 export interface CategoryTemplate extends FilePlanDescriptorTemplate, Parsable {
     /**
-     * The subcategories property
+     * Represents all subcategories under a particular category.
      */
     subcategories?: SubcategoryTemplate[];
 }
@@ -4407,7 +4407,7 @@ export interface DispositionReviewStage extends Entity, Parsable {
      */
     reviewersEmailAddresses?: string[];
     /**
-     * The sequence number for each stage of the disposition review.
+     * The unique sequence number for each stage of the disposition review.
      */
     stageNumber?: string;
 }
@@ -4829,7 +4829,7 @@ export interface FileHashEvidence extends AlertEvidence, Parsable {
 }
 export interface FilePlanAppliedCategory extends FilePlanDescriptorBase, Parsable {
     /**
-     * The subcategory property
+     * Represents the file plan descriptor for a subcategory under a specific category, which has been assigned to a particular retention label.
      */
     subcategory?: FilePlanSubcategory;
 }
@@ -4837,11 +4837,11 @@ export interface FilePlanAuthority extends FilePlanDescriptorBase, Parsable {
 }
 export interface FilePlanCitation extends FilePlanDescriptorBase, Parsable {
     /**
-     * The citationJurisdiction property
+     * Represents the jurisdiction or agency that published the filePlanCitation.
      */
     citationJurisdiction?: string;
     /**
-     * The citationUrl property
+     * Represents the URL to the published filePlanCitation.
      */
     citationUrl?: string;
 }
