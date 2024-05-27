@@ -23,7 +23,7 @@ export interface Alert extends Entity, Parsable {
      */
     alertPolicyId?: string;
     /**
-     * The alertWebUrl property
+     * URL for the Microsoft 365 Defender portal alert page.
      */
     alertWebUrl?: string;
     /**
@@ -91,7 +91,7 @@ export interface Alert extends Entity, Parsable {
      */
     mitreTechniques?: string[];
     /**
-     * The productName property
+     * The name of the product which published this alert.
      */
     productName?: string;
     /**
@@ -4605,7 +4605,7 @@ export interface EdiscoveryExportOperation extends CaseOperation, Parsable {
      */
     description?: string;
     /**
-     * The exportFileMetadata property
+     * Contains the properties for an export file metadata, including downloadUrl, fileName, and size.
      */
     exportFileMetadata?: ExportFileMetadata[];
     /**
@@ -6437,7 +6437,7 @@ export interface RetentionEvent extends Entity, Parsable {
      */
     displayName?: string;
     /**
-     * The eventPropagationResults property
+     * Represents the success status of a created event and additional information.
      */
     eventPropagationResults?: EventPropagationResult[];
     /**
@@ -6445,7 +6445,7 @@ export interface RetentionEvent extends Entity, Parsable {
      */
     eventQueries?: EventQuery[];
     /**
-     * The eventStatus property
+     * Status of event propogation to the scoped locations after the event has been created.
      */
     eventStatus?: RetentionEventStatus;
     /**
