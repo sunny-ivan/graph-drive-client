@@ -1,14 +1,15 @@
 {
-  "descriptionHash": "347E20BE4CF4720F65FA562B6678673D7323E621A46B376A5188C890E45A72CFA1A2BF627AC4B5593A7AAA992C3422796864E4FC3B5B3B2D850E608FEC64AC37",
+  "descriptionHash": "0360E5AAB03457D81981DD548F0FB7085CDF184A03915AB744CA1B52A04583604DDA85FFBBAA7E808CF76245AF5EAC3ED71B298A0E74F16135BD77362C45620F",
   "descriptionLocation": "../data/openapi.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.14.0",
+  "kiotaVersion": "1.15.0",
   "clientClassName": "GraphDriveClient",
   "clientNamespaceName": "ApiSdk",
   "language": "TypeScript",
   "usesBackingStore": false,
   "excludeBackwardCompatible": false,
   "includeAdditionalData": true,
+  "disableSSLValidation": false,
   "serializers": [
     "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
     "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",
