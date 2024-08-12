@@ -13,6 +13,7 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {MultiNomialPostRequestBody}
  */
+// @ts-ignore
 export function createMultiNomialPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMultiNomialPostRequestBody;
 }
@@ -20,6 +21,7 @@ export function createMultiNomialPostRequestBodyFromDiscriminatorValue(parseNode
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoMultiNomialPostRequestBody(multiNomialPostRequestBody: Partial<MultiNomialPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "values": n => { multiNomialPostRequestBody.values = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export interface MultiNomialRequestBuilder extends BaseRequestBuilder<MultiNomia
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeMultiNomialPostRequestBody(writer: SerializationWriter, multiNomialPostRequestBody: Partial<MultiNomialPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("values", multiNomialPostRequestBody.values);
     writer.writeAdditionalData(multiNomialPostRequestBody.additionalData);

@@ -13,6 +13,7 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {IsrefPostRequestBody}
  */
+// @ts-ignore
 export function createIsrefPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoIsrefPostRequestBody;
 }
@@ -20,6 +21,7 @@ export function createIsrefPostRequestBodyFromDiscriminatorValue(parseNode: Pars
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoIsrefPostRequestBody(isrefPostRequestBody: Partial<IsrefPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "value": n => { isrefPostRequestBody.value = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export interface IsrefRequestBuilder extends BaseRequestBuilder<IsrefRequestBuil
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeIsrefPostRequestBody(writer: SerializationWriter, isrefPostRequestBody: Partial<IsrefPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("value", isrefPostRequestBody.value);
     writer.writeAdditionalData(isrefPostRequestBody.additionalData);

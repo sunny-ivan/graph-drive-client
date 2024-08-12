@@ -43,6 +43,7 @@ export interface CountIfsRequestBuilder extends BaseRequestBuilder<CountIfsReque
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {CountIfsPostRequestBody}
  */
+// @ts-ignore
 export function createCountIfsPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCountIfsPostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createCountIfsPostRequestBodyFromDiscriminatorValue(parseNode: P
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoCountIfsPostRequestBody(countIfsPostRequestBody: Partial<CountIfsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "values": n => { countIfsPostRequestBody.values = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoCountIfsPostRequestBody(countIfsPostRequestBody: 
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeCountIfsPostRequestBody(writer: SerializationWriter, countIfsPostRequestBody: Partial<CountIfsPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("values", countIfsPostRequestBody.values);
     writer.writeAdditionalData(countIfsPostRequestBody.additionalData);

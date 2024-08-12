@@ -9,6 +9,7 @@ import { type AdditionalDataHolder, type ApiError, type Parsable, type ParseNode
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ErrorDetails}
  */
+// @ts-ignore
 export function createErrorDetailsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoErrorDetails;
 }
@@ -17,6 +18,7 @@ export function createErrorDetailsFromDiscriminatorValue(parseNode: ParseNode | 
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {InnerError}
  */
+// @ts-ignore
 export function createInnerErrorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoInnerError;
 }
@@ -25,6 +27,7 @@ export function createInnerErrorFromDiscriminatorValue(parseNode: ParseNode | un
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {MainError}
  */
+// @ts-ignore
 export function createMainErrorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoMainError;
 }
@@ -33,6 +36,7 @@ export function createMainErrorFromDiscriminatorValue(parseNode: ParseNode | und
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ODataError}
  */
+// @ts-ignore
 export function createODataErrorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoODataError;
 }
@@ -40,6 +44,7 @@ export function createODataErrorFromDiscriminatorValue(parseNode: ParseNode | un
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoErrorDetails(errorDetails: Partial<ErrorDetails> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "code": n => { errorDetails.code = n.getStringValue(); },
@@ -51,6 +56,7 @@ export function deserializeIntoErrorDetails(errorDetails: Partial<ErrorDetails> 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoInnerError(innerError: Partial<InnerError> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "client-request-id": n => { innerError.clientRequestId = n.getStringValue(); },
@@ -63,6 +69,7 @@ export function deserializeIntoInnerError(innerError: Partial<InnerError> | unde
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoMainError(mainError: Partial<MainError> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "code": n => { mainError.code = n.getStringValue(); },
@@ -76,6 +83,7 @@ export function deserializeIntoMainError(mainError: Partial<MainError> | undefin
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoODataError(oDataError: Partial<ODataError> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "error": n => { oDataError.errorEscaped = n.getObjectValue<MainError>(createMainErrorFromDiscriminatorValue); oDataError.message = oDataError.errorEscaped?.message ?? ""; },
@@ -161,6 +169,7 @@ export interface ODataError extends AdditionalDataHolder, ApiError, Parsable {
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeErrorDetails(writer: SerializationWriter, errorDetails: Partial<ErrorDetails> | undefined = {}) : void {
     writer.writeStringValue("code", errorDetails.code);
     writer.writeStringValue("message", errorDetails.message);
@@ -171,6 +180,7 @@ export function serializeErrorDetails(writer: SerializationWriter, errorDetails:
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeInnerError(writer: SerializationWriter, innerError: Partial<InnerError> | undefined = {}) : void {
     writer.writeStringValue("client-request-id", innerError.clientRequestId);
     writer.writeDateValue("date", innerError.date);
@@ -182,6 +192,7 @@ export function serializeInnerError(writer: SerializationWriter, innerError: Par
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeMainError(writer: SerializationWriter, mainError: Partial<MainError> | undefined = {}) : void {
     writer.writeStringValue("code", mainError.code);
     writer.writeCollectionOfObjectValues<ErrorDetails>("details", mainError.details, serializeErrorDetails);
@@ -194,6 +205,7 @@ export function serializeMainError(writer: SerializationWriter, mainError: Parti
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeODataError(writer: SerializationWriter, oDataError: Partial<ODataError> | undefined = {}) : void {
     writer.writeObjectValue<MainError>("error", oDataError.errorEscaped, serializeMainError);
     writer.writeAdditionalData(oDataError.additionalData);

@@ -47,6 +47,7 @@ export interface AverageIfsRequestBuilder extends BaseRequestBuilder<AverageIfsR
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AverageIfsPostRequestBody}
  */
+// @ts-ignore
 export function createAverageIfsPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAverageIfsPostRequestBody;
 }
@@ -54,6 +55,7 @@ export function createAverageIfsPostRequestBodyFromDiscriminatorValue(parseNode:
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAverageIfsPostRequestBody(averageIfsPostRequestBody: Partial<AverageIfsPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "averageRange": n => { averageIfsPostRequestBody.averageRange = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -64,6 +66,7 @@ export function deserializeIntoAverageIfsPostRequestBody(averageIfsPostRequestBo
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAverageIfsPostRequestBody(writer: SerializationWriter, averageIfsPostRequestBody: Partial<AverageIfsPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("averageRange", averageIfsPostRequestBody.averageRange);
     writer.writeObjectValue("values", averageIfsPostRequestBody.values);

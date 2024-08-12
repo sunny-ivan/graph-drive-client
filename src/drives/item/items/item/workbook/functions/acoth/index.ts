@@ -43,6 +43,7 @@ export interface AcothRequestBuilder extends BaseRequestBuilder<AcothRequestBuil
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AcothPostRequestBody}
  */
+// @ts-ignore
 export function createAcothPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAcothPostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createAcothPostRequestBodyFromDiscriminatorValue(parseNode: Pars
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAcothPostRequestBody(acothPostRequestBody: Partial<AcothPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number": n => { acothPostRequestBody.number = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoAcothPostRequestBody(acothPostRequestBody: Partia
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAcothPostRequestBody(writer: SerializationWriter, acothPostRequestBody: Partial<AcothPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number", acothPostRequestBody.number);
     writer.writeAdditionalData(acothPostRequestBody.additionalData);

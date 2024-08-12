@@ -59,6 +59,7 @@ export interface AccrIntMRequestBuilder extends BaseRequestBuilder<AccrIntMReque
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AccrIntMPostRequestBody}
  */
+// @ts-ignore
 export function createAccrIntMPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAccrIntMPostRequestBody;
 }
@@ -66,6 +67,7 @@ export function createAccrIntMPostRequestBodyFromDiscriminatorValue(parseNode: P
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAccrIntMPostRequestBody(accrIntMPostRequestBody: Partial<AccrIntMPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "basis": n => { accrIntMPostRequestBody.basis = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -79,6 +81,7 @@ export function deserializeIntoAccrIntMPostRequestBody(accrIntMPostRequestBody: 
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAccrIntMPostRequestBody(writer: SerializationWriter, accrIntMPostRequestBody: Partial<AccrIntMPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("basis", accrIntMPostRequestBody.basis);
     writer.writeObjectValue("issue", accrIntMPostRequestBody.issue);

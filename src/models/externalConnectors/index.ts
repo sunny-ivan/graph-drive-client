@@ -75,6 +75,7 @@ export type ConnectionState = (typeof ConnectionStateObject)[keyof typeof Connec
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Acl}
  */
+// @ts-ignore
 export function createAclFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAcl;
 }
@@ -83,6 +84,7 @@ export function createAclFromDiscriminatorValue(parseNode: ParseNode | undefined
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ActivitySettings}
  */
+// @ts-ignore
 export function createActivitySettingsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoActivitySettings;
 }
@@ -91,6 +93,7 @@ export function createActivitySettingsFromDiscriminatorValue(parseNode: ParseNod
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Configuration}
  */
+// @ts-ignore
 export function createConfigurationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoConfiguration;
 }
@@ -99,6 +102,7 @@ export function createConfigurationFromDiscriminatorValue(parseNode: ParseNode |
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ConnectionOperation}
  */
+// @ts-ignore
 export function createConnectionOperationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoConnectionOperation;
 }
@@ -107,6 +111,7 @@ export function createConnectionOperationFromDiscriminatorValue(parseNode: Parse
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {DisplayTemplate}
  */
+// @ts-ignore
 export function createDisplayTemplateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoDisplayTemplate;
 }
@@ -115,6 +120,7 @@ export function createDisplayTemplateFromDiscriminatorValue(parseNode: ParseNode
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ExternalActivity}
  */
+// @ts-ignore
 export function createExternalActivityFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
     const mappingValueNode = parseNode.getChildNode("@odata.type");
@@ -134,6 +140,7 @@ export function createExternalActivityFromDiscriminatorValue(parseNode: ParseNod
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ExternalActivityResult}
  */
+// @ts-ignore
 export function createExternalActivityResultFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoExternalActivityResult;
 }
@@ -142,6 +149,7 @@ export function createExternalActivityResultFromDiscriminatorValue(parseNode: Pa
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ExternalConnection}
  */
+// @ts-ignore
 export function createExternalConnectionFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoExternalConnection;
 }
@@ -150,6 +158,7 @@ export function createExternalConnectionFromDiscriminatorValue(parseNode: ParseN
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ExternalGroup}
  */
+// @ts-ignore
 export function createExternalGroupFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoExternalGroup;
 }
@@ -158,6 +167,7 @@ export function createExternalGroupFromDiscriminatorValue(parseNode: ParseNode |
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ExternalItemContent}
  */
+// @ts-ignore
 export function createExternalItemContentFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoExternalItemContent;
 }
@@ -166,6 +176,7 @@ export function createExternalItemContentFromDiscriminatorValue(parseNode: Parse
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ExternalItem}
  */
+// @ts-ignore
 export function createExternalItemFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoExternalItem;
 }
@@ -174,6 +185,7 @@ export function createExternalItemFromDiscriminatorValue(parseNode: ParseNode | 
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Identity}
  */
+// @ts-ignore
 export function createIdentityFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoIdentity;
 }
@@ -182,6 +194,7 @@ export function createIdentityFromDiscriminatorValue(parseNode: ParseNode | unde
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ItemIdResolver}
  */
+// @ts-ignore
 export function createItemIdResolverFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoItemIdResolver;
 }
@@ -190,6 +203,7 @@ export function createItemIdResolverFromDiscriminatorValue(parseNode: ParseNode 
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Properties}
  */
+// @ts-ignore
 export function createPropertiesFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoProperties;
 }
@@ -198,6 +212,7 @@ export function createPropertiesFromDiscriminatorValue(parseNode: ParseNode | un
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Property}
  */
+// @ts-ignore
 export function createPropertyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoProperty;
 }
@@ -206,6 +221,7 @@ export function createPropertyFromDiscriminatorValue(parseNode: ParseNode | unde
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {PropertyRule}
  */
+// @ts-ignore
 export function createPropertyRuleFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoPropertyRule;
 }
@@ -214,6 +230,7 @@ export function createPropertyRuleFromDiscriminatorValue(parseNode: ParseNode | 
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Schema}
  */
+// @ts-ignore
 export function createSchemaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSchema;
 }
@@ -222,6 +239,7 @@ export function createSchemaFromDiscriminatorValue(parseNode: ParseNode | undefi
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {SearchSettings}
  */
+// @ts-ignore
 export function createSearchSettingsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSearchSettings;
 }
@@ -230,6 +248,7 @@ export function createSearchSettingsFromDiscriminatorValue(parseNode: ParseNode 
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {UrlMatchInfo}
  */
+// @ts-ignore
 export function createUrlMatchInfoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoUrlMatchInfo;
 }
@@ -238,6 +257,7 @@ export function createUrlMatchInfoFromDiscriminatorValue(parseNode: ParseNode | 
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {UrlToItemResolverBase}
  */
+// @ts-ignore
 export function createUrlToItemResolverBaseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
     const mappingValueNode = parseNode.getChildNode("@odata.type");
@@ -256,6 +276,7 @@ export function createUrlToItemResolverBaseFromDiscriminatorValue(parseNode: Par
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAcl(acl: Partial<Acl> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "accessType": n => { acl.accessType = n.getEnumValue<AccessType>(AccessTypeObject); },
@@ -268,6 +289,7 @@ export function deserializeIntoAcl(acl: Partial<Acl> | undefined = {}) : Record<
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoActivitySettings(activitySettings: Partial<ActivitySettings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "@odata.type": n => { activitySettings.odataType = n.getStringValue(); },
@@ -278,6 +300,7 @@ export function deserializeIntoActivitySettings(activitySettings: Partial<Activi
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoConfiguration(configuration: Partial<Configuration> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "authorizedAppIds": n => { configuration.authorizedAppIds = n.getCollectionOfPrimitiveValues<string>(); },
@@ -288,6 +311,7 @@ export function deserializeIntoConfiguration(configuration: Partial<Configuratio
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoConnectionOperation(connectionOperation: Partial<ConnectionOperation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(connectionOperation),
@@ -299,6 +323,7 @@ export function deserializeIntoConnectionOperation(connectionOperation: Partial<
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoDisplayTemplate(displayTemplate: Partial<DisplayTemplate> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "id": n => { displayTemplate.id = n.getStringValue(); },
@@ -312,6 +337,7 @@ export function deserializeIntoDisplayTemplate(displayTemplate: Partial<DisplayT
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoExternalActivity(externalActivity: Partial<ExternalActivity> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(externalActivity),
@@ -324,6 +350,7 @@ export function deserializeIntoExternalActivity(externalActivity: Partial<Extern
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoExternalActivityResult(externalActivityResult: Partial<ExternalActivityResult> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoExternalActivity(externalActivityResult),
@@ -334,6 +361,7 @@ export function deserializeIntoExternalActivityResult(externalActivityResult: Pa
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoExternalConnection(externalConnection: Partial<ExternalConnection> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(externalConnection),
@@ -354,6 +382,7 @@ export function deserializeIntoExternalConnection(externalConnection: Partial<Ex
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoExternalGroup(externalGroup: Partial<ExternalGroup> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(externalGroup),
@@ -366,6 +395,7 @@ export function deserializeIntoExternalGroup(externalGroup: Partial<ExternalGrou
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoExternalItem(externalItem: Partial<ExternalItem> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(externalItem),
@@ -379,6 +409,7 @@ export function deserializeIntoExternalItem(externalItem: Partial<ExternalItem> 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoExternalItemContent(externalItemContent: Partial<ExternalItemContent> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "@odata.type": n => { externalItemContent.odataType = n.getStringValue(); },
@@ -390,6 +421,7 @@ export function deserializeIntoExternalItemContent(externalItemContent: Partial<
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoIdentity(identity: Partial<Identity> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(identity),
@@ -400,6 +432,7 @@ export function deserializeIntoIdentity(identity: Partial<Identity> | undefined 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoItemIdResolver(itemIdResolver: Partial<ItemIdResolver> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoUrlToItemResolverBase(itemIdResolver),
@@ -411,6 +444,7 @@ export function deserializeIntoItemIdResolver(itemIdResolver: Partial<ItemIdReso
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoProperties(properties: Partial<Properties> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "@odata.type": n => { properties.odataType = n.getStringValue(); },
@@ -420,6 +454,7 @@ export function deserializeIntoProperties(properties: Partial<Properties> | unde
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoProperty(property: Partial<Property> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "aliases": n => { property.aliases = n.getCollectionOfPrimitiveValues<string>(); },
@@ -437,6 +472,7 @@ export function deserializeIntoProperty(property: Partial<Property> | undefined 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoPropertyRule(propertyRule: Partial<PropertyRule> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "@odata.type": n => { propertyRule.odataType = n.getStringValue(); },
@@ -450,6 +486,7 @@ export function deserializeIntoPropertyRule(propertyRule: Partial<PropertyRule> 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoSchema(schema: Partial<Schema> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(schema),
@@ -461,6 +498,7 @@ export function deserializeIntoSchema(schema: Partial<Schema> | undefined = {}) 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoSearchSettings(searchSettings: Partial<SearchSettings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "@odata.type": n => { searchSettings.odataType = n.getStringValue(); },
@@ -471,6 +509,7 @@ export function deserializeIntoSearchSettings(searchSettings: Partial<SearchSett
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoUrlMatchInfo(urlMatchInfo: Partial<UrlMatchInfo> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "baseUrls": n => { urlMatchInfo.baseUrls = n.getCollectionOfPrimitiveValues<string>(); },
@@ -482,6 +521,7 @@ export function deserializeIntoUrlMatchInfo(urlMatchInfo: Partial<UrlMatchInfo> 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoUrlToItemResolverBase(urlToItemResolverBase: Partial<UrlToItemResolverBase> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "@odata.type": n => { urlToItemResolverBase.odataType = n.getStringValue(); },
@@ -758,6 +798,7 @@ export interface SearchSettings extends AdditionalDataHolder, Parsable {
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAcl(writer: SerializationWriter, acl: Partial<Acl> | undefined = {}) : void {
     writer.writeEnumValue<AccessType>("accessType", acl.accessType);
     writer.writeStringValue("@odata.type", acl.odataType);
@@ -769,6 +810,7 @@ export function serializeAcl(writer: SerializationWriter, acl: Partial<Acl> | un
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeActivitySettings(writer: SerializationWriter, activitySettings: Partial<ActivitySettings> | undefined = {}) : void {
     writer.writeStringValue("@odata.type", activitySettings.odataType);
     writer.writeCollectionOfObjectValues<UrlToItemResolverBase>("urlToItemResolvers", activitySettings.urlToItemResolvers, serializeUrlToItemResolverBase);
@@ -778,6 +820,7 @@ export function serializeActivitySettings(writer: SerializationWriter, activityS
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeConfiguration(writer: SerializationWriter, configuration: Partial<Configuration> | undefined = {}) : void {
     writer.writeCollectionOfPrimitiveValues<string>("authorizedAppIds", configuration.authorizedAppIds);
     writer.writeStringValue("@odata.type", configuration.odataType);
@@ -787,6 +830,7 @@ export function serializeConfiguration(writer: SerializationWriter, configuratio
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeConnectionOperation(writer: SerializationWriter, connectionOperation: Partial<ConnectionOperation> | undefined = {}) : void {
     serializeEntity(writer, connectionOperation)
     writer.writeObjectValue<PublicError>("error", connectionOperation.errorEscaped, serializePublicError);
@@ -796,6 +840,7 @@ export function serializeConnectionOperation(writer: SerializationWriter, connec
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeDisplayTemplate(writer: SerializationWriter, displayTemplate: Partial<DisplayTemplate> | undefined = {}) : void {
     writer.writeStringValue("id", displayTemplate.id);
     writer.writeObjectValue("layout", displayTemplate.layout);
@@ -808,6 +853,7 @@ export function serializeDisplayTemplate(writer: SerializationWriter, displayTem
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeExternalActivity(writer: SerializationWriter, externalActivity: Partial<ExternalActivity> | undefined = {}) : void {
     serializeEntity(writer, externalActivity)
     writer.writeObjectValue<Identity>("performedBy", externalActivity.performedBy, serializeIdentity);
@@ -818,6 +864,7 @@ export function serializeExternalActivity(writer: SerializationWriter, externalA
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeExternalActivityResult(writer: SerializationWriter, externalActivityResult: Partial<ExternalActivityResult> | undefined = {}) : void {
     serializeExternalActivity(writer, externalActivityResult)
     writer.writeObjectValue<PublicError>("error", externalActivityResult.errorEscaped, serializePublicError);
@@ -826,6 +873,7 @@ export function serializeExternalActivityResult(writer: SerializationWriter, ext
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeExternalConnection(writer: SerializationWriter, externalConnection: Partial<ExternalConnection> | undefined = {}) : void {
     serializeEntity(writer, externalConnection)
     writer.writeObjectValue<ActivitySettings>("activitySettings", externalConnection.activitySettings, serializeActivitySettings);
@@ -843,6 +891,7 @@ export function serializeExternalConnection(writer: SerializationWriter, externa
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeExternalGroup(writer: SerializationWriter, externalGroup: Partial<ExternalGroup> | undefined = {}) : void {
     serializeEntity(writer, externalGroup)
     writer.writeStringValue("description", externalGroup.description);
@@ -853,6 +902,7 @@ export function serializeExternalGroup(writer: SerializationWriter, externalGrou
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeExternalItem(writer: SerializationWriter, externalItem: Partial<ExternalItem> | undefined = {}) : void {
     serializeEntity(writer, externalItem)
     writer.writeCollectionOfObjectValues<Acl>("acl", externalItem.acl, serializeAcl);
@@ -864,6 +914,7 @@ export function serializeExternalItem(writer: SerializationWriter, externalItem:
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeExternalItemContent(writer: SerializationWriter, externalItemContent: Partial<ExternalItemContent> | undefined = {}) : void {
     writer.writeStringValue("@odata.type", externalItemContent.odataType);
     writer.writeEnumValue<ExternalItemContentType>("type", externalItemContent.type);
@@ -874,6 +925,7 @@ export function serializeExternalItemContent(writer: SerializationWriter, extern
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeIdentity(writer: SerializationWriter, identity: Partial<Identity> | undefined = {}) : void {
     serializeEntity(writer, identity)
     writer.writeEnumValue<IdentityType>("type", identity.type);
@@ -882,6 +934,7 @@ export function serializeIdentity(writer: SerializationWriter, identity: Partial
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeItemIdResolver(writer: SerializationWriter, itemIdResolver: Partial<ItemIdResolver> | undefined = {}) : void {
     serializeUrlToItemResolverBase(writer, itemIdResolver)
     writer.writeStringValue("itemId", itemIdResolver.itemId);
@@ -891,6 +944,7 @@ export function serializeItemIdResolver(writer: SerializationWriter, itemIdResol
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeProperties(writer: SerializationWriter, properties: Partial<Properties> | undefined = {}) : void {
     writer.writeStringValue("@odata.type", properties.odataType);
     writer.writeAdditionalData(properties.additionalData);
@@ -899,6 +953,7 @@ export function serializeProperties(writer: SerializationWriter, properties: Par
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeProperty(writer: SerializationWriter, property: Partial<Property> | undefined = {}) : void {
     writer.writeCollectionOfPrimitiveValues<string>("aliases", property.aliases);
     writer.writeBooleanValue("isQueryable", property.isQueryable);
@@ -916,6 +971,7 @@ export function serializeProperty(writer: SerializationWriter, property: Partial
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializePropertyRule(writer: SerializationWriter, propertyRule: Partial<PropertyRule> | undefined = {}) : void {
     writer.writeStringValue("@odata.type", propertyRule.odataType);
     writer.writeEnumValue<RuleOperation>("operation", propertyRule.operation);
@@ -928,6 +984,7 @@ export function serializePropertyRule(writer: SerializationWriter, propertyRule:
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeSchema(writer: SerializationWriter, schema: Partial<Schema> | undefined = {}) : void {
     serializeEntity(writer, schema)
     writer.writeStringValue("baseType", schema.baseType);
@@ -937,6 +994,7 @@ export function serializeSchema(writer: SerializationWriter, schema: Partial<Sch
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeSearchSettings(writer: SerializationWriter, searchSettings: Partial<SearchSettings> | undefined = {}) : void {
     writer.writeStringValue("@odata.type", searchSettings.odataType);
     writer.writeCollectionOfObjectValues<DisplayTemplate>("searchResultTemplates", searchSettings.searchResultTemplates, serializeDisplayTemplate);
@@ -946,6 +1004,7 @@ export function serializeSearchSettings(writer: SerializationWriter, searchSetti
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeUrlMatchInfo(writer: SerializationWriter, urlMatchInfo: Partial<UrlMatchInfo> | undefined = {}) : void {
     writer.writeCollectionOfPrimitiveValues<string>("baseUrls", urlMatchInfo.baseUrls);
     writer.writeStringValue("@odata.type", urlMatchInfo.odataType);
@@ -956,6 +1015,7 @@ export function serializeUrlMatchInfo(writer: SerializationWriter, urlMatchInfo:
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeUrlToItemResolverBase(writer: SerializationWriter, urlToItemResolverBase: Partial<UrlToItemResolverBase> | undefined = {}) : void {
     writer.writeStringValue("@odata.type", urlToItemResolverBase.odataType);
     writer.writeNumberValue("priority", urlToItemResolverBase.priority);

@@ -42,6 +42,7 @@ export interface ApplyIconFilterRequestBuilder extends BaseRequestBuilder<ApplyI
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApplyIconFilterPostRequestBody}
  */
+// @ts-ignore
 export function createApplyIconFilterPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApplyIconFilterPostRequestBody;
 }
@@ -49,6 +50,7 @@ export function createApplyIconFilterPostRequestBodyFromDiscriminatorValue(parse
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoApplyIconFilterPostRequestBody(applyIconFilterPostRequestBody: Partial<ApplyIconFilterPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "icon": n => { applyIconFilterPostRequestBody.icon = n.getObjectValue<WorkbookIcon>(createWorkbookIconFromDiscriminatorValue); },
@@ -58,6 +60,7 @@ export function deserializeIntoApplyIconFilterPostRequestBody(applyIconFilterPos
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeApplyIconFilterPostRequestBody(writer: SerializationWriter, applyIconFilterPostRequestBody: Partial<ApplyIconFilterPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue<WorkbookIcon>("icon", applyIconFilterPostRequestBody.icon, serializeWorkbookIcon);
     writer.writeAdditionalData(applyIconFilterPostRequestBody.additionalData);

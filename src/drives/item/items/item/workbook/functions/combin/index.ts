@@ -47,6 +47,7 @@ export interface CombinRequestBuilder extends BaseRequestBuilder<CombinRequestBu
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {CombinPostRequestBody}
  */
+// @ts-ignore
 export function createCombinPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCombinPostRequestBody;
 }
@@ -54,6 +55,7 @@ export function createCombinPostRequestBodyFromDiscriminatorValue(parseNode: Par
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoCombinPostRequestBody(combinPostRequestBody: Partial<CombinPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number": n => { combinPostRequestBody.number = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -64,6 +66,7 @@ export function deserializeIntoCombinPostRequestBody(combinPostRequestBody: Part
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeCombinPostRequestBody(writer: SerializationWriter, combinPostRequestBody: Partial<CombinPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number", combinPostRequestBody.number);
     writer.writeObjectValue("numberChosen", combinPostRequestBody.numberChosen);

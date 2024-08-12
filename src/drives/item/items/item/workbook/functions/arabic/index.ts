@@ -43,6 +43,7 @@ export interface ArabicRequestBuilder extends BaseRequestBuilder<ArabicRequestBu
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ArabicPostRequestBody}
  */
+// @ts-ignore
 export function createArabicPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoArabicPostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createArabicPostRequestBodyFromDiscriminatorValue(parseNode: Par
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoArabicPostRequestBody(arabicPostRequestBody: Partial<ArabicPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "text": n => { arabicPostRequestBody.text = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoArabicPostRequestBody(arabicPostRequestBody: Part
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeArabicPostRequestBody(writer: SerializationWriter, arabicPostRequestBody: Partial<ArabicPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("text", arabicPostRequestBody.text);
     writer.writeAdditionalData(arabicPostRequestBody.additionalData);

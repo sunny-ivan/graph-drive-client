@@ -120,6 +120,7 @@ export interface Bookmark extends Parsable, SearchAnswer {
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Acronym}
  */
+// @ts-ignore
 export function createAcronymFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAcronym;
 }
@@ -128,6 +129,7 @@ export function createAcronymFromDiscriminatorValue(parseNode: ParseNode | undef
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AnswerKeyword}
  */
+// @ts-ignore
 export function createAnswerKeywordFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAnswerKeyword;
 }
@@ -136,6 +138,7 @@ export function createAnswerKeywordFromDiscriminatorValue(parseNode: ParseNode |
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AnswerVariant}
  */
+// @ts-ignore
 export function createAnswerVariantFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAnswerVariant;
 }
@@ -144,6 +147,7 @@ export function createAnswerVariantFromDiscriminatorValue(parseNode: ParseNode |
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Bookmark}
  */
+// @ts-ignore
 export function createBookmarkFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoBookmark;
 }
@@ -152,6 +156,7 @@ export function createBookmarkFromDiscriminatorValue(parseNode: ParseNode | unde
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Identity}
  */
+// @ts-ignore
 export function createIdentityFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoIdentity;
 }
@@ -160,6 +165,7 @@ export function createIdentityFromDiscriminatorValue(parseNode: ParseNode | unde
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {IdentitySet}
  */
+// @ts-ignore
 export function createIdentitySetFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoIdentitySet;
 }
@@ -168,6 +174,7 @@ export function createIdentitySetFromDiscriminatorValue(parseNode: ParseNode | u
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Qna}
  */
+// @ts-ignore
 export function createQnaFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoQna;
 }
@@ -176,6 +183,7 @@ export function createQnaFromDiscriminatorValue(parseNode: ParseNode | undefined
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {SearchAnswer}
  */
+// @ts-ignore
 export function createSearchAnswerFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
     const mappingValueNode = parseNode.getChildNode("@odata.type");
@@ -198,6 +206,7 @@ export function createSearchAnswerFromDiscriminatorValue(parseNode: ParseNode | 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAcronym(acronym: Partial<Acronym> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoSearchAnswer(acronym),
@@ -209,6 +218,7 @@ export function deserializeIntoAcronym(acronym: Partial<Acronym> | undefined = {
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAnswerKeyword(answerKeyword: Partial<AnswerKeyword> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "keywords": n => { answerKeyword.keywords = n.getCollectionOfPrimitiveValues<string>(); },
@@ -221,6 +231,7 @@ export function deserializeIntoAnswerKeyword(answerKeyword: Partial<AnswerKeywor
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAnswerVariant(answerVariant: Partial<AnswerVariant> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "description": n => { answerVariant.description = n.getStringValue(); },
@@ -235,6 +246,7 @@ export function deserializeIntoAnswerVariant(answerVariant: Partial<AnswerVarian
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoBookmark(bookmark: Partial<Bookmark> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoSearchAnswer(bookmark),
@@ -255,6 +267,7 @@ export function deserializeIntoBookmark(bookmark: Partial<Bookmark> | undefined 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoIdentity(identity: Partial<Identity> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "displayName": n => { identity.displayName = n.getStringValue(); },
@@ -266,6 +279,7 @@ export function deserializeIntoIdentity(identity: Partial<Identity> | undefined 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoIdentitySet(identitySet: Partial<IdentitySet> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "application": n => { identitySet.application = n.getObjectValue<Identity>(createIdentityFromDiscriminatorValue); },
@@ -278,6 +292,7 @@ export function deserializeIntoIdentitySet(identitySet: Partial<IdentitySet> | u
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoQna(qna: Partial<Qna> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoSearchAnswer(qna),
@@ -296,6 +311,7 @@ export function deserializeIntoQna(qna: Partial<Qna> | undefined = {}) : Record<
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoSearchAnswer(searchAnswer: Partial<SearchAnswer> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(searchAnswer),
@@ -410,6 +426,7 @@ export interface SearchAnswer extends Entity, Parsable {
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAcronym(writer: SerializationWriter, acronym: Partial<Acronym> | undefined = {}) : void {
     serializeSearchAnswer(writer, acronym)
     writer.writeStringValue("standsFor", acronym.standsFor);
@@ -419,6 +436,7 @@ export function serializeAcronym(writer: SerializationWriter, acronym: Partial<A
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAnswerKeyword(writer: SerializationWriter, answerKeyword: Partial<AnswerKeyword> | undefined = {}) : void {
     writer.writeCollectionOfPrimitiveValues<string>("keywords", answerKeyword.keywords);
     writer.writeBooleanValue("matchSimilarKeywords", answerKeyword.matchSimilarKeywords);
@@ -430,6 +448,7 @@ export function serializeAnswerKeyword(writer: SerializationWriter, answerKeywor
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAnswerVariant(writer: SerializationWriter, answerVariant: Partial<AnswerVariant> | undefined = {}) : void {
     writer.writeStringValue("description", answerVariant.description);
     writer.writeStringValue("displayName", answerVariant.displayName);
@@ -443,6 +462,7 @@ export function serializeAnswerVariant(writer: SerializationWriter, answerVarian
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeBookmark(writer: SerializationWriter, bookmark: Partial<Bookmark> | undefined = {}) : void {
     serializeSearchAnswer(writer, bookmark)
     writer.writeDateValue("availabilityEndDateTime", bookmark.availabilityEndDateTime);
@@ -462,6 +482,7 @@ export function serializeBookmark(writer: SerializationWriter, bookmark: Partial
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeIdentity(writer: SerializationWriter, identity: Partial<Identity> | undefined = {}) : void {
     writer.writeStringValue("displayName", identity.displayName);
     writer.writeStringValue("id", identity.id);
@@ -472,6 +493,7 @@ export function serializeIdentity(writer: SerializationWriter, identity: Partial
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeIdentitySet(writer: SerializationWriter, identitySet: Partial<IdentitySet> | undefined = {}) : void {
     writer.writeObjectValue<Identity>("application", identitySet.application, serializeIdentity);
     writer.writeObjectValue<Identity>("device", identitySet.device, serializeIdentity);
@@ -483,6 +505,7 @@ export function serializeIdentitySet(writer: SerializationWriter, identitySet: P
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeQna(writer: SerializationWriter, qna: Partial<Qna> | undefined = {}) : void {
     serializeSearchAnswer(writer, qna)
     writer.writeDateValue("availabilityEndDateTime", qna.availabilityEndDateTime);
@@ -500,6 +523,7 @@ export function serializeQna(writer: SerializationWriter, qna: Partial<Qna> | un
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeSearchAnswer(writer: SerializationWriter, searchAnswer: Partial<SearchAnswer> | undefined = {}) : void {
     serializeEntity(writer, searchAnswer)
     writer.writeStringValue("description", searchAnswer.description);

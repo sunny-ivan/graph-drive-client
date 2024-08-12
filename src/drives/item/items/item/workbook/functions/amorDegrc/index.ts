@@ -67,6 +67,7 @@ export interface AmorDegrcRequestBuilder extends BaseRequestBuilder<AmorDegrcReq
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AmorDegrcPostRequestBody}
  */
+// @ts-ignore
 export function createAmorDegrcPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAmorDegrcPostRequestBody;
 }
@@ -74,6 +75,7 @@ export function createAmorDegrcPostRequestBodyFromDiscriminatorValue(parseNode: 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAmorDegrcPostRequestBody(amorDegrcPostRequestBody: Partial<AmorDegrcPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "basis": n => { amorDegrcPostRequestBody.basis = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -89,6 +91,7 @@ export function deserializeIntoAmorDegrcPostRequestBody(amorDegrcPostRequestBody
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAmorDegrcPostRequestBody(writer: SerializationWriter, amorDegrcPostRequestBody: Partial<AmorDegrcPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("basis", amorDegrcPostRequestBody.basis);
     writer.writeObjectValue("cost", amorDegrcPostRequestBody.cost);

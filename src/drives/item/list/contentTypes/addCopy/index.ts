@@ -44,6 +44,7 @@ export interface AddCopyRequestBuilder extends BaseRequestBuilder<AddCopyRequest
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AddCopyPostRequestBody}
  */
+// @ts-ignore
 export function createAddCopyPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAddCopyPostRequestBody;
 }
@@ -51,6 +52,7 @@ export function createAddCopyPostRequestBodyFromDiscriminatorValue(parseNode: Pa
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAddCopyPostRequestBody(addCopyPostRequestBody: Partial<AddCopyPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "contentType": n => { addCopyPostRequestBody.contentType = n.getStringValue(); },
@@ -60,6 +62,7 @@ export function deserializeIntoAddCopyPostRequestBody(addCopyPostRequestBody: Pa
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAddCopyPostRequestBody(writer: SerializationWriter, addCopyPostRequestBody: Partial<AddCopyPostRequestBody> | undefined = {}) : void {
     writer.writeStringValue("contentType", addCopyPostRequestBody.contentType);
     writer.writeAdditionalData(addCopyPostRequestBody.additionalData);

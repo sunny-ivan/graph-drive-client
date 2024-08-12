@@ -11,6 +11,7 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ImageWithWidthGetResponse}
  */
+// @ts-ignore
 export function createImageWithWidthGetResponseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoImageWithWidthGetResponse;
 }
@@ -18,6 +19,7 @@ export function createImageWithWidthGetResponseFromDiscriminatorValue(parseNode:
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoImageWithWidthGetResponse(imageWithWidthGetResponse: Partial<ImageWithWidthGetResponse> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "value": n => { imageWithWidthGetResponse.value = n.getStringValue(); },
@@ -55,6 +57,7 @@ export interface ImageWithWidthRequestBuilder extends BaseRequestBuilder<ImageWi
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeImageWithWidthGetResponse(writer: SerializationWriter, imageWithWidthGetResponse: Partial<ImageWithWidthGetResponse> | undefined = {}) : void {
     writer.writeStringValue("value", imageWithWidthGetResponse.value);
     writer.writeAdditionalData(imageWithWidthGetResponse.additionalData);

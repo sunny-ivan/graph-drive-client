@@ -47,6 +47,7 @@ export interface Bin2HexRequestBuilder extends BaseRequestBuilder<Bin2HexRequest
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Bin2HexPostRequestBody}
  */
+// @ts-ignore
 export function createBin2HexPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoBin2HexPostRequestBody;
 }
@@ -54,6 +55,7 @@ export function createBin2HexPostRequestBodyFromDiscriminatorValue(parseNode: Pa
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoBin2HexPostRequestBody(bin2HexPostRequestBody: Partial<Bin2HexPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number": n => { bin2HexPostRequestBody.number = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -64,6 +66,7 @@ export function deserializeIntoBin2HexPostRequestBody(bin2HexPostRequestBody: Pa
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeBin2HexPostRequestBody(writer: SerializationWriter, bin2HexPostRequestBody: Partial<Bin2HexPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number", bin2HexPostRequestBody.number);
     writer.writeObjectValue("places", bin2HexPostRequestBody.places);

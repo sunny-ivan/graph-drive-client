@@ -55,6 +55,7 @@ export interface CoupNumRequestBuilder extends BaseRequestBuilder<CoupNumRequest
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {CoupNumPostRequestBody}
  */
+// @ts-ignore
 export function createCoupNumPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCoupNumPostRequestBody;
 }
@@ -62,6 +63,7 @@ export function createCoupNumPostRequestBodyFromDiscriminatorValue(parseNode: Pa
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoCoupNumPostRequestBody(coupNumPostRequestBody: Partial<CoupNumPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "basis": n => { coupNumPostRequestBody.basis = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -74,6 +76,7 @@ export function deserializeIntoCoupNumPostRequestBody(coupNumPostRequestBody: Pa
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeCoupNumPostRequestBody(writer: SerializationWriter, coupNumPostRequestBody: Partial<CoupNumPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("basis", coupNumPostRequestBody.basis);
     writer.writeObjectValue("frequency", coupNumPostRequestBody.frequency);

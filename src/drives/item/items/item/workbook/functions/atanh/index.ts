@@ -43,6 +43,7 @@ export interface AtanhRequestBuilder extends BaseRequestBuilder<AtanhRequestBuil
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AtanhPostRequestBody}
  */
+// @ts-ignore
 export function createAtanhPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAtanhPostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createAtanhPostRequestBodyFromDiscriminatorValue(parseNode: Pars
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAtanhPostRequestBody(atanhPostRequestBody: Partial<AtanhPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number": n => { atanhPostRequestBody.number = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoAtanhPostRequestBody(atanhPostRequestBody: Partia
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAtanhPostRequestBody(writer: SerializationWriter, atanhPostRequestBody: Partial<AtanhPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number", atanhPostRequestBody.number);
     writer.writeAdditionalData(atanhPostRequestBody.additionalData);

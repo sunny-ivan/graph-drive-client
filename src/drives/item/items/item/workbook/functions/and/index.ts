@@ -43,6 +43,7 @@ export interface AndRequestBuilder extends BaseRequestBuilder<AndRequestBuilder>
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AndPostRequestBody}
  */
+// @ts-ignore
 export function createAndPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAndPostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createAndPostRequestBodyFromDiscriminatorValue(parseNode: ParseN
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAndPostRequestBody(andPostRequestBody: Partial<AndPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "values": n => { andPostRequestBody.values = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoAndPostRequestBody(andPostRequestBody: Partial<An
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAndPostRequestBody(writer: SerializationWriter, andPostRequestBody: Partial<AndPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("values", andPostRequestBody.values);
     writer.writeAdditionalData(andPostRequestBody.additionalData);

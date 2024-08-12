@@ -13,6 +13,7 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {CreateSessionPostRequestBody}
  */
+// @ts-ignore
 export function createCreateSessionPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCreateSessionPostRequestBody;
 }
@@ -51,6 +52,7 @@ export interface CreateSessionRequestBuilder extends BaseRequestBuilder<CreateSe
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoCreateSessionPostRequestBody(createSessionPostRequestBody: Partial<CreateSessionPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "persistChanges": n => { createSessionPostRequestBody.persistChanges = n.getBooleanValue(); },
@@ -60,6 +62,7 @@ export function deserializeIntoCreateSessionPostRequestBody(createSessionPostReq
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeCreateSessionPostRequestBody(writer: SerializationWriter, createSessionPostRequestBody: Partial<CreateSessionPostRequestBody> | undefined = {}) : void {
     writer.writeBooleanValue("persistChanges", createSessionPostRequestBody.persistChanges);
     writer.writeAdditionalData(createSessionPostRequestBody.additionalData);

@@ -47,6 +47,7 @@ export interface BitlshiftRequestBuilder extends BaseRequestBuilder<BitlshiftReq
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {BitlshiftPostRequestBody}
  */
+// @ts-ignore
 export function createBitlshiftPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoBitlshiftPostRequestBody;
 }
@@ -54,6 +55,7 @@ export function createBitlshiftPostRequestBodyFromDiscriminatorValue(parseNode: 
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoBitlshiftPostRequestBody(bitlshiftPostRequestBody: Partial<BitlshiftPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number": n => { bitlshiftPostRequestBody.number = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -64,6 +66,7 @@ export function deserializeIntoBitlshiftPostRequestBody(bitlshiftPostRequestBody
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeBitlshiftPostRequestBody(writer: SerializationWriter, bitlshiftPostRequestBody: Partial<BitlshiftPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number", bitlshiftPostRequestBody.number);
     writer.writeObjectValue("shiftAmount", bitlshiftPostRequestBody.shiftAmount);

@@ -43,6 +43,7 @@ export interface CharRequestBuilder extends BaseRequestBuilder<CharRequestBuilde
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {CharPostRequestBody}
  */
+// @ts-ignore
 export function createCharPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCharPostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createCharPostRequestBodyFromDiscriminatorValue(parseNode: Parse
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoCharPostRequestBody(charPostRequestBody: Partial<CharPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number": n => { charPostRequestBody.number = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoCharPostRequestBody(charPostRequestBody: Partial<
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeCharPostRequestBody(writer: SerializationWriter, charPostRequestBody: Partial<CharPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number", charPostRequestBody.number);
     writer.writeAdditionalData(charPostRequestBody.additionalData);

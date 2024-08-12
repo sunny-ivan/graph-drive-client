@@ -45,6 +45,7 @@ export interface AssociateWithHubSitesRequestBuilder extends BaseRequestBuilder<
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AssociateWithHubSitesPostRequestBody}
  */
+// @ts-ignore
 export function createAssociateWithHubSitesPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoAssociateWithHubSitesPostRequestBody;
 }
@@ -52,6 +53,7 @@ export function createAssociateWithHubSitesPostRequestBodyFromDiscriminatorValue
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoAssociateWithHubSitesPostRequestBody(associateWithHubSitesPostRequestBody: Partial<AssociateWithHubSitesPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "hubSiteUrls": n => { associateWithHubSitesPostRequestBody.hubSiteUrls = n.getCollectionOfPrimitiveValues<string>(); },
@@ -62,6 +64,7 @@ export function deserializeIntoAssociateWithHubSitesPostRequestBody(associateWit
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeAssociateWithHubSitesPostRequestBody(writer: SerializationWriter, associateWithHubSitesPostRequestBody: Partial<AssociateWithHubSitesPostRequestBody> | undefined = {}) : void {
     writer.writeCollectionOfPrimitiveValues<string>("hubSiteUrls", associateWithHubSitesPostRequestBody.hubSiteUrls);
     writer.writeBooleanValue("propagateToExistingLists", associateWithHubSitesPostRequestBody.propagateToExistingLists);

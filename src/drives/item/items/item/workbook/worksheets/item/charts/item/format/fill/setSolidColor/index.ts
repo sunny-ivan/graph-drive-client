@@ -11,6 +11,7 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {SetSolidColorPostRequestBody}
  */
+// @ts-ignore
 export function createSetSolidColorPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSetSolidColorPostRequestBody;
 }
@@ -18,6 +19,7 @@ export function createSetSolidColorPostRequestBodyFromDiscriminatorValue(parseNo
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoSetSolidColorPostRequestBody(setSolidColorPostRequestBody: Partial<SetSolidColorPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "color": n => { setSolidColorPostRequestBody.color = n.getStringValue(); },
@@ -27,6 +29,7 @@ export function deserializeIntoSetSolidColorPostRequestBody(setSolidColorPostReq
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeSetSolidColorPostRequestBody(writer: SerializationWriter, setSolidColorPostRequestBody: Partial<SetSolidColorPostRequestBody> | undefined = {}) : void {
     writer.writeStringValue("color", setSolidColorPostRequestBody.color);
     writer.writeAdditionalData(setSolidColorPostRequestBody.additionalData);

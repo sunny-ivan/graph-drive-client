@@ -43,6 +43,7 @@ export interface CodeRequestBuilder extends BaseRequestBuilder<CodeRequestBuilde
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {CodePostRequestBody}
  */
+// @ts-ignore
 export function createCodePostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoCodePostRequestBody;
 }
@@ -50,6 +51,7 @@ export function createCodePostRequestBodyFromDiscriminatorValue(parseNode: Parse
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoCodePostRequestBody(codePostRequestBody: Partial<CodePostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "text": n => { codePostRequestBody.text = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -59,6 +61,7 @@ export function deserializeIntoCodePostRequestBody(codePostRequestBody: Partial<
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeCodePostRequestBody(writer: SerializationWriter, codePostRequestBody: Partial<CodePostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("text", codePostRequestBody.text);
     writer.writeAdditionalData(codePostRequestBody.additionalData);

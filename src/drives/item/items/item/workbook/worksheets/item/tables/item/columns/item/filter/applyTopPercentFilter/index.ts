@@ -40,6 +40,7 @@ export interface ApplyTopPercentFilterRequestBuilder extends BaseRequestBuilder<
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {ApplyTopPercentFilterPostRequestBody}
  */
+// @ts-ignore
 export function createApplyTopPercentFilterPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoApplyTopPercentFilterPostRequestBody;
 }
@@ -47,6 +48,7 @@ export function createApplyTopPercentFilterPostRequestBodyFromDiscriminatorValue
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoApplyTopPercentFilterPostRequestBody(applyTopPercentFilterPostRequestBody: Partial<ApplyTopPercentFilterPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "percent": n => { applyTopPercentFilterPostRequestBody.percent = n.getNumberValue(); },
@@ -56,6 +58,7 @@ export function deserializeIntoApplyTopPercentFilterPostRequestBody(applyTopPerc
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeApplyTopPercentFilterPostRequestBody(writer: SerializationWriter, applyTopPercentFilterPostRequestBody: Partial<ApplyTopPercentFilterPostRequestBody> | undefined = {}) : void {
     writer.writeNumberValue("percent", applyTopPercentFilterPostRequestBody.percent);
     writer.writeAdditionalData(applyTopPercentFilterPostRequestBody.additionalData);

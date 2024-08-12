@@ -47,6 +47,7 @@ export interface BitandRequestBuilder extends BaseRequestBuilder<BitandRequestBu
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {BitandPostRequestBody}
  */
+// @ts-ignore
 export function createBitandPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoBitandPostRequestBody;
 }
@@ -54,6 +55,7 @@ export function createBitandPostRequestBodyFromDiscriminatorValue(parseNode: Par
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoBitandPostRequestBody(bitandPostRequestBody: Partial<BitandPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "number1": n => { bitandPostRequestBody.number1 = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -64,6 +66,7 @@ export function deserializeIntoBitandPostRequestBody(bitandPostRequestBody: Part
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeBitandPostRequestBody(writer: SerializationWriter, bitandPostRequestBody: Partial<BitandPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("number1", bitandPostRequestBody.number1);
     writer.writeObjectValue("number2", bitandPostRequestBody.number2);

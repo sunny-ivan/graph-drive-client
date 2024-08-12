@@ -47,6 +47,7 @@ export interface BesselJRequestBuilder extends BaseRequestBuilder<BesselJRequest
  * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {BesselJPostRequestBody}
  */
+// @ts-ignore
 export function createBesselJPostRequestBodyFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoBesselJPostRequestBody;
 }
@@ -54,6 +55,7 @@ export function createBesselJPostRequestBodyFromDiscriminatorValue(parseNode: Pa
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
  */
+// @ts-ignore
 export function deserializeIntoBesselJPostRequestBody(besselJPostRequestBody: Partial<BesselJPostRequestBody> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         "n": n => { besselJPostRequestBody.n = n.getObjectValue<UntypedNode>(createUntypedNodeFromDiscriminatorValue); },
@@ -64,6 +66,7 @@ export function deserializeIntoBesselJPostRequestBody(besselJPostRequestBody: Pa
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
+// @ts-ignore
 export function serializeBesselJPostRequestBody(writer: SerializationWriter, besselJPostRequestBody: Partial<BesselJPostRequestBody> | undefined = {}) : void {
     writer.writeObjectValue("n", besselJPostRequestBody.n);
     writer.writeObjectValue("x", besselJPostRequestBody.x);
