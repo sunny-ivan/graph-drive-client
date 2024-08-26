@@ -6,15 +6,15 @@ import { createWorkbookTableColumnFromDiscriminatorValue, serializeWorkbookTable
 // @ts-ignore
 import { createODataErrorFromDiscriminatorValue, type ODataError } from '../../../../../../../../../../../models/oDataErrors/index.js';
 // @ts-ignore
-import { DataBodyRangeRequestBuilderRequestsMetadata, type DataBodyRangeRequestBuilder } from './dataBodyRange/index.js';
+import { DataBodyRangeRequestBuilderNavigationMetadata, DataBodyRangeRequestBuilderRequestsMetadata, type DataBodyRangeRequestBuilder } from './dataBodyRange/index.js';
 // @ts-ignore
 import { FilterRequestBuilderNavigationMetadata, FilterRequestBuilderRequestsMetadata, type FilterRequestBuilder } from './filter/index.js';
 // @ts-ignore
-import { HeaderRowRangeRequestBuilderRequestsMetadata, type HeaderRowRangeRequestBuilder } from './headerRowRange/index.js';
+import { HeaderRowRangeRequestBuilderNavigationMetadata, HeaderRowRangeRequestBuilderRequestsMetadata, type HeaderRowRangeRequestBuilder } from './headerRowRange/index.js';
 // @ts-ignore
-import { RangeRequestBuilderRequestsMetadata, type RangeRequestBuilder } from './range/index.js';
+import { RangeRequestBuilderNavigationMetadata, RangeRequestBuilderRequestsMetadata, type RangeRequestBuilder } from './range/index.js';
 // @ts-ignore
-import { TotalRowRangeRequestBuilderRequestsMetadata, type TotalRowRangeRequestBuilder } from './totalRowRange/index.js';
+import { TotalRowRangeRequestBuilderNavigationMetadata, TotalRowRangeRequestBuilderRequestsMetadata, type TotalRowRangeRequestBuilder } from './totalRowRange/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
@@ -113,6 +113,7 @@ const WorkbookTableColumnItemRequestBuilderGetQueryParametersMapper: Record<stri
 export const WorkbookTableColumnItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WorkbookTableColumnItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     dataBodyRange: {
         requestsMetadata: DataBodyRangeRequestBuilderRequestsMetadata,
+        navigationMetadata: DataBodyRangeRequestBuilderNavigationMetadata,
     },
     filter: {
         requestsMetadata: FilterRequestBuilderRequestsMetadata,
@@ -120,12 +121,15 @@ export const WorkbookTableColumnItemRequestBuilderNavigationMetadata: Record<Exc
     },
     headerRowRange: {
         requestsMetadata: HeaderRowRangeRequestBuilderRequestsMetadata,
+        navigationMetadata: HeaderRowRangeRequestBuilderNavigationMetadata,
     },
     range: {
         requestsMetadata: RangeRequestBuilderRequestsMetadata,
+        navigationMetadata: RangeRequestBuilderNavigationMetadata,
     },
     totalRowRange: {
         requestsMetadata: TotalRowRangeRequestBuilderRequestsMetadata,
+        navigationMetadata: TotalRowRangeRequestBuilderNavigationMetadata,
     },
 };
 /**

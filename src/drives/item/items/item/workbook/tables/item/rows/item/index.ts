@@ -6,7 +6,7 @@ import { createWorkbookTableRowFromDiscriminatorValue, serializeWorkbookTableRow
 // @ts-ignore
 import { createODataErrorFromDiscriminatorValue, type ODataError } from '../../../../../../../../../models/oDataErrors/index.js';
 // @ts-ignore
-import { RangeRequestBuilderRequestsMetadata, type RangeRequestBuilder } from './range/index.js';
+import { RangeRequestBuilderNavigationMetadata, RangeRequestBuilderRequestsMetadata, type RangeRequestBuilder } from './range/index.js';
 // @ts-ignore
 import { type BaseRequestBuilder, type KeysToExcludeForNavigationMetadata, type NavigationMetadata, type Parsable, type ParsableFactory, type RequestConfiguration, type RequestInformation, type RequestsMetadata } from '@microsoft/kiota-abstractions';
 
@@ -89,6 +89,7 @@ const WorkbookTableRowItemRequestBuilderGetQueryParametersMapper: Record<string,
 export const WorkbookTableRowItemRequestBuilderNavigationMetadata: Record<Exclude<keyof WorkbookTableRowItemRequestBuilder, KeysToExcludeForNavigationMetadata>, NavigationMetadata> = {
     range: {
         requestsMetadata: RangeRequestBuilderRequestsMetadata,
+        navigationMetadata: RangeRequestBuilderNavigationMetadata,
     },
 };
 /**
