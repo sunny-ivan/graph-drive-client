@@ -35,7 +35,7 @@ export interface ErfC_PrecisePostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The X property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the erfC_Precise method.
@@ -62,9 +62,11 @@ export interface ErfC_PreciseRequestBuilder extends BaseRequestBuilder<ErfC_Prec
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeErfC_PrecisePostRequestBody(writer: SerializationWriter, erfC_PrecisePostRequestBody: Partial<ErfC_PrecisePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("X", erfC_PrecisePostRequestBody.x);
-    writer.writeAdditionalData(erfC_PrecisePostRequestBody.additionalData);
+export function serializeErfC_PrecisePostRequestBody(writer: SerializationWriter, erfC_PrecisePostRequestBody: Partial<ErfC_PrecisePostRequestBody> | undefined | null = {}) : void {
+    if (erfC_PrecisePostRequestBody) {
+        writer.writeObjectValue("X", erfC_PrecisePostRequestBody.x);
+        writer.writeAdditionalData(erfC_PrecisePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -32,9 +32,11 @@ export function deserializeIntoTimevaluePostRequestBody(timevaluePostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTimevaluePostRequestBody(writer: SerializationWriter, timevaluePostRequestBody: Partial<TimevaluePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("timeText", timevaluePostRequestBody.timeText);
-    writer.writeAdditionalData(timevaluePostRequestBody.additionalData);
+export function serializeTimevaluePostRequestBody(writer: SerializationWriter, timevaluePostRequestBody: Partial<TimevaluePostRequestBody> | undefined | null = {}) : void {
+    if (timevaluePostRequestBody) {
+        writer.writeObjectValue("timeText", timevaluePostRequestBody.timeText);
+        writer.writeAdditionalData(timevaluePostRequestBody.additionalData);
+    }
 }
 export interface TimevaluePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface TimevaluePostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The timeText property
      */
-    timeText?: UntypedNode;
+    timeText?: UntypedNode | null;
 }
 /**
  * Provides operations to call the timevalue method.

@@ -25,27 +25,27 @@ export interface CumIPmtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The endPeriod property
      */
-    endPeriod?: UntypedNode;
+    endPeriod?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The startPeriod property
      */
-    startPeriod?: UntypedNode;
+    startPeriod?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the cumIPmt method.
@@ -87,14 +87,16 @@ export function deserializeIntoCumIPmtPostRequestBody(cumIPmtPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCumIPmtPostRequestBody(writer: SerializationWriter, cumIPmtPostRequestBody: Partial<CumIPmtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endPeriod", cumIPmtPostRequestBody.endPeriod);
-    writer.writeObjectValue("nper", cumIPmtPostRequestBody.nper);
-    writer.writeObjectValue("pv", cumIPmtPostRequestBody.pv);
-    writer.writeObjectValue("rate", cumIPmtPostRequestBody.rate);
-    writer.writeObjectValue("startPeriod", cumIPmtPostRequestBody.startPeriod);
-    writer.writeObjectValue("type", cumIPmtPostRequestBody.type);
-    writer.writeAdditionalData(cumIPmtPostRequestBody.additionalData);
+export function serializeCumIPmtPostRequestBody(writer: SerializationWriter, cumIPmtPostRequestBody: Partial<CumIPmtPostRequestBody> | undefined | null = {}) : void {
+    if (cumIPmtPostRequestBody) {
+        writer.writeObjectValue("endPeriod", cumIPmtPostRequestBody.endPeriod);
+        writer.writeObjectValue("nper", cumIPmtPostRequestBody.nper);
+        writer.writeObjectValue("pv", cumIPmtPostRequestBody.pv);
+        writer.writeObjectValue("rate", cumIPmtPostRequestBody.rate);
+        writer.writeObjectValue("startPeriod", cumIPmtPostRequestBody.startPeriod);
+        writer.writeObjectValue("type", cumIPmtPostRequestBody.type);
+        writer.writeAdditionalData(cumIPmtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

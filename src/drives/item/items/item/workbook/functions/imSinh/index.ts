@@ -35,7 +35,7 @@ export interface ImSinhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imSinh method.
@@ -62,9 +62,11 @@ export interface ImSinhRequestBuilder extends BaseRequestBuilder<ImSinhRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImSinhPostRequestBody(writer: SerializationWriter, imSinhPostRequestBody: Partial<ImSinhPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imSinhPostRequestBody.inumber);
-    writer.writeAdditionalData(imSinhPostRequestBody.additionalData);
+export function serializeImSinhPostRequestBody(writer: SerializationWriter, imSinhPostRequestBody: Partial<ImSinhPostRequestBody> | undefined | null = {}) : void {
+    if (imSinhPostRequestBody) {
+        writer.writeObjectValue("inumber", imSinhPostRequestBody.inumber);
+        writer.writeAdditionalData(imSinhPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

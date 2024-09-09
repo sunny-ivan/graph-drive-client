@@ -36,11 +36,11 @@ export interface PermutationaPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numberChosen property
      */
-    numberChosen?: UntypedNode;
+    numberChosen?: UntypedNode | null;
 }
 /**
  * Provides operations to call the permutationa method.
@@ -67,10 +67,12 @@ export interface PermutationaRequestBuilder extends BaseRequestBuilder<Permutati
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePermutationaPostRequestBody(writer: SerializationWriter, permutationaPostRequestBody: Partial<PermutationaPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", permutationaPostRequestBody.number);
-    writer.writeObjectValue("numberChosen", permutationaPostRequestBody.numberChosen);
-    writer.writeAdditionalData(permutationaPostRequestBody.additionalData);
+export function serializePermutationaPostRequestBody(writer: SerializationWriter, permutationaPostRequestBody: Partial<PermutationaPostRequestBody> | undefined | null = {}) : void {
+    if (permutationaPostRequestBody) {
+        writer.writeObjectValue("number", permutationaPostRequestBody.number);
+        writer.writeObjectValue("numberChosen", permutationaPostRequestBody.numberChosen);
+        writer.writeAdditionalData(permutationaPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

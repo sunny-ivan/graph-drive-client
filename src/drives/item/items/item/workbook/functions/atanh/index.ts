@@ -16,7 +16,7 @@ export interface AtanhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the atanh method.
@@ -62,9 +62,11 @@ export function deserializeIntoAtanhPostRequestBody(atanhPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAtanhPostRequestBody(writer: SerializationWriter, atanhPostRequestBody: Partial<AtanhPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", atanhPostRequestBody.number);
-    writer.writeAdditionalData(atanhPostRequestBody.additionalData);
+export function serializeAtanhPostRequestBody(writer: SerializationWriter, atanhPostRequestBody: Partial<AtanhPostRequestBody> | undefined | null = {}) : void {
+    if (atanhPostRequestBody) {
+        writer.writeObjectValue("number", atanhPostRequestBody.number);
+        writer.writeAdditionalData(atanhPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

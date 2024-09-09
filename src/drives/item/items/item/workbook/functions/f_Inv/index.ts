@@ -37,15 +37,15 @@ export interface F_InvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The degFreedom1 property
      */
-    degFreedom1?: UntypedNode;
+    degFreedom1?: UntypedNode | null;
     /**
      * The degFreedom2 property
      */
-    degFreedom2?: UntypedNode;
+    degFreedom2?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the f_Inv method.
@@ -72,11 +72,13 @@ export interface F_InvRequestBuilder extends BaseRequestBuilder<F_InvRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeF_InvPostRequestBody(writer: SerializationWriter, f_InvPostRequestBody: Partial<F_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom1", f_InvPostRequestBody.degFreedom1);
-    writer.writeObjectValue("degFreedom2", f_InvPostRequestBody.degFreedom2);
-    writer.writeObjectValue("probability", f_InvPostRequestBody.probability);
-    writer.writeAdditionalData(f_InvPostRequestBody.additionalData);
+export function serializeF_InvPostRequestBody(writer: SerializationWriter, f_InvPostRequestBody: Partial<F_InvPostRequestBody> | undefined | null = {}) : void {
+    if (f_InvPostRequestBody) {
+        writer.writeObjectValue("degFreedom1", f_InvPostRequestBody.degFreedom1);
+        writer.writeObjectValue("degFreedom2", f_InvPostRequestBody.degFreedom2);
+        writer.writeObjectValue("probability", f_InvPostRequestBody.probability);
+        writer.writeAdditionalData(f_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

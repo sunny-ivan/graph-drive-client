@@ -16,7 +16,7 @@ export interface ApplyIconFilterPostRequestBody extends AdditionalDataHolder, Pa
     /**
      * The icon property
      */
-    icon?: WorkbookIcon;
+    icon?: WorkbookIcon | null;
 }
 /**
  * Provides operations to call the applyIconFilter method.
@@ -61,9 +61,11 @@ export function deserializeIntoApplyIconFilterPostRequestBody(applyIconFilterPos
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyIconFilterPostRequestBody(writer: SerializationWriter, applyIconFilterPostRequestBody: Partial<ApplyIconFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue<WorkbookIcon>("icon", applyIconFilterPostRequestBody.icon, serializeWorkbookIcon);
-    writer.writeAdditionalData(applyIconFilterPostRequestBody.additionalData);
+export function serializeApplyIconFilterPostRequestBody(writer: SerializationWriter, applyIconFilterPostRequestBody: Partial<ApplyIconFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyIconFilterPostRequestBody) {
+        writer.writeObjectValue<WorkbookIcon>("icon", applyIconFilterPostRequestBody.icon, serializeWorkbookIcon);
+        writer.writeAdditionalData(applyIconFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

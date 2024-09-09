@@ -35,7 +35,7 @@ export interface MinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the min method.
@@ -62,9 +62,11 @@ export interface MinRequestBuilder extends BaseRequestBuilder<MinRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMinPostRequestBody(writer: SerializationWriter, minPostRequestBody: Partial<MinPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", minPostRequestBody.values);
-    writer.writeAdditionalData(minPostRequestBody.additionalData);
+export function serializeMinPostRequestBody(writer: SerializationWriter, minPostRequestBody: Partial<MinPostRequestBody> | undefined | null = {}) : void {
+    if (minPostRequestBody) {
+        writer.writeObjectValue("values", minPostRequestBody.values);
+        writer.writeAdditionalData(minPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

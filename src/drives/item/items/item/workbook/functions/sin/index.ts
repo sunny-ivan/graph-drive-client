@@ -32,9 +32,11 @@ export function deserializeIntoSinPostRequestBody(sinPostRequestBody: Partial<Si
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSinPostRequestBody(writer: SerializationWriter, sinPostRequestBody: Partial<SinPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", sinPostRequestBody.number);
-    writer.writeAdditionalData(sinPostRequestBody.additionalData);
+export function serializeSinPostRequestBody(writer: SerializationWriter, sinPostRequestBody: Partial<SinPostRequestBody> | undefined | null = {}) : void {
+    if (sinPostRequestBody) {
+        writer.writeObjectValue("number", sinPostRequestBody.number);
+        writer.writeAdditionalData(sinPostRequestBody.additionalData);
+    }
 }
 export interface SinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sin method.

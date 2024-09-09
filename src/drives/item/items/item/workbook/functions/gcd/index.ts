@@ -35,7 +35,7 @@ export interface GcdPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the gcd method.
@@ -62,9 +62,11 @@ export interface GcdRequestBuilder extends BaseRequestBuilder<GcdRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGcdPostRequestBody(writer: SerializationWriter, gcdPostRequestBody: Partial<GcdPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", gcdPostRequestBody.values);
-    writer.writeAdditionalData(gcdPostRequestBody.additionalData);
+export function serializeGcdPostRequestBody(writer: SerializationWriter, gcdPostRequestBody: Partial<GcdPostRequestBody> | undefined | null = {}) : void {
+    if (gcdPostRequestBody) {
+        writer.writeObjectValue("values", gcdPostRequestBody.values);
+        writer.writeAdditionalData(gcdPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

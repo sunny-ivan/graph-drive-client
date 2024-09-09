@@ -35,7 +35,7 @@ export interface NotPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The logical property
      */
-    logical?: UntypedNode;
+    logical?: UntypedNode | null;
 }
 /**
  * Provides operations to call the not method.
@@ -62,9 +62,11 @@ export interface NotRequestBuilder extends BaseRequestBuilder<NotRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNotPostRequestBody(writer: SerializationWriter, notPostRequestBody: Partial<NotPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("logical", notPostRequestBody.logical);
-    writer.writeAdditionalData(notPostRequestBody.additionalData);
+export function serializeNotPostRequestBody(writer: SerializationWriter, notPostRequestBody: Partial<NotPostRequestBody> | undefined | null = {}) : void {
+    if (notPostRequestBody) {
+        writer.writeObjectValue("logical", notPostRequestBody.logical);
+        writer.writeAdditionalData(notPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

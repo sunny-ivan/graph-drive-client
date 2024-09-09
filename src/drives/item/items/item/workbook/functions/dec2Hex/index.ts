@@ -25,11 +25,11 @@ export interface Dec2HexPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dec2Hex method.
@@ -67,10 +67,12 @@ export function deserializeIntoDec2HexPostRequestBody(dec2HexPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDec2HexPostRequestBody(writer: SerializationWriter, dec2HexPostRequestBody: Partial<Dec2HexPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", dec2HexPostRequestBody.number);
-    writer.writeObjectValue("places", dec2HexPostRequestBody.places);
-    writer.writeAdditionalData(dec2HexPostRequestBody.additionalData);
+export function serializeDec2HexPostRequestBody(writer: SerializationWriter, dec2HexPostRequestBody: Partial<Dec2HexPostRequestBody> | undefined | null = {}) : void {
+    if (dec2HexPostRequestBody) {
+        writer.writeObjectValue("number", dec2HexPostRequestBody.number);
+        writer.writeObjectValue("places", dec2HexPostRequestBody.places);
+        writer.writeAdditionalData(dec2HexPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

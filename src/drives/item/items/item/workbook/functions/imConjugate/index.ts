@@ -35,7 +35,7 @@ export interface ImConjugatePostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imConjugate method.
@@ -62,9 +62,11 @@ export interface ImConjugateRequestBuilder extends BaseRequestBuilder<ImConjugat
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImConjugatePostRequestBody(writer: SerializationWriter, imConjugatePostRequestBody: Partial<ImConjugatePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imConjugatePostRequestBody.inumber);
-    writer.writeAdditionalData(imConjugatePostRequestBody.additionalData);
+export function serializeImConjugatePostRequestBody(writer: SerializationWriter, imConjugatePostRequestBody: Partial<ImConjugatePostRequestBody> | undefined | null = {}) : void {
+    if (imConjugatePostRequestBody) {
+        writer.writeObjectValue("inumber", imConjugatePostRequestBody.inumber);
+        writer.writeAdditionalData(imConjugatePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -36,11 +36,11 @@ export interface PowerPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The power property
      */
-    power?: UntypedNode;
+    power?: UntypedNode | null;
 }
 /**
  * Provides operations to call the power method.
@@ -67,10 +67,12 @@ export interface PowerRequestBuilder extends BaseRequestBuilder<PowerRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePowerPostRequestBody(writer: SerializationWriter, powerPostRequestBody: Partial<PowerPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", powerPostRequestBody.number);
-    writer.writeObjectValue("power", powerPostRequestBody.power);
-    writer.writeAdditionalData(powerPostRequestBody.additionalData);
+export function serializePowerPostRequestBody(writer: SerializationWriter, powerPostRequestBody: Partial<PowerPostRequestBody> | undefined | null = {}) : void {
+    if (powerPostRequestBody) {
+        writer.writeObjectValue("number", powerPostRequestBody.number);
+        writer.writeObjectValue("power", powerPostRequestBody.power);
+        writer.writeAdditionalData(powerPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

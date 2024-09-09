@@ -32,9 +32,11 @@ export function deserializeIntoSignPostRequestBody(signPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSignPostRequestBody(writer: SerializationWriter, signPostRequestBody: Partial<SignPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", signPostRequestBody.number);
-    writer.writeAdditionalData(signPostRequestBody.additionalData);
+export function serializeSignPostRequestBody(writer: SerializationWriter, signPostRequestBody: Partial<SignPostRequestBody> | undefined | null = {}) : void {
+    if (signPostRequestBody) {
+        writer.writeObjectValue("number", signPostRequestBody.number);
+        writer.writeAdditionalData(signPostRequestBody.additionalData);
+    }
 }
 export interface SignPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SignPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sign method.

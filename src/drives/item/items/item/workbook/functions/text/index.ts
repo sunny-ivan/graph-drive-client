@@ -33,10 +33,12 @@ export function deserializeIntoTextPostRequestBody(textPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTextPostRequestBody(writer: SerializationWriter, textPostRequestBody: Partial<TextPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("formatText", textPostRequestBody.formatText);
-    writer.writeObjectValue("value", textPostRequestBody.value);
-    writer.writeAdditionalData(textPostRequestBody.additionalData);
+export function serializeTextPostRequestBody(writer: SerializationWriter, textPostRequestBody: Partial<TextPostRequestBody> | undefined | null = {}) : void {
+    if (textPostRequestBody) {
+        writer.writeObjectValue("formatText", textPostRequestBody.formatText);
+        writer.writeObjectValue("value", textPostRequestBody.value);
+        writer.writeAdditionalData(textPostRequestBody.additionalData);
+    }
 }
 export interface TextPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface TextPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The formatText property
      */
-    formatText?: UntypedNode;
+    formatText?: UntypedNode | null;
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the text method.

@@ -37,15 +37,15 @@ export interface NetworkDaysPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The endDate property
      */
-    endDate?: UntypedNode;
+    endDate?: UntypedNode | null;
     /**
      * The holidays property
      */
-    holidays?: UntypedNode;
+    holidays?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the networkDays method.
@@ -72,11 +72,13 @@ export interface NetworkDaysRequestBuilder extends BaseRequestBuilder<NetworkDay
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNetworkDaysPostRequestBody(writer: SerializationWriter, networkDaysPostRequestBody: Partial<NetworkDaysPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endDate", networkDaysPostRequestBody.endDate);
-    writer.writeObjectValue("holidays", networkDaysPostRequestBody.holidays);
-    writer.writeObjectValue("startDate", networkDaysPostRequestBody.startDate);
-    writer.writeAdditionalData(networkDaysPostRequestBody.additionalData);
+export function serializeNetworkDaysPostRequestBody(writer: SerializationWriter, networkDaysPostRequestBody: Partial<NetworkDaysPostRequestBody> | undefined | null = {}) : void {
+    if (networkDaysPostRequestBody) {
+        writer.writeObjectValue("endDate", networkDaysPostRequestBody.endDate);
+        writer.writeObjectValue("holidays", networkDaysPostRequestBody.holidays);
+        writer.writeObjectValue("startDate", networkDaysPostRequestBody.startDate);
+        writer.writeAdditionalData(networkDaysPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

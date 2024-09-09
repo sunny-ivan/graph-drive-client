@@ -36,11 +36,11 @@ export interface DollarPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The decimals property
      */
-    decimals?: UntypedNode;
+    decimals?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dollar method.
@@ -67,10 +67,12 @@ export interface DollarRequestBuilder extends BaseRequestBuilder<DollarRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDollarPostRequestBody(writer: SerializationWriter, dollarPostRequestBody: Partial<DollarPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("decimals", dollarPostRequestBody.decimals);
-    writer.writeObjectValue("number", dollarPostRequestBody.number);
-    writer.writeAdditionalData(dollarPostRequestBody.additionalData);
+export function serializeDollarPostRequestBody(writer: SerializationWriter, dollarPostRequestBody: Partial<DollarPostRequestBody> | undefined | null = {}) : void {
+    if (dollarPostRequestBody) {
+        writer.writeObjectValue("decimals", dollarPostRequestBody.decimals);
+        writer.writeObjectValue("number", dollarPostRequestBody.number);
+        writer.writeAdditionalData(dollarPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

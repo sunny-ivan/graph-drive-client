@@ -16,15 +16,15 @@ export interface BasePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The minLength property
      */
-    minLength?: UntypedNode;
+    minLength?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The radix property
      */
-    radix?: UntypedNode;
+    radix?: UntypedNode | null;
 }
 /**
  * Provides operations to call the base method.
@@ -72,11 +72,13 @@ export function deserializeIntoBasePostRequestBody(basePostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBasePostRequestBody(writer: SerializationWriter, basePostRequestBody: Partial<BasePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("minLength", basePostRequestBody.minLength);
-    writer.writeObjectValue("number", basePostRequestBody.number);
-    writer.writeObjectValue("radix", basePostRequestBody.radix);
-    writer.writeAdditionalData(basePostRequestBody.additionalData);
+export function serializeBasePostRequestBody(writer: SerializationWriter, basePostRequestBody: Partial<BasePostRequestBody> | undefined | null = {}) : void {
+    if (basePostRequestBody) {
+        writer.writeObjectValue("minLength", basePostRequestBody.minLength);
+        writer.writeObjectValue("number", basePostRequestBody.number);
+        writer.writeObjectValue("radix", basePostRequestBody.radix);
+        writer.writeAdditionalData(basePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

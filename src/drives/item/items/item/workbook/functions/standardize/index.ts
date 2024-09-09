@@ -34,11 +34,13 @@ export function deserializeIntoStandardizePostRequestBody(standardizePostRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeStandardizePostRequestBody(writer: SerializationWriter, standardizePostRequestBody: Partial<StandardizePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("mean", standardizePostRequestBody.mean);
-    writer.writeObjectValue("standardDev", standardizePostRequestBody.standardDev);
-    writer.writeObjectValue("x", standardizePostRequestBody.x);
-    writer.writeAdditionalData(standardizePostRequestBody.additionalData);
+export function serializeStandardizePostRequestBody(writer: SerializationWriter, standardizePostRequestBody: Partial<StandardizePostRequestBody> | undefined | null = {}) : void {
+    if (standardizePostRequestBody) {
+        writer.writeObjectValue("mean", standardizePostRequestBody.mean);
+        writer.writeObjectValue("standardDev", standardizePostRequestBody.standardDev);
+        writer.writeObjectValue("x", standardizePostRequestBody.x);
+        writer.writeAdditionalData(standardizePostRequestBody.additionalData);
+    }
 }
 export interface StandardizePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface StandardizePostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The mean property
      */
-    mean?: UntypedNode;
+    mean?: UntypedNode | null;
     /**
      * The standardDev property
      */
-    standardDev?: UntypedNode;
+    standardDev?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the standardize method.

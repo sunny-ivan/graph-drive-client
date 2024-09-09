@@ -16,7 +16,7 @@ export interface AtanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the atan method.
@@ -62,9 +62,11 @@ export function deserializeIntoAtanPostRequestBody(atanPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAtanPostRequestBody(writer: SerializationWriter, atanPostRequestBody: Partial<AtanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", atanPostRequestBody.number);
-    writer.writeAdditionalData(atanPostRequestBody.additionalData);
+export function serializeAtanPostRequestBody(writer: SerializationWriter, atanPostRequestBody: Partial<AtanPostRequestBody> | undefined | null = {}) : void {
+    if (atanPostRequestBody) {
+        writer.writeObjectValue("number", atanPostRequestBody.number);
+        writer.writeAdditionalData(atanPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

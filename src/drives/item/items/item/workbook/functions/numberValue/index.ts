@@ -37,15 +37,15 @@ export interface NumberValuePostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The decimalSeparator property
      */
-    decimalSeparator?: UntypedNode;
+    decimalSeparator?: UntypedNode | null;
     /**
      * The groupSeparator property
      */
-    groupSeparator?: UntypedNode;
+    groupSeparator?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the numberValue method.
@@ -72,11 +72,13 @@ export interface NumberValueRequestBuilder extends BaseRequestBuilder<NumberValu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNumberValuePostRequestBody(writer: SerializationWriter, numberValuePostRequestBody: Partial<NumberValuePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("decimalSeparator", numberValuePostRequestBody.decimalSeparator);
-    writer.writeObjectValue("groupSeparator", numberValuePostRequestBody.groupSeparator);
-    writer.writeObjectValue("text", numberValuePostRequestBody.text);
-    writer.writeAdditionalData(numberValuePostRequestBody.additionalData);
+export function serializeNumberValuePostRequestBody(writer: SerializationWriter, numberValuePostRequestBody: Partial<NumberValuePostRequestBody> | undefined | null = {}) : void {
+    if (numberValuePostRequestBody) {
+        writer.writeObjectValue("decimalSeparator", numberValuePostRequestBody.decimalSeparator);
+        writer.writeObjectValue("groupSeparator", numberValuePostRequestBody.groupSeparator);
+        writer.writeObjectValue("text", numberValuePostRequestBody.text);
+        writer.writeAdditionalData(numberValuePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

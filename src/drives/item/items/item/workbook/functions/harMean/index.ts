@@ -35,7 +35,7 @@ export interface HarMeanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the harMean method.
@@ -62,9 +62,11 @@ export interface HarMeanRequestBuilder extends BaseRequestBuilder<HarMeanRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHarMeanPostRequestBody(writer: SerializationWriter, harMeanPostRequestBody: Partial<HarMeanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", harMeanPostRequestBody.values);
-    writer.writeAdditionalData(harMeanPostRequestBody.additionalData);
+export function serializeHarMeanPostRequestBody(writer: SerializationWriter, harMeanPostRequestBody: Partial<HarMeanPostRequestBody> | undefined | null = {}) : void {
+    if (harMeanPostRequestBody) {
+        writer.writeObjectValue("values", harMeanPostRequestBody.values);
+        writer.writeAdditionalData(harMeanPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

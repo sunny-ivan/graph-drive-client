@@ -16,7 +16,7 @@ export interface AcotPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the acot method.
@@ -62,9 +62,11 @@ export function deserializeIntoAcotPostRequestBody(acotPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAcotPostRequestBody(writer: SerializationWriter, acotPostRequestBody: Partial<AcotPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", acotPostRequestBody.number);
-    writer.writeAdditionalData(acotPostRequestBody.additionalData);
+export function serializeAcotPostRequestBody(writer: SerializationWriter, acotPostRequestBody: Partial<AcotPostRequestBody> | undefined | null = {}) : void {
+    if (acotPostRequestBody) {
+        writer.writeObjectValue("number", acotPostRequestBody.number);
+        writer.writeAdditionalData(acotPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

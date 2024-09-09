@@ -35,7 +35,7 @@ export interface ImRealPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imReal method.
@@ -62,9 +62,11 @@ export interface ImRealRequestBuilder extends BaseRequestBuilder<ImRealRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImRealPostRequestBody(writer: SerializationWriter, imRealPostRequestBody: Partial<ImRealPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imRealPostRequestBody.inumber);
-    writer.writeAdditionalData(imRealPostRequestBody.additionalData);
+export function serializeImRealPostRequestBody(writer: SerializationWriter, imRealPostRequestBody: Partial<ImRealPostRequestBody> | undefined | null = {}) : void {
+    if (imRealPostRequestBody) {
+        writer.writeObjectValue("inumber", imRealPostRequestBody.inumber);
+        writer.writeAdditionalData(imRealPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

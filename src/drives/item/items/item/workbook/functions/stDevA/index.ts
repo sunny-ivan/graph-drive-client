@@ -32,9 +32,11 @@ export function deserializeIntoStDevAPostRequestBody(stDevAPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeStDevAPostRequestBody(writer: SerializationWriter, stDevAPostRequestBody: Partial<StDevAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", stDevAPostRequestBody.values);
-    writer.writeAdditionalData(stDevAPostRequestBody.additionalData);
+export function serializeStDevAPostRequestBody(writer: SerializationWriter, stDevAPostRequestBody: Partial<StDevAPostRequestBody> | undefined | null = {}) : void {
+    if (stDevAPostRequestBody) {
+        writer.writeObjectValue("values", stDevAPostRequestBody.values);
+        writer.writeAdditionalData(stDevAPostRequestBody.additionalData);
+    }
 }
 export interface StDevAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface StDevAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the stDevA method.

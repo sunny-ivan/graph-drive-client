@@ -16,11 +16,11 @@ export interface Bin2HexPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bin2Hex method.
@@ -67,10 +67,12 @@ export function deserializeIntoBin2HexPostRequestBody(bin2HexPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBin2HexPostRequestBody(writer: SerializationWriter, bin2HexPostRequestBody: Partial<Bin2HexPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", bin2HexPostRequestBody.number);
-    writer.writeObjectValue("places", bin2HexPostRequestBody.places);
-    writer.writeAdditionalData(bin2HexPostRequestBody.additionalData);
+export function serializeBin2HexPostRequestBody(writer: SerializationWriter, bin2HexPostRequestBody: Partial<Bin2HexPostRequestBody> | undefined | null = {}) : void {
+    if (bin2HexPostRequestBody) {
+        writer.writeObjectValue("number", bin2HexPostRequestBody.number);
+        writer.writeObjectValue("places", bin2HexPostRequestBody.places);
+        writer.writeAdditionalData(bin2HexPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

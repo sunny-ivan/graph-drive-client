@@ -35,7 +35,7 @@ export interface SecPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sec method.
@@ -62,9 +62,11 @@ export interface SecRequestBuilder extends BaseRequestBuilder<SecRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSecPostRequestBody(writer: SerializationWriter, secPostRequestBody: Partial<SecPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", secPostRequestBody.number);
-    writer.writeAdditionalData(secPostRequestBody.additionalData);
+export function serializeSecPostRequestBody(writer: SerializationWriter, secPostRequestBody: Partial<SecPostRequestBody> | undefined | null = {}) : void {
+    if (secPostRequestBody) {
+        writer.writeObjectValue("number", secPostRequestBody.number);
+        writer.writeAdditionalData(secPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

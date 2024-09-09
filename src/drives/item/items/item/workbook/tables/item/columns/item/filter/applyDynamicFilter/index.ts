@@ -14,7 +14,7 @@ export interface ApplyDynamicFilterPostRequestBody extends AdditionalDataHolder,
     /**
      * The criteria property
      */
-    criteria?: string;
+    criteria?: string | null;
 }
 /**
  * Provides operations to call the applyDynamicFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyDynamicFilterPostRequestBody(applyDynamicFil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyDynamicFilterPostRequestBody(writer: SerializationWriter, applyDynamicFilterPostRequestBody: Partial<ApplyDynamicFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("criteria", applyDynamicFilterPostRequestBody.criteria);
-    writer.writeAdditionalData(applyDynamicFilterPostRequestBody.additionalData);
+export function serializeApplyDynamicFilterPostRequestBody(writer: SerializationWriter, applyDynamicFilterPostRequestBody: Partial<ApplyDynamicFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyDynamicFilterPostRequestBody) {
+        writer.writeStringValue("criteria", applyDynamicFilterPostRequestBody.criteria);
+        writer.writeAdditionalData(applyDynamicFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

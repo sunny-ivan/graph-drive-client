@@ -32,9 +32,11 @@ export function deserializeIntoUpperPostRequestBody(upperPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUpperPostRequestBody(writer: SerializationWriter, upperPostRequestBody: Partial<UpperPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", upperPostRequestBody.text);
-    writer.writeAdditionalData(upperPostRequestBody.additionalData);
+export function serializeUpperPostRequestBody(writer: SerializationWriter, upperPostRequestBody: Partial<UpperPostRequestBody> | undefined | null = {}) : void {
+    if (upperPostRequestBody) {
+        writer.writeObjectValue("text", upperPostRequestBody.text);
+        writer.writeAdditionalData(upperPostRequestBody.additionalData);
+    }
 }
 export interface UpperPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface UpperPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the upper method.

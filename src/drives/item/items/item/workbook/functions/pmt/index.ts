@@ -39,23 +39,23 @@ export interface PmtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fv property
      */
-    fv?: UntypedNode;
+    fv?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the pmt method.
@@ -82,13 +82,15 @@ export interface PmtRequestBuilder extends BaseRequestBuilder<PmtRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePmtPostRequestBody(writer: SerializationWriter, pmtPostRequestBody: Partial<PmtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fv", pmtPostRequestBody.fv);
-    writer.writeObjectValue("nper", pmtPostRequestBody.nper);
-    writer.writeObjectValue("pv", pmtPostRequestBody.pv);
-    writer.writeObjectValue("rate", pmtPostRequestBody.rate);
-    writer.writeObjectValue("type", pmtPostRequestBody.type);
-    writer.writeAdditionalData(pmtPostRequestBody.additionalData);
+export function serializePmtPostRequestBody(writer: SerializationWriter, pmtPostRequestBody: Partial<PmtPostRequestBody> | undefined | null = {}) : void {
+    if (pmtPostRequestBody) {
+        writer.writeObjectValue("fv", pmtPostRequestBody.fv);
+        writer.writeObjectValue("nper", pmtPostRequestBody.nper);
+        writer.writeObjectValue("pv", pmtPostRequestBody.pv);
+        writer.writeObjectValue("rate", pmtPostRequestBody.rate);
+        writer.writeObjectValue("type", pmtPostRequestBody.type);
+        writer.writeAdditionalData(pmtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -36,11 +36,11 @@ export interface Floor_PrecisePostRequestBody extends AdditionalDataHolder, Pars
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
 }
 /**
  * Provides operations to call the floor_Precise method.
@@ -67,10 +67,12 @@ export interface Floor_PreciseRequestBuilder extends BaseRequestBuilder<Floor_Pr
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloor_PrecisePostRequestBody(writer: SerializationWriter, floor_PrecisePostRequestBody: Partial<Floor_PrecisePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", floor_PrecisePostRequestBody.number);
-    writer.writeObjectValue("significance", floor_PrecisePostRequestBody.significance);
-    writer.writeAdditionalData(floor_PrecisePostRequestBody.additionalData);
+export function serializeFloor_PrecisePostRequestBody(writer: SerializationWriter, floor_PrecisePostRequestBody: Partial<Floor_PrecisePostRequestBody> | undefined | null = {}) : void {
+    if (floor_PrecisePostRequestBody) {
+        writer.writeObjectValue("number", floor_PrecisePostRequestBody.number);
+        writer.writeObjectValue("significance", floor_PrecisePostRequestBody.significance);
+        writer.writeAdditionalData(floor_PrecisePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

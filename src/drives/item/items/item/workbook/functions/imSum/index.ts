@@ -35,7 +35,7 @@ export interface ImSumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imSum method.
@@ -62,9 +62,11 @@ export interface ImSumRequestBuilder extends BaseRequestBuilder<ImSumRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImSumPostRequestBody(writer: SerializationWriter, imSumPostRequestBody: Partial<ImSumPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", imSumPostRequestBody.values);
-    writer.writeAdditionalData(imSumPostRequestBody.additionalData);
+export function serializeImSumPostRequestBody(writer: SerializationWriter, imSumPostRequestBody: Partial<ImSumPostRequestBody> | undefined | null = {}) : void {
+    if (imSumPostRequestBody) {
+        writer.writeObjectValue("values", imSumPostRequestBody.values);
+        writer.writeAdditionalData(imSumPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

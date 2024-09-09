@@ -14,7 +14,7 @@ export interface ApplyValuesFilterPostRequestBody extends AdditionalDataHolder, 
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the applyValuesFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyValuesFilterPostRequestBody(applyValuesFilte
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyValuesFilterPostRequestBody(writer: SerializationWriter, applyValuesFilterPostRequestBody: Partial<ApplyValuesFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", applyValuesFilterPostRequestBody.values);
-    writer.writeAdditionalData(applyValuesFilterPostRequestBody.additionalData);
+export function serializeApplyValuesFilterPostRequestBody(writer: SerializationWriter, applyValuesFilterPostRequestBody: Partial<ApplyValuesFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyValuesFilterPostRequestBody) {
+        writer.writeObjectValue("values", applyValuesFilterPostRequestBody.values);
+        writer.writeAdditionalData(applyValuesFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface OddPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the odd method.
@@ -62,9 +62,11 @@ export interface OddRequestBuilder extends BaseRequestBuilder<OddRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOddPostRequestBody(writer: SerializationWriter, oddPostRequestBody: Partial<OddPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", oddPostRequestBody.number);
-    writer.writeAdditionalData(oddPostRequestBody.additionalData);
+export function serializeOddPostRequestBody(writer: SerializationWriter, oddPostRequestBody: Partial<OddPostRequestBody> | undefined | null = {}) : void {
+    if (oddPostRequestBody) {
+        writer.writeObjectValue("number", oddPostRequestBody.number);
+        writer.writeAdditionalData(oddPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

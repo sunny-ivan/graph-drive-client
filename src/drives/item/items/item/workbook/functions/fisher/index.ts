@@ -35,7 +35,7 @@ export interface FisherPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the fisher method.
@@ -62,9 +62,11 @@ export interface FisherRequestBuilder extends BaseRequestBuilder<FisherRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFisherPostRequestBody(writer: SerializationWriter, fisherPostRequestBody: Partial<FisherPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("x", fisherPostRequestBody.x);
-    writer.writeAdditionalData(fisherPostRequestBody.additionalData);
+export function serializeFisherPostRequestBody(writer: SerializationWriter, fisherPostRequestBody: Partial<FisherPostRequestBody> | undefined | null = {}) : void {
+    if (fisherPostRequestBody) {
+        writer.writeObjectValue("x", fisherPostRequestBody.x);
+        writer.writeAdditionalData(fisherPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

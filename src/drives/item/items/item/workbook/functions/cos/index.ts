@@ -16,7 +16,7 @@ export interface CosPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the cos method.
@@ -62,9 +62,11 @@ export function deserializeIntoCosPostRequestBody(cosPostRequestBody: Partial<Co
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCosPostRequestBody(writer: SerializationWriter, cosPostRequestBody: Partial<CosPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", cosPostRequestBody.number);
-    writer.writeAdditionalData(cosPostRequestBody.additionalData);
+export function serializeCosPostRequestBody(writer: SerializationWriter, cosPostRequestBody: Partial<CosPostRequestBody> | undefined | null = {}) : void {
+    if (cosPostRequestBody) {
+        writer.writeObjectValue("number", cosPostRequestBody.number);
+        writer.writeAdditionalData(cosPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,12 +35,14 @@ export function deserializeIntoSydPostRequestBody(sydPostRequestBody: Partial<Sy
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSydPostRequestBody(writer: SerializationWriter, sydPostRequestBody: Partial<SydPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cost", sydPostRequestBody.cost);
-    writer.writeObjectValue("life", sydPostRequestBody.life);
-    writer.writeObjectValue("per", sydPostRequestBody.per);
-    writer.writeObjectValue("salvage", sydPostRequestBody.salvage);
-    writer.writeAdditionalData(sydPostRequestBody.additionalData);
+export function serializeSydPostRequestBody(writer: SerializationWriter, sydPostRequestBody: Partial<SydPostRequestBody> | undefined | null = {}) : void {
+    if (sydPostRequestBody) {
+        writer.writeObjectValue("cost", sydPostRequestBody.cost);
+        writer.writeObjectValue("life", sydPostRequestBody.life);
+        writer.writeObjectValue("per", sydPostRequestBody.per);
+        writer.writeObjectValue("salvage", sydPostRequestBody.salvage);
+        writer.writeAdditionalData(sydPostRequestBody.additionalData);
+    }
 }
 export interface SydPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -50,19 +52,19 @@ export interface SydPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cost property
      */
-    cost?: UntypedNode;
+    cost?: UntypedNode | null;
     /**
      * The life property
      */
-    life?: UntypedNode;
+    life?: UntypedNode | null;
     /**
      * The per property
      */
-    per?: UntypedNode;
+    per?: UntypedNode | null;
     /**
      * The salvage property
      */
-    salvage?: UntypedNode;
+    salvage?: UntypedNode | null;
 }
 /**
  * Provides operations to call the syd method.

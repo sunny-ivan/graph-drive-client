@@ -32,9 +32,11 @@ export function deserializeIntoUnicodePostRequestBody(unicodePostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUnicodePostRequestBody(writer: SerializationWriter, unicodePostRequestBody: Partial<UnicodePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", unicodePostRequestBody.text);
-    writer.writeAdditionalData(unicodePostRequestBody.additionalData);
+export function serializeUnicodePostRequestBody(writer: SerializationWriter, unicodePostRequestBody: Partial<UnicodePostRequestBody> | undefined | null = {}) : void {
+    if (unicodePostRequestBody) {
+        writer.writeObjectValue("text", unicodePostRequestBody.text);
+        writer.writeAdditionalData(unicodePostRequestBody.additionalData);
+    }
 }
 export interface UnicodePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface UnicodePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the unicode method.

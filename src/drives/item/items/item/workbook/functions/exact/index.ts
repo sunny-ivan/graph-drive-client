@@ -36,11 +36,11 @@ export interface ExactPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text1 property
      */
-    text1?: UntypedNode;
+    text1?: UntypedNode | null;
     /**
      * The text2 property
      */
-    text2?: UntypedNode;
+    text2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the exact method.
@@ -67,10 +67,12 @@ export interface ExactRequestBuilder extends BaseRequestBuilder<ExactRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeExactPostRequestBody(writer: SerializationWriter, exactPostRequestBody: Partial<ExactPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text1", exactPostRequestBody.text1);
-    writer.writeObjectValue("text2", exactPostRequestBody.text2);
-    writer.writeAdditionalData(exactPostRequestBody.additionalData);
+export function serializeExactPostRequestBody(writer: SerializationWriter, exactPostRequestBody: Partial<ExactPostRequestBody> | undefined | null = {}) : void {
+    if (exactPostRequestBody) {
+        writer.writeObjectValue("text1", exactPostRequestBody.text1);
+        writer.writeObjectValue("text2", exactPostRequestBody.text2);
+        writer.writeAdditionalData(exactPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

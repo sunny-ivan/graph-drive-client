@@ -35,7 +35,7 @@ export interface DevSqPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the devSq method.
@@ -62,9 +62,11 @@ export interface DevSqRequestBuilder extends BaseRequestBuilder<DevSqRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDevSqPostRequestBody(writer: SerializationWriter, devSqPostRequestBody: Partial<DevSqPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", devSqPostRequestBody.values);
-    writer.writeAdditionalData(devSqPostRequestBody.additionalData);
+export function serializeDevSqPostRequestBody(writer: SerializationWriter, devSqPostRequestBody: Partial<DevSqPostRequestBody> | undefined | null = {}) : void {
+    if (devSqPostRequestBody) {
+        writer.writeObjectValue("values", devSqPostRequestBody.values);
+        writer.writeAdditionalData(devSqPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

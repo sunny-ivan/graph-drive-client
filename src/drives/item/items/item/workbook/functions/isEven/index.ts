@@ -35,7 +35,7 @@ export interface IsEvenPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isEven method.
@@ -62,9 +62,11 @@ export interface IsEvenRequestBuilder extends BaseRequestBuilder<IsEvenRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsEvenPostRequestBody(writer: SerializationWriter, isEvenPostRequestBody: Partial<IsEvenPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", isEvenPostRequestBody.number);
-    writer.writeAdditionalData(isEvenPostRequestBody.additionalData);
+export function serializeIsEvenPostRequestBody(writer: SerializationWriter, isEvenPostRequestBody: Partial<IsEvenPostRequestBody> | undefined | null = {}) : void {
+    if (isEvenPostRequestBody) {
+        writer.writeObjectValue("number", isEvenPostRequestBody.number);
+        writer.writeAdditionalData(isEvenPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

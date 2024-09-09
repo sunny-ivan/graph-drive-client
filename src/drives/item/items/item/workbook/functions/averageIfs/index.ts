@@ -16,11 +16,11 @@ export interface AverageIfsPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The averageRange property
      */
-    averageRange?: UntypedNode;
+    averageRange?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the averageIfs method.
@@ -67,10 +67,12 @@ export function deserializeIntoAverageIfsPostRequestBody(averageIfsPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAverageIfsPostRequestBody(writer: SerializationWriter, averageIfsPostRequestBody: Partial<AverageIfsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("averageRange", averageIfsPostRequestBody.averageRange);
-    writer.writeObjectValue("values", averageIfsPostRequestBody.values);
-    writer.writeAdditionalData(averageIfsPostRequestBody.additionalData);
+export function serializeAverageIfsPostRequestBody(writer: SerializationWriter, averageIfsPostRequestBody: Partial<AverageIfsPostRequestBody> | undefined | null = {}) : void {
+    if (averageIfsPostRequestBody) {
+        writer.writeObjectValue("averageRange", averageIfsPostRequestBody.averageRange);
+        writer.writeObjectValue("values", averageIfsPostRequestBody.values);
+        writer.writeAdditionalData(averageIfsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -40,27 +40,27 @@ export interface MdurationPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The coupon property
      */
-    coupon?: UntypedNode;
+    coupon?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
     /**
      * The yld property
      */
-    yld?: UntypedNode;
+    yld?: UntypedNode | null;
 }
 /**
  * Provides operations to call the mduration method.
@@ -87,14 +87,16 @@ export interface MdurationRequestBuilder extends BaseRequestBuilder<MdurationReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMdurationPostRequestBody(writer: SerializationWriter, mdurationPostRequestBody: Partial<MdurationPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", mdurationPostRequestBody.basis);
-    writer.writeObjectValue("coupon", mdurationPostRequestBody.coupon);
-    writer.writeObjectValue("frequency", mdurationPostRequestBody.frequency);
-    writer.writeObjectValue("maturity", mdurationPostRequestBody.maturity);
-    writer.writeObjectValue("settlement", mdurationPostRequestBody.settlement);
-    writer.writeObjectValue("yld", mdurationPostRequestBody.yld);
-    writer.writeAdditionalData(mdurationPostRequestBody.additionalData);
+export function serializeMdurationPostRequestBody(writer: SerializationWriter, mdurationPostRequestBody: Partial<MdurationPostRequestBody> | undefined | null = {}) : void {
+    if (mdurationPostRequestBody) {
+        writer.writeObjectValue("basis", mdurationPostRequestBody.basis);
+        writer.writeObjectValue("coupon", mdurationPostRequestBody.coupon);
+        writer.writeObjectValue("frequency", mdurationPostRequestBody.frequency);
+        writer.writeObjectValue("maturity", mdurationPostRequestBody.maturity);
+        writer.writeObjectValue("settlement", mdurationPostRequestBody.settlement);
+        writer.writeObjectValue("yld", mdurationPostRequestBody.yld);
+        writer.writeAdditionalData(mdurationPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

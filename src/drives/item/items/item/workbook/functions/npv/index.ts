@@ -36,11 +36,11 @@ export interface NpvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the npv method.
@@ -67,10 +67,12 @@ export interface NpvRequestBuilder extends BaseRequestBuilder<NpvRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNpvPostRequestBody(writer: SerializationWriter, npvPostRequestBody: Partial<NpvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("rate", npvPostRequestBody.rate);
-    writer.writeObjectValue("values", npvPostRequestBody.values);
-    writer.writeAdditionalData(npvPostRequestBody.additionalData);
+export function serializeNpvPostRequestBody(writer: SerializationWriter, npvPostRequestBody: Partial<NpvPostRequestBody> | undefined | null = {}) : void {
+    if (npvPostRequestBody) {
+        writer.writeObjectValue("rate", npvPostRequestBody.rate);
+        writer.writeObjectValue("values", npvPostRequestBody.values);
+        writer.writeAdditionalData(npvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

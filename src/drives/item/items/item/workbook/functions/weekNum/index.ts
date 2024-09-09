@@ -33,10 +33,12 @@ export function deserializeIntoWeekNumPostRequestBody(weekNumPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWeekNumPostRequestBody(writer: SerializationWriter, weekNumPostRequestBody: Partial<WeekNumPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("returnType", weekNumPostRequestBody.returnType);
-    writer.writeObjectValue("serialNumber", weekNumPostRequestBody.serialNumber);
-    writer.writeAdditionalData(weekNumPostRequestBody.additionalData);
+export function serializeWeekNumPostRequestBody(writer: SerializationWriter, weekNumPostRequestBody: Partial<WeekNumPostRequestBody> | undefined | null = {}) : void {
+    if (weekNumPostRequestBody) {
+        writer.writeObjectValue("returnType", weekNumPostRequestBody.returnType);
+        writer.writeObjectValue("serialNumber", weekNumPostRequestBody.serialNumber);
+        writer.writeAdditionalData(weekNumPostRequestBody.additionalData);
+    }
 }
 export interface WeekNumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface WeekNumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The returnType property
      */
-    returnType?: UntypedNode;
+    returnType?: UntypedNode | null;
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the weekNum method.

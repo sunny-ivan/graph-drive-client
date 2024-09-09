@@ -16,11 +16,11 @@ export interface BitrshiftPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The shiftAmount property
      */
-    shiftAmount?: UntypedNode;
+    shiftAmount?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bitrshift method.
@@ -67,10 +67,12 @@ export function deserializeIntoBitrshiftPostRequestBody(bitrshiftPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBitrshiftPostRequestBody(writer: SerializationWriter, bitrshiftPostRequestBody: Partial<BitrshiftPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", bitrshiftPostRequestBody.number);
-    writer.writeObjectValue("shiftAmount", bitrshiftPostRequestBody.shiftAmount);
-    writer.writeAdditionalData(bitrshiftPostRequestBody.additionalData);
+export function serializeBitrshiftPostRequestBody(writer: SerializationWriter, bitrshiftPostRequestBody: Partial<BitrshiftPostRequestBody> | undefined | null = {}) : void {
+    if (bitrshiftPostRequestBody) {
+        writer.writeObjectValue("number", bitrshiftPostRequestBody.number);
+        writer.writeObjectValue("shiftAmount", bitrshiftPostRequestBody.shiftAmount);
+        writer.writeAdditionalData(bitrshiftPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -39,23 +39,23 @@ export interface PriceDiscPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The discount property
      */
-    discount?: UntypedNode;
+    discount?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The redemption property
      */
-    redemption?: UntypedNode;
+    redemption?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the priceDisc method.
@@ -82,13 +82,15 @@ export interface PriceDiscRequestBuilder extends BaseRequestBuilder<PriceDiscReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePriceDiscPostRequestBody(writer: SerializationWriter, priceDiscPostRequestBody: Partial<PriceDiscPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", priceDiscPostRequestBody.basis);
-    writer.writeObjectValue("discount", priceDiscPostRequestBody.discount);
-    writer.writeObjectValue("maturity", priceDiscPostRequestBody.maturity);
-    writer.writeObjectValue("redemption", priceDiscPostRequestBody.redemption);
-    writer.writeObjectValue("settlement", priceDiscPostRequestBody.settlement);
-    writer.writeAdditionalData(priceDiscPostRequestBody.additionalData);
+export function serializePriceDiscPostRequestBody(writer: SerializationWriter, priceDiscPostRequestBody: Partial<PriceDiscPostRequestBody> | undefined | null = {}) : void {
+    if (priceDiscPostRequestBody) {
+        writer.writeObjectValue("basis", priceDiscPostRequestBody.basis);
+        writer.writeObjectValue("discount", priceDiscPostRequestBody.discount);
+        writer.writeObjectValue("maturity", priceDiscPostRequestBody.maturity);
+        writer.writeObjectValue("redemption", priceDiscPostRequestBody.redemption);
+        writer.writeObjectValue("settlement", priceDiscPostRequestBody.settlement);
+        writer.writeAdditionalData(priceDiscPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

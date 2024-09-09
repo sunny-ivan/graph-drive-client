@@ -35,7 +35,7 @@ export interface InsertPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The shift property
      */
-    shift?: string;
+    shift?: string | null;
 }
 /**
  * Provides operations to call the insert method.
@@ -62,9 +62,11 @@ export interface InsertRequestBuilder extends BaseRequestBuilder<InsertRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeInsertPostRequestBody(writer: SerializationWriter, insertPostRequestBody: Partial<InsertPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("shift", insertPostRequestBody.shift);
-    writer.writeAdditionalData(insertPostRequestBody.additionalData);
+export function serializeInsertPostRequestBody(writer: SerializationWriter, insertPostRequestBody: Partial<InsertPostRequestBody> | undefined | null = {}) : void {
+    if (insertPostRequestBody) {
+        writer.writeStringValue("shift", insertPostRequestBody.shift);
+        writer.writeAdditionalData(insertPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

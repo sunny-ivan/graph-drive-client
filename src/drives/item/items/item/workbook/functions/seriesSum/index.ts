@@ -35,12 +35,14 @@ export function deserializeIntoSeriesSumPostRequestBody(seriesSumPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSeriesSumPostRequestBody(writer: SerializationWriter, seriesSumPostRequestBody: Partial<SeriesSumPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("coefficients", seriesSumPostRequestBody.coefficients);
-    writer.writeObjectValue("m", seriesSumPostRequestBody.m);
-    writer.writeObjectValue("n", seriesSumPostRequestBody.n);
-    writer.writeObjectValue("x", seriesSumPostRequestBody.x);
-    writer.writeAdditionalData(seriesSumPostRequestBody.additionalData);
+export function serializeSeriesSumPostRequestBody(writer: SerializationWriter, seriesSumPostRequestBody: Partial<SeriesSumPostRequestBody> | undefined | null = {}) : void {
+    if (seriesSumPostRequestBody) {
+        writer.writeObjectValue("coefficients", seriesSumPostRequestBody.coefficients);
+        writer.writeObjectValue("m", seriesSumPostRequestBody.m);
+        writer.writeObjectValue("n", seriesSumPostRequestBody.n);
+        writer.writeObjectValue("x", seriesSumPostRequestBody.x);
+        writer.writeAdditionalData(seriesSumPostRequestBody.additionalData);
+    }
 }
 export interface SeriesSumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -50,19 +52,19 @@ export interface SeriesSumPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The coefficients property
      */
-    coefficients?: UntypedNode;
+    coefficients?: UntypedNode | null;
     /**
      * The m property
      */
-    m?: UntypedNode;
+    m?: UntypedNode | null;
     /**
      * The n property
      */
-    n?: UntypedNode;
+    n?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the seriesSum method.

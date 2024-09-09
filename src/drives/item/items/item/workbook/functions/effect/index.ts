@@ -36,11 +36,11 @@ export interface EffectPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The nominalRate property
      */
-    nominalRate?: UntypedNode;
+    nominalRate?: UntypedNode | null;
     /**
      * The npery property
      */
-    npery?: UntypedNode;
+    npery?: UntypedNode | null;
 }
 /**
  * Provides operations to call the effect method.
@@ -67,10 +67,12 @@ export interface EffectRequestBuilder extends BaseRequestBuilder<EffectRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEffectPostRequestBody(writer: SerializationWriter, effectPostRequestBody: Partial<EffectPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("nominalRate", effectPostRequestBody.nominalRate);
-    writer.writeObjectValue("npery", effectPostRequestBody.npery);
-    writer.writeAdditionalData(effectPostRequestBody.additionalData);
+export function serializeEffectPostRequestBody(writer: SerializationWriter, effectPostRequestBody: Partial<EffectPostRequestBody> | undefined | null = {}) : void {
+    if (effectPostRequestBody) {
+        writer.writeObjectValue("nominalRate", effectPostRequestBody.nominalRate);
+        writer.writeObjectValue("npery", effectPostRequestBody.npery);
+        writer.writeAdditionalData(effectPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

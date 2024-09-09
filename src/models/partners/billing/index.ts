@@ -10,11 +10,11 @@ export interface AzureUsage extends Entity, Parsable {
     /**
      * The billed property
      */
-    billed?: BilledUsage;
+    billed?: BilledUsage | null;
     /**
      * The unbilled property
      */
-    unbilled?: UnbilledUsage;
+    unbilled?: UnbilledUsage | null;
 }
 export interface BilledReconciliation extends Entity, Parsable {
 }
@@ -24,25 +24,25 @@ export interface Billing extends Entity, Parsable {
     /**
      * Represents metadata for the exported data.
      */
-    manifests?: Manifest[];
+    manifests?: Manifest[] | null;
     /**
      * Represents an operation to export the billing data of a partner.
      */
-    operations?: Operation[];
+    operations?: Operation[] | null;
     /**
      * The reconciliation property
      */
-    reconciliation?: BillingReconciliation;
+    reconciliation?: BillingReconciliation | null;
     /**
      * The usage property
      */
-    usage?: AzureUsage;
+    usage?: AzureUsage | null;
 }
 export interface BillingReconciliation extends Entity, Parsable {
     /**
      * The billed property
      */
-    billed?: BilledReconciliation;
+    billed?: BilledReconciliation | null;
 }
 export interface Blob extends AdditionalDataHolder, Parsable {
     /**
@@ -52,15 +52,15 @@ export interface Blob extends AdditionalDataHolder, Parsable {
     /**
      * The blob name.
      */
-    name?: string;
+    name?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * The partition that contains the file. A large partition is split into multiple files, each with the same partitionValue.
      */
-    partitionValue?: string;
+    partitionValue?: string | null;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -151,7 +151,7 @@ export function createManifestFromDiscriminatorValue(parseNode: ParseNode | unde
 // @ts-ignore
 export function createOperationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
-    const mappingValueNode = parseNode.getChildNode("@odata.type");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
     if (mappingValueNode) {
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
@@ -333,69 +333,69 @@ export interface ExportSuccessOperation extends Operation, Parsable {
     /**
      * The resourceLocation property
      */
-    resourceLocation?: Manifest;
+    resourceLocation?: Manifest | null;
 }
 export interface FailedOperation extends Operation, Parsable {
     /**
      * The error property
      */
-    errorEscaped?: PublicError;
+    errorEscaped?: PublicError | null;
 }
 export interface Manifest extends Entity, Parsable {
     /**
      * The total file count for this partner tenant ID.
      */
-    blobCount?: number;
+    blobCount?: number | null;
     /**
      * A collection of blob objects that contain details of all the files for the partner tenant ID.
      */
-    blobs?: Blob[];
+    blobs?: Blob[] | null;
     /**
      * The date and time when a manifest resource was created. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * The billing data file format. The possible value is: compressedJSONLines. Each blob is a compressed file and data in the file is in JSON lines format. Decompress the file to access the data.
      */
-    dataFormat?: string;
+    dataFormat?: string | null;
     /**
      * Version of data represented by the manifest. Any change in eTag indicates a new data version.
      */
-    eTag?: string;
+    eTag?: string | null;
     /**
      * Indicates the division of data. If a given partition has more than the supported number, the data is split into multiple files, each file representing a specific partitionValue. By default, the data in the file is partitioned by the number of line items.
      */
-    partitionType?: string;
+    partitionType?: string | null;
     /**
      * The Microsoft Entra tenant ID of the partner.
      */
-    partnerTenantId?: string;
+    partnerTenantId?: string | null;
     /**
      * The root directory that contains all the files.
      */
-    rootDirectory?: string;
+    rootDirectory?: string | null;
     /**
      * The SAS token for accessing the directory or an individual file in the directory.
      */
-    sasToken?: string;
+    sasToken?: string | null;
     /**
      * The version of the manifest schema.
      */
-    schemaVersion?: string;
+    schemaVersion?: string | null;
 }
 export interface Operation extends Entity, Parsable {
     /**
      * The start time of the operation. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * The time of the last action of the operation. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    lastActionDateTime?: Date;
+    lastActionDateTime?: Date | null;
     /**
      * The status of the operation. Possible values are: notStarted, running, completed, failed, unknownFutureValue.
      */
-    status?: LongRunningOperationStatus;
+    status?: LongRunningOperationStatus | null;
 }
 export interface RunningOperation extends Operation, Parsable {
 }
@@ -404,121 +404,145 @@ export interface RunningOperation extends Operation, Parsable {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAzureUsage(writer: SerializationWriter, azureUsage: Partial<AzureUsage> | undefined = {}) : void {
-    serializeEntity(writer, azureUsage)
-    writer.writeObjectValue<BilledUsage>("billed", azureUsage.billed, serializeBilledUsage);
-    writer.writeObjectValue<UnbilledUsage>("unbilled", azureUsage.unbilled, serializeUnbilledUsage);
+export function serializeAzureUsage(writer: SerializationWriter, azureUsage: Partial<AzureUsage> | undefined | null = {}) : void {
+    if (azureUsage) {
+        serializeEntity(writer, azureUsage)
+        writer.writeObjectValue<BilledUsage>("billed", azureUsage.billed, serializeBilledUsage);
+        writer.writeObjectValue<UnbilledUsage>("unbilled", azureUsage.unbilled, serializeUnbilledUsage);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBilledReconciliation(writer: SerializationWriter, billedReconciliation: Partial<BilledReconciliation> | undefined = {}) : void {
-    serializeEntity(writer, billedReconciliation)
+export function serializeBilledReconciliation(writer: SerializationWriter, billedReconciliation: Partial<BilledReconciliation> | undefined | null = {}) : void {
+    if (billedReconciliation) {
+        serializeEntity(writer, billedReconciliation)
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBilledUsage(writer: SerializationWriter, billedUsage: Partial<BilledUsage> | undefined = {}) : void {
-    serializeEntity(writer, billedUsage)
+export function serializeBilledUsage(writer: SerializationWriter, billedUsage: Partial<BilledUsage> | undefined | null = {}) : void {
+    if (billedUsage) {
+        serializeEntity(writer, billedUsage)
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBilling(writer: SerializationWriter, billing: Partial<Billing> | undefined = {}) : void {
-    serializeEntity(writer, billing)
-    writer.writeCollectionOfObjectValues<Manifest>("manifests", billing.manifests, serializeManifest);
-    writer.writeCollectionOfObjectValues<Operation>("operations", billing.operations, serializeOperation);
-    writer.writeObjectValue<BillingReconciliation>("reconciliation", billing.reconciliation, serializeBillingReconciliation);
-    writer.writeObjectValue<AzureUsage>("usage", billing.usage, serializeAzureUsage);
+export function serializeBilling(writer: SerializationWriter, billing: Partial<Billing> | undefined | null = {}) : void {
+    if (billing) {
+        serializeEntity(writer, billing)
+        writer.writeCollectionOfObjectValues<Manifest>("manifests", billing.manifests, serializeManifest);
+        writer.writeCollectionOfObjectValues<Operation>("operations", billing.operations, serializeOperation);
+        writer.writeObjectValue<BillingReconciliation>("reconciliation", billing.reconciliation, serializeBillingReconciliation);
+        writer.writeObjectValue<AzureUsage>("usage", billing.usage, serializeAzureUsage);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBillingReconciliation(writer: SerializationWriter, billingReconciliation: Partial<BillingReconciliation> | undefined = {}) : void {
-    serializeEntity(writer, billingReconciliation)
-    writer.writeObjectValue<BilledReconciliation>("billed", billingReconciliation.billed, serializeBilledReconciliation);
+export function serializeBillingReconciliation(writer: SerializationWriter, billingReconciliation: Partial<BillingReconciliation> | undefined | null = {}) : void {
+    if (billingReconciliation) {
+        serializeEntity(writer, billingReconciliation)
+        writer.writeObjectValue<BilledReconciliation>("billed", billingReconciliation.billed, serializeBilledReconciliation);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBlob(writer: SerializationWriter, blob: Partial<Blob> | undefined = {}) : void {
-    writer.writeStringValue("name", blob.name);
-    writer.writeStringValue("@odata.type", blob.odataType);
-    writer.writeStringValue("partitionValue", blob.partitionValue);
-    writer.writeAdditionalData(blob.additionalData);
+export function serializeBlob(writer: SerializationWriter, blob: Partial<Blob> | undefined | null = {}) : void {
+    if (blob) {
+        writer.writeStringValue("name", blob.name);
+        writer.writeStringValue("@odata.type", blob.odataType);
+        writer.writeStringValue("partitionValue", blob.partitionValue);
+        writer.writeAdditionalData(blob.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeExportSuccessOperation(writer: SerializationWriter, exportSuccessOperation: Partial<ExportSuccessOperation> | undefined = {}) : void {
-    serializeOperation(writer, exportSuccessOperation)
-    writer.writeObjectValue<Manifest>("resourceLocation", exportSuccessOperation.resourceLocation, serializeManifest);
+export function serializeExportSuccessOperation(writer: SerializationWriter, exportSuccessOperation: Partial<ExportSuccessOperation> | undefined | null = {}) : void {
+    if (exportSuccessOperation) {
+        serializeOperation(writer, exportSuccessOperation)
+        writer.writeObjectValue<Manifest>("resourceLocation", exportSuccessOperation.resourceLocation, serializeManifest);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFailedOperation(writer: SerializationWriter, failedOperation: Partial<FailedOperation> | undefined = {}) : void {
-    serializeOperation(writer, failedOperation)
-    writer.writeObjectValue<PublicError>("error", failedOperation.errorEscaped, serializePublicError);
+export function serializeFailedOperation(writer: SerializationWriter, failedOperation: Partial<FailedOperation> | undefined | null = {}) : void {
+    if (failedOperation) {
+        serializeOperation(writer, failedOperation)
+        writer.writeObjectValue<PublicError>("error", failedOperation.errorEscaped, serializePublicError);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeManifest(writer: SerializationWriter, manifest: Partial<Manifest> | undefined = {}) : void {
-    serializeEntity(writer, manifest)
-    writer.writeNumberValue("blobCount", manifest.blobCount);
-    writer.writeCollectionOfObjectValues<Blob>("blobs", manifest.blobs, serializeBlob);
-    writer.writeDateValue("createdDateTime", manifest.createdDateTime);
-    writer.writeStringValue("dataFormat", manifest.dataFormat);
-    writer.writeStringValue("eTag", manifest.eTag);
-    writer.writeStringValue("partitionType", manifest.partitionType);
-    writer.writeStringValue("partnerTenantId", manifest.partnerTenantId);
-    writer.writeStringValue("rootDirectory", manifest.rootDirectory);
-    writer.writeStringValue("sasToken", manifest.sasToken);
-    writer.writeStringValue("schemaVersion", manifest.schemaVersion);
+export function serializeManifest(writer: SerializationWriter, manifest: Partial<Manifest> | undefined | null = {}) : void {
+    if (manifest) {
+        serializeEntity(writer, manifest)
+        writer.writeNumberValue("blobCount", manifest.blobCount);
+        writer.writeCollectionOfObjectValues<Blob>("blobs", manifest.blobs, serializeBlob);
+        writer.writeDateValue("createdDateTime", manifest.createdDateTime);
+        writer.writeStringValue("dataFormat", manifest.dataFormat);
+        writer.writeStringValue("eTag", manifest.eTag);
+        writer.writeStringValue("partitionType", manifest.partitionType);
+        writer.writeStringValue("partnerTenantId", manifest.partnerTenantId);
+        writer.writeStringValue("rootDirectory", manifest.rootDirectory);
+        writer.writeStringValue("sasToken", manifest.sasToken);
+        writer.writeStringValue("schemaVersion", manifest.schemaVersion);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOperation(writer: SerializationWriter, operation: Partial<Operation> | undefined = {}) : void {
-    serializeEntity(writer, operation)
-    writer.writeDateValue("createdDateTime", operation.createdDateTime);
-    writer.writeDateValue("lastActionDateTime", operation.lastActionDateTime);
-    writer.writeEnumValue<LongRunningOperationStatus>("status", operation.status);
+export function serializeOperation(writer: SerializationWriter, operation: Partial<Operation> | undefined | null = {}) : void {
+    if (operation) {
+        serializeEntity(writer, operation)
+        writer.writeDateValue("createdDateTime", operation.createdDateTime);
+        writer.writeDateValue("lastActionDateTime", operation.lastActionDateTime);
+        writer.writeEnumValue<LongRunningOperationStatus>("status", operation.status);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRunningOperation(writer: SerializationWriter, runningOperation: Partial<RunningOperation> | undefined = {}) : void {
-    serializeOperation(writer, runningOperation)
+export function serializeRunningOperation(writer: SerializationWriter, runningOperation: Partial<RunningOperation> | undefined | null = {}) : void {
+    if (runningOperation) {
+        serializeOperation(writer, runningOperation)
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUnbilledUsage(writer: SerializationWriter, unbilledUsage: Partial<UnbilledUsage> | undefined = {}) : void {
-    serializeEntity(writer, unbilledUsage)
+export function serializeUnbilledUsage(writer: SerializationWriter, unbilledUsage: Partial<UnbilledUsage> | undefined | null = {}) : void {
+    if (unbilledUsage) {
+        serializeEntity(writer, unbilledUsage)
+    }
 }
 export interface UnbilledUsage extends Entity, Parsable {
 }

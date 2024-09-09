@@ -25,15 +25,15 @@ export interface Days360PostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The endDate property
      */
-    endDate?: UntypedNode;
+    endDate?: UntypedNode | null;
     /**
      * The method property
      */
-    method?: UntypedNode;
+    method?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the days360 method.
@@ -72,11 +72,13 @@ export function deserializeIntoDays360PostRequestBody(days360PostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDays360PostRequestBody(writer: SerializationWriter, days360PostRequestBody: Partial<Days360PostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endDate", days360PostRequestBody.endDate);
-    writer.writeObjectValue("method", days360PostRequestBody.method);
-    writer.writeObjectValue("startDate", days360PostRequestBody.startDate);
-    writer.writeAdditionalData(days360PostRequestBody.additionalData);
+export function serializeDays360PostRequestBody(writer: SerializationWriter, days360PostRequestBody: Partial<Days360PostRequestBody> | undefined | null = {}) : void {
+    if (days360PostRequestBody) {
+        writer.writeObjectValue("endDate", days360PostRequestBody.endDate);
+        writer.writeObjectValue("method", days360PostRequestBody.method);
+        writer.writeObjectValue("startDate", days360PostRequestBody.startDate);
+        writer.writeAdditionalData(days360PostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -14,7 +14,7 @@ export interface ApplyTopPercentFilterPostRequestBody extends AdditionalDataHold
     /**
      * The percent property
      */
-    percent?: number;
+    percent?: number | null;
 }
 /**
  * Provides operations to call the applyTopPercentFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyTopPercentFilterPostRequestBody(applyTopPerc
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyTopPercentFilterPostRequestBody(writer: SerializationWriter, applyTopPercentFilterPostRequestBody: Partial<ApplyTopPercentFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeNumberValue("percent", applyTopPercentFilterPostRequestBody.percent);
-    writer.writeAdditionalData(applyTopPercentFilterPostRequestBody.additionalData);
+export function serializeApplyTopPercentFilterPostRequestBody(writer: SerializationWriter, applyTopPercentFilterPostRequestBody: Partial<ApplyTopPercentFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyTopPercentFilterPostRequestBody) {
+        writer.writeNumberValue("percent", applyTopPercentFilterPostRequestBody.percent);
+        writer.writeAdditionalData(applyTopPercentFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

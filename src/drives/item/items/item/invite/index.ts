@@ -62,41 +62,41 @@ export interface InvitePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The expirationDateTime property
      */
-    expirationDateTime?: string;
+    expirationDateTime?: string | null;
     /**
      * The message property
      */
-    message?: string;
+    message?: string | null;
     /**
      * The password property
      */
-    password?: string;
+    password?: string | null;
     /**
      * The recipients property
      */
-    recipients?: DriveRecipient[];
+    recipients?: DriveRecipient[] | null;
     /**
      * The requireSignIn property
      */
-    requireSignIn?: boolean;
+    requireSignIn?: boolean | null;
     /**
      * The retainInheritedPermissions property
      */
-    retainInheritedPermissions?: boolean;
+    retainInheritedPermissions?: boolean | null;
     /**
      * The roles property
      */
-    roles?: string[];
+    roles?: string[] | null;
     /**
      * The sendInvitation property
      */
-    sendInvitation?: boolean;
+    sendInvitation?: boolean | null;
 }
 export interface InvitePostResponse extends BaseCollectionPaginationCountResponse, Parsable {
     /**
      * The value property
      */
-    value?: Permission[];
+    value?: Permission[] | null;
 }
 /**
  * Provides operations to call the invite method.
@@ -124,25 +124,29 @@ export interface InviteRequestBuilder extends BaseRequestBuilder<InviteRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeInvitePostRequestBody(writer: SerializationWriter, invitePostRequestBody: Partial<InvitePostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("expirationDateTime", invitePostRequestBody.expirationDateTime);
-    writer.writeStringValue("message", invitePostRequestBody.message);
-    writer.writeStringValue("password", invitePostRequestBody.password);
-    writer.writeCollectionOfObjectValues<DriveRecipient>("recipients", invitePostRequestBody.recipients, serializeDriveRecipient);
-    writer.writeBooleanValue("requireSignIn", invitePostRequestBody.requireSignIn);
-    writer.writeBooleanValue("retainInheritedPermissions", invitePostRequestBody.retainInheritedPermissions);
-    writer.writeCollectionOfPrimitiveValues<string>("roles", invitePostRequestBody.roles);
-    writer.writeBooleanValue("sendInvitation", invitePostRequestBody.sendInvitation);
-    writer.writeAdditionalData(invitePostRequestBody.additionalData);
+export function serializeInvitePostRequestBody(writer: SerializationWriter, invitePostRequestBody: Partial<InvitePostRequestBody> | undefined | null = {}) : void {
+    if (invitePostRequestBody) {
+        writer.writeStringValue("expirationDateTime", invitePostRequestBody.expirationDateTime);
+        writer.writeStringValue("message", invitePostRequestBody.message);
+        writer.writeStringValue("password", invitePostRequestBody.password);
+        writer.writeCollectionOfObjectValues<DriveRecipient>("recipients", invitePostRequestBody.recipients, serializeDriveRecipient);
+        writer.writeBooleanValue("requireSignIn", invitePostRequestBody.requireSignIn);
+        writer.writeBooleanValue("retainInheritedPermissions", invitePostRequestBody.retainInheritedPermissions);
+        writer.writeCollectionOfPrimitiveValues<string>("roles", invitePostRequestBody.roles);
+        writer.writeBooleanValue("sendInvitation", invitePostRequestBody.sendInvitation);
+        writer.writeAdditionalData(invitePostRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeInvitePostResponse(writer: SerializationWriter, invitePostResponse: Partial<InvitePostResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, invitePostResponse)
-    writer.writeCollectionOfObjectValues<Permission>("value", invitePostResponse.value, serializePermission);
+export function serializeInvitePostResponse(writer: SerializationWriter, invitePostResponse: Partial<InvitePostResponse> | undefined | null = {}) : void {
+    if (invitePostResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, invitePostResponse)
+        writer.writeCollectionOfObjectValues<Permission>("value", invitePostResponse.value, serializePermission);
+    }
 }
 /**
  * Uri template for the request builder.

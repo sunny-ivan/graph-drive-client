@@ -40,27 +40,27 @@ export interface RatePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fv property
      */
-    fv?: UntypedNode;
+    fv?: UntypedNode | null;
     /**
      * The guess property
      */
-    guess?: UntypedNode;
+    guess?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The pmt property
      */
-    pmt?: UntypedNode;
+    pmt?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the rate method.
@@ -87,14 +87,16 @@ export interface RateRequestBuilder extends BaseRequestBuilder<RateRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRatePostRequestBody(writer: SerializationWriter, ratePostRequestBody: Partial<RatePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fv", ratePostRequestBody.fv);
-    writer.writeObjectValue("guess", ratePostRequestBody.guess);
-    writer.writeObjectValue("nper", ratePostRequestBody.nper);
-    writer.writeObjectValue("pmt", ratePostRequestBody.pmt);
-    writer.writeObjectValue("pv", ratePostRequestBody.pv);
-    writer.writeObjectValue("type", ratePostRequestBody.type);
-    writer.writeAdditionalData(ratePostRequestBody.additionalData);
+export function serializeRatePostRequestBody(writer: SerializationWriter, ratePostRequestBody: Partial<RatePostRequestBody> | undefined | null = {}) : void {
+    if (ratePostRequestBody) {
+        writer.writeObjectValue("fv", ratePostRequestBody.fv);
+        writer.writeObjectValue("guess", ratePostRequestBody.guess);
+        writer.writeObjectValue("nper", ratePostRequestBody.nper);
+        writer.writeObjectValue("pmt", ratePostRequestBody.pmt);
+        writer.writeObjectValue("pv", ratePostRequestBody.pv);
+        writer.writeObjectValue("type", ratePostRequestBody.type);
+        writer.writeAdditionalData(ratePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

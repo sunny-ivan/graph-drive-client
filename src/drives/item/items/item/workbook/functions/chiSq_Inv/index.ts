@@ -16,11 +16,11 @@ export interface ChiSq_InvPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the chiSq_Inv method.
@@ -67,10 +67,12 @@ export function deserializeIntoChiSq_InvPostRequestBody(chiSq_InvPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChiSq_InvPostRequestBody(writer: SerializationWriter, chiSq_InvPostRequestBody: Partial<ChiSq_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom", chiSq_InvPostRequestBody.degFreedom);
-    writer.writeObjectValue("probability", chiSq_InvPostRequestBody.probability);
-    writer.writeAdditionalData(chiSq_InvPostRequestBody.additionalData);
+export function serializeChiSq_InvPostRequestBody(writer: SerializationWriter, chiSq_InvPostRequestBody: Partial<ChiSq_InvPostRequestBody> | undefined | null = {}) : void {
+    if (chiSq_InvPostRequestBody) {
+        writer.writeObjectValue("degFreedom", chiSq_InvPostRequestBody.degFreedom);
+        writer.writeObjectValue("probability", chiSq_InvPostRequestBody.probability);
+        writer.writeAdditionalData(chiSq_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

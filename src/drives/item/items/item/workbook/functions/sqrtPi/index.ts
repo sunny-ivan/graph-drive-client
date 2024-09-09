@@ -32,9 +32,11 @@ export function deserializeIntoSqrtPiPostRequestBody(sqrtPiPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSqrtPiPostRequestBody(writer: SerializationWriter, sqrtPiPostRequestBody: Partial<SqrtPiPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", sqrtPiPostRequestBody.number);
-    writer.writeAdditionalData(sqrtPiPostRequestBody.additionalData);
+export function serializeSqrtPiPostRequestBody(writer: SerializationWriter, sqrtPiPostRequestBody: Partial<SqrtPiPostRequestBody> | undefined | null = {}) : void {
+    if (sqrtPiPostRequestBody) {
+        writer.writeObjectValue("number", sqrtPiPostRequestBody.number);
+        writer.writeAdditionalData(sqrtPiPostRequestBody.additionalData);
+    }
 }
 export interface SqrtPiPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SqrtPiPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sqrtPi method.

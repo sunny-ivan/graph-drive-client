@@ -36,11 +36,11 @@ export interface RomanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The form property
      */
-    form?: UntypedNode;
+    form?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the roman method.
@@ -67,10 +67,12 @@ export interface RomanRequestBuilder extends BaseRequestBuilder<RomanRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRomanPostRequestBody(writer: SerializationWriter, romanPostRequestBody: Partial<RomanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("form", romanPostRequestBody.form);
-    writer.writeObjectValue("number", romanPostRequestBody.number);
-    writer.writeAdditionalData(romanPostRequestBody.additionalData);
+export function serializeRomanPostRequestBody(writer: SerializationWriter, romanPostRequestBody: Partial<RomanPostRequestBody> | undefined | null = {}) : void {
+    if (romanPostRequestBody) {
+        writer.writeObjectValue("form", romanPostRequestBody.form);
+        writer.writeObjectValue("number", romanPostRequestBody.number);
+        writer.writeAdditionalData(romanPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

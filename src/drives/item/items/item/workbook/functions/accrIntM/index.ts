@@ -16,23 +16,23 @@ export interface AccrIntMPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The issue property
      */
-    issue?: UntypedNode;
+    issue?: UntypedNode | null;
     /**
      * The par property
      */
-    par?: UntypedNode;
+    par?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the accrIntM method.
@@ -82,13 +82,15 @@ export function deserializeIntoAccrIntMPostRequestBody(accrIntMPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAccrIntMPostRequestBody(writer: SerializationWriter, accrIntMPostRequestBody: Partial<AccrIntMPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", accrIntMPostRequestBody.basis);
-    writer.writeObjectValue("issue", accrIntMPostRequestBody.issue);
-    writer.writeObjectValue("par", accrIntMPostRequestBody.par);
-    writer.writeObjectValue("rate", accrIntMPostRequestBody.rate);
-    writer.writeObjectValue("settlement", accrIntMPostRequestBody.settlement);
-    writer.writeAdditionalData(accrIntMPostRequestBody.additionalData);
+export function serializeAccrIntMPostRequestBody(writer: SerializationWriter, accrIntMPostRequestBody: Partial<AccrIntMPostRequestBody> | undefined | null = {}) : void {
+    if (accrIntMPostRequestBody) {
+        writer.writeObjectValue("basis", accrIntMPostRequestBody.basis);
+        writer.writeObjectValue("issue", accrIntMPostRequestBody.issue);
+        writer.writeObjectValue("par", accrIntMPostRequestBody.par);
+        writer.writeObjectValue("rate", accrIntMPostRequestBody.rate);
+        writer.writeObjectValue("settlement", accrIntMPostRequestBody.settlement);
+        writer.writeAdditionalData(accrIntMPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -16,7 +16,7 @@ export interface AreasPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The reference property
      */
-    reference?: UntypedNode;
+    reference?: UntypedNode | null;
 }
 /**
  * Provides operations to call the areas method.
@@ -62,9 +62,11 @@ export function deserializeIntoAreasPostRequestBody(areasPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAreasPostRequestBody(writer: SerializationWriter, areasPostRequestBody: Partial<AreasPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("reference", areasPostRequestBody.reference);
-    writer.writeAdditionalData(areasPostRequestBody.additionalData);
+export function serializeAreasPostRequestBody(writer: SerializationWriter, areasPostRequestBody: Partial<AreasPostRequestBody> | undefined | null = {}) : void {
+    if (areasPostRequestBody) {
+        writer.writeObjectValue("reference", areasPostRequestBody.reference);
+        writer.writeAdditionalData(areasPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

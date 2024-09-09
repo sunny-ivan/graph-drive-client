@@ -35,7 +35,7 @@ export interface RowsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
 }
 /**
  * Provides operations to call the rows method.
@@ -62,9 +62,11 @@ export interface RowsRequestBuilder extends BaseRequestBuilder<RowsRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRowsPostRequestBody(writer: SerializationWriter, rowsPostRequestBody: Partial<RowsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", rowsPostRequestBody.array);
-    writer.writeAdditionalData(rowsPostRequestBody.additionalData);
+export function serializeRowsPostRequestBody(writer: SerializationWriter, rowsPostRequestBody: Partial<RowsPostRequestBody> | undefined | null = {}) : void {
+    if (rowsPostRequestBody) {
+        writer.writeObjectValue("array", rowsPostRequestBody.array);
+        writer.writeAdditionalData(rowsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

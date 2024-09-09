@@ -16,7 +16,7 @@ export interface AsinhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the asinh method.
@@ -62,9 +62,11 @@ export function deserializeIntoAsinhPostRequestBody(asinhPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAsinhPostRequestBody(writer: SerializationWriter, asinhPostRequestBody: Partial<AsinhPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", asinhPostRequestBody.number);
-    writer.writeAdditionalData(asinhPostRequestBody.additionalData);
+export function serializeAsinhPostRequestBody(writer: SerializationWriter, asinhPostRequestBody: Partial<AsinhPostRequestBody> | undefined | null = {}) : void {
+    if (asinhPostRequestBody) {
+        writer.writeObjectValue("number", asinhPostRequestBody.number);
+        writer.writeAdditionalData(asinhPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

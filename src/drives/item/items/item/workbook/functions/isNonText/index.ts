@@ -35,7 +35,7 @@ export interface IsNonTextPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isNonText method.
@@ -62,9 +62,11 @@ export interface IsNonTextRequestBuilder extends BaseRequestBuilder<IsNonTextReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsNonTextPostRequestBody(writer: SerializationWriter, isNonTextPostRequestBody: Partial<IsNonTextPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isNonTextPostRequestBody.value);
-    writer.writeAdditionalData(isNonTextPostRequestBody.additionalData);
+export function serializeIsNonTextPostRequestBody(writer: SerializationWriter, isNonTextPostRequestBody: Partial<IsNonTextPostRequestBody> | undefined | null = {}) : void {
+    if (isNonTextPostRequestBody) {
+        writer.writeObjectValue("value", isNonTextPostRequestBody.value);
+        writer.writeAdditionalData(isNonTextPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface OrPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the or method.
@@ -62,9 +62,11 @@ export interface OrRequestBuilder extends BaseRequestBuilder<OrRequestBuilder> {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOrPostRequestBody(writer: SerializationWriter, orPostRequestBody: Partial<OrPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", orPostRequestBody.values);
-    writer.writeAdditionalData(orPostRequestBody.additionalData);
+export function serializeOrPostRequestBody(writer: SerializationWriter, orPostRequestBody: Partial<OrPostRequestBody> | undefined | null = {}) : void {
+    if (orPostRequestBody) {
+        writer.writeObjectValue("values", orPostRequestBody.values);
+        writer.writeAdditionalData(orPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

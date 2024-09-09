@@ -16,7 +16,7 @@ export interface AddCopyPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The contentType property
      */
-    contentType?: string;
+    contentType?: string | null;
 }
 /**
  * Provides operations to call the addCopy method.
@@ -63,9 +63,11 @@ export function deserializeIntoAddCopyPostRequestBody(addCopyPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddCopyPostRequestBody(writer: SerializationWriter, addCopyPostRequestBody: Partial<AddCopyPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("contentType", addCopyPostRequestBody.contentType);
-    writer.writeAdditionalData(addCopyPostRequestBody.additionalData);
+export function serializeAddCopyPostRequestBody(writer: SerializationWriter, addCopyPostRequestBody: Partial<AddCopyPostRequestBody> | undefined | null = {}) : void {
+    if (addCopyPostRequestBody) {
+        writer.writeStringValue("contentType", addCopyPostRequestBody.contentType);
+        writer.writeAdditionalData(addCopyPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

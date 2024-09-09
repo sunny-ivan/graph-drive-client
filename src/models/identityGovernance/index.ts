@@ -10,7 +10,7 @@ export interface AttributeChangeTrigger extends Parsable, WorkflowExecutionTrigg
     /**
      * The trigger attribute being changed that triggers the workflowexecutiontrigger of a workflow.)
      */
-    triggerAttributes?: TriggerAttribute[];
+    triggerAttributes?: TriggerAttribute[] | null;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -200,7 +200,7 @@ export function createUserProcessingResultFromDiscriminatorValue(parseNode: Pars
 // @ts-ignore
 export function createWorkflowBaseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
-    const mappingValueNode = parseNode.getChildNode("@odata.type");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
     if (mappingValueNode) {
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
@@ -222,7 +222,7 @@ export function createWorkflowBaseFromDiscriminatorValue(parseNode: ParseNode | 
 // @ts-ignore
 export function createWorkflowExecutionConditionsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
-    const mappingValueNode = parseNode.getChildNode("@odata.type");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
     if (mappingValueNode) {
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
@@ -244,7 +244,7 @@ export function createWorkflowExecutionConditionsFromDiscriminatorValue(parseNod
 // @ts-ignore
 export function createWorkflowExecutionTriggerFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
-    const mappingValueNode = parseNode.getChildNode("@odata.type");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
     if (mappingValueNode) {
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
@@ -291,29 +291,29 @@ export interface CustomTaskExtension extends CustomCalloutExtension, Parsable {
     /**
      * The callback configuration for a custom task extension.
      */
-    callbackConfiguration?: CustomExtensionCallbackConfiguration;
+    callbackConfiguration?: CustomExtensionCallbackConfiguration | null;
     /**
      * The unique identifier of the Microsoft Entra user that created the custom task extension.Supports $filter(eq, ne) and $expand.
      */
-    createdBy?: User;
+    createdBy?: User | null;
     /**
      * When the custom task extension was created.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * The unique identifier of the Microsoft Entra user that modified the custom task extension last.Supports $filter(eq, ne) and $expand.
      */
-    lastModifiedBy?: User;
+    lastModifiedBy?: User | null;
     /**
      * When the custom extension was last modified.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    lastModifiedDateTime?: Date;
+    lastModifiedDateTime?: Date | null;
 }
 export interface CustomTaskExtensionCallbackConfiguration extends CustomExtensionCallbackConfiguration, Parsable {
     /**
      * The authorizedApps property
      */
-    authorizedApps?: Application[];
+    authorizedApps?: Application[] | null;
 }
 /**
  * The deserialization information for the current model
@@ -691,7 +691,7 @@ export interface GroupBasedSubjectSet extends Parsable, SubjectSet {
     /**
      * The groups property
      */
-    groups?: Group[];
+    groups?: Group[] | null;
 }
 export interface Insights extends Entity, Parsable {
 }
@@ -699,11 +699,11 @@ export interface LifecycleManagementSettings extends Entity, Parsable {
     /**
      * The emailSettings property
      */
-    emailSettings?: EmailSettings;
+    emailSettings?: EmailSettings | null;
     /**
      * The interval in hours at which all workflows running in the tenant should be scheduled for execution. This interval has a minimum value of 1 and a maximum value of 24. The default value is 3 hours.
      */
-    workflowScheduleIntervalInHours?: number;
+    workflowScheduleIntervalInHours?: number | null;
 }
 export type LifecycleTaskCategory = (typeof LifecycleTaskCategoryObject)[keyof typeof LifecycleTaskCategoryObject];
 export type LifecycleWorkflowCategory = (typeof LifecycleWorkflowCategoryObject)[keyof typeof LifecycleWorkflowCategoryObject];
@@ -712,37 +712,37 @@ export interface LifecycleWorkflowsContainer extends Entity, Parsable {
     /**
      * The customTaskExtension instance.
      */
-    customTaskExtensions?: CustomTaskExtension[];
+    customTaskExtensions?: CustomTaskExtension[] | null;
     /**
      * Deleted workflows in your lifecycle workflows instance.
      */
-    deletedItems?: DeletedItemContainer;
+    deletedItems?: DeletedItemContainer | null;
     /**
      * The insight container holding workflow insight summaries for a tenant.
      */
-    insights?: Insights;
+    insights?: Insights | null;
     /**
      * The settings property
      */
-    settings?: LifecycleManagementSettings;
+    settings?: LifecycleManagementSettings | null;
     /**
      * The definition of tasks within the lifecycle workflows instance.
      */
-    taskDefinitions?: TaskDefinition[];
+    taskDefinitions?: TaskDefinition[] | null;
     /**
      * The workflows in the lifecycle workflows instance.
      */
-    workflows?: Workflow[];
+    workflows?: Workflow[] | null;
     /**
      * The workflow templates in the lifecycle workflow instance.
      */
-    workflowTemplates?: WorkflowTemplate[];
+    workflowTemplates?: WorkflowTemplate[] | null;
 }
 export interface MembershipChangeTrigger extends Parsable, WorkflowExecutionTrigger {
     /**
      * The changeType property
      */
-    changeType?: MembershipChangeType;
+    changeType?: MembershipChangeType | null;
 }
 export type MembershipChangeType = (typeof MembershipChangeTypeObject)[keyof typeof MembershipChangeTypeObject];
 export interface OnDemandExecutionOnly extends Parsable, WorkflowExecutionConditions {
@@ -755,572 +755,624 @@ export interface Parameter extends AdditionalDataHolder, Parsable {
     /**
      * The name of the parameter.
      */
-    name?: string;
+    name?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * The values of the parameter.
      */
-    values?: string[];
+    values?: string[] | null;
     /**
      * The valueType property
      */
-    valueType?: ValueType;
+    valueType?: ValueType | null;
 }
 export interface RuleBasedSubjectSet extends Parsable, SubjectSet {
     /**
      * The rule for the subject set. Lifecycle Workflows supports a rich set of user properties for configuring the rules using $filter query expressions. For more information, see supported user and query parameters.
      */
-    rule?: string;
+    rule?: string | null;
 }
 export interface Run extends Entity, Parsable {
     /**
      * The date time that the run completed. Value is null if the workflow hasn't completed.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    completedDateTime?: Date;
+    completedDateTime?: Date | null;
     /**
      * The number of tasks that failed in the run execution.
      */
-    failedTasksCount?: number;
+    failedTasksCount?: number | null;
     /**
      * The number of users that failed in the run execution.
      */
-    failedUsersCount?: number;
+    failedUsersCount?: number | null;
     /**
      * The datetime that the run was last updated.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    lastUpdatedDateTime?: Date;
+    lastUpdatedDateTime?: Date | null;
     /**
      * The processingStatus property
      */
-    processingStatus?: LifecycleWorkflowProcessingStatus;
+    processingStatus?: LifecycleWorkflowProcessingStatus | null;
     /**
      * The date time that the run is scheduled to be executed for a workflow.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    scheduledDateTime?: Date;
+    scheduledDateTime?: Date | null;
     /**
      * The date time that the run execution started.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    startedDateTime?: Date;
+    startedDateTime?: Date | null;
     /**
      * The number of successfully completed users in the run.
      */
-    successfulUsersCount?: number;
+    successfulUsersCount?: number | null;
     /**
      * The related taskProcessingResults.
      */
-    taskProcessingResults?: TaskProcessingResult[];
+    taskProcessingResults?: TaskProcessingResult[] | null;
     /**
      * The totalTasksCount property
      */
-    totalTasksCount?: number;
+    totalTasksCount?: number | null;
     /**
      * The total number of unprocessed tasks in the run execution.
      */
-    totalUnprocessedTasksCount?: number;
+    totalUnprocessedTasksCount?: number | null;
     /**
      * The total number of users in the workflow execution.
      */
-    totalUsersCount?: number;
+    totalUsersCount?: number | null;
     /**
      * The associated individual user execution.
      */
-    userProcessingResults?: UserProcessingResult[];
+    userProcessingResults?: UserProcessingResult[] | null;
     /**
      * The workflowExecutionType property
      */
-    workflowExecutionType?: WorkflowExecutionType;
+    workflowExecutionType?: WorkflowExecutionType | null;
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAttributeChangeTrigger(writer: SerializationWriter, attributeChangeTrigger: Partial<AttributeChangeTrigger> | undefined = {}) : void {
-    serializeWorkflowExecutionTrigger(writer, attributeChangeTrigger)
-    writer.writeCollectionOfObjectValues<TriggerAttribute>("triggerAttributes", attributeChangeTrigger.triggerAttributes, serializeTriggerAttribute);
+export function serializeAttributeChangeTrigger(writer: SerializationWriter, attributeChangeTrigger: Partial<AttributeChangeTrigger> | undefined | null = {}) : void {
+    if (attributeChangeTrigger) {
+        serializeWorkflowExecutionTrigger(writer, attributeChangeTrigger)
+        writer.writeCollectionOfObjectValues<TriggerAttribute>("triggerAttributes", attributeChangeTrigger.triggerAttributes, serializeTriggerAttribute);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCustomTaskExtension(writer: SerializationWriter, customTaskExtension: Partial<CustomTaskExtension> | undefined = {}) : void {
-    serializeCustomCalloutExtension(writer, customTaskExtension)
-    writer.writeObjectValue<CustomExtensionCallbackConfiguration>("callbackConfiguration", customTaskExtension.callbackConfiguration, serializeCustomExtensionCallbackConfiguration);
-    writer.writeObjectValue<User>("createdBy", customTaskExtension.createdBy, serializeUser);
-    writer.writeDateValue("createdDateTime", customTaskExtension.createdDateTime);
-    writer.writeObjectValue<User>("lastModifiedBy", customTaskExtension.lastModifiedBy, serializeUser);
-    writer.writeDateValue("lastModifiedDateTime", customTaskExtension.lastModifiedDateTime);
+export function serializeCustomTaskExtension(writer: SerializationWriter, customTaskExtension: Partial<CustomTaskExtension> | undefined | null = {}) : void {
+    if (customTaskExtension) {
+        serializeCustomCalloutExtension(writer, customTaskExtension)
+        writer.writeObjectValue<CustomExtensionCallbackConfiguration>("callbackConfiguration", customTaskExtension.callbackConfiguration, serializeCustomExtensionCallbackConfiguration);
+        writer.writeObjectValue<User>("createdBy", customTaskExtension.createdBy, serializeUser);
+        writer.writeDateValue("createdDateTime", customTaskExtension.createdDateTime);
+        writer.writeObjectValue<User>("lastModifiedBy", customTaskExtension.lastModifiedBy, serializeUser);
+        writer.writeDateValue("lastModifiedDateTime", customTaskExtension.lastModifiedDateTime);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCustomTaskExtensionCallbackConfiguration(writer: SerializationWriter, customTaskExtensionCallbackConfiguration: Partial<CustomTaskExtensionCallbackConfiguration> | undefined = {}) : void {
-    serializeCustomExtensionCallbackConfiguration(writer, customTaskExtensionCallbackConfiguration)
-    writer.writeCollectionOfObjectValues<Application>("authorizedApps", customTaskExtensionCallbackConfiguration.authorizedApps, serializeApplication);
+export function serializeCustomTaskExtensionCallbackConfiguration(writer: SerializationWriter, customTaskExtensionCallbackConfiguration: Partial<CustomTaskExtensionCallbackConfiguration> | undefined | null = {}) : void {
+    if (customTaskExtensionCallbackConfiguration) {
+        serializeCustomExtensionCallbackConfiguration(writer, customTaskExtensionCallbackConfiguration)
+        writer.writeCollectionOfObjectValues<Application>("authorizedApps", customTaskExtensionCallbackConfiguration.authorizedApps, serializeApplication);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGroupBasedSubjectSet(writer: SerializationWriter, groupBasedSubjectSet: Partial<GroupBasedSubjectSet> | undefined = {}) : void {
-    serializeSubjectSet(writer, groupBasedSubjectSet)
-    writer.writeCollectionOfObjectValues<Group>("groups", groupBasedSubjectSet.groups, serializeGroup);
+export function serializeGroupBasedSubjectSet(writer: SerializationWriter, groupBasedSubjectSet: Partial<GroupBasedSubjectSet> | undefined | null = {}) : void {
+    if (groupBasedSubjectSet) {
+        serializeSubjectSet(writer, groupBasedSubjectSet)
+        writer.writeCollectionOfObjectValues<Group>("groups", groupBasedSubjectSet.groups, serializeGroup);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeInsights(writer: SerializationWriter, insights: Partial<Insights> | undefined = {}) : void {
-    serializeEntity(writer, insights)
+export function serializeInsights(writer: SerializationWriter, insights: Partial<Insights> | undefined | null = {}) : void {
+    if (insights) {
+        serializeEntity(writer, insights)
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLifecycleManagementSettings(writer: SerializationWriter, lifecycleManagementSettings: Partial<LifecycleManagementSettings> | undefined = {}) : void {
-    serializeEntity(writer, lifecycleManagementSettings)
-    writer.writeObjectValue<EmailSettings>("emailSettings", lifecycleManagementSettings.emailSettings, serializeEmailSettings);
-    writer.writeNumberValue("workflowScheduleIntervalInHours", lifecycleManagementSettings.workflowScheduleIntervalInHours);
+export function serializeLifecycleManagementSettings(writer: SerializationWriter, lifecycleManagementSettings: Partial<LifecycleManagementSettings> | undefined | null = {}) : void {
+    if (lifecycleManagementSettings) {
+        serializeEntity(writer, lifecycleManagementSettings)
+        writer.writeObjectValue<EmailSettings>("emailSettings", lifecycleManagementSettings.emailSettings, serializeEmailSettings);
+        writer.writeNumberValue("workflowScheduleIntervalInHours", lifecycleManagementSettings.workflowScheduleIntervalInHours);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLifecycleWorkflowsContainer(writer: SerializationWriter, lifecycleWorkflowsContainer: Partial<LifecycleWorkflowsContainer> | undefined = {}) : void {
-    serializeEntity(writer, lifecycleWorkflowsContainer)
-    writer.writeCollectionOfObjectValues<CustomTaskExtension>("customTaskExtensions", lifecycleWorkflowsContainer.customTaskExtensions, serializeCustomTaskExtension);
-    writer.writeObjectValue<DeletedItemContainer>("deletedItems", lifecycleWorkflowsContainer.deletedItems, serializeDeletedItemContainer);
-    writer.writeObjectValue<Insights>("insights", lifecycleWorkflowsContainer.insights, serializeInsights);
-    writer.writeObjectValue<LifecycleManagementSettings>("settings", lifecycleWorkflowsContainer.settings, serializeLifecycleManagementSettings);
-    writer.writeCollectionOfObjectValues<TaskDefinition>("taskDefinitions", lifecycleWorkflowsContainer.taskDefinitions, serializeTaskDefinition);
-    writer.writeCollectionOfObjectValues<Workflow>("workflows", lifecycleWorkflowsContainer.workflows, serializeWorkflow);
-    writer.writeCollectionOfObjectValues<WorkflowTemplate>("workflowTemplates", lifecycleWorkflowsContainer.workflowTemplates, serializeWorkflowTemplate);
+export function serializeLifecycleWorkflowsContainer(writer: SerializationWriter, lifecycleWorkflowsContainer: Partial<LifecycleWorkflowsContainer> | undefined | null = {}) : void {
+    if (lifecycleWorkflowsContainer) {
+        serializeEntity(writer, lifecycleWorkflowsContainer)
+        writer.writeCollectionOfObjectValues<CustomTaskExtension>("customTaskExtensions", lifecycleWorkflowsContainer.customTaskExtensions, serializeCustomTaskExtension);
+        writer.writeObjectValue<DeletedItemContainer>("deletedItems", lifecycleWorkflowsContainer.deletedItems, serializeDeletedItemContainer);
+        writer.writeObjectValue<Insights>("insights", lifecycleWorkflowsContainer.insights, serializeInsights);
+        writer.writeObjectValue<LifecycleManagementSettings>("settings", lifecycleWorkflowsContainer.settings, serializeLifecycleManagementSettings);
+        writer.writeCollectionOfObjectValues<TaskDefinition>("taskDefinitions", lifecycleWorkflowsContainer.taskDefinitions, serializeTaskDefinition);
+        writer.writeCollectionOfObjectValues<Workflow>("workflows", lifecycleWorkflowsContainer.workflows, serializeWorkflow);
+        writer.writeCollectionOfObjectValues<WorkflowTemplate>("workflowTemplates", lifecycleWorkflowsContainer.workflowTemplates, serializeWorkflowTemplate);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMembershipChangeTrigger(writer: SerializationWriter, membershipChangeTrigger: Partial<MembershipChangeTrigger> | undefined = {}) : void {
-    serializeWorkflowExecutionTrigger(writer, membershipChangeTrigger)
-    writer.writeEnumValue<MembershipChangeType>("changeType", membershipChangeTrigger.changeType);
+export function serializeMembershipChangeTrigger(writer: SerializationWriter, membershipChangeTrigger: Partial<MembershipChangeTrigger> | undefined | null = {}) : void {
+    if (membershipChangeTrigger) {
+        serializeWorkflowExecutionTrigger(writer, membershipChangeTrigger)
+        writer.writeEnumValue<MembershipChangeType>("changeType", membershipChangeTrigger.changeType);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOnDemandExecutionOnly(writer: SerializationWriter, onDemandExecutionOnly: Partial<OnDemandExecutionOnly> | undefined = {}) : void {
-    serializeWorkflowExecutionConditions(writer, onDemandExecutionOnly)
+export function serializeOnDemandExecutionOnly(writer: SerializationWriter, onDemandExecutionOnly: Partial<OnDemandExecutionOnly> | undefined | null = {}) : void {
+    if (onDemandExecutionOnly) {
+        serializeWorkflowExecutionConditions(writer, onDemandExecutionOnly)
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeParameter(writer: SerializationWriter, parameter: Partial<Parameter> | undefined = {}) : void {
-    writer.writeStringValue("name", parameter.name);
-    writer.writeStringValue("@odata.type", parameter.odataType);
-    writer.writeCollectionOfPrimitiveValues<string>("values", parameter.values);
-    writer.writeEnumValue<ValueType>("valueType", parameter.valueType);
-    writer.writeAdditionalData(parameter.additionalData);
+export function serializeParameter(writer: SerializationWriter, parameter: Partial<Parameter> | undefined | null = {}) : void {
+    if (parameter) {
+        writer.writeStringValue("name", parameter.name);
+        writer.writeStringValue("@odata.type", parameter.odataType);
+        writer.writeCollectionOfPrimitiveValues<string>("values", parameter.values);
+        writer.writeEnumValue<ValueType>("valueType", parameter.valueType);
+        writer.writeAdditionalData(parameter.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRuleBasedSubjectSet(writer: SerializationWriter, ruleBasedSubjectSet: Partial<RuleBasedSubjectSet> | undefined = {}) : void {
-    serializeSubjectSet(writer, ruleBasedSubjectSet)
-    writer.writeStringValue("rule", ruleBasedSubjectSet.rule);
+export function serializeRuleBasedSubjectSet(writer: SerializationWriter, ruleBasedSubjectSet: Partial<RuleBasedSubjectSet> | undefined | null = {}) : void {
+    if (ruleBasedSubjectSet) {
+        serializeSubjectSet(writer, ruleBasedSubjectSet)
+        writer.writeStringValue("rule", ruleBasedSubjectSet.rule);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRun(writer: SerializationWriter, run: Partial<Run> | undefined = {}) : void {
-    serializeEntity(writer, run)
-    writer.writeDateValue("completedDateTime", run.completedDateTime);
-    writer.writeNumberValue("failedTasksCount", run.failedTasksCount);
-    writer.writeNumberValue("failedUsersCount", run.failedUsersCount);
-    writer.writeDateValue("lastUpdatedDateTime", run.lastUpdatedDateTime);
-    writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", run.processingStatus);
-    writer.writeDateValue("scheduledDateTime", run.scheduledDateTime);
-    writer.writeDateValue("startedDateTime", run.startedDateTime);
-    writer.writeNumberValue("successfulUsersCount", run.successfulUsersCount);
-    writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", run.taskProcessingResults, serializeTaskProcessingResult);
-    writer.writeNumberValue("totalTasksCount", run.totalTasksCount);
-    writer.writeNumberValue("totalUnprocessedTasksCount", run.totalUnprocessedTasksCount);
-    writer.writeNumberValue("totalUsersCount", run.totalUsersCount);
-    writer.writeCollectionOfObjectValues<UserProcessingResult>("userProcessingResults", run.userProcessingResults, serializeUserProcessingResult);
-    writer.writeEnumValue<WorkflowExecutionType>("workflowExecutionType", run.workflowExecutionType);
+export function serializeRun(writer: SerializationWriter, run: Partial<Run> | undefined | null = {}) : void {
+    if (run) {
+        serializeEntity(writer, run)
+        writer.writeDateValue("completedDateTime", run.completedDateTime);
+        writer.writeNumberValue("failedTasksCount", run.failedTasksCount);
+        writer.writeNumberValue("failedUsersCount", run.failedUsersCount);
+        writer.writeDateValue("lastUpdatedDateTime", run.lastUpdatedDateTime);
+        writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", run.processingStatus);
+        writer.writeDateValue("scheduledDateTime", run.scheduledDateTime);
+        writer.writeDateValue("startedDateTime", run.startedDateTime);
+        writer.writeNumberValue("successfulUsersCount", run.successfulUsersCount);
+        writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", run.taskProcessingResults, serializeTaskProcessingResult);
+        writer.writeNumberValue("totalTasksCount", run.totalTasksCount);
+        writer.writeNumberValue("totalUnprocessedTasksCount", run.totalUnprocessedTasksCount);
+        writer.writeNumberValue("totalUsersCount", run.totalUsersCount);
+        writer.writeCollectionOfObjectValues<UserProcessingResult>("userProcessingResults", run.userProcessingResults, serializeUserProcessingResult);
+        writer.writeEnumValue<WorkflowExecutionType>("workflowExecutionType", run.workflowExecutionType);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTask(writer: SerializationWriter, task: Partial<Task> | undefined = {}) : void {
-    serializeEntity(writer, task)
-    writer.writeCollectionOfObjectValues<KeyValuePair>("arguments", task.arguments, serializeKeyValuePair);
-    writer.writeEnumValue<LifecycleTaskCategory[]>("category", task.category);
-    writer.writeBooleanValue("continueOnError", task.continueOnError);
-    writer.writeStringValue("description", task.description);
-    writer.writeStringValue("displayName", task.displayName);
-    writer.writeNumberValue("executionSequence", task.executionSequence);
-    writer.writeBooleanValue("isEnabled", task.isEnabled);
-    writer.writeStringValue("taskDefinitionId", task.taskDefinitionId);
-    writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", task.taskProcessingResults, serializeTaskProcessingResult);
+export function serializeTask(writer: SerializationWriter, task: Partial<Task> | undefined | null = {}) : void {
+    if (task) {
+        serializeEntity(writer, task)
+        writer.writeCollectionOfObjectValues<KeyValuePair>("arguments", task.arguments, serializeKeyValuePair);
+        writer.writeEnumValue<LifecycleTaskCategory[]>("category", task.category);
+        writer.writeBooleanValue("continueOnError", task.continueOnError);
+        writer.writeStringValue("description", task.description);
+        writer.writeStringValue("displayName", task.displayName);
+        writer.writeNumberValue("executionSequence", task.executionSequence);
+        writer.writeBooleanValue("isEnabled", task.isEnabled);
+        writer.writeStringValue("taskDefinitionId", task.taskDefinitionId);
+        writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", task.taskProcessingResults, serializeTaskProcessingResult);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTaskDefinition(writer: SerializationWriter, taskDefinition: Partial<TaskDefinition> | undefined = {}) : void {
-    serializeEntity(writer, taskDefinition)
-    writer.writeEnumValue<LifecycleTaskCategory[]>("category", taskDefinition.category);
-    writer.writeBooleanValue("continueOnError", taskDefinition.continueOnError);
-    writer.writeStringValue("description", taskDefinition.description);
-    writer.writeStringValue("displayName", taskDefinition.displayName);
-    writer.writeCollectionOfObjectValues<Parameter>("parameters", taskDefinition.parameters, serializeParameter);
-    writer.writeNumberValue("version", taskDefinition.version);
+export function serializeTaskDefinition(writer: SerializationWriter, taskDefinition: Partial<TaskDefinition> | undefined | null = {}) : void {
+    if (taskDefinition) {
+        serializeEntity(writer, taskDefinition)
+        writer.writeEnumValue<LifecycleTaskCategory[]>("category", taskDefinition.category);
+        writer.writeBooleanValue("continueOnError", taskDefinition.continueOnError);
+        writer.writeStringValue("description", taskDefinition.description);
+        writer.writeStringValue("displayName", taskDefinition.displayName);
+        writer.writeCollectionOfObjectValues<Parameter>("parameters", taskDefinition.parameters, serializeParameter);
+        writer.writeNumberValue("version", taskDefinition.version);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTaskProcessingResult(writer: SerializationWriter, taskProcessingResult: Partial<TaskProcessingResult> | undefined = {}) : void {
-    serializeEntity(writer, taskProcessingResult)
-    writer.writeDateValue("completedDateTime", taskProcessingResult.completedDateTime);
-    writer.writeDateValue("createdDateTime", taskProcessingResult.createdDateTime);
-    writer.writeStringValue("failureReason", taskProcessingResult.failureReason);
-    writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", taskProcessingResult.processingStatus);
-    writer.writeDateValue("startedDateTime", taskProcessingResult.startedDateTime);
-    writer.writeObjectValue<User>("subject", taskProcessingResult.subject, serializeUser);
-    writer.writeObjectValue<Task>("task", taskProcessingResult.task, serializeTask);
+export function serializeTaskProcessingResult(writer: SerializationWriter, taskProcessingResult: Partial<TaskProcessingResult> | undefined | null = {}) : void {
+    if (taskProcessingResult) {
+        serializeEntity(writer, taskProcessingResult)
+        writer.writeDateValue("completedDateTime", taskProcessingResult.completedDateTime);
+        writer.writeDateValue("createdDateTime", taskProcessingResult.createdDateTime);
+        writer.writeStringValue("failureReason", taskProcessingResult.failureReason);
+        writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", taskProcessingResult.processingStatus);
+        writer.writeDateValue("startedDateTime", taskProcessingResult.startedDateTime);
+        writer.writeObjectValue<User>("subject", taskProcessingResult.subject, serializeUser);
+        writer.writeObjectValue<Task>("task", taskProcessingResult.task, serializeTask);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTaskReport(writer: SerializationWriter, taskReport: Partial<TaskReport> | undefined = {}) : void {
-    serializeEntity(writer, taskReport)
-    writer.writeDateValue("completedDateTime", taskReport.completedDateTime);
-    writer.writeNumberValue("failedUsersCount", taskReport.failedUsersCount);
-    writer.writeDateValue("lastUpdatedDateTime", taskReport.lastUpdatedDateTime);
-    writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", taskReport.processingStatus);
-    writer.writeStringValue("runId", taskReport.runId);
-    writer.writeDateValue("startedDateTime", taskReport.startedDateTime);
-    writer.writeNumberValue("successfulUsersCount", taskReport.successfulUsersCount);
-    writer.writeObjectValue<Task>("task", taskReport.task, serializeTask);
-    writer.writeObjectValue<TaskDefinition>("taskDefinition", taskReport.taskDefinition, serializeTaskDefinition);
-    writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", taskReport.taskProcessingResults, serializeTaskProcessingResult);
-    writer.writeNumberValue("totalUsersCount", taskReport.totalUsersCount);
-    writer.writeNumberValue("unprocessedUsersCount", taskReport.unprocessedUsersCount);
+export function serializeTaskReport(writer: SerializationWriter, taskReport: Partial<TaskReport> | undefined | null = {}) : void {
+    if (taskReport) {
+        serializeEntity(writer, taskReport)
+        writer.writeDateValue("completedDateTime", taskReport.completedDateTime);
+        writer.writeNumberValue("failedUsersCount", taskReport.failedUsersCount);
+        writer.writeDateValue("lastUpdatedDateTime", taskReport.lastUpdatedDateTime);
+        writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", taskReport.processingStatus);
+        writer.writeStringValue("runId", taskReport.runId);
+        writer.writeDateValue("startedDateTime", taskReport.startedDateTime);
+        writer.writeNumberValue("successfulUsersCount", taskReport.successfulUsersCount);
+        writer.writeObjectValue<Task>("task", taskReport.task, serializeTask);
+        writer.writeObjectValue<TaskDefinition>("taskDefinition", taskReport.taskDefinition, serializeTaskDefinition);
+        writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", taskReport.taskProcessingResults, serializeTaskProcessingResult);
+        writer.writeNumberValue("totalUsersCount", taskReport.totalUsersCount);
+        writer.writeNumberValue("unprocessedUsersCount", taskReport.unprocessedUsersCount);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTimeBasedAttributeTrigger(writer: SerializationWriter, timeBasedAttributeTrigger: Partial<TimeBasedAttributeTrigger> | undefined = {}) : void {
-    serializeWorkflowExecutionTrigger(writer, timeBasedAttributeTrigger)
-    writer.writeNumberValue("offsetInDays", timeBasedAttributeTrigger.offsetInDays);
-    writer.writeEnumValue<WorkflowTriggerTimeBasedAttribute>("timeBasedAttribute", timeBasedAttributeTrigger.timeBasedAttribute);
+export function serializeTimeBasedAttributeTrigger(writer: SerializationWriter, timeBasedAttributeTrigger: Partial<TimeBasedAttributeTrigger> | undefined | null = {}) : void {
+    if (timeBasedAttributeTrigger) {
+        serializeWorkflowExecutionTrigger(writer, timeBasedAttributeTrigger)
+        writer.writeNumberValue("offsetInDays", timeBasedAttributeTrigger.offsetInDays);
+        writer.writeEnumValue<WorkflowTriggerTimeBasedAttribute>("timeBasedAttribute", timeBasedAttributeTrigger.timeBasedAttribute);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTriggerAndScopeBasedConditions(writer: SerializationWriter, triggerAndScopeBasedConditions: Partial<TriggerAndScopeBasedConditions> | undefined = {}) : void {
-    serializeWorkflowExecutionConditions(writer, triggerAndScopeBasedConditions)
-    writer.writeObjectValue<SubjectSet>("scope", triggerAndScopeBasedConditions.scope, serializeSubjectSet);
-    writer.writeObjectValue<WorkflowExecutionTrigger>("trigger", triggerAndScopeBasedConditions.trigger, serializeWorkflowExecutionTrigger);
+export function serializeTriggerAndScopeBasedConditions(writer: SerializationWriter, triggerAndScopeBasedConditions: Partial<TriggerAndScopeBasedConditions> | undefined | null = {}) : void {
+    if (triggerAndScopeBasedConditions) {
+        serializeWorkflowExecutionConditions(writer, triggerAndScopeBasedConditions)
+        writer.writeObjectValue<SubjectSet>("scope", triggerAndScopeBasedConditions.scope, serializeSubjectSet);
+        writer.writeObjectValue<WorkflowExecutionTrigger>("trigger", triggerAndScopeBasedConditions.trigger, serializeWorkflowExecutionTrigger);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTriggerAttribute(writer: SerializationWriter, triggerAttribute: Partial<TriggerAttribute> | undefined = {}) : void {
-    writer.writeStringValue("name", triggerAttribute.name);
-    writer.writeStringValue("@odata.type", triggerAttribute.odataType);
-    writer.writeAdditionalData(triggerAttribute.additionalData);
+export function serializeTriggerAttribute(writer: SerializationWriter, triggerAttribute: Partial<TriggerAttribute> | undefined | null = {}) : void {
+    if (triggerAttribute) {
+        writer.writeStringValue("name", triggerAttribute.name);
+        writer.writeStringValue("@odata.type", triggerAttribute.odataType);
+        writer.writeAdditionalData(triggerAttribute.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUserProcessingResult(writer: SerializationWriter, userProcessingResult: Partial<UserProcessingResult> | undefined = {}) : void {
-    serializeEntity(writer, userProcessingResult)
-    writer.writeDateValue("completedDateTime", userProcessingResult.completedDateTime);
-    writer.writeNumberValue("failedTasksCount", userProcessingResult.failedTasksCount);
-    writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", userProcessingResult.processingStatus);
-    writer.writeDateValue("scheduledDateTime", userProcessingResult.scheduledDateTime);
-    writer.writeDateValue("startedDateTime", userProcessingResult.startedDateTime);
-    writer.writeObjectValue<User>("subject", userProcessingResult.subject, serializeUser);
-    writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", userProcessingResult.taskProcessingResults, serializeTaskProcessingResult);
-    writer.writeNumberValue("totalTasksCount", userProcessingResult.totalTasksCount);
-    writer.writeNumberValue("totalUnprocessedTasksCount", userProcessingResult.totalUnprocessedTasksCount);
-    writer.writeEnumValue<WorkflowExecutionType>("workflowExecutionType", userProcessingResult.workflowExecutionType);
-    writer.writeNumberValue("workflowVersion", userProcessingResult.workflowVersion);
+export function serializeUserProcessingResult(writer: SerializationWriter, userProcessingResult: Partial<UserProcessingResult> | undefined | null = {}) : void {
+    if (userProcessingResult) {
+        serializeEntity(writer, userProcessingResult)
+        writer.writeDateValue("completedDateTime", userProcessingResult.completedDateTime);
+        writer.writeNumberValue("failedTasksCount", userProcessingResult.failedTasksCount);
+        writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", userProcessingResult.processingStatus);
+        writer.writeDateValue("scheduledDateTime", userProcessingResult.scheduledDateTime);
+        writer.writeDateValue("startedDateTime", userProcessingResult.startedDateTime);
+        writer.writeObjectValue<User>("subject", userProcessingResult.subject, serializeUser);
+        writer.writeCollectionOfObjectValues<TaskProcessingResult>("taskProcessingResults", userProcessingResult.taskProcessingResults, serializeTaskProcessingResult);
+        writer.writeNumberValue("totalTasksCount", userProcessingResult.totalTasksCount);
+        writer.writeNumberValue("totalUnprocessedTasksCount", userProcessingResult.totalUnprocessedTasksCount);
+        writer.writeEnumValue<WorkflowExecutionType>("workflowExecutionType", userProcessingResult.workflowExecutionType);
+        writer.writeNumberValue("workflowVersion", userProcessingResult.workflowVersion);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkflow(writer: SerializationWriter, workflow: Partial<Workflow> | undefined = {}) : void {
-    serializeWorkflowBase(writer, workflow)
-    writer.writeDateValue("deletedDateTime", workflow.deletedDateTime);
-    writer.writeCollectionOfObjectValues<UserProcessingResult>("executionScope", workflow.executionScope, serializeUserProcessingResult);
-    writer.writeStringValue("id", workflow.id);
-    writer.writeDateValue("nextScheduleRunDateTime", workflow.nextScheduleRunDateTime);
-    writer.writeCollectionOfObjectValues<Run>("runs", workflow.runs, serializeRun);
-    writer.writeCollectionOfObjectValues<TaskReport>("taskReports", workflow.taskReports, serializeTaskReport);
-    writer.writeCollectionOfObjectValues<UserProcessingResult>("userProcessingResults", workflow.userProcessingResults, serializeUserProcessingResult);
-    writer.writeNumberValue("version", workflow.version);
-    writer.writeCollectionOfObjectValues<WorkflowVersion>("versions", workflow.versions, serializeWorkflowVersion);
+export function serializeWorkflow(writer: SerializationWriter, workflow: Partial<Workflow> | undefined | null = {}) : void {
+    if (workflow) {
+        serializeWorkflowBase(writer, workflow)
+        writer.writeDateValue("deletedDateTime", workflow.deletedDateTime);
+        writer.writeCollectionOfObjectValues<UserProcessingResult>("executionScope", workflow.executionScope, serializeUserProcessingResult);
+        writer.writeStringValue("id", workflow.id);
+        writer.writeDateValue("nextScheduleRunDateTime", workflow.nextScheduleRunDateTime);
+        writer.writeCollectionOfObjectValues<Run>("runs", workflow.runs, serializeRun);
+        writer.writeCollectionOfObjectValues<TaskReport>("taskReports", workflow.taskReports, serializeTaskReport);
+        writer.writeCollectionOfObjectValues<UserProcessingResult>("userProcessingResults", workflow.userProcessingResults, serializeUserProcessingResult);
+        writer.writeNumberValue("version", workflow.version);
+        writer.writeCollectionOfObjectValues<WorkflowVersion>("versions", workflow.versions, serializeWorkflowVersion);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkflowBase(writer: SerializationWriter, workflowBase: Partial<WorkflowBase> | undefined = {}) : void {
-    writer.writeEnumValue<LifecycleWorkflowCategory>("category", workflowBase.category);
-    writer.writeObjectValue<User>("createdBy", workflowBase.createdBy, serializeUser);
-    writer.writeDateValue("createdDateTime", workflowBase.createdDateTime);
-    writer.writeStringValue("description", workflowBase.description);
-    writer.writeStringValue("displayName", workflowBase.displayName);
-    writer.writeObjectValue<WorkflowExecutionConditions>("executionConditions", workflowBase.executionConditions, serializeWorkflowExecutionConditions);
-    writer.writeBooleanValue("isEnabled", workflowBase.isEnabled);
-    writer.writeBooleanValue("isSchedulingEnabled", workflowBase.isSchedulingEnabled);
-    writer.writeObjectValue<User>("lastModifiedBy", workflowBase.lastModifiedBy, serializeUser);
-    writer.writeDateValue("lastModifiedDateTime", workflowBase.lastModifiedDateTime);
-    writer.writeStringValue("@odata.type", workflowBase.odataType);
-    writer.writeCollectionOfObjectValues<Task>("tasks", workflowBase.tasks, serializeTask);
-    writer.writeAdditionalData(workflowBase.additionalData);
+export function serializeWorkflowBase(writer: SerializationWriter, workflowBase: Partial<WorkflowBase> | undefined | null = {}) : void {
+    if (workflowBase) {
+        writer.writeEnumValue<LifecycleWorkflowCategory>("category", workflowBase.category);
+        writer.writeObjectValue<User>("createdBy", workflowBase.createdBy, serializeUser);
+        writer.writeDateValue("createdDateTime", workflowBase.createdDateTime);
+        writer.writeStringValue("description", workflowBase.description);
+        writer.writeStringValue("displayName", workflowBase.displayName);
+        writer.writeObjectValue<WorkflowExecutionConditions>("executionConditions", workflowBase.executionConditions, serializeWorkflowExecutionConditions);
+        writer.writeBooleanValue("isEnabled", workflowBase.isEnabled);
+        writer.writeBooleanValue("isSchedulingEnabled", workflowBase.isSchedulingEnabled);
+        writer.writeObjectValue<User>("lastModifiedBy", workflowBase.lastModifiedBy, serializeUser);
+        writer.writeDateValue("lastModifiedDateTime", workflowBase.lastModifiedDateTime);
+        writer.writeStringValue("@odata.type", workflowBase.odataType);
+        writer.writeCollectionOfObjectValues<Task>("tasks", workflowBase.tasks, serializeTask);
+        writer.writeAdditionalData(workflowBase.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkflowExecutionConditions(writer: SerializationWriter, workflowExecutionConditions: Partial<WorkflowExecutionConditions> | undefined = {}) : void {
-    writer.writeStringValue("@odata.type", workflowExecutionConditions.odataType);
-    writer.writeAdditionalData(workflowExecutionConditions.additionalData);
+export function serializeWorkflowExecutionConditions(writer: SerializationWriter, workflowExecutionConditions: Partial<WorkflowExecutionConditions> | undefined | null = {}) : void {
+    if (workflowExecutionConditions) {
+        writer.writeStringValue("@odata.type", workflowExecutionConditions.odataType);
+        writer.writeAdditionalData(workflowExecutionConditions.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkflowExecutionTrigger(writer: SerializationWriter, workflowExecutionTrigger: Partial<WorkflowExecutionTrigger> | undefined = {}) : void {
-    writer.writeStringValue("@odata.type", workflowExecutionTrigger.odataType);
-    writer.writeAdditionalData(workflowExecutionTrigger.additionalData);
+export function serializeWorkflowExecutionTrigger(writer: SerializationWriter, workflowExecutionTrigger: Partial<WorkflowExecutionTrigger> | undefined | null = {}) : void {
+    if (workflowExecutionTrigger) {
+        writer.writeStringValue("@odata.type", workflowExecutionTrigger.odataType);
+        writer.writeAdditionalData(workflowExecutionTrigger.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkflowTemplate(writer: SerializationWriter, workflowTemplate: Partial<WorkflowTemplate> | undefined = {}) : void {
-    serializeEntity(writer, workflowTemplate)
-    writer.writeEnumValue<LifecycleWorkflowCategory>("category", workflowTemplate.category);
-    writer.writeStringValue("description", workflowTemplate.description);
-    writer.writeStringValue("displayName", workflowTemplate.displayName);
-    writer.writeObjectValue<WorkflowExecutionConditions>("executionConditions", workflowTemplate.executionConditions, serializeWorkflowExecutionConditions);
-    writer.writeCollectionOfObjectValues<Task>("tasks", workflowTemplate.tasks, serializeTask);
+export function serializeWorkflowTemplate(writer: SerializationWriter, workflowTemplate: Partial<WorkflowTemplate> | undefined | null = {}) : void {
+    if (workflowTemplate) {
+        serializeEntity(writer, workflowTemplate)
+        writer.writeEnumValue<LifecycleWorkflowCategory>("category", workflowTemplate.category);
+        writer.writeStringValue("description", workflowTemplate.description);
+        writer.writeStringValue("displayName", workflowTemplate.displayName);
+        writer.writeObjectValue<WorkflowExecutionConditions>("executionConditions", workflowTemplate.executionConditions, serializeWorkflowExecutionConditions);
+        writer.writeCollectionOfObjectValues<Task>("tasks", workflowTemplate.tasks, serializeTask);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkflowVersion(writer: SerializationWriter, workflowVersion: Partial<WorkflowVersion> | undefined = {}) : void {
-    serializeWorkflowBase(writer, workflowVersion)
-    writer.writeNumberValue("versionNumber", workflowVersion.versionNumber);
+export function serializeWorkflowVersion(writer: SerializationWriter, workflowVersion: Partial<WorkflowVersion> | undefined | null = {}) : void {
+    if (workflowVersion) {
+        serializeWorkflowBase(writer, workflowVersion)
+        writer.writeNumberValue("versionNumber", workflowVersion.versionNumber);
+    }
 }
 export interface Task extends Entity, Parsable {
     /**
      * Arguments included within the task.  For guidance to configure this property, see Configure the arguments for built-in Lifecycle Workflow tasks. Required.
      */
-    arguments?: KeyValuePair[];
+    arguments?: KeyValuePair[] | null;
     /**
      * The category property
      */
-    category?: LifecycleTaskCategory[];
+    category?: LifecycleTaskCategory[] | null;
     /**
      * A Boolean value that specifies whether, if this task fails, the workflow stops, and subsequent tasks aren't run. Optional.
      */
-    continueOnError?: boolean;
+    continueOnError?: boolean | null;
     /**
      * A string that describes the purpose of the task for administrative use. Optional.
      */
-    description?: string;
+    description?: string | null;
     /**
      * A unique string that identifies the task. Required.Supports $filter(eq, ne) and orderBy.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * An integer that states in what order the task runs in a workflow.Supports $orderby.
      */
-    executionSequence?: number;
+    executionSequence?: number | null;
     /**
      * A Boolean value that denotes whether the task is set to run or not. Optional.Supports $filter(eq, ne) and orderBy.
      */
-    isEnabled?: boolean;
+    isEnabled?: boolean | null;
     /**
      * A unique template identifier for the task. For more information about the tasks that Lifecycle Workflows currently supports and their unique identifiers, see Configure the arguments for built-in Lifecycle Workflow tasks. Required.Supports $filter(eq, ne).
      */
-    taskDefinitionId?: string;
+    taskDefinitionId?: string | null;
     /**
      * The result of processing the task.
      */
-    taskProcessingResults?: TaskProcessingResult[];
+    taskProcessingResults?: TaskProcessingResult[] | null;
 }
 export interface TaskDefinition extends Entity, Parsable {
     /**
      * The category property
      */
-    category?: LifecycleTaskCategory[];
+    category?: LifecycleTaskCategory[] | null;
     /**
      * Defines if the workflow will continue if the task has an error.
      */
-    continueOnError?: boolean;
+    continueOnError?: boolean | null;
     /**
      * The description of the taskDefinition.
      */
-    description?: string;
+    description?: string | null;
     /**
      * The display name of the taskDefinition.Supports $filter(eq, ne) and $orderby.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * The parameters that must be supplied when creating a workflow task object.Supports $filter(any).
      */
-    parameters?: Parameter[];
+    parameters?: Parameter[] | null;
     /**
      * The version number of the taskDefinition. New records are pushed when we add support for new parameters.Supports $filter(ge, gt, le, lt, eq, ne) and $orderby.
      */
-    version?: number;
+    version?: number | null;
 }
 export interface TaskProcessingResult extends Entity, Parsable {
     /**
      * The date time when taskProcessingResult execution ended. Value is null if task execution is still in progress.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    completedDateTime?: Date;
+    completedDateTime?: Date | null;
     /**
      * The date time when the taskProcessingResult was created.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * Describes why the taskProcessingResult has failed.
      */
-    failureReason?: string;
+    failureReason?: string | null;
     /**
      * The processingStatus property
      */
-    processingStatus?: LifecycleWorkflowProcessingStatus;
+    processingStatus?: LifecycleWorkflowProcessingStatus | null;
     /**
      * The date time when taskProcessingResult execution started. Value is null if task execution has not yet started.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    startedDateTime?: Date;
+    startedDateTime?: Date | null;
     /**
      * The subject property
      */
-    subject?: User;
+    subject?: User | null;
     /**
      * The task property
      */
-    task?: Task;
+    task?: Task | null;
 }
 export interface TaskReport extends Entity, Parsable {
     /**
      * The date time that the associated run completed. Value is null if the run has not completed.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    completedDateTime?: Date;
+    completedDateTime?: Date | null;
     /**
      * The number of users in the run execution for which the associated task failed.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    failedUsersCount?: number;
+    failedUsersCount?: number | null;
     /**
      * The date and time that the task report was last updated.
      */
-    lastUpdatedDateTime?: Date;
+    lastUpdatedDateTime?: Date | null;
     /**
      * The processingStatus property
      */
-    processingStatus?: LifecycleWorkflowProcessingStatus;
+    processingStatus?: LifecycleWorkflowProcessingStatus | null;
     /**
      * The unique identifier of the associated run.
      */
-    runId?: string;
+    runId?: string | null;
     /**
      * The date time that the associated run started. Value is null if the run has not started.
      */
-    startedDateTime?: Date;
+    startedDateTime?: Date | null;
     /**
      * The number of users in the run execution for which the associated task succeeded.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    successfulUsersCount?: number;
+    successfulUsersCount?: number | null;
     /**
      * The task property
      */
-    task?: Task;
+    task?: Task | null;
     /**
      * The taskDefinition property
      */
-    taskDefinition?: TaskDefinition;
+    taskDefinition?: TaskDefinition | null;
     /**
      * The related lifecycle workflow taskProcessingResults.
      */
-    taskProcessingResults?: TaskProcessingResult[];
+    taskProcessingResults?: TaskProcessingResult[] | null;
     /**
      * The total number of users in the run execution for which the associated task was scheduled to execute.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    totalUsersCount?: number;
+    totalUsersCount?: number | null;
     /**
      * The number of users in the run execution for which the associated task is queued, in progress, or canceled.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    unprocessedUsersCount?: number;
+    unprocessedUsersCount?: number | null;
 }
 export interface TimeBasedAttributeTrigger extends Parsable, WorkflowExecutionTrigger {
     /**
      * How many days before or after the time-based attribute specified the workflow should trigger. For example, if the attribute is employeeHireDate and offsetInDays is -1, then the workflow should trigger one day before the employee hire date. The value can range between -180 and 180 days.
      */
-    offsetInDays?: number;
+    offsetInDays?: number | null;
     /**
      * The timeBasedAttribute property
      */
-    timeBasedAttribute?: WorkflowTriggerTimeBasedAttribute;
+    timeBasedAttribute?: WorkflowTriggerTimeBasedAttribute | null;
 }
 export interface TriggerAndScopeBasedConditions extends Parsable, WorkflowExecutionConditions {
     /**
      * Defines who the workflow runs for.
      */
-    scope?: SubjectSet;
+    scope?: SubjectSet | null;
     /**
      * What triggers a workflow to run.
      */
-    trigger?: WorkflowExecutionTrigger;
+    trigger?: WorkflowExecutionTrigger | null;
 }
 export interface TriggerAttribute extends AdditionalDataHolder, Parsable {
     /**
@@ -1330,96 +1382,96 @@ export interface TriggerAttribute extends AdditionalDataHolder, Parsable {
     /**
      * The name of the trigger attribute that is changed to trigger an attributeChangeTrigger workflow.
      */
-    name?: string;
+    name?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export interface UserProcessingResult extends Entity, Parsable {
     /**
      * The date time that the workflow execution for a user completed. Value is null if the workflow hasn't completed.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    completedDateTime?: Date;
+    completedDateTime?: Date | null;
     /**
      * The number of tasks that failed in the workflow execution.
      */
-    failedTasksCount?: number;
+    failedTasksCount?: number | null;
     /**
      * The processingStatus property
      */
-    processingStatus?: LifecycleWorkflowProcessingStatus;
+    processingStatus?: LifecycleWorkflowProcessingStatus | null;
     /**
      * The date time that the workflow is scheduled to be executed for a user.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    scheduledDateTime?: Date;
+    scheduledDateTime?: Date | null;
     /**
      * The date time that the workflow execution started. Value is null if the workflow execution has not started.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    startedDateTime?: Date;
+    startedDateTime?: Date | null;
     /**
      * The subject property
      */
-    subject?: User;
+    subject?: User | null;
     /**
      * The associated individual task execution.
      */
-    taskProcessingResults?: TaskProcessingResult[];
+    taskProcessingResults?: TaskProcessingResult[] | null;
     /**
      * The total number of tasks that in the workflow execution.
      */
-    totalTasksCount?: number;
+    totalTasksCount?: number | null;
     /**
      * The total number of unprocessed tasks for the workflow.
      */
-    totalUnprocessedTasksCount?: number;
+    totalUnprocessedTasksCount?: number | null;
     /**
      * The workflowExecutionType property
      */
-    workflowExecutionType?: WorkflowExecutionType;
+    workflowExecutionType?: WorkflowExecutionType | null;
     /**
      * The version of the workflow that was executed.
      */
-    workflowVersion?: number;
+    workflowVersion?: number | null;
 }
 export type ValueType = (typeof ValueTypeObject)[keyof typeof ValueTypeObject];
 export interface Workflow extends Parsable, WorkflowBase {
     /**
      * When the workflow was deleted.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    deletedDateTime?: Date;
+    deletedDateTime?: Date | null;
     /**
      * The unique identifier of the Microsoft Entra identity that last modified the workflow object.
      */
-    executionScope?: UserProcessingResult[];
+    executionScope?: UserProcessingResult[] | null;
     /**
      * Identifier used for individually addressing a specific workflow.Supports $filter(eq, ne) and $orderby.
      */
-    id?: string;
+    id?: string | null;
     /**
      * The date time when the workflow is expected to run next based on the schedule interval, if there are any users matching the execution conditions. Supports $filter(lt,gt) and $orderby.
      */
-    nextScheduleRunDateTime?: Date;
+    nextScheduleRunDateTime?: Date | null;
     /**
      * Workflow runs.
      */
-    runs?: Run[];
+    runs?: Run[] | null;
     /**
      * Represents the aggregation of task execution data for tasks within a workflow object.
      */
-    taskReports?: TaskReport[];
+    taskReports?: TaskReport[] | null;
     /**
      * Per-user workflow execution results.
      */
-    userProcessingResults?: UserProcessingResult[];
+    userProcessingResults?: UserProcessingResult[] | null;
     /**
      * The current version number of the workflow. Value is 1 when the workflow is first created.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    version?: number;
+    version?: number | null;
     /**
      * The workflow versions that are available.
      */
-    versions?: WorkflowVersion[];
+    versions?: WorkflowVersion[] | null;
 }
 export interface WorkflowBase extends AdditionalDataHolder, Parsable {
     /**
@@ -1429,51 +1481,51 @@ export interface WorkflowBase extends AdditionalDataHolder, Parsable {
     /**
      * The category property
      */
-    category?: LifecycleWorkflowCategory;
+    category?: LifecycleWorkflowCategory | null;
     /**
      * The user who created the workflow.
      */
-    createdBy?: User;
+    createdBy?: User | null;
     /**
      * When a workflow was created.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * A string that describes the purpose of the workflow.
      */
-    description?: string;
+    description?: string | null;
     /**
      * A string to identify the workflow.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * Defines when and for who the workflow will run.
      */
-    executionConditions?: WorkflowExecutionConditions;
+    executionConditions?: WorkflowExecutionConditions | null;
     /**
      * Whether the workflow is enabled or disabled. If this setting is true, the workflow can be run on demand or on schedule when isSchedulingEnabled is true.
      */
-    isEnabled?: boolean;
+    isEnabled?: boolean | null;
     /**
      * If true, the Lifecycle Workflow engine executes the workflow based on the schedule defined by tenant settings. Can't be true for a disabled workflow (where isEnabled is false).
      */
-    isSchedulingEnabled?: boolean;
+    isSchedulingEnabled?: boolean | null;
     /**
      * The unique identifier of the Microsoft Entra identity that last modified the workflow.
      */
-    lastModifiedBy?: User;
+    lastModifiedBy?: User | null;
     /**
      * When the workflow was last modified.
      */
-    lastModifiedDateTime?: Date;
+    lastModifiedDateTime?: Date | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * The tasks in the workflow.
      */
-    tasks?: Task[];
+    tasks?: Task[] | null;
 }
 export interface WorkflowExecutionConditions extends AdditionalDataHolder, Parsable {
     /**
@@ -1483,7 +1535,7 @@ export interface WorkflowExecutionConditions extends AdditionalDataHolder, Parsa
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export interface WorkflowExecutionTrigger extends AdditionalDataHolder, Parsable {
     /**
@@ -1493,37 +1545,37 @@ export interface WorkflowExecutionTrigger extends AdditionalDataHolder, Parsable
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export type WorkflowExecutionType = (typeof WorkflowExecutionTypeObject)[keyof typeof WorkflowExecutionTypeObject];
 export interface WorkflowTemplate extends Entity, Parsable {
     /**
      * The category property
      */
-    category?: LifecycleWorkflowCategory;
+    category?: LifecycleWorkflowCategory | null;
     /**
      * The description of the workflowTemplate.
      */
-    description?: string;
+    description?: string | null;
     /**
      * The display name of the workflowTemplate.Supports $filter(eq, ne) and $orderby.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * Conditions describing when to execute the workflow and the criteria to identify in-scope subject set.
      */
-    executionConditions?: WorkflowExecutionConditions;
+    executionConditions?: WorkflowExecutionConditions | null;
     /**
      * Represents the configured tasks to execute and their execution sequence within a workflow. This relationship is expanded by default.
      */
-    tasks?: Task[];
+    tasks?: Task[] | null;
 }
 export type WorkflowTriggerTimeBasedAttribute = (typeof WorkflowTriggerTimeBasedAttributeObject)[keyof typeof WorkflowTriggerTimeBasedAttributeObject];
 export interface WorkflowVersion extends Parsable, WorkflowBase {
     /**
      * The version of the workflow.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
-    versionNumber?: number;
+    versionNumber?: number | null;
 }
 export const LifecycleTaskCategoryObject = {
     Joiner: "joiner",

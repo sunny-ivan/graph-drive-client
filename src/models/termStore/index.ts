@@ -199,27 +199,27 @@ export interface Group extends Entity, Parsable {
     /**
      * Date and time of the group creation. Read-only.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * Description that gives details on the term usage.
      */
-    description?: string;
+    description?: string | null;
     /**
      * Name of the group.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * ID of the parent site of this group.
      */
-    parentSiteId?: string;
+    parentSiteId?: string | null;
     /**
      * Returns the type of the group. Possible values are: global, system, and siteCollection.
      */
-    scope?: TermGroupScope;
+    scope?: TermGroupScope | null;
     /**
      * All sets under the group in a term [store].
      */
-    sets?: Set[];
+    sets?: Set[] | null;
 }
 export interface LocalizedDescription extends AdditionalDataHolder, Parsable {
     /**
@@ -229,15 +229,15 @@ export interface LocalizedDescription extends AdditionalDataHolder, Parsable {
     /**
      * The description in the localized language.
      */
-    description?: string;
+    description?: string | null;
     /**
      * The language tag for the label.
      */
-    languageTag?: string;
+    languageTag?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export interface LocalizedLabel extends AdditionalDataHolder, Parsable {
     /**
@@ -247,19 +247,19 @@ export interface LocalizedLabel extends AdditionalDataHolder, Parsable {
     /**
      * Indicates whether the label is the default label.
      */
-    isDefault?: boolean;
+    isDefault?: boolean | null;
     /**
      * The language tag for the label.
      */
-    languageTag?: string;
+    languageTag?: string | null;
     /**
      * The name of the label.
      */
-    name?: string;
+    name?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export interface LocalizedName extends AdditionalDataHolder, Parsable {
     /**
@@ -269,33 +269,33 @@ export interface LocalizedName extends AdditionalDataHolder, Parsable {
     /**
      * The language tag for the label.
      */
-    languageTag?: string;
+    languageTag?: string | null;
     /**
      * The name in the localized language.
      */
-    name?: string;
+    name?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export interface Relation extends Entity, Parsable {
     /**
      * The from [term] of the relation. The term from which the relationship is defined. A null value would indicate the relation is directly with the [set].
      */
-    fromTerm?: Term;
+    fromTerm?: Term | null;
     /**
      * The type of relation. Possible values are: pin, reuse.
      */
-    relationship?: RelationType;
+    relationship?: RelationType | null;
     /**
      * The [set] in which the relation is relevant.
      */
-    set?: Set;
+    set?: Set | null;
     /**
      * The to [term] of the relation. The term to which the relationship is defined.
      */
-    toTerm?: Term;
+    toTerm?: Term | null;
 }
 export type RelationType = (typeof RelationTypeObject)[keyof typeof RelationTypeObject];
 /**
@@ -303,190 +303,206 @@ export type RelationType = (typeof RelationTypeObject)[keyof typeof RelationType
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGroup(writer: SerializationWriter, group: Partial<Group> | undefined = {}) : void {
-    serializeEntity(writer, group)
-    writer.writeDateValue("createdDateTime", group.createdDateTime);
-    writer.writeStringValue("description", group.description);
-    writer.writeStringValue("displayName", group.displayName);
-    writer.writeStringValue("parentSiteId", group.parentSiteId);
-    writer.writeEnumValue<TermGroupScope>("scope", group.scope);
-    writer.writeCollectionOfObjectValues<Set>("sets", group.sets, serializeSet);
+export function serializeGroup(writer: SerializationWriter, group: Partial<Group> | undefined | null = {}) : void {
+    if (group) {
+        serializeEntity(writer, group)
+        writer.writeDateValue("createdDateTime", group.createdDateTime);
+        writer.writeStringValue("description", group.description);
+        writer.writeStringValue("displayName", group.displayName);
+        writer.writeStringValue("parentSiteId", group.parentSiteId);
+        writer.writeEnumValue<TermGroupScope>("scope", group.scope);
+        writer.writeCollectionOfObjectValues<Set>("sets", group.sets, serializeSet);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLocalizedDescription(writer: SerializationWriter, localizedDescription: Partial<LocalizedDescription> | undefined = {}) : void {
-    writer.writeStringValue("description", localizedDescription.description);
-    writer.writeStringValue("languageTag", localizedDescription.languageTag);
-    writer.writeStringValue("@odata.type", localizedDescription.odataType);
-    writer.writeAdditionalData(localizedDescription.additionalData);
+export function serializeLocalizedDescription(writer: SerializationWriter, localizedDescription: Partial<LocalizedDescription> | undefined | null = {}) : void {
+    if (localizedDescription) {
+        writer.writeStringValue("description", localizedDescription.description);
+        writer.writeStringValue("languageTag", localizedDescription.languageTag);
+        writer.writeStringValue("@odata.type", localizedDescription.odataType);
+        writer.writeAdditionalData(localizedDescription.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLocalizedLabel(writer: SerializationWriter, localizedLabel: Partial<LocalizedLabel> | undefined = {}) : void {
-    writer.writeBooleanValue("isDefault", localizedLabel.isDefault);
-    writer.writeStringValue("languageTag", localizedLabel.languageTag);
-    writer.writeStringValue("name", localizedLabel.name);
-    writer.writeStringValue("@odata.type", localizedLabel.odataType);
-    writer.writeAdditionalData(localizedLabel.additionalData);
+export function serializeLocalizedLabel(writer: SerializationWriter, localizedLabel: Partial<LocalizedLabel> | undefined | null = {}) : void {
+    if (localizedLabel) {
+        writer.writeBooleanValue("isDefault", localizedLabel.isDefault);
+        writer.writeStringValue("languageTag", localizedLabel.languageTag);
+        writer.writeStringValue("name", localizedLabel.name);
+        writer.writeStringValue("@odata.type", localizedLabel.odataType);
+        writer.writeAdditionalData(localizedLabel.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLocalizedName(writer: SerializationWriter, localizedName: Partial<LocalizedName> | undefined = {}) : void {
-    writer.writeStringValue("languageTag", localizedName.languageTag);
-    writer.writeStringValue("name", localizedName.name);
-    writer.writeStringValue("@odata.type", localizedName.odataType);
-    writer.writeAdditionalData(localizedName.additionalData);
+export function serializeLocalizedName(writer: SerializationWriter, localizedName: Partial<LocalizedName> | undefined | null = {}) : void {
+    if (localizedName) {
+        writer.writeStringValue("languageTag", localizedName.languageTag);
+        writer.writeStringValue("name", localizedName.name);
+        writer.writeStringValue("@odata.type", localizedName.odataType);
+        writer.writeAdditionalData(localizedName.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRelation(writer: SerializationWriter, relation: Partial<Relation> | undefined = {}) : void {
-    serializeEntity(writer, relation)
-    writer.writeObjectValue<Term>("fromTerm", relation.fromTerm, serializeTerm);
-    writer.writeEnumValue<RelationType>("relationship", relation.relationship);
-    writer.writeObjectValue<Set>("set", relation.set, serializeSet);
-    writer.writeObjectValue<Term>("toTerm", relation.toTerm, serializeTerm);
+export function serializeRelation(writer: SerializationWriter, relation: Partial<Relation> | undefined | null = {}) : void {
+    if (relation) {
+        serializeEntity(writer, relation)
+        writer.writeObjectValue<Term>("fromTerm", relation.fromTerm, serializeTerm);
+        writer.writeEnumValue<RelationType>("relationship", relation.relationship);
+        writer.writeObjectValue<Set>("set", relation.set, serializeSet);
+        writer.writeObjectValue<Term>("toTerm", relation.toTerm, serializeTerm);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSet(writer: SerializationWriter, set: Partial<Set> | undefined = {}) : void {
-    serializeEntity(writer, set)
-    writer.writeCollectionOfObjectValues<Term>("children", set.children, serializeTerm);
-    writer.writeDateValue("createdDateTime", set.createdDateTime);
-    writer.writeStringValue("description", set.description);
-    writer.writeCollectionOfObjectValues<LocalizedName>("localizedNames", set.localizedNames, serializeLocalizedName);
-    writer.writeObjectValue<Group>("parentGroup", set.parentGroup, serializeGroup);
-    writer.writeCollectionOfObjectValues<KeyValue>("properties", set.properties, serializeKeyValue);
-    writer.writeCollectionOfObjectValues<Relation>("relations", set.relations, serializeRelation);
-    writer.writeCollectionOfObjectValues<Term>("terms", set.terms, serializeTerm);
+export function serializeSet(writer: SerializationWriter, set: Partial<Set> | undefined | null = {}) : void {
+    if (set) {
+        serializeEntity(writer, set)
+        writer.writeCollectionOfObjectValues<Term>("children", set.children, serializeTerm);
+        writer.writeDateValue("createdDateTime", set.createdDateTime);
+        writer.writeStringValue("description", set.description);
+        writer.writeCollectionOfObjectValues<LocalizedName>("localizedNames", set.localizedNames, serializeLocalizedName);
+        writer.writeObjectValue<Group>("parentGroup", set.parentGroup, serializeGroup);
+        writer.writeCollectionOfObjectValues<KeyValue>("properties", set.properties, serializeKeyValue);
+        writer.writeCollectionOfObjectValues<Relation>("relations", set.relations, serializeRelation);
+        writer.writeCollectionOfObjectValues<Term>("terms", set.terms, serializeTerm);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeStore(writer: SerializationWriter, store: Partial<Store> | undefined = {}) : void {
-    serializeEntity(writer, store)
-    writer.writeStringValue("defaultLanguageTag", store.defaultLanguageTag);
-    writer.writeCollectionOfObjectValues<Group>("groups", store.groups, serializeGroup);
-    writer.writeCollectionOfPrimitiveValues<string>("languageTags", store.languageTags);
-    writer.writeCollectionOfObjectValues<Set>("sets", store.sets, serializeSet);
+export function serializeStore(writer: SerializationWriter, store: Partial<Store> | undefined | null = {}) : void {
+    if (store) {
+        serializeEntity(writer, store)
+        writer.writeStringValue("defaultLanguageTag", store.defaultLanguageTag);
+        writer.writeCollectionOfObjectValues<Group>("groups", store.groups, serializeGroup);
+        writer.writeCollectionOfPrimitiveValues<string>("languageTags", store.languageTags);
+        writer.writeCollectionOfObjectValues<Set>("sets", store.sets, serializeSet);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTerm(writer: SerializationWriter, term: Partial<Term> | undefined = {}) : void {
-    serializeEntity(writer, term)
-    writer.writeCollectionOfObjectValues<Term>("children", term.children, serializeTerm);
-    writer.writeDateValue("createdDateTime", term.createdDateTime);
-    writer.writeCollectionOfObjectValues<LocalizedDescription>("descriptions", term.descriptions, serializeLocalizedDescription);
-    writer.writeCollectionOfObjectValues<LocalizedLabel>("labels", term.labels, serializeLocalizedLabel);
-    writer.writeDateValue("lastModifiedDateTime", term.lastModifiedDateTime);
-    writer.writeCollectionOfObjectValues<KeyValue>("properties", term.properties, serializeKeyValue);
-    writer.writeCollectionOfObjectValues<Relation>("relations", term.relations, serializeRelation);
-    writer.writeObjectValue<Set>("set", term.set, serializeSet);
+export function serializeTerm(writer: SerializationWriter, term: Partial<Term> | undefined | null = {}) : void {
+    if (term) {
+        serializeEntity(writer, term)
+        writer.writeCollectionOfObjectValues<Term>("children", term.children, serializeTerm);
+        writer.writeDateValue("createdDateTime", term.createdDateTime);
+        writer.writeCollectionOfObjectValues<LocalizedDescription>("descriptions", term.descriptions, serializeLocalizedDescription);
+        writer.writeCollectionOfObjectValues<LocalizedLabel>("labels", term.labels, serializeLocalizedLabel);
+        writer.writeDateValue("lastModifiedDateTime", term.lastModifiedDateTime);
+        writer.writeCollectionOfObjectValues<KeyValue>("properties", term.properties, serializeKeyValue);
+        writer.writeCollectionOfObjectValues<Relation>("relations", term.relations, serializeRelation);
+        writer.writeObjectValue<Set>("set", term.set, serializeSet);
+    }
 }
 export interface Set extends Entity, Parsable {
     /**
      * Children terms of set in term [store].
      */
-    children?: Term[];
+    children?: Term[] | null;
     /**
      * Date and time of set creation. Read-only.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * Description that gives details on the term usage.
      */
-    description?: string;
+    description?: string | null;
     /**
      * Name of the set for each languageTag.
      */
-    localizedNames?: LocalizedName[];
+    localizedNames?: LocalizedName[] | null;
     /**
      * The parentGroup property
      */
-    parentGroup?: Group;
+    parentGroup?: Group | null;
     /**
      * Custom properties for the set.
      */
-    properties?: KeyValue[];
+    properties?: KeyValue[] | null;
     /**
      * Indicates which terms have been pinned or reused directly under the set.
      */
-    relations?: Relation[];
+    relations?: Relation[] | null;
     /**
      * All the terms under the set.
      */
-    terms?: Term[];
+    terms?: Term[] | null;
 }
 export interface Store extends Entity, Parsable {
     /**
      * Default language of the term store.
      */
-    defaultLanguageTag?: string;
+    defaultLanguageTag?: string | null;
     /**
      * Collection of all groups available in the term store.
      */
-    groups?: Group[];
+    groups?: Group[] | null;
     /**
      * List of languages for the term store.
      */
-    languageTags?: string[];
+    languageTags?: string[] | null;
     /**
      * Collection of all sets available in the term store. This relationship can only be used to load a specific term set.
      */
-    sets?: Set[];
+    sets?: Set[] | null;
 }
 export interface Term extends Entity, Parsable {
     /**
      * Children of current term.
      */
-    children?: Term[];
+    children?: Term[] | null;
     /**
      * Date and time of term creation. Read-only.
      */
-    createdDateTime?: Date;
+    createdDateTime?: Date | null;
     /**
      * Description about term that is dependent on the languageTag.
      */
-    descriptions?: LocalizedDescription[];
+    descriptions?: LocalizedDescription[] | null;
     /**
      * Label metadata for a term.
      */
-    labels?: LocalizedLabel[];
+    labels?: LocalizedLabel[] | null;
     /**
      * Last date and time of term modification. Read-only.
      */
-    lastModifiedDateTime?: Date;
+    lastModifiedDateTime?: Date | null;
     /**
      * Collection of properties on the term.
      */
-    properties?: KeyValue[];
+    properties?: KeyValue[] | null;
     /**
      * To indicate which terms are related to the current term as either pinned or reused.
      */
-    relations?: Relation[];
+    relations?: Relation[] | null;
     /**
      * The [set] in which the term is created.
      */
-    set?: Set;
+    set?: Set | null;
 }
 export type TermGroupScope = (typeof TermGroupScopeObject)[keyof typeof TermGroupScopeObject];
 export const RelationTypeObject = {

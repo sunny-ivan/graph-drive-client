@@ -36,11 +36,11 @@ export interface RandBetweenPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The bottom property
      */
-    bottom?: UntypedNode;
+    bottom?: UntypedNode | null;
     /**
      * The top property
      */
-    top?: UntypedNode;
+    top?: UntypedNode | null;
 }
 /**
  * Provides operations to call the randBetween method.
@@ -67,10 +67,12 @@ export interface RandBetweenRequestBuilder extends BaseRequestBuilder<RandBetwee
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRandBetweenPostRequestBody(writer: SerializationWriter, randBetweenPostRequestBody: Partial<RandBetweenPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("bottom", randBetweenPostRequestBody.bottom);
-    writer.writeObjectValue("top", randBetweenPostRequestBody.top);
-    writer.writeAdditionalData(randBetweenPostRequestBody.additionalData);
+export function serializeRandBetweenPostRequestBody(writer: SerializationWriter, randBetweenPostRequestBody: Partial<RandBetweenPostRequestBody> | undefined | null = {}) : void {
+    if (randBetweenPostRequestBody) {
+        writer.writeObjectValue("bottom", randBetweenPostRequestBody.bottom);
+        writer.writeObjectValue("top", randBetweenPostRequestBody.top);
+        writer.writeAdditionalData(randBetweenPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

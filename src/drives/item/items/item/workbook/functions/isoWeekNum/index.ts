@@ -35,7 +35,7 @@ export interface IsoWeekNumPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The date property
      */
-    date?: UntypedNode;
+    date?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isoWeekNum method.
@@ -62,9 +62,11 @@ export interface IsoWeekNumRequestBuilder extends BaseRequestBuilder<IsoWeekNumR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsoWeekNumPostRequestBody(writer: SerializationWriter, isoWeekNumPostRequestBody: Partial<IsoWeekNumPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("date", isoWeekNumPostRequestBody.date);
-    writer.writeAdditionalData(isoWeekNumPostRequestBody.additionalData);
+export function serializeIsoWeekNumPostRequestBody(writer: SerializationWriter, isoWeekNumPostRequestBody: Partial<IsoWeekNumPostRequestBody> | undefined | null = {}) : void {
+    if (isoWeekNumPostRequestBody) {
+        writer.writeObjectValue("date", isoWeekNumPostRequestBody.date);
+        writer.writeAdditionalData(isoWeekNumPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

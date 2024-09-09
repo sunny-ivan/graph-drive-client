@@ -16,11 +16,11 @@ export interface BitxorPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number1 property
      */
-    number1?: UntypedNode;
+    number1?: UntypedNode | null;
     /**
      * The number2 property
      */
-    number2?: UntypedNode;
+    number2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bitxor method.
@@ -67,10 +67,12 @@ export function deserializeIntoBitxorPostRequestBody(bitxorPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBitxorPostRequestBody(writer: SerializationWriter, bitxorPostRequestBody: Partial<BitxorPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number1", bitxorPostRequestBody.number1);
-    writer.writeObjectValue("number2", bitxorPostRequestBody.number2);
-    writer.writeAdditionalData(bitxorPostRequestBody.additionalData);
+export function serializeBitxorPostRequestBody(writer: SerializationWriter, bitxorPostRequestBody: Partial<BitxorPostRequestBody> | undefined | null = {}) : void {
+    if (bitxorPostRequestBody) {
+        writer.writeObjectValue("number1", bitxorPostRequestBody.number1);
+        writer.writeObjectValue("number2", bitxorPostRequestBody.number2);
+        writer.writeAdditionalData(bitxorPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

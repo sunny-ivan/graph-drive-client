@@ -16,11 +16,11 @@ export interface ChoosePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The indexNum property
      */
-    indexNum?: UntypedNode;
+    indexNum?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the choose method.
@@ -67,10 +67,12 @@ export function deserializeIntoChoosePostRequestBody(choosePostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChoosePostRequestBody(writer: SerializationWriter, choosePostRequestBody: Partial<ChoosePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("indexNum", choosePostRequestBody.indexNum);
-    writer.writeObjectValue("values", choosePostRequestBody.values);
-    writer.writeAdditionalData(choosePostRequestBody.additionalData);
+export function serializeChoosePostRequestBody(writer: SerializationWriter, choosePostRequestBody: Partial<ChoosePostRequestBody> | undefined | null = {}) : void {
+    if (choosePostRequestBody) {
+        writer.writeObjectValue("indexNum", choosePostRequestBody.indexNum);
+        writer.writeObjectValue("values", choosePostRequestBody.values);
+        writer.writeAdditionalData(choosePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

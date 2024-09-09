@@ -32,9 +32,11 @@ export function deserializeIntoVar_SPostRequestBody(var_SPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVar_SPostRequestBody(writer: SerializationWriter, var_SPostRequestBody: Partial<Var_SPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", var_SPostRequestBody.values);
-    writer.writeAdditionalData(var_SPostRequestBody.additionalData);
+export function serializeVar_SPostRequestBody(writer: SerializationWriter, var_SPostRequestBody: Partial<Var_SPostRequestBody> | undefined | null = {}) : void {
+    if (var_SPostRequestBody) {
+        writer.writeObjectValue("values", var_SPostRequestBody.values);
+        writer.writeAdditionalData(var_SPostRequestBody.additionalData);
+    }
 }
 export interface Var_SPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface Var_SPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the var_S method.

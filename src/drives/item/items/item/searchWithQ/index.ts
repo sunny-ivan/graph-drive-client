@@ -32,7 +32,7 @@ export interface SearchWithQGetResponse extends BaseCollectionPaginationCountRes
     /**
      * The value property
      */
-    value?: DriveItem[];
+    value?: DriveItem[] | null;
 }
 /**
  * Provides operations to call the search method.
@@ -95,9 +95,11 @@ export interface SearchWithQRequestBuilderGetQueryParameters {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSearchWithQGetResponse(writer: SerializationWriter, searchWithQGetResponse: Partial<SearchWithQGetResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, searchWithQGetResponse)
-    writer.writeCollectionOfObjectValues<DriveItem>("value", searchWithQGetResponse.value, serializeDriveItem);
+export function serializeSearchWithQGetResponse(writer: SerializationWriter, searchWithQGetResponse: Partial<SearchWithQGetResponse> | undefined | null = {}) : void {
+    if (searchWithQGetResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, searchWithQGetResponse)
+        writer.writeCollectionOfObjectValues<DriveItem>("value", searchWithQGetResponse.value, serializeDriveItem);
+    }
 }
 /**
  * Uri template for the request builder.

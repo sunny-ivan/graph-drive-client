@@ -38,19 +38,19 @@ export interface HlookupPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The lookupValue property
      */
-    lookupValue?: UntypedNode;
+    lookupValue?: UntypedNode | null;
     /**
      * The rangeLookup property
      */
-    rangeLookup?: UntypedNode;
+    rangeLookup?: UntypedNode | null;
     /**
      * The rowIndexNum property
      */
-    rowIndexNum?: UntypedNode;
+    rowIndexNum?: UntypedNode | null;
     /**
      * The tableArray property
      */
-    tableArray?: UntypedNode;
+    tableArray?: UntypedNode | null;
 }
 /**
  * Provides operations to call the hlookup method.
@@ -77,12 +77,14 @@ export interface HlookupRequestBuilder extends BaseRequestBuilder<HlookupRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHlookupPostRequestBody(writer: SerializationWriter, hlookupPostRequestBody: Partial<HlookupPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("lookupValue", hlookupPostRequestBody.lookupValue);
-    writer.writeObjectValue("rangeLookup", hlookupPostRequestBody.rangeLookup);
-    writer.writeObjectValue("rowIndexNum", hlookupPostRequestBody.rowIndexNum);
-    writer.writeObjectValue("tableArray", hlookupPostRequestBody.tableArray);
-    writer.writeAdditionalData(hlookupPostRequestBody.additionalData);
+export function serializeHlookupPostRequestBody(writer: SerializationWriter, hlookupPostRequestBody: Partial<HlookupPostRequestBody> | undefined | null = {}) : void {
+    if (hlookupPostRequestBody) {
+        writer.writeObjectValue("lookupValue", hlookupPostRequestBody.lookupValue);
+        writer.writeObjectValue("rangeLookup", hlookupPostRequestBody.rangeLookup);
+        writer.writeObjectValue("rowIndexNum", hlookupPostRequestBody.rowIndexNum);
+        writer.writeObjectValue("tableArray", hlookupPostRequestBody.tableArray);
+        writer.writeAdditionalData(hlookupPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

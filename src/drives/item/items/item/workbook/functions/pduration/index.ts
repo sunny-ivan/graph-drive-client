@@ -37,15 +37,15 @@ export interface PdurationPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The fv property
      */
-    fv?: UntypedNode;
+    fv?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the pduration method.
@@ -72,11 +72,13 @@ export interface PdurationRequestBuilder extends BaseRequestBuilder<PdurationReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePdurationPostRequestBody(writer: SerializationWriter, pdurationPostRequestBody: Partial<PdurationPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fv", pdurationPostRequestBody.fv);
-    writer.writeObjectValue("pv", pdurationPostRequestBody.pv);
-    writer.writeObjectValue("rate", pdurationPostRequestBody.rate);
-    writer.writeAdditionalData(pdurationPostRequestBody.additionalData);
+export function serializePdurationPostRequestBody(writer: SerializationWriter, pdurationPostRequestBody: Partial<PdurationPostRequestBody> | undefined | null = {}) : void {
+    if (pdurationPostRequestBody) {
+        writer.writeObjectValue("fv", pdurationPostRequestBody.fv);
+        writer.writeObjectValue("pv", pdurationPostRequestBody.pv);
+        writer.writeObjectValue("rate", pdurationPostRequestBody.rate);
+        writer.writeAdditionalData(pdurationPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

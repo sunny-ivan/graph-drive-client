@@ -37,15 +37,15 @@ export interface PercentRank_ExcPostRequestBody extends AdditionalDataHolder, Pa
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the percentRank_Exc method.
@@ -72,11 +72,13 @@ export interface PercentRank_ExcRequestBuilder extends BaseRequestBuilder<Percen
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePercentRank_ExcPostRequestBody(writer: SerializationWriter, percentRank_ExcPostRequestBody: Partial<PercentRank_ExcPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", percentRank_ExcPostRequestBody.array);
-    writer.writeObjectValue("significance", percentRank_ExcPostRequestBody.significance);
-    writer.writeObjectValue("x", percentRank_ExcPostRequestBody.x);
-    writer.writeAdditionalData(percentRank_ExcPostRequestBody.additionalData);
+export function serializePercentRank_ExcPostRequestBody(writer: SerializationWriter, percentRank_ExcPostRequestBody: Partial<PercentRank_ExcPostRequestBody> | undefined | null = {}) : void {
+    if (percentRank_ExcPostRequestBody) {
+        writer.writeObjectValue("array", percentRank_ExcPostRequestBody.array);
+        writer.writeObjectValue("significance", percentRank_ExcPostRequestBody.significance);
+        writer.writeObjectValue("x", percentRank_ExcPostRequestBody.x);
+        writer.writeAdditionalData(percentRank_ExcPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

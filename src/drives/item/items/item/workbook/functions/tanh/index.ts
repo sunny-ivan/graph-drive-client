@@ -32,9 +32,11 @@ export function deserializeIntoTanhPostRequestBody(tanhPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTanhPostRequestBody(writer: SerializationWriter, tanhPostRequestBody: Partial<TanhPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", tanhPostRequestBody.number);
-    writer.writeAdditionalData(tanhPostRequestBody.additionalData);
+export function serializeTanhPostRequestBody(writer: SerializationWriter, tanhPostRequestBody: Partial<TanhPostRequestBody> | undefined | null = {}) : void {
+    if (tanhPostRequestBody) {
+        writer.writeObjectValue("number", tanhPostRequestBody.number);
+        writer.writeAdditionalData(tanhPostRequestBody.additionalData);
+    }
 }
 export interface TanhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface TanhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the tanh method.

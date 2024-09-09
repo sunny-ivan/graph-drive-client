@@ -32,9 +32,11 @@ export function deserializeIntoValuePostRequestBody(valuePostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeValuePostRequestBody(writer: SerializationWriter, valuePostRequestBody: Partial<ValuePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", valuePostRequestBody.text);
-    writer.writeAdditionalData(valuePostRequestBody.additionalData);
+export function serializeValuePostRequestBody(writer: SerializationWriter, valuePostRequestBody: Partial<ValuePostRequestBody> | undefined | null = {}) : void {
+    if (valuePostRequestBody) {
+        writer.writeObjectValue("text", valuePostRequestBody.text);
+        writer.writeAdditionalData(valuePostRequestBody.additionalData);
+    }
 }
 export interface ValuePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface ValuePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the value method.

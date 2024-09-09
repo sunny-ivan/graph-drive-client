@@ -36,11 +36,11 @@ export interface MroundPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The multiple property
      */
-    multiple?: UntypedNode;
+    multiple?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the mround method.
@@ -67,10 +67,12 @@ export interface MroundRequestBuilder extends BaseRequestBuilder<MroundRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMroundPostRequestBody(writer: SerializationWriter, mroundPostRequestBody: Partial<MroundPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("multiple", mroundPostRequestBody.multiple);
-    writer.writeObjectValue("number", mroundPostRequestBody.number);
-    writer.writeAdditionalData(mroundPostRequestBody.additionalData);
+export function serializeMroundPostRequestBody(writer: SerializationWriter, mroundPostRequestBody: Partial<MroundPostRequestBody> | undefined | null = {}) : void {
+    if (mroundPostRequestBody) {
+        writer.writeObjectValue("multiple", mroundPostRequestBody.multiple);
+        writer.writeObjectValue("number", mroundPostRequestBody.number);
+        writer.writeAdditionalData(mroundPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -37,15 +37,15 @@ export interface MirrPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The financeRate property
      */
-    financeRate?: UntypedNode;
+    financeRate?: UntypedNode | null;
     /**
      * The reinvestRate property
      */
-    reinvestRate?: UntypedNode;
+    reinvestRate?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the mirr method.
@@ -72,11 +72,13 @@ export interface MirrRequestBuilder extends BaseRequestBuilder<MirrRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMirrPostRequestBody(writer: SerializationWriter, mirrPostRequestBody: Partial<MirrPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("financeRate", mirrPostRequestBody.financeRate);
-    writer.writeObjectValue("reinvestRate", mirrPostRequestBody.reinvestRate);
-    writer.writeObjectValue("values", mirrPostRequestBody.values);
-    writer.writeAdditionalData(mirrPostRequestBody.additionalData);
+export function serializeMirrPostRequestBody(writer: SerializationWriter, mirrPostRequestBody: Partial<MirrPostRequestBody> | undefined | null = {}) : void {
+    if (mirrPostRequestBody) {
+        writer.writeObjectValue("financeRate", mirrPostRequestBody.financeRate);
+        writer.writeObjectValue("reinvestRate", mirrPostRequestBody.reinvestRate);
+        writer.writeObjectValue("values", mirrPostRequestBody.values);
+        writer.writeAdditionalData(mirrPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

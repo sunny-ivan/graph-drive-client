@@ -33,10 +33,12 @@ export function deserializeIntoSmallPostRequestBody(smallPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSmallPostRequestBody(writer: SerializationWriter, smallPostRequestBody: Partial<SmallPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", smallPostRequestBody.array);
-    writer.writeObjectValue("k", smallPostRequestBody.k);
-    writer.writeAdditionalData(smallPostRequestBody.additionalData);
+export function serializeSmallPostRequestBody(writer: SerializationWriter, smallPostRequestBody: Partial<SmallPostRequestBody> | undefined | null = {}) : void {
+    if (smallPostRequestBody) {
+        writer.writeObjectValue("array", smallPostRequestBody.array);
+        writer.writeObjectValue("k", smallPostRequestBody.k);
+        writer.writeAdditionalData(smallPostRequestBody.additionalData);
+    }
 }
 export interface SmallPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface SmallPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The k property
      */
-    k?: UntypedNode;
+    k?: UntypedNode | null;
 }
 /**
  * Provides operations to call the small method.

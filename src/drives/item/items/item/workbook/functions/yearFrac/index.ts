@@ -34,11 +34,13 @@ export function deserializeIntoYearFracPostRequestBody(yearFracPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeYearFracPostRequestBody(writer: SerializationWriter, yearFracPostRequestBody: Partial<YearFracPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", yearFracPostRequestBody.basis);
-    writer.writeObjectValue("endDate", yearFracPostRequestBody.endDate);
-    writer.writeObjectValue("startDate", yearFracPostRequestBody.startDate);
-    writer.writeAdditionalData(yearFracPostRequestBody.additionalData);
+export function serializeYearFracPostRequestBody(writer: SerializationWriter, yearFracPostRequestBody: Partial<YearFracPostRequestBody> | undefined | null = {}) : void {
+    if (yearFracPostRequestBody) {
+        writer.writeObjectValue("basis", yearFracPostRequestBody.basis);
+        writer.writeObjectValue("endDate", yearFracPostRequestBody.endDate);
+        writer.writeObjectValue("startDate", yearFracPostRequestBody.startDate);
+        writer.writeAdditionalData(yearFracPostRequestBody.additionalData);
+    }
 }
 export interface YearFracPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface YearFracPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The endDate property
      */
-    endDate?: UntypedNode;
+    endDate?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the yearFrac method.

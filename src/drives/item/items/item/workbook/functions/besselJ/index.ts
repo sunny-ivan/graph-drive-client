@@ -16,11 +16,11 @@ export interface BesselJPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The n property
      */
-    n?: UntypedNode;
+    n?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the besselJ method.
@@ -67,10 +67,12 @@ export function deserializeIntoBesselJPostRequestBody(besselJPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBesselJPostRequestBody(writer: SerializationWriter, besselJPostRequestBody: Partial<BesselJPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("n", besselJPostRequestBody.n);
-    writer.writeObjectValue("x", besselJPostRequestBody.x);
-    writer.writeAdditionalData(besselJPostRequestBody.additionalData);
+export function serializeBesselJPostRequestBody(writer: SerializationWriter, besselJPostRequestBody: Partial<BesselJPostRequestBody> | undefined | null = {}) : void {
+    if (besselJPostRequestBody) {
+        writer.writeObjectValue("n", besselJPostRequestBody.n);
+        writer.writeObjectValue("x", besselJPostRequestBody.x);
+        writer.writeAdditionalData(besselJPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

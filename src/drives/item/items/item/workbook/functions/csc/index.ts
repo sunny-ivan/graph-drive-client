@@ -25,7 +25,7 @@ export interface CscPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the csc method.
@@ -62,9 +62,11 @@ export function deserializeIntoCscPostRequestBody(cscPostRequestBody: Partial<Cs
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCscPostRequestBody(writer: SerializationWriter, cscPostRequestBody: Partial<CscPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", cscPostRequestBody.number);
-    writer.writeAdditionalData(cscPostRequestBody.additionalData);
+export function serializeCscPostRequestBody(writer: SerializationWriter, cscPostRequestBody: Partial<CscPostRequestBody> | undefined | null = {}) : void {
+    if (cscPostRequestBody) {
+        writer.writeObjectValue("number", cscPostRequestBody.number);
+        writer.writeAdditionalData(cscPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

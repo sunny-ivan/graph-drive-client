@@ -14,7 +14,7 @@ export interface ApplyTopItemsFilterPostRequestBody extends AdditionalDataHolder
     /**
      * The count property
      */
-    count?: number;
+    count?: number | null;
 }
 /**
  * Provides operations to call the applyTopItemsFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyTopItemsFilterPostRequestBody(applyTopItemsF
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyTopItemsFilterPostRequestBody(writer: SerializationWriter, applyTopItemsFilterPostRequestBody: Partial<ApplyTopItemsFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeNumberValue("count", applyTopItemsFilterPostRequestBody.count);
-    writer.writeAdditionalData(applyTopItemsFilterPostRequestBody.additionalData);
+export function serializeApplyTopItemsFilterPostRequestBody(writer: SerializationWriter, applyTopItemsFilterPostRequestBody: Partial<ApplyTopItemsFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyTopItemsFilterPostRequestBody) {
+        writer.writeNumberValue("count", applyTopItemsFilterPostRequestBody.count);
+        writer.writeAdditionalData(applyTopItemsFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

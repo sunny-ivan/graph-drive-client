@@ -40,27 +40,27 @@ export interface DurationPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The coupon property
      */
-    coupon?: UntypedNode;
+    coupon?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
     /**
      * The yld property
      */
-    yld?: UntypedNode;
+    yld?: UntypedNode | null;
 }
 /**
  * Provides operations to call the duration method.
@@ -87,14 +87,16 @@ export interface DurationRequestBuilder extends BaseRequestBuilder<DurationReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDurationPostRequestBody(writer: SerializationWriter, durationPostRequestBody: Partial<DurationPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", durationPostRequestBody.basis);
-    writer.writeObjectValue("coupon", durationPostRequestBody.coupon);
-    writer.writeObjectValue("frequency", durationPostRequestBody.frequency);
-    writer.writeObjectValue("maturity", durationPostRequestBody.maturity);
-    writer.writeObjectValue("settlement", durationPostRequestBody.settlement);
-    writer.writeObjectValue("yld", durationPostRequestBody.yld);
-    writer.writeAdditionalData(durationPostRequestBody.additionalData);
+export function serializeDurationPostRequestBody(writer: SerializationWriter, durationPostRequestBody: Partial<DurationPostRequestBody> | undefined | null = {}) : void {
+    if (durationPostRequestBody) {
+        writer.writeObjectValue("basis", durationPostRequestBody.basis);
+        writer.writeObjectValue("coupon", durationPostRequestBody.coupon);
+        writer.writeObjectValue("frequency", durationPostRequestBody.frequency);
+        writer.writeObjectValue("maturity", durationPostRequestBody.maturity);
+        writer.writeObjectValue("settlement", durationPostRequestBody.settlement);
+        writer.writeObjectValue("yld", durationPostRequestBody.yld);
+        writer.writeAdditionalData(durationPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

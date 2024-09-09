@@ -40,27 +40,27 @@ export interface PpmtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fv property
      */
-    fv?: UntypedNode;
+    fv?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The per property
      */
-    per?: UntypedNode;
+    per?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ppmt method.
@@ -87,14 +87,16 @@ export interface PpmtRequestBuilder extends BaseRequestBuilder<PpmtRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePpmtPostRequestBody(writer: SerializationWriter, ppmtPostRequestBody: Partial<PpmtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fv", ppmtPostRequestBody.fv);
-    writer.writeObjectValue("nper", ppmtPostRequestBody.nper);
-    writer.writeObjectValue("per", ppmtPostRequestBody.per);
-    writer.writeObjectValue("pv", ppmtPostRequestBody.pv);
-    writer.writeObjectValue("rate", ppmtPostRequestBody.rate);
-    writer.writeObjectValue("type", ppmtPostRequestBody.type);
-    writer.writeAdditionalData(ppmtPostRequestBody.additionalData);
+export function serializePpmtPostRequestBody(writer: SerializationWriter, ppmtPostRequestBody: Partial<PpmtPostRequestBody> | undefined | null = {}) : void {
+    if (ppmtPostRequestBody) {
+        writer.writeObjectValue("fv", ppmtPostRequestBody.fv);
+        writer.writeObjectValue("nper", ppmtPostRequestBody.nper);
+        writer.writeObjectValue("per", ppmtPostRequestBody.per);
+        writer.writeObjectValue("pv", ppmtPostRequestBody.pv);
+        writer.writeObjectValue("rate", ppmtPostRequestBody.rate);
+        writer.writeObjectValue("type", ppmtPostRequestBody.type);
+        writer.writeAdditionalData(ppmtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -36,11 +36,11 @@ export interface QuotientPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The denominator property
      */
-    denominator?: UntypedNode;
+    denominator?: UntypedNode | null;
     /**
      * The numerator property
      */
-    numerator?: UntypedNode;
+    numerator?: UntypedNode | null;
 }
 /**
  * Provides operations to call the quotient method.
@@ -67,10 +67,12 @@ export interface QuotientRequestBuilder extends BaseRequestBuilder<QuotientReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeQuotientPostRequestBody(writer: SerializationWriter, quotientPostRequestBody: Partial<QuotientPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("denominator", quotientPostRequestBody.denominator);
-    writer.writeObjectValue("numerator", quotientPostRequestBody.numerator);
-    writer.writeAdditionalData(quotientPostRequestBody.additionalData);
+export function serializeQuotientPostRequestBody(writer: SerializationWriter, quotientPostRequestBody: Partial<QuotientPostRequestBody> | undefined | null = {}) : void {
+    if (quotientPostRequestBody) {
+        writer.writeObjectValue("denominator", quotientPostRequestBody.denominator);
+        writer.writeObjectValue("numerator", quotientPostRequestBody.numerator);
+        writer.writeAdditionalData(quotientPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

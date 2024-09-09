@@ -25,7 +25,7 @@ export interface DegreesPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The angle property
      */
-    angle?: UntypedNode;
+    angle?: UntypedNode | null;
 }
 /**
  * Provides operations to call the degrees method.
@@ -62,9 +62,11 @@ export function deserializeIntoDegreesPostRequestBody(degreesPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDegreesPostRequestBody(writer: SerializationWriter, degreesPostRequestBody: Partial<DegreesPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("angle", degreesPostRequestBody.angle);
-    writer.writeAdditionalData(degreesPostRequestBody.additionalData);
+export function serializeDegreesPostRequestBody(writer: SerializationWriter, degreesPostRequestBody: Partial<DegreesPostRequestBody> | undefined | null = {}) : void {
+    if (degreesPostRequestBody) {
+        writer.writeObjectValue("angle", degreesPostRequestBody.angle);
+        writer.writeAdditionalData(degreesPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

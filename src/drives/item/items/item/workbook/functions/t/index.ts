@@ -32,9 +32,11 @@ export function deserializeIntoTPostRequestBody(tPostRequestBody: Partial<TPostR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTPostRequestBody(writer: SerializationWriter, tPostRequestBody: Partial<TPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", tPostRequestBody.value);
-    writer.writeAdditionalData(tPostRequestBody.additionalData);
+export function serializeTPostRequestBody(writer: SerializationWriter, tPostRequestBody: Partial<TPostRequestBody> | undefined | null = {}) : void {
+    if (tPostRequestBody) {
+        writer.writeObjectValue("value", tPostRequestBody.value);
+        writer.writeAdditionalData(tPostRequestBody.additionalData);
+    }
 }
 export interface TPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface TPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the t method.

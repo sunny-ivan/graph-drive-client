@@ -36,11 +36,11 @@ export interface Quartile_IncPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The quart property
      */
-    quart?: UntypedNode;
+    quart?: UntypedNode | null;
 }
 /**
  * Provides operations to call the quartile_Inc method.
@@ -67,10 +67,12 @@ export interface Quartile_IncRequestBuilder extends BaseRequestBuilder<Quartile_
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeQuartile_IncPostRequestBody(writer: SerializationWriter, quartile_IncPostRequestBody: Partial<Quartile_IncPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", quartile_IncPostRequestBody.array);
-    writer.writeObjectValue("quart", quartile_IncPostRequestBody.quart);
-    writer.writeAdditionalData(quartile_IncPostRequestBody.additionalData);
+export function serializeQuartile_IncPostRequestBody(writer: SerializationWriter, quartile_IncPostRequestBody: Partial<Quartile_IncPostRequestBody> | undefined | null = {}) : void {
+    if (quartile_IncPostRequestBody) {
+        writer.writeObjectValue("array", quartile_IncPostRequestBody.array);
+        writer.writeObjectValue("quart", quartile_IncPostRequestBody.quart);
+        writer.writeAdditionalData(quartile_IncPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

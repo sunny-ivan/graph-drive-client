@@ -37,14 +37,16 @@ export function deserializeIntoYieldMatPostRequestBody(yieldMatPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeYieldMatPostRequestBody(writer: SerializationWriter, yieldMatPostRequestBody: Partial<YieldMatPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", yieldMatPostRequestBody.basis);
-    writer.writeObjectValue("issue", yieldMatPostRequestBody.issue);
-    writer.writeObjectValue("maturity", yieldMatPostRequestBody.maturity);
-    writer.writeObjectValue("pr", yieldMatPostRequestBody.pr);
-    writer.writeObjectValue("rate", yieldMatPostRequestBody.rate);
-    writer.writeObjectValue("settlement", yieldMatPostRequestBody.settlement);
-    writer.writeAdditionalData(yieldMatPostRequestBody.additionalData);
+export function serializeYieldMatPostRequestBody(writer: SerializationWriter, yieldMatPostRequestBody: Partial<YieldMatPostRequestBody> | undefined | null = {}) : void {
+    if (yieldMatPostRequestBody) {
+        writer.writeObjectValue("basis", yieldMatPostRequestBody.basis);
+        writer.writeObjectValue("issue", yieldMatPostRequestBody.issue);
+        writer.writeObjectValue("maturity", yieldMatPostRequestBody.maturity);
+        writer.writeObjectValue("pr", yieldMatPostRequestBody.pr);
+        writer.writeObjectValue("rate", yieldMatPostRequestBody.rate);
+        writer.writeObjectValue("settlement", yieldMatPostRequestBody.settlement);
+        writer.writeAdditionalData(yieldMatPostRequestBody.additionalData);
+    }
 }
 export interface YieldMatPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -54,27 +56,27 @@ export interface YieldMatPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The issue property
      */
-    issue?: UntypedNode;
+    issue?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The pr property
      */
-    pr?: UntypedNode;
+    pr?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the yieldMat method.

@@ -35,7 +35,7 @@ export interface GeoMeanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the geoMean method.
@@ -62,9 +62,11 @@ export interface GeoMeanRequestBuilder extends BaseRequestBuilder<GeoMeanRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGeoMeanPostRequestBody(writer: SerializationWriter, geoMeanPostRequestBody: Partial<GeoMeanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", geoMeanPostRequestBody.values);
-    writer.writeAdditionalData(geoMeanPostRequestBody.additionalData);
+export function serializeGeoMeanPostRequestBody(writer: SerializationWriter, geoMeanPostRequestBody: Partial<GeoMeanPostRequestBody> | undefined | null = {}) : void {
+    if (geoMeanPostRequestBody) {
+        writer.writeObjectValue("values", geoMeanPostRequestBody.values);
+        writer.writeAdditionalData(geoMeanPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

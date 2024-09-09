@@ -36,11 +36,11 @@ export interface Iso_CeilingPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
 }
 /**
  * Provides operations to call the iso_Ceiling method.
@@ -67,10 +67,12 @@ export interface Iso_CeilingRequestBuilder extends BaseRequestBuilder<Iso_Ceilin
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIso_CeilingPostRequestBody(writer: SerializationWriter, iso_CeilingPostRequestBody: Partial<Iso_CeilingPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", iso_CeilingPostRequestBody.number);
-    writer.writeObjectValue("significance", iso_CeilingPostRequestBody.significance);
-    writer.writeAdditionalData(iso_CeilingPostRequestBody.additionalData);
+export function serializeIso_CeilingPostRequestBody(writer: SerializationWriter, iso_CeilingPostRequestBody: Partial<Iso_CeilingPostRequestBody> | undefined | null = {}) : void {
+    if (iso_CeilingPostRequestBody) {
+        writer.writeObjectValue("number", iso_CeilingPostRequestBody.number);
+        writer.writeObjectValue("significance", iso_CeilingPostRequestBody.significance);
+        writer.writeAdditionalData(iso_CeilingPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

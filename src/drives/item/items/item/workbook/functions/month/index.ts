@@ -35,7 +35,7 @@ export interface MonthPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the month method.
@@ -62,9 +62,11 @@ export interface MonthRequestBuilder extends BaseRequestBuilder<MonthRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMonthPostRequestBody(writer: SerializationWriter, monthPostRequestBody: Partial<MonthPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("serialNumber", monthPostRequestBody.serialNumber);
-    writer.writeAdditionalData(monthPostRequestBody.additionalData);
+export function serializeMonthPostRequestBody(writer: SerializationWriter, monthPostRequestBody: Partial<MonthPostRequestBody> | undefined | null = {}) : void {
+    if (monthPostRequestBody) {
+        writer.writeObjectValue("serialNumber", monthPostRequestBody.serialNumber);
+        writer.writeAdditionalData(monthPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

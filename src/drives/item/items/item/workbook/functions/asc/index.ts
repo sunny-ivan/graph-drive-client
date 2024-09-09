@@ -16,7 +16,7 @@ export interface AscPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the asc method.
@@ -62,9 +62,11 @@ export function deserializeIntoAscPostRequestBody(ascPostRequestBody: Partial<As
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAscPostRequestBody(writer: SerializationWriter, ascPostRequestBody: Partial<AscPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", ascPostRequestBody.text);
-    writer.writeAdditionalData(ascPostRequestBody.additionalData);
+export function serializeAscPostRequestBody(writer: SerializationWriter, ascPostRequestBody: Partial<AscPostRequestBody> | undefined | null = {}) : void {
+    if (ascPostRequestBody) {
+        writer.writeObjectValue("text", ascPostRequestBody.text);
+        writer.writeAdditionalData(ascPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -38,19 +38,19 @@ export interface NetworkDays_IntlPostRequestBody extends AdditionalDataHolder, P
     /**
      * The endDate property
      */
-    endDate?: UntypedNode;
+    endDate?: UntypedNode | null;
     /**
      * The holidays property
      */
-    holidays?: UntypedNode;
+    holidays?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
     /**
      * The weekend property
      */
-    weekend?: UntypedNode;
+    weekend?: UntypedNode | null;
 }
 /**
  * Provides operations to call the networkDays_Intl method.
@@ -77,12 +77,14 @@ export interface NetworkDays_IntlRequestBuilder extends BaseRequestBuilder<Netwo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNetworkDays_IntlPostRequestBody(writer: SerializationWriter, networkDays_IntlPostRequestBody: Partial<NetworkDays_IntlPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endDate", networkDays_IntlPostRequestBody.endDate);
-    writer.writeObjectValue("holidays", networkDays_IntlPostRequestBody.holidays);
-    writer.writeObjectValue("startDate", networkDays_IntlPostRequestBody.startDate);
-    writer.writeObjectValue("weekend", networkDays_IntlPostRequestBody.weekend);
-    writer.writeAdditionalData(networkDays_IntlPostRequestBody.additionalData);
+export function serializeNetworkDays_IntlPostRequestBody(writer: SerializationWriter, networkDays_IntlPostRequestBody: Partial<NetworkDays_IntlPostRequestBody> | undefined | null = {}) : void {
+    if (networkDays_IntlPostRequestBody) {
+        writer.writeObjectValue("endDate", networkDays_IntlPostRequestBody.endDate);
+        writer.writeObjectValue("holidays", networkDays_IntlPostRequestBody.holidays);
+        writer.writeObjectValue("startDate", networkDays_IntlPostRequestBody.startDate);
+        writer.writeObjectValue("weekend", networkDays_IntlPostRequestBody.weekend);
+        writer.writeAdditionalData(networkDays_IntlPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

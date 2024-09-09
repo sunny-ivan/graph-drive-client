@@ -16,7 +16,7 @@ export interface CountBlankPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The range property
      */
-    range?: UntypedNode;
+    range?: UntypedNode | null;
 }
 /**
  * Provides operations to call the countBlank method.
@@ -62,9 +62,11 @@ export function deserializeIntoCountBlankPostRequestBody(countBlankPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCountBlankPostRequestBody(writer: SerializationWriter, countBlankPostRequestBody: Partial<CountBlankPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("range", countBlankPostRequestBody.range);
-    writer.writeAdditionalData(countBlankPostRequestBody.additionalData);
+export function serializeCountBlankPostRequestBody(writer: SerializationWriter, countBlankPostRequestBody: Partial<CountBlankPostRequestBody> | undefined | null = {}) : void {
+    if (countBlankPostRequestBody) {
+        writer.writeObjectValue("range", countBlankPostRequestBody.range);
+        writer.writeAdditionalData(countBlankPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

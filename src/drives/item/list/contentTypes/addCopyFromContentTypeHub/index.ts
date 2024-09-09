@@ -16,7 +16,7 @@ export interface AddCopyFromContentTypeHubPostRequestBody extends AdditionalData
     /**
      * The contentTypeId property
      */
-    contentTypeId?: string;
+    contentTypeId?: string | null;
 }
 /**
  * Provides operations to call the addCopyFromContentTypeHub method.
@@ -63,9 +63,11 @@ export function deserializeIntoAddCopyFromContentTypeHubPostRequestBody(addCopyF
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddCopyFromContentTypeHubPostRequestBody(writer: SerializationWriter, addCopyFromContentTypeHubPostRequestBody: Partial<AddCopyFromContentTypeHubPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("contentTypeId", addCopyFromContentTypeHubPostRequestBody.contentTypeId);
-    writer.writeAdditionalData(addCopyFromContentTypeHubPostRequestBody.additionalData);
+export function serializeAddCopyFromContentTypeHubPostRequestBody(writer: SerializationWriter, addCopyFromContentTypeHubPostRequestBody: Partial<AddCopyFromContentTypeHubPostRequestBody> | undefined | null = {}) : void {
+    if (addCopyFromContentTypeHubPostRequestBody) {
+        writer.writeStringValue("contentTypeId", addCopyFromContentTypeHubPostRequestBody.contentTypeId);
+        writer.writeAdditionalData(addCopyFromContentTypeHubPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

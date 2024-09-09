@@ -25,23 +25,23 @@ export interface DbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cost property
      */
-    cost?: UntypedNode;
+    cost?: UntypedNode | null;
     /**
      * The life property
      */
-    life?: UntypedNode;
+    life?: UntypedNode | null;
     /**
      * The month property
      */
-    month?: UntypedNode;
+    month?: UntypedNode | null;
     /**
      * The period property
      */
-    period?: UntypedNode;
+    period?: UntypedNode | null;
     /**
      * The salvage property
      */
-    salvage?: UntypedNode;
+    salvage?: UntypedNode | null;
 }
 /**
  * Provides operations to call the db method.
@@ -82,13 +82,15 @@ export function deserializeIntoDbPostRequestBody(dbPostRequestBody: Partial<DbPo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDbPostRequestBody(writer: SerializationWriter, dbPostRequestBody: Partial<DbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cost", dbPostRequestBody.cost);
-    writer.writeObjectValue("life", dbPostRequestBody.life);
-    writer.writeObjectValue("month", dbPostRequestBody.month);
-    writer.writeObjectValue("period", dbPostRequestBody.period);
-    writer.writeObjectValue("salvage", dbPostRequestBody.salvage);
-    writer.writeAdditionalData(dbPostRequestBody.additionalData);
+export function serializeDbPostRequestBody(writer: SerializationWriter, dbPostRequestBody: Partial<DbPostRequestBody> | undefined | null = {}) : void {
+    if (dbPostRequestBody) {
+        writer.writeObjectValue("cost", dbPostRequestBody.cost);
+        writer.writeObjectValue("life", dbPostRequestBody.life);
+        writer.writeObjectValue("month", dbPostRequestBody.month);
+        writer.writeObjectValue("period", dbPostRequestBody.period);
+        writer.writeObjectValue("salvage", dbPostRequestBody.salvage);
+        writer.writeAdditionalData(dbPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

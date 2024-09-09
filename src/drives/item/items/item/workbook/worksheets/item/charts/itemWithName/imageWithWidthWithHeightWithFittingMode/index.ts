@@ -33,7 +33,7 @@ export interface ImageWithWidthWithHeightWithFittingModeGetResponse extends Addi
     /**
      * The value property
      */
-    value?: string;
+    value?: string | null;
 }
 /**
  * Provides operations to call the image method.
@@ -58,9 +58,11 @@ export interface ImageWithWidthWithHeightWithFittingModeRequestBuilder extends B
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImageWithWidthWithHeightWithFittingModeGetResponse(writer: SerializationWriter, imageWithWidthWithHeightWithFittingModeGetResponse: Partial<ImageWithWidthWithHeightWithFittingModeGetResponse> | undefined = {}) : void {
-    writer.writeStringValue("value", imageWithWidthWithHeightWithFittingModeGetResponse.value);
-    writer.writeAdditionalData(imageWithWidthWithHeightWithFittingModeGetResponse.additionalData);
+export function serializeImageWithWidthWithHeightWithFittingModeGetResponse(writer: SerializationWriter, imageWithWidthWithHeightWithFittingModeGetResponse: Partial<ImageWithWidthWithHeightWithFittingModeGetResponse> | undefined | null = {}) : void {
+    if (imageWithWidthWithHeightWithFittingModeGetResponse) {
+        writer.writeStringValue("value", imageWithWidthWithHeightWithFittingModeGetResponse.value);
+        writer.writeAdditionalData(imageWithWidthWithHeightWithFittingModeGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

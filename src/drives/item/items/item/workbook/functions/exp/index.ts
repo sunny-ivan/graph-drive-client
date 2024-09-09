@@ -35,7 +35,7 @@ export interface ExpPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the exp method.
@@ -62,9 +62,11 @@ export interface ExpRequestBuilder extends BaseRequestBuilder<ExpRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeExpPostRequestBody(writer: SerializationWriter, expPostRequestBody: Partial<ExpPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", expPostRequestBody.number);
-    writer.writeAdditionalData(expPostRequestBody.additionalData);
+export function serializeExpPostRequestBody(writer: SerializationWriter, expPostRequestBody: Partial<ExpPostRequestBody> | undefined | null = {}) : void {
+    if (expPostRequestBody) {
+        writer.writeObjectValue("number", expPostRequestBody.number);
+        writer.writeAdditionalData(expPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

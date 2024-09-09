@@ -36,11 +36,11 @@ export interface PreviewPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The page property
      */
-    page?: string;
+    page?: string | null;
     /**
      * The zoom property
      */
-    zoom?: number;
+    zoom?: number | null;
 }
 /**
  * Provides operations to call the preview method.
@@ -67,10 +67,12 @@ export interface PreviewRequestBuilder extends BaseRequestBuilder<PreviewRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePreviewPostRequestBody(writer: SerializationWriter, previewPostRequestBody: Partial<PreviewPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("page", previewPostRequestBody.page);
-    writer.writeNumberValue("zoom", previewPostRequestBody.zoom);
-    writer.writeAdditionalData(previewPostRequestBody.additionalData);
+export function serializePreviewPostRequestBody(writer: SerializationWriter, previewPostRequestBody: Partial<PreviewPostRequestBody> | undefined | null = {}) : void {
+    if (previewPostRequestBody) {
+        writer.writeStringValue("page", previewPostRequestBody.page);
+        writer.writeNumberValue("zoom", previewPostRequestBody.zoom);
+        writer.writeAdditionalData(previewPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

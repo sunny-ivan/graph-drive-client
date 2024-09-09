@@ -33,10 +33,12 @@ export function deserializeIntoTrimMeanPostRequestBody(trimMeanPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTrimMeanPostRequestBody(writer: SerializationWriter, trimMeanPostRequestBody: Partial<TrimMeanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", trimMeanPostRequestBody.array);
-    writer.writeObjectValue("percent", trimMeanPostRequestBody.percent);
-    writer.writeAdditionalData(trimMeanPostRequestBody.additionalData);
+export function serializeTrimMeanPostRequestBody(writer: SerializationWriter, trimMeanPostRequestBody: Partial<TrimMeanPostRequestBody> | undefined | null = {}) : void {
+    if (trimMeanPostRequestBody) {
+        writer.writeObjectValue("array", trimMeanPostRequestBody.array);
+        writer.writeObjectValue("percent", trimMeanPostRequestBody.percent);
+        writer.writeAdditionalData(trimMeanPostRequestBody.additionalData);
+    }
 }
 export interface TrimMeanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface TrimMeanPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The percent property
      */
-    percent?: UntypedNode;
+    percent?: UntypedNode | null;
 }
 /**
  * Provides operations to call the trimMean method.

@@ -34,11 +34,13 @@ export function deserializeIntoTbillEqPostRequestBody(tbillEqPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTbillEqPostRequestBody(writer: SerializationWriter, tbillEqPostRequestBody: Partial<TbillEqPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("discount", tbillEqPostRequestBody.discount);
-    writer.writeObjectValue("maturity", tbillEqPostRequestBody.maturity);
-    writer.writeObjectValue("settlement", tbillEqPostRequestBody.settlement);
-    writer.writeAdditionalData(tbillEqPostRequestBody.additionalData);
+export function serializeTbillEqPostRequestBody(writer: SerializationWriter, tbillEqPostRequestBody: Partial<TbillEqPostRequestBody> | undefined | null = {}) : void {
+    if (tbillEqPostRequestBody) {
+        writer.writeObjectValue("discount", tbillEqPostRequestBody.discount);
+        writer.writeObjectValue("maturity", tbillEqPostRequestBody.maturity);
+        writer.writeObjectValue("settlement", tbillEqPostRequestBody.settlement);
+        writer.writeAdditionalData(tbillEqPostRequestBody.additionalData);
+    }
 }
 export interface TbillEqPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface TbillEqPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The discount property
      */
-    discount?: UntypedNode;
+    discount?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the tbillEq method.

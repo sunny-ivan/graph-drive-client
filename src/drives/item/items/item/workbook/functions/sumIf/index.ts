@@ -34,11 +34,13 @@ export function deserializeIntoSumIfPostRequestBody(sumIfPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSumIfPostRequestBody(writer: SerializationWriter, sumIfPostRequestBody: Partial<SumIfPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", sumIfPostRequestBody.criteria);
-    writer.writeObjectValue("range", sumIfPostRequestBody.range);
-    writer.writeObjectValue("sumRange", sumIfPostRequestBody.sumRange);
-    writer.writeAdditionalData(sumIfPostRequestBody.additionalData);
+export function serializeSumIfPostRequestBody(writer: SerializationWriter, sumIfPostRequestBody: Partial<SumIfPostRequestBody> | undefined | null = {}) : void {
+    if (sumIfPostRequestBody) {
+        writer.writeObjectValue("criteria", sumIfPostRequestBody.criteria);
+        writer.writeObjectValue("range", sumIfPostRequestBody.range);
+        writer.writeObjectValue("sumRange", sumIfPostRequestBody.sumRange);
+        writer.writeAdditionalData(sumIfPostRequestBody.additionalData);
+    }
 }
 export interface SumIfPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface SumIfPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The range property
      */
-    range?: UntypedNode;
+    range?: UntypedNode | null;
     /**
      * The sumRange property
      */
-    sumRange?: UntypedNode;
+    sumRange?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sumIf method.

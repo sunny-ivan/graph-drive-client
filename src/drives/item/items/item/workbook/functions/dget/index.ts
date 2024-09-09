@@ -37,15 +37,15 @@ export interface DgetPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dget method.
@@ -72,11 +72,13 @@ export interface DgetRequestBuilder extends BaseRequestBuilder<DgetRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDgetPostRequestBody(writer: SerializationWriter, dgetPostRequestBody: Partial<DgetPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dgetPostRequestBody.criteria);
-    writer.writeObjectValue("database", dgetPostRequestBody.database);
-    writer.writeObjectValue("field", dgetPostRequestBody.field);
-    writer.writeAdditionalData(dgetPostRequestBody.additionalData);
+export function serializeDgetPostRequestBody(writer: SerializationWriter, dgetPostRequestBody: Partial<DgetPostRequestBody> | undefined | null = {}) : void {
+    if (dgetPostRequestBody) {
+        writer.writeObjectValue("criteria", dgetPostRequestBody.criteria);
+        writer.writeObjectValue("database", dgetPostRequestBody.database);
+        writer.writeObjectValue("field", dgetPostRequestBody.field);
+        writer.writeAdditionalData(dgetPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

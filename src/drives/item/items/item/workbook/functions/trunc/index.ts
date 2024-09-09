@@ -33,10 +33,12 @@ export function deserializeIntoTruncPostRequestBody(truncPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTruncPostRequestBody(writer: SerializationWriter, truncPostRequestBody: Partial<TruncPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", truncPostRequestBody.number);
-    writer.writeObjectValue("numDigits", truncPostRequestBody.numDigits);
-    writer.writeAdditionalData(truncPostRequestBody.additionalData);
+export function serializeTruncPostRequestBody(writer: SerializationWriter, truncPostRequestBody: Partial<TruncPostRequestBody> | undefined | null = {}) : void {
+    if (truncPostRequestBody) {
+        writer.writeObjectValue("number", truncPostRequestBody.number);
+        writer.writeObjectValue("numDigits", truncPostRequestBody.numDigits);
+        writer.writeAdditionalData(truncPostRequestBody.additionalData);
+    }
 }
 export interface TruncPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface TruncPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numDigits property
      */
-    numDigits?: UntypedNode;
+    numDigits?: UntypedNode | null;
 }
 /**
  * Provides operations to call the trunc method.

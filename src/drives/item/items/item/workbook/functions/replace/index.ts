@@ -38,19 +38,19 @@ export interface ReplacePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The newText property
      */
-    newText?: UntypedNode;
+    newText?: UntypedNode | null;
     /**
      * The numChars property
      */
-    numChars?: UntypedNode;
+    numChars?: UntypedNode | null;
     /**
      * The oldText property
      */
-    oldText?: UntypedNode;
+    oldText?: UntypedNode | null;
     /**
      * The startNum property
      */
-    startNum?: UntypedNode;
+    startNum?: UntypedNode | null;
 }
 /**
  * Provides operations to call the replace method.
@@ -77,12 +77,14 @@ export interface ReplaceRequestBuilder extends BaseRequestBuilder<ReplaceRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReplacePostRequestBody(writer: SerializationWriter, replacePostRequestBody: Partial<ReplacePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("newText", replacePostRequestBody.newText);
-    writer.writeObjectValue("numChars", replacePostRequestBody.numChars);
-    writer.writeObjectValue("oldText", replacePostRequestBody.oldText);
-    writer.writeObjectValue("startNum", replacePostRequestBody.startNum);
-    writer.writeAdditionalData(replacePostRequestBody.additionalData);
+export function serializeReplacePostRequestBody(writer: SerializationWriter, replacePostRequestBody: Partial<ReplacePostRequestBody> | undefined | null = {}) : void {
+    if (replacePostRequestBody) {
+        writer.writeObjectValue("newText", replacePostRequestBody.newText);
+        writer.writeObjectValue("numChars", replacePostRequestBody.numChars);
+        writer.writeObjectValue("oldText", replacePostRequestBody.oldText);
+        writer.writeObjectValue("startNum", replacePostRequestBody.startNum);
+        writer.writeAdditionalData(replacePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

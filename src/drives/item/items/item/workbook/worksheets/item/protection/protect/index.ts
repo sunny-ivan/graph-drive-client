@@ -35,7 +35,7 @@ export interface ProtectPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The options property
      */
-    options?: WorkbookWorksheetProtectionOptions;
+    options?: WorkbookWorksheetProtectionOptions | null;
 }
 /**
  * Provides operations to call the protect method.
@@ -62,9 +62,11 @@ export interface ProtectRequestBuilder extends BaseRequestBuilder<ProtectRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeProtectPostRequestBody(writer: SerializationWriter, protectPostRequestBody: Partial<ProtectPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue<WorkbookWorksheetProtectionOptions>("options", protectPostRequestBody.options, serializeWorkbookWorksheetProtectionOptions);
-    writer.writeAdditionalData(protectPostRequestBody.additionalData);
+export function serializeProtectPostRequestBody(writer: SerializationWriter, protectPostRequestBody: Partial<ProtectPostRequestBody> | undefined | null = {}) : void {
+    if (protectPostRequestBody) {
+        writer.writeObjectValue<WorkbookWorksheetProtectionOptions>("options", protectPostRequestBody.options, serializeWorkbookWorksheetProtectionOptions);
+        writer.writeAdditionalData(protectPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

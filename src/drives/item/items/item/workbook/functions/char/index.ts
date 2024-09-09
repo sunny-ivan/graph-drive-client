@@ -16,7 +16,7 @@ export interface CharPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the char method.
@@ -62,9 +62,11 @@ export function deserializeIntoCharPostRequestBody(charPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCharPostRequestBody(writer: SerializationWriter, charPostRequestBody: Partial<CharPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", charPostRequestBody.number);
-    writer.writeAdditionalData(charPostRequestBody.additionalData);
+export function serializeCharPostRequestBody(writer: SerializationWriter, charPostRequestBody: Partial<CharPostRequestBody> | undefined | null = {}) : void {
+    if (charPostRequestBody) {
+        writer.writeObjectValue("number", charPostRequestBody.number);
+        writer.writeAdditionalData(charPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

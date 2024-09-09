@@ -14,7 +14,7 @@ export interface CalculatePostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The calculationType property
      */
-    calculationType?: string;
+    calculationType?: string | null;
 }
 /**
  * Provides operations to call the calculate method.
@@ -60,9 +60,11 @@ export function deserializeIntoCalculatePostRequestBody(calculatePostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCalculatePostRequestBody(writer: SerializationWriter, calculatePostRequestBody: Partial<CalculatePostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("calculationType", calculatePostRequestBody.calculationType);
-    writer.writeAdditionalData(calculatePostRequestBody.additionalData);
+export function serializeCalculatePostRequestBody(writer: SerializationWriter, calculatePostRequestBody: Partial<CalculatePostRequestBody> | undefined | null = {}) : void {
+    if (calculatePostRequestBody) {
+        writer.writeStringValue("calculationType", calculatePostRequestBody.calculationType);
+        writer.writeAdditionalData(calculatePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

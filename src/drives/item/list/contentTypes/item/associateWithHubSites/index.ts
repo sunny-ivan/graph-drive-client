@@ -14,11 +14,11 @@ export interface AssociateWithHubSitesPostRequestBody extends AdditionalDataHold
     /**
      * The hubSiteUrls property
      */
-    hubSiteUrls?: string[];
+    hubSiteUrls?: string[] | null;
     /**
      * The propagateToExistingLists property
      */
-    propagateToExistingLists?: boolean;
+    propagateToExistingLists?: boolean | null;
 }
 /**
  * Provides operations to call the associateWithHubSites method.
@@ -65,10 +65,12 @@ export function deserializeIntoAssociateWithHubSitesPostRequestBody(associateWit
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAssociateWithHubSitesPostRequestBody(writer: SerializationWriter, associateWithHubSitesPostRequestBody: Partial<AssociateWithHubSitesPostRequestBody> | undefined = {}) : void {
-    writer.writeCollectionOfPrimitiveValues<string>("hubSiteUrls", associateWithHubSitesPostRequestBody.hubSiteUrls);
-    writer.writeBooleanValue("propagateToExistingLists", associateWithHubSitesPostRequestBody.propagateToExistingLists);
-    writer.writeAdditionalData(associateWithHubSitesPostRequestBody.additionalData);
+export function serializeAssociateWithHubSitesPostRequestBody(writer: SerializationWriter, associateWithHubSitesPostRequestBody: Partial<AssociateWithHubSitesPostRequestBody> | undefined | null = {}) : void {
+    if (associateWithHubSitesPostRequestBody) {
+        writer.writeCollectionOfPrimitiveValues<string>("hubSiteUrls", associateWithHubSitesPostRequestBody.hubSiteUrls);
+        writer.writeBooleanValue("propagateToExistingLists", associateWithHubSitesPostRequestBody.propagateToExistingLists);
+        writer.writeAdditionalData(associateWithHubSitesPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

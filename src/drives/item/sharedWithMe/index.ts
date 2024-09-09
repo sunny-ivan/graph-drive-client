@@ -33,15 +33,17 @@ export function deserializeIntoSharedWithMeGetResponse(sharedWithMeGetResponse: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSharedWithMeGetResponse(writer: SerializationWriter, sharedWithMeGetResponse: Partial<SharedWithMeGetResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, sharedWithMeGetResponse)
-    writer.writeCollectionOfObjectValues<DriveItem>("value", sharedWithMeGetResponse.value, serializeDriveItem);
+export function serializeSharedWithMeGetResponse(writer: SerializationWriter, sharedWithMeGetResponse: Partial<SharedWithMeGetResponse> | undefined | null = {}) : void {
+    if (sharedWithMeGetResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, sharedWithMeGetResponse)
+        writer.writeCollectionOfObjectValues<DriveItem>("value", sharedWithMeGetResponse.value, serializeDriveItem);
+    }
 }
 export interface SharedWithMeGetResponse extends BaseCollectionPaginationCountResponse, Parsable {
     /**
      * The value property
      */
-    value?: DriveItem[];
+    value?: DriveItem[] | null;
 }
 /**
  * Provides operations to call the sharedWithMe method.

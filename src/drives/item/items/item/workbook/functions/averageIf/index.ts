@@ -16,15 +16,15 @@ export interface AverageIfPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The averageRange property
      */
-    averageRange?: UntypedNode;
+    averageRange?: UntypedNode | null;
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The range property
      */
-    range?: UntypedNode;
+    range?: UntypedNode | null;
 }
 /**
  * Provides operations to call the averageIf method.
@@ -72,11 +72,13 @@ export function deserializeIntoAverageIfPostRequestBody(averageIfPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAverageIfPostRequestBody(writer: SerializationWriter, averageIfPostRequestBody: Partial<AverageIfPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("averageRange", averageIfPostRequestBody.averageRange);
-    writer.writeObjectValue("criteria", averageIfPostRequestBody.criteria);
-    writer.writeObjectValue("range", averageIfPostRequestBody.range);
-    writer.writeAdditionalData(averageIfPostRequestBody.additionalData);
+export function serializeAverageIfPostRequestBody(writer: SerializationWriter, averageIfPostRequestBody: Partial<AverageIfPostRequestBody> | undefined | null = {}) : void {
+    if (averageIfPostRequestBody) {
+        writer.writeObjectValue("averageRange", averageIfPostRequestBody.averageRange);
+        writer.writeObjectValue("criteria", averageIfPostRequestBody.criteria);
+        writer.writeObjectValue("range", averageIfPostRequestBody.range);
+        writer.writeAdditionalData(averageIfPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

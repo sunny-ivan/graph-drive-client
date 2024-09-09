@@ -25,35 +25,35 @@ export interface CreateLinkPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The expirationDateTime property
      */
-    expirationDateTime?: Date;
+    expirationDateTime?: Date | null;
     /**
      * The message property
      */
-    message?: string;
+    message?: string | null;
     /**
      * The password property
      */
-    password?: string;
+    password?: string | null;
     /**
      * The recipients property
      */
-    recipients?: DriveRecipient[];
+    recipients?: DriveRecipient[] | null;
     /**
      * The retainInheritedPermissions property
      */
-    retainInheritedPermissions?: boolean;
+    retainInheritedPermissions?: boolean | null;
     /**
      * The scope property
      */
-    scope?: string;
+    scope?: string | null;
     /**
      * The sendNotification property
      */
-    sendNotification?: boolean;
+    sendNotification?: boolean | null;
     /**
      * The type property
      */
-    type?: string;
+    type?: string | null;
 }
 /**
  * Provides operations to call the createLink method.
@@ -98,16 +98,18 @@ export function deserializeIntoCreateLinkPostRequestBody(createLinkPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCreateLinkPostRequestBody(writer: SerializationWriter, createLinkPostRequestBody: Partial<CreateLinkPostRequestBody> | undefined = {}) : void {
-    writer.writeDateValue("expirationDateTime", createLinkPostRequestBody.expirationDateTime);
-    writer.writeStringValue("message", createLinkPostRequestBody.message);
-    writer.writeStringValue("password", createLinkPostRequestBody.password);
-    writer.writeCollectionOfObjectValues<DriveRecipient>("recipients", createLinkPostRequestBody.recipients, serializeDriveRecipient);
-    writer.writeBooleanValue("retainInheritedPermissions", createLinkPostRequestBody.retainInheritedPermissions);
-    writer.writeStringValue("scope", createLinkPostRequestBody.scope);
-    writer.writeBooleanValue("sendNotification", createLinkPostRequestBody.sendNotification);
-    writer.writeStringValue("type", createLinkPostRequestBody.type);
-    writer.writeAdditionalData(createLinkPostRequestBody.additionalData);
+export function serializeCreateLinkPostRequestBody(writer: SerializationWriter, createLinkPostRequestBody: Partial<CreateLinkPostRequestBody> | undefined | null = {}) : void {
+    if (createLinkPostRequestBody) {
+        writer.writeDateValue("expirationDateTime", createLinkPostRequestBody.expirationDateTime);
+        writer.writeStringValue("message", createLinkPostRequestBody.message);
+        writer.writeStringValue("password", createLinkPostRequestBody.password);
+        writer.writeCollectionOfObjectValues<DriveRecipient>("recipients", createLinkPostRequestBody.recipients, serializeDriveRecipient);
+        writer.writeBooleanValue("retainInheritedPermissions", createLinkPostRequestBody.retainInheritedPermissions);
+        writer.writeStringValue("scope", createLinkPostRequestBody.scope);
+        writer.writeBooleanValue("sendNotification", createLinkPostRequestBody.sendNotification);
+        writer.writeStringValue("type", createLinkPostRequestBody.type);
+        writer.writeAdditionalData(createLinkPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

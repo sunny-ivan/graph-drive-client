@@ -36,11 +36,11 @@ export interface DollarFrPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The decimalDollar property
      */
-    decimalDollar?: UntypedNode;
+    decimalDollar?: UntypedNode | null;
     /**
      * The fraction property
      */
-    fraction?: UntypedNode;
+    fraction?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dollarFr method.
@@ -67,10 +67,12 @@ export interface DollarFrRequestBuilder extends BaseRequestBuilder<DollarFrReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDollarFrPostRequestBody(writer: SerializationWriter, dollarFrPostRequestBody: Partial<DollarFrPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("decimalDollar", dollarFrPostRequestBody.decimalDollar);
-    writer.writeObjectValue("fraction", dollarFrPostRequestBody.fraction);
-    writer.writeAdditionalData(dollarFrPostRequestBody.additionalData);
+export function serializeDollarFrPostRequestBody(writer: SerializationWriter, dollarFrPostRequestBody: Partial<DollarFrPostRequestBody> | undefined | null = {}) : void {
+    if (dollarFrPostRequestBody) {
+        writer.writeObjectValue("decimalDollar", dollarFrPostRequestBody.decimalDollar);
+        writer.writeObjectValue("fraction", dollarFrPostRequestBody.fraction);
+        writer.writeAdditionalData(dollarFrPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

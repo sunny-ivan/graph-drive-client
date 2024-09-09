@@ -16,7 +16,7 @@ export interface AveDevPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the aveDev method.
@@ -62,9 +62,11 @@ export function deserializeIntoAveDevPostRequestBody(aveDevPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAveDevPostRequestBody(writer: SerializationWriter, aveDevPostRequestBody: Partial<AveDevPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", aveDevPostRequestBody.values);
-    writer.writeAdditionalData(aveDevPostRequestBody.additionalData);
+export function serializeAveDevPostRequestBody(writer: SerializationWriter, aveDevPostRequestBody: Partial<AveDevPostRequestBody> | undefined | null = {}) : void {
+    if (aveDevPostRequestBody) {
+        writer.writeObjectValue("values", aveDevPostRequestBody.values);
+        writer.writeAdditionalData(aveDevPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

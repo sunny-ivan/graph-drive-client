@@ -37,15 +37,15 @@ export interface IfPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The logicalTest property
      */
-    logicalTest?: UntypedNode;
+    logicalTest?: UntypedNode | null;
     /**
      * The valueIfFalse property
      */
-    valueIfFalse?: UntypedNode;
+    valueIfFalse?: UntypedNode | null;
     /**
      * The valueIfTrue property
      */
-    valueIfTrue?: UntypedNode;
+    valueIfTrue?: UntypedNode | null;
 }
 /**
  * Provides operations to call the if method.
@@ -72,11 +72,13 @@ export interface IfRequestBuilder extends BaseRequestBuilder<IfRequestBuilder> {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIfPostRequestBody(writer: SerializationWriter, ifPostRequestBody: Partial<IfPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("logicalTest", ifPostRequestBody.logicalTest);
-    writer.writeObjectValue("valueIfFalse", ifPostRequestBody.valueIfFalse);
-    writer.writeObjectValue("valueIfTrue", ifPostRequestBody.valueIfTrue);
-    writer.writeAdditionalData(ifPostRequestBody.additionalData);
+export function serializeIfPostRequestBody(writer: SerializationWriter, ifPostRequestBody: Partial<IfPostRequestBody> | undefined | null = {}) : void {
+    if (ifPostRequestBody) {
+        writer.writeObjectValue("logicalTest", ifPostRequestBody.logicalTest);
+        writer.writeObjectValue("valueIfFalse", ifPostRequestBody.valueIfFalse);
+        writer.writeObjectValue("valueIfTrue", ifPostRequestBody.valueIfTrue);
+        writer.writeAdditionalData(ifPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

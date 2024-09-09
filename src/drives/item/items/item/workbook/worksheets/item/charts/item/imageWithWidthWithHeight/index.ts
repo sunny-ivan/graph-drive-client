@@ -33,7 +33,7 @@ export interface ImageWithWidthWithHeightGetResponse extends AdditionalDataHolde
     /**
      * The value property
      */
-    value?: string;
+    value?: string | null;
 }
 /**
  * Provides operations to call the image method.
@@ -58,9 +58,11 @@ export interface ImageWithWidthWithHeightRequestBuilder extends BaseRequestBuild
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImageWithWidthWithHeightGetResponse(writer: SerializationWriter, imageWithWidthWithHeightGetResponse: Partial<ImageWithWidthWithHeightGetResponse> | undefined = {}) : void {
-    writer.writeStringValue("value", imageWithWidthWithHeightGetResponse.value);
-    writer.writeAdditionalData(imageWithWidthWithHeightGetResponse.additionalData);
+export function serializeImageWithWidthWithHeightGetResponse(writer: SerializationWriter, imageWithWidthWithHeightGetResponse: Partial<ImageWithWidthWithHeightGetResponse> | undefined | null = {}) : void {
+    if (imageWithWidthWithHeightGetResponse) {
+        writer.writeStringValue("value", imageWithWidthWithHeightGetResponse.value);
+        writer.writeAdditionalData(imageWithWidthWithHeightGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

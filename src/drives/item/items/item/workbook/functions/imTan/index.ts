@@ -35,7 +35,7 @@ export interface ImTanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imTan method.
@@ -62,9 +62,11 @@ export interface ImTanRequestBuilder extends BaseRequestBuilder<ImTanRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImTanPostRequestBody(writer: SerializationWriter, imTanPostRequestBody: Partial<ImTanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imTanPostRequestBody.inumber);
-    writer.writeAdditionalData(imTanPostRequestBody.additionalData);
+export function serializeImTanPostRequestBody(writer: SerializationWriter, imTanPostRequestBody: Partial<ImTanPostRequestBody> | undefined | null = {}) : void {
+    if (imTanPostRequestBody) {
+        writer.writeObjectValue("inumber", imTanPostRequestBody.inumber);
+        writer.writeAdditionalData(imTanPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

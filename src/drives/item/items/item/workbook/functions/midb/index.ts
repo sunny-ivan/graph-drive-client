@@ -37,15 +37,15 @@ export interface MidbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The numBytes property
      */
-    numBytes?: UntypedNode;
+    numBytes?: UntypedNode | null;
     /**
      * The startNum property
      */
-    startNum?: UntypedNode;
+    startNum?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the midb method.
@@ -72,11 +72,13 @@ export interface MidbRequestBuilder extends BaseRequestBuilder<MidbRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMidbPostRequestBody(writer: SerializationWriter, midbPostRequestBody: Partial<MidbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numBytes", midbPostRequestBody.numBytes);
-    writer.writeObjectValue("startNum", midbPostRequestBody.startNum);
-    writer.writeObjectValue("text", midbPostRequestBody.text);
-    writer.writeAdditionalData(midbPostRequestBody.additionalData);
+export function serializeMidbPostRequestBody(writer: SerializationWriter, midbPostRequestBody: Partial<MidbPostRequestBody> | undefined | null = {}) : void {
+    if (midbPostRequestBody) {
+        writer.writeObjectValue("numBytes", midbPostRequestBody.numBytes);
+        writer.writeObjectValue("startNum", midbPostRequestBody.startNum);
+        writer.writeObjectValue("text", midbPostRequestBody.text);
+        writer.writeAdditionalData(midbPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

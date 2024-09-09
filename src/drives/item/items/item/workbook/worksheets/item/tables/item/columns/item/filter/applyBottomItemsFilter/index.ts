@@ -14,7 +14,7 @@ export interface ApplyBottomItemsFilterPostRequestBody extends AdditionalDataHol
     /**
      * The count property
      */
-    count?: number;
+    count?: number | null;
 }
 /**
  * Provides operations to call the applyBottomItemsFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyBottomItemsFilterPostRequestBody(applyBottom
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyBottomItemsFilterPostRequestBody(writer: SerializationWriter, applyBottomItemsFilterPostRequestBody: Partial<ApplyBottomItemsFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeNumberValue("count", applyBottomItemsFilterPostRequestBody.count);
-    writer.writeAdditionalData(applyBottomItemsFilterPostRequestBody.additionalData);
+export function serializeApplyBottomItemsFilterPostRequestBody(writer: SerializationWriter, applyBottomItemsFilterPostRequestBody: Partial<ApplyBottomItemsFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyBottomItemsFilterPostRequestBody) {
+        writer.writeNumberValue("count", applyBottomItemsFilterPostRequestBody.count);
+        writer.writeAdditionalData(applyBottomItemsFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

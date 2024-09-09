@@ -38,19 +38,19 @@ export interface IspmtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The per property
      */
-    per?: UntypedNode;
+    per?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ispmt method.
@@ -77,12 +77,14 @@ export interface IspmtRequestBuilder extends BaseRequestBuilder<IspmtRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIspmtPostRequestBody(writer: SerializationWriter, ispmtPostRequestBody: Partial<IspmtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("nper", ispmtPostRequestBody.nper);
-    writer.writeObjectValue("per", ispmtPostRequestBody.per);
-    writer.writeObjectValue("pv", ispmtPostRequestBody.pv);
-    writer.writeObjectValue("rate", ispmtPostRequestBody.rate);
-    writer.writeAdditionalData(ispmtPostRequestBody.additionalData);
+export function serializeIspmtPostRequestBody(writer: SerializationWriter, ispmtPostRequestBody: Partial<IspmtPostRequestBody> | undefined | null = {}) : void {
+    if (ispmtPostRequestBody) {
+        writer.writeObjectValue("nper", ispmtPostRequestBody.nper);
+        writer.writeObjectValue("per", ispmtPostRequestBody.per);
+        writer.writeObjectValue("pv", ispmtPostRequestBody.pv);
+        writer.writeObjectValue("rate", ispmtPostRequestBody.rate);
+        writer.writeAdditionalData(ispmtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

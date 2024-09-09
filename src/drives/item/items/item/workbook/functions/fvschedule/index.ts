@@ -36,11 +36,11 @@ export interface FvschedulePostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The principal property
      */
-    principal?: UntypedNode;
+    principal?: UntypedNode | null;
     /**
      * The schedule property
      */
-    schedule?: UntypedNode;
+    schedule?: UntypedNode | null;
 }
 /**
  * Provides operations to call the fvschedule method.
@@ -67,10 +67,12 @@ export interface FvscheduleRequestBuilder extends BaseRequestBuilder<FvscheduleR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFvschedulePostRequestBody(writer: SerializationWriter, fvschedulePostRequestBody: Partial<FvschedulePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("principal", fvschedulePostRequestBody.principal);
-    writer.writeObjectValue("schedule", fvschedulePostRequestBody.schedule);
-    writer.writeAdditionalData(fvschedulePostRequestBody.additionalData);
+export function serializeFvschedulePostRequestBody(writer: SerializationWriter, fvschedulePostRequestBody: Partial<FvschedulePostRequestBody> | undefined | null = {}) : void {
+    if (fvschedulePostRequestBody) {
+        writer.writeObjectValue("principal", fvschedulePostRequestBody.principal);
+        writer.writeObjectValue("schedule", fvschedulePostRequestBody.schedule);
+        writer.writeAdditionalData(fvschedulePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

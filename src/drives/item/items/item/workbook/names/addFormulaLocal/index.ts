@@ -16,15 +16,15 @@ export interface AddFormulaLocalPostRequestBody extends AdditionalDataHolder, Pa
     /**
      * The comment property
      */
-    comment?: string;
+    comment?: string | null;
     /**
      * The formula property
      */
-    formula?: string;
+    formula?: string | null;
     /**
      * The name property
      */
-    name?: string;
+    name?: string | null;
 }
 /**
  * Provides operations to call the addFormulaLocal method.
@@ -73,11 +73,13 @@ export function deserializeIntoAddFormulaLocalPostRequestBody(addFormulaLocalPos
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddFormulaLocalPostRequestBody(writer: SerializationWriter, addFormulaLocalPostRequestBody: Partial<AddFormulaLocalPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("comment", addFormulaLocalPostRequestBody.comment);
-    writer.writeStringValue("formula", addFormulaLocalPostRequestBody.formula);
-    writer.writeStringValue("name", addFormulaLocalPostRequestBody.name);
-    writer.writeAdditionalData(addFormulaLocalPostRequestBody.additionalData);
+export function serializeAddFormulaLocalPostRequestBody(writer: SerializationWriter, addFormulaLocalPostRequestBody: Partial<AddFormulaLocalPostRequestBody> | undefined | null = {}) : void {
+    if (addFormulaLocalPostRequestBody) {
+        writer.writeStringValue("comment", addFormulaLocalPostRequestBody.comment);
+        writer.writeStringValue("formula", addFormulaLocalPostRequestBody.formula);
+        writer.writeStringValue("name", addFormulaLocalPostRequestBody.name);
+        writer.writeAdditionalData(addFormulaLocalPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

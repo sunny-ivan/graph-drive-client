@@ -16,15 +16,15 @@ export interface ChiSq_DistPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the chiSq_Dist method.
@@ -72,11 +72,13 @@ export function deserializeIntoChiSq_DistPostRequestBody(chiSq_DistPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChiSq_DistPostRequestBody(writer: SerializationWriter, chiSq_DistPostRequestBody: Partial<ChiSq_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", chiSq_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("degFreedom", chiSq_DistPostRequestBody.degFreedom);
-    writer.writeObjectValue("x", chiSq_DistPostRequestBody.x);
-    writer.writeAdditionalData(chiSq_DistPostRequestBody.additionalData);
+export function serializeChiSq_DistPostRequestBody(writer: SerializationWriter, chiSq_DistPostRequestBody: Partial<ChiSq_DistPostRequestBody> | undefined | null = {}) : void {
+    if (chiSq_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", chiSq_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("degFreedom", chiSq_DistPostRequestBody.degFreedom);
+        writer.writeObjectValue("x", chiSq_DistPostRequestBody.x);
+        writer.writeAdditionalData(chiSq_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

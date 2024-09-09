@@ -16,7 +16,7 @@ export interface ApplyPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: WorkbookFilterCriteria;
+    criteria?: WorkbookFilterCriteria | null;
 }
 /**
  * Provides operations to call the apply method.
@@ -62,9 +62,11 @@ export function deserializeIntoApplyPostRequestBody(applyPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyPostRequestBody(writer: SerializationWriter, applyPostRequestBody: Partial<ApplyPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue<WorkbookFilterCriteria>("criteria", applyPostRequestBody.criteria, serializeWorkbookFilterCriteria);
-    writer.writeAdditionalData(applyPostRequestBody.additionalData);
+export function serializeApplyPostRequestBody(writer: SerializationWriter, applyPostRequestBody: Partial<ApplyPostRequestBody> | undefined | null = {}) : void {
+    if (applyPostRequestBody) {
+        writer.writeObjectValue<WorkbookFilterCriteria>("criteria", applyPostRequestBody.criteria, serializeWorkbookFilterCriteria);
+        writer.writeAdditionalData(applyPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

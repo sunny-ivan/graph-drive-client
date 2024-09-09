@@ -35,7 +35,7 @@ export interface Error_TypePostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The errorVal property
      */
-    errorVal?: UntypedNode;
+    errorVal?: UntypedNode | null;
 }
 /**
  * Provides operations to call the error_Type method.
@@ -62,9 +62,11 @@ export interface Error_TypeRequestBuilder extends BaseRequestBuilder<Error_TypeR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeError_TypePostRequestBody(writer: SerializationWriter, error_TypePostRequestBody: Partial<Error_TypePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("errorVal", error_TypePostRequestBody.errorVal);
-    writer.writeAdditionalData(error_TypePostRequestBody.additionalData);
+export function serializeError_TypePostRequestBody(writer: SerializationWriter, error_TypePostRequestBody: Partial<Error_TypePostRequestBody> | undefined | null = {}) : void {
+    if (error_TypePostRequestBody) {
+        writer.writeObjectValue("errorVal", error_TypePostRequestBody.errorVal);
+        writer.writeAdditionalData(error_TypePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

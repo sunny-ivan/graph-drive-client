@@ -35,12 +35,14 @@ export function deserializeIntoWeibull_DistPostRequestBody(weibull_DistPostReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWeibull_DistPostRequestBody(writer: SerializationWriter, weibull_DistPostRequestBody: Partial<Weibull_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("alpha", weibull_DistPostRequestBody.alpha);
-    writer.writeObjectValue("beta", weibull_DistPostRequestBody.beta);
-    writer.writeObjectValue("cumulative", weibull_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("x", weibull_DistPostRequestBody.x);
-    writer.writeAdditionalData(weibull_DistPostRequestBody.additionalData);
+export function serializeWeibull_DistPostRequestBody(writer: SerializationWriter, weibull_DistPostRequestBody: Partial<Weibull_DistPostRequestBody> | undefined | null = {}) : void {
+    if (weibull_DistPostRequestBody) {
+        writer.writeObjectValue("alpha", weibull_DistPostRequestBody.alpha);
+        writer.writeObjectValue("beta", weibull_DistPostRequestBody.beta);
+        writer.writeObjectValue("cumulative", weibull_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("x", weibull_DistPostRequestBody.x);
+        writer.writeAdditionalData(weibull_DistPostRequestBody.additionalData);
+    }
 }
 export interface Weibull_DistPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -50,19 +52,19 @@ export interface Weibull_DistPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The beta property
      */
-    beta?: UntypedNode;
+    beta?: UntypedNode | null;
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the weibull_Dist method.

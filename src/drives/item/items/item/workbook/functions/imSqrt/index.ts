@@ -35,7 +35,7 @@ export interface ImSqrtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imSqrt method.
@@ -62,9 +62,11 @@ export interface ImSqrtRequestBuilder extends BaseRequestBuilder<ImSqrtRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImSqrtPostRequestBody(writer: SerializationWriter, imSqrtPostRequestBody: Partial<ImSqrtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imSqrtPostRequestBody.inumber);
-    writer.writeAdditionalData(imSqrtPostRequestBody.additionalData);
+export function serializeImSqrtPostRequestBody(writer: SerializationWriter, imSqrtPostRequestBody: Partial<ImSqrtPostRequestBody> | undefined | null = {}) : void {
+    if (imSqrtPostRequestBody) {
+        writer.writeObjectValue("inumber", imSqrtPostRequestBody.inumber);
+        writer.writeAdditionalData(imSqrtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

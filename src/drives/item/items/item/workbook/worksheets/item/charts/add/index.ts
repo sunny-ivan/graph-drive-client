@@ -16,15 +16,15 @@ export interface AddPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The seriesBy property
      */
-    seriesBy?: string;
+    seriesBy?: string | null;
     /**
      * The sourceData property
      */
-    sourceData?: UntypedNode;
+    sourceData?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: string;
+    type?: string | null;
 }
 /**
  * Provides operations to call the add method.
@@ -73,11 +73,13 @@ export function deserializeIntoAddPostRequestBody(addPostRequestBody: Partial<Ad
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddPostRequestBody(writer: SerializationWriter, addPostRequestBody: Partial<AddPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("seriesBy", addPostRequestBody.seriesBy);
-    writer.writeObjectValue("sourceData", addPostRequestBody.sourceData);
-    writer.writeStringValue("type", addPostRequestBody.type);
-    writer.writeAdditionalData(addPostRequestBody.additionalData);
+export function serializeAddPostRequestBody(writer: SerializationWriter, addPostRequestBody: Partial<AddPostRequestBody> | undefined | null = {}) : void {
+    if (addPostRequestBody) {
+        writer.writeStringValue("seriesBy", addPostRequestBody.seriesBy);
+        writer.writeObjectValue("sourceData", addPostRequestBody.sourceData);
+        writer.writeStringValue("type", addPostRequestBody.type);
+        writer.writeAdditionalData(addPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

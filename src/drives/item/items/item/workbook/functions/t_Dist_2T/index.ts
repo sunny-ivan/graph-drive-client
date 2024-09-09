@@ -33,10 +33,12 @@ export function deserializeIntoT_Dist_2TPostRequestBody(t_Dist_2TPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeT_Dist_2TPostRequestBody(writer: SerializationWriter, t_Dist_2TPostRequestBody: Partial<T_Dist_2TPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom", t_Dist_2TPostRequestBody.degFreedom);
-    writer.writeObjectValue("x", t_Dist_2TPostRequestBody.x);
-    writer.writeAdditionalData(t_Dist_2TPostRequestBody.additionalData);
+export function serializeT_Dist_2TPostRequestBody(writer: SerializationWriter, t_Dist_2TPostRequestBody: Partial<T_Dist_2TPostRequestBody> | undefined | null = {}) : void {
+    if (t_Dist_2TPostRequestBody) {
+        writer.writeObjectValue("degFreedom", t_Dist_2TPostRequestBody.degFreedom);
+        writer.writeObjectValue("x", t_Dist_2TPostRequestBody.x);
+        writer.writeAdditionalData(t_Dist_2TPostRequestBody.additionalData);
+    }
 }
 export interface T_Dist_2TPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface T_Dist_2TPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the t_Dist_2T method.

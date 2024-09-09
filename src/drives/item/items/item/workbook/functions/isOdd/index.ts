@@ -35,7 +35,7 @@ export interface IsOddPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isOdd method.
@@ -62,9 +62,11 @@ export interface IsOddRequestBuilder extends BaseRequestBuilder<IsOddRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsOddPostRequestBody(writer: SerializationWriter, isOddPostRequestBody: Partial<IsOddPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", isOddPostRequestBody.number);
-    writer.writeAdditionalData(isOddPostRequestBody.additionalData);
+export function serializeIsOddPostRequestBody(writer: SerializationWriter, isOddPostRequestBody: Partial<IsOddPostRequestBody> | undefined | null = {}) : void {
+    if (isOddPostRequestBody) {
+        writer.writeObjectValue("number", isOddPostRequestBody.number);
+        writer.writeAdditionalData(isOddPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

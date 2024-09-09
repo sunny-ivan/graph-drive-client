@@ -16,7 +16,7 @@ export interface ConcatenatePostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the concatenate method.
@@ -62,9 +62,11 @@ export function deserializeIntoConcatenatePostRequestBody(concatenatePostRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeConcatenatePostRequestBody(writer: SerializationWriter, concatenatePostRequestBody: Partial<ConcatenatePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", concatenatePostRequestBody.values);
-    writer.writeAdditionalData(concatenatePostRequestBody.additionalData);
+export function serializeConcatenatePostRequestBody(writer: SerializationWriter, concatenatePostRequestBody: Partial<ConcatenatePostRequestBody> | undefined | null = {}) : void {
+    if (concatenatePostRequestBody) {
+        writer.writeObjectValue("values", concatenatePostRequestBody.values);
+        writer.writeAdditionalData(concatenatePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

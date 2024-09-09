@@ -35,7 +35,7 @@ export interface GammaLn_PrecisePostRequestBody extends AdditionalDataHolder, Pa
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the gammaLn_Precise method.
@@ -62,9 +62,11 @@ export interface GammaLn_PreciseRequestBuilder extends BaseRequestBuilder<GammaL
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGammaLn_PrecisePostRequestBody(writer: SerializationWriter, gammaLn_PrecisePostRequestBody: Partial<GammaLn_PrecisePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("x", gammaLn_PrecisePostRequestBody.x);
-    writer.writeAdditionalData(gammaLn_PrecisePostRequestBody.additionalData);
+export function serializeGammaLn_PrecisePostRequestBody(writer: SerializationWriter, gammaLn_PrecisePostRequestBody: Partial<GammaLn_PrecisePostRequestBody> | undefined | null = {}) : void {
+    if (gammaLn_PrecisePostRequestBody) {
+        writer.writeObjectValue("x", gammaLn_PrecisePostRequestBody.x);
+        writer.writeAdditionalData(gammaLn_PrecisePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

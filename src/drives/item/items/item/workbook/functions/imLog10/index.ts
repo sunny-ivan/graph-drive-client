@@ -35,7 +35,7 @@ export interface ImLog10PostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imLog10 method.
@@ -62,9 +62,11 @@ export interface ImLog10RequestBuilder extends BaseRequestBuilder<ImLog10Request
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImLog10PostRequestBody(writer: SerializationWriter, imLog10PostRequestBody: Partial<ImLog10PostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imLog10PostRequestBody.inumber);
-    writer.writeAdditionalData(imLog10PostRequestBody.additionalData);
+export function serializeImLog10PostRequestBody(writer: SerializationWriter, imLog10PostRequestBody: Partial<ImLog10PostRequestBody> | undefined | null = {}) : void {
+    if (imLog10PostRequestBody) {
+        writer.writeObjectValue("inumber", imLog10PostRequestBody.inumber);
+        writer.writeAdditionalData(imLog10PostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

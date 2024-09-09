@@ -34,11 +34,13 @@ export function deserializeIntoXnpvPostRequestBody(xnpvPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeXnpvPostRequestBody(writer: SerializationWriter, xnpvPostRequestBody: Partial<XnpvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("dates", xnpvPostRequestBody.dates);
-    writer.writeObjectValue("rate", xnpvPostRequestBody.rate);
-    writer.writeObjectValue("values", xnpvPostRequestBody.values);
-    writer.writeAdditionalData(xnpvPostRequestBody.additionalData);
+export function serializeXnpvPostRequestBody(writer: SerializationWriter, xnpvPostRequestBody: Partial<XnpvPostRequestBody> | undefined | null = {}) : void {
+    if (xnpvPostRequestBody) {
+        writer.writeObjectValue("dates", xnpvPostRequestBody.dates);
+        writer.writeObjectValue("rate", xnpvPostRequestBody.rate);
+        writer.writeObjectValue("values", xnpvPostRequestBody.values);
+        writer.writeAdditionalData(xnpvPostRequestBody.additionalData);
+    }
 }
 export interface XnpvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface XnpvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The dates property
      */
-    dates?: UntypedNode;
+    dates?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the xnpv method.

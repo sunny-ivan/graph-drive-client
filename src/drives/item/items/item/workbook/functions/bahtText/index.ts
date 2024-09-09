@@ -16,7 +16,7 @@ export interface BahtTextPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bahtText method.
@@ -62,9 +62,11 @@ export function deserializeIntoBahtTextPostRequestBody(bahtTextPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBahtTextPostRequestBody(writer: SerializationWriter, bahtTextPostRequestBody: Partial<BahtTextPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", bahtTextPostRequestBody.number);
-    writer.writeAdditionalData(bahtTextPostRequestBody.additionalData);
+export function serializeBahtTextPostRequestBody(writer: SerializationWriter, bahtTextPostRequestBody: Partial<BahtTextPostRequestBody> | undefined | null = {}) : void {
+    if (bahtTextPostRequestBody) {
+        writer.writeObjectValue("number", bahtTextPostRequestBody.number);
+        writer.writeAdditionalData(bahtTextPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

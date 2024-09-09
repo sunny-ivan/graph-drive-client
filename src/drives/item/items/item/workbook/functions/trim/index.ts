@@ -32,9 +32,11 @@ export function deserializeIntoTrimPostRequestBody(trimPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTrimPostRequestBody(writer: SerializationWriter, trimPostRequestBody: Partial<TrimPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", trimPostRequestBody.text);
-    writer.writeAdditionalData(trimPostRequestBody.additionalData);
+export function serializeTrimPostRequestBody(writer: SerializationWriter, trimPostRequestBody: Partial<TrimPostRequestBody> | undefined | null = {}) : void {
+    if (trimPostRequestBody) {
+        writer.writeObjectValue("text", trimPostRequestBody.text);
+        writer.writeAdditionalData(trimPostRequestBody.additionalData);
+    }
 }
 export interface TrimPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface TrimPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the trim method.

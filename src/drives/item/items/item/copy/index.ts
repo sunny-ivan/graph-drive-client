@@ -16,11 +16,11 @@ export interface CopyPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The name property
      */
-    name?: string;
+    name?: string | null;
     /**
      * The parentReference property
      */
-    parentReference?: ItemReference;
+    parentReference?: ItemReference | null;
 }
 /**
  * Provides operations to call the copy method.
@@ -68,10 +68,12 @@ export function deserializeIntoCopyPostRequestBody(copyPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCopyPostRequestBody(writer: SerializationWriter, copyPostRequestBody: Partial<CopyPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("name", copyPostRequestBody.name);
-    writer.writeObjectValue<ItemReference>("parentReference", copyPostRequestBody.parentReference, serializeItemReference);
-    writer.writeAdditionalData(copyPostRequestBody.additionalData);
+export function serializeCopyPostRequestBody(writer: SerializationWriter, copyPostRequestBody: Partial<CopyPostRequestBody> | undefined | null = {}) : void {
+    if (copyPostRequestBody) {
+        writer.writeStringValue("name", copyPostRequestBody.name);
+        writer.writeObjectValue<ItemReference>("parentReference", copyPostRequestBody.parentReference, serializeItemReference);
+        writer.writeAdditionalData(copyPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

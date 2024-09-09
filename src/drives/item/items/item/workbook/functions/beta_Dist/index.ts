@@ -12,7 +12,7 @@ export interface Beta_DistPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The A property
      */
-    a?: UntypedNode;
+    a?: UntypedNode | null;
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
      */
@@ -20,23 +20,23 @@ export interface Beta_DistPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The B property
      */
-    b?: UntypedNode;
+    b?: UntypedNode | null;
     /**
      * The beta property
      */
-    beta?: UntypedNode;
+    beta?: UntypedNode | null;
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the beta_Dist method.
@@ -87,14 +87,16 @@ export function deserializeIntoBeta_DistPostRequestBody(beta_DistPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBeta_DistPostRequestBody(writer: SerializationWriter, beta_DistPostRequestBody: Partial<Beta_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("A", beta_DistPostRequestBody.a);
-    writer.writeObjectValue("alpha", beta_DistPostRequestBody.alpha);
-    writer.writeObjectValue("B", beta_DistPostRequestBody.b);
-    writer.writeObjectValue("beta", beta_DistPostRequestBody.beta);
-    writer.writeObjectValue("cumulative", beta_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("x", beta_DistPostRequestBody.x);
-    writer.writeAdditionalData(beta_DistPostRequestBody.additionalData);
+export function serializeBeta_DistPostRequestBody(writer: SerializationWriter, beta_DistPostRequestBody: Partial<Beta_DistPostRequestBody> | undefined | null = {}) : void {
+    if (beta_DistPostRequestBody) {
+        writer.writeObjectValue("A", beta_DistPostRequestBody.a);
+        writer.writeObjectValue("alpha", beta_DistPostRequestBody.alpha);
+        writer.writeObjectValue("B", beta_DistPostRequestBody.b);
+        writer.writeObjectValue("beta", beta_DistPostRequestBody.beta);
+        writer.writeObjectValue("cumulative", beta_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("x", beta_DistPostRequestBody.x);
+        writer.writeAdditionalData(beta_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

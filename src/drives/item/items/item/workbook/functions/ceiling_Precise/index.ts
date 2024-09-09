@@ -16,11 +16,11 @@ export interface Ceiling_PrecisePostRequestBody extends AdditionalDataHolder, Pa
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ceiling_Precise method.
@@ -67,10 +67,12 @@ export function deserializeIntoCeiling_PrecisePostRequestBody(ceiling_PrecisePos
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCeiling_PrecisePostRequestBody(writer: SerializationWriter, ceiling_PrecisePostRequestBody: Partial<Ceiling_PrecisePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", ceiling_PrecisePostRequestBody.number);
-    writer.writeObjectValue("significance", ceiling_PrecisePostRequestBody.significance);
-    writer.writeAdditionalData(ceiling_PrecisePostRequestBody.additionalData);
+export function serializeCeiling_PrecisePostRequestBody(writer: SerializationWriter, ceiling_PrecisePostRequestBody: Partial<Ceiling_PrecisePostRequestBody> | undefined | null = {}) : void {
+    if (ceiling_PrecisePostRequestBody) {
+        writer.writeObjectValue("number", ceiling_PrecisePostRequestBody.number);
+        writer.writeObjectValue("significance", ceiling_PrecisePostRequestBody.significance);
+        writer.writeAdditionalData(ceiling_PrecisePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -34,11 +34,13 @@ export function deserializeIntoSlnPostRequestBody(slnPostRequestBody: Partial<Sl
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSlnPostRequestBody(writer: SerializationWriter, slnPostRequestBody: Partial<SlnPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cost", slnPostRequestBody.cost);
-    writer.writeObjectValue("life", slnPostRequestBody.life);
-    writer.writeObjectValue("salvage", slnPostRequestBody.salvage);
-    writer.writeAdditionalData(slnPostRequestBody.additionalData);
+export function serializeSlnPostRequestBody(writer: SerializationWriter, slnPostRequestBody: Partial<SlnPostRequestBody> | undefined | null = {}) : void {
+    if (slnPostRequestBody) {
+        writer.writeObjectValue("cost", slnPostRequestBody.cost);
+        writer.writeObjectValue("life", slnPostRequestBody.life);
+        writer.writeObjectValue("salvage", slnPostRequestBody.salvage);
+        writer.writeAdditionalData(slnPostRequestBody.additionalData);
+    }
 }
 export interface SlnPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface SlnPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cost property
      */
-    cost?: UntypedNode;
+    cost?: UntypedNode | null;
     /**
      * The life property
      */
-    life?: UntypedNode;
+    life?: UntypedNode | null;
     /**
      * The salvage property
      */
-    salvage?: UntypedNode;
+    salvage?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sln method.

@@ -14,7 +14,7 @@ export interface ApplyCellColorFilterPostRequestBody extends AdditionalDataHolde
     /**
      * The color property
      */
-    color?: string;
+    color?: string | null;
 }
 /**
  * Provides operations to call the applyCellColorFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyCellColorFilterPostRequestBody(applyCellColo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyCellColorFilterPostRequestBody(writer: SerializationWriter, applyCellColorFilterPostRequestBody: Partial<ApplyCellColorFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("color", applyCellColorFilterPostRequestBody.color);
-    writer.writeAdditionalData(applyCellColorFilterPostRequestBody.additionalData);
+export function serializeApplyCellColorFilterPostRequestBody(writer: SerializationWriter, applyCellColorFilterPostRequestBody: Partial<ApplyCellColorFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyCellColorFilterPostRequestBody) {
+        writer.writeStringValue("color", applyCellColorFilterPostRequestBody.color);
+        writer.writeAdditionalData(applyCellColorFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

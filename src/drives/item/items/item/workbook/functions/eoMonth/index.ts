@@ -36,11 +36,11 @@ export interface EoMonthPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The months property
      */
-    months?: UntypedNode;
+    months?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the eoMonth method.
@@ -67,10 +67,12 @@ export interface EoMonthRequestBuilder extends BaseRequestBuilder<EoMonthRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEoMonthPostRequestBody(writer: SerializationWriter, eoMonthPostRequestBody: Partial<EoMonthPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("months", eoMonthPostRequestBody.months);
-    writer.writeObjectValue("startDate", eoMonthPostRequestBody.startDate);
-    writer.writeAdditionalData(eoMonthPostRequestBody.additionalData);
+export function serializeEoMonthPostRequestBody(writer: SerializationWriter, eoMonthPostRequestBody: Partial<EoMonthPostRequestBody> | undefined | null = {}) : void {
+    if (eoMonthPostRequestBody) {
+        writer.writeObjectValue("months", eoMonthPostRequestBody.months);
+        writer.writeObjectValue("startDate", eoMonthPostRequestBody.startDate);
+        writer.writeAdditionalData(eoMonthPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

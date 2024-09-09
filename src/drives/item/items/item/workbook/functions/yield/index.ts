@@ -38,15 +38,17 @@ export function deserializeIntoYieldPostRequestBody(yieldPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeYieldPostRequestBody(writer: SerializationWriter, yieldPostRequestBody: Partial<YieldPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", yieldPostRequestBody.basis);
-    writer.writeObjectValue("frequency", yieldPostRequestBody.frequency);
-    writer.writeObjectValue("maturity", yieldPostRequestBody.maturity);
-    writer.writeObjectValue("pr", yieldPostRequestBody.pr);
-    writer.writeObjectValue("rate", yieldPostRequestBody.rate);
-    writer.writeObjectValue("redemption", yieldPostRequestBody.redemption);
-    writer.writeObjectValue("settlement", yieldPostRequestBody.settlement);
-    writer.writeAdditionalData(yieldPostRequestBody.additionalData);
+export function serializeYieldPostRequestBody(writer: SerializationWriter, yieldPostRequestBody: Partial<YieldPostRequestBody> | undefined | null = {}) : void {
+    if (yieldPostRequestBody) {
+        writer.writeObjectValue("basis", yieldPostRequestBody.basis);
+        writer.writeObjectValue("frequency", yieldPostRequestBody.frequency);
+        writer.writeObjectValue("maturity", yieldPostRequestBody.maturity);
+        writer.writeObjectValue("pr", yieldPostRequestBody.pr);
+        writer.writeObjectValue("rate", yieldPostRequestBody.rate);
+        writer.writeObjectValue("redemption", yieldPostRequestBody.redemption);
+        writer.writeObjectValue("settlement", yieldPostRequestBody.settlement);
+        writer.writeAdditionalData(yieldPostRequestBody.additionalData);
+    }
 }
 export interface YieldPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -56,31 +58,31 @@ export interface YieldPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The pr property
      */
-    pr?: UntypedNode;
+    pr?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The redemption property
      */
-    redemption?: UntypedNode;
+    redemption?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the yield method.

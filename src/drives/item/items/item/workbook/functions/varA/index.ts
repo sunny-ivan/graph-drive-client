@@ -32,9 +32,11 @@ export function deserializeIntoVarAPostRequestBody(varAPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVarAPostRequestBody(writer: SerializationWriter, varAPostRequestBody: Partial<VarAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", varAPostRequestBody.values);
-    writer.writeAdditionalData(varAPostRequestBody.additionalData);
+export function serializeVarAPostRequestBody(writer: SerializationWriter, varAPostRequestBody: Partial<VarAPostRequestBody> | undefined | null = {}) : void {
+    if (varAPostRequestBody) {
+        writer.writeObjectValue("values", varAPostRequestBody.values);
+        writer.writeAdditionalData(varAPostRequestBody.additionalData);
+    }
 }
 export interface VarAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface VarAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the varA method.

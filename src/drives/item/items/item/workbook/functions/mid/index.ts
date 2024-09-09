@@ -37,15 +37,15 @@ export interface MidPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The numChars property
      */
-    numChars?: UntypedNode;
+    numChars?: UntypedNode | null;
     /**
      * The startNum property
      */
-    startNum?: UntypedNode;
+    startNum?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the mid method.
@@ -72,11 +72,13 @@ export interface MidRequestBuilder extends BaseRequestBuilder<MidRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMidPostRequestBody(writer: SerializationWriter, midPostRequestBody: Partial<MidPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numChars", midPostRequestBody.numChars);
-    writer.writeObjectValue("startNum", midPostRequestBody.startNum);
-    writer.writeObjectValue("text", midPostRequestBody.text);
-    writer.writeAdditionalData(midPostRequestBody.additionalData);
+export function serializeMidPostRequestBody(writer: SerializationWriter, midPostRequestBody: Partial<MidPostRequestBody> | undefined | null = {}) : void {
+    if (midPostRequestBody) {
+        writer.writeObjectValue("numChars", midPostRequestBody.numChars);
+        writer.writeObjectValue("startNum", midPostRequestBody.startNum);
+        writer.writeObjectValue("text", midPostRequestBody.text);
+        writer.writeAdditionalData(midPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -56,17 +56,17 @@ export interface GrantPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The recipients property
      */
-    recipients?: DriveRecipient[];
+    recipients?: DriveRecipient[] | null;
     /**
      * The roles property
      */
-    roles?: string[];
+    roles?: string[] | null;
 }
 export interface GrantPostResponse extends BaseCollectionPaginationCountResponse, Parsable {
     /**
      * The value property
      */
-    value?: Permission[];
+    value?: Permission[] | null;
 }
 /**
  * Provides operations to call the grant method.
@@ -94,19 +94,23 @@ export interface GrantRequestBuilder extends BaseRequestBuilder<GrantRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGrantPostRequestBody(writer: SerializationWriter, grantPostRequestBody: Partial<GrantPostRequestBody> | undefined = {}) : void {
-    writer.writeCollectionOfObjectValues<DriveRecipient>("recipients", grantPostRequestBody.recipients, serializeDriveRecipient);
-    writer.writeCollectionOfPrimitiveValues<string>("roles", grantPostRequestBody.roles);
-    writer.writeAdditionalData(grantPostRequestBody.additionalData);
+export function serializeGrantPostRequestBody(writer: SerializationWriter, grantPostRequestBody: Partial<GrantPostRequestBody> | undefined | null = {}) : void {
+    if (grantPostRequestBody) {
+        writer.writeCollectionOfObjectValues<DriveRecipient>("recipients", grantPostRequestBody.recipients, serializeDriveRecipient);
+        writer.writeCollectionOfPrimitiveValues<string>("roles", grantPostRequestBody.roles);
+        writer.writeAdditionalData(grantPostRequestBody.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGrantPostResponse(writer: SerializationWriter, grantPostResponse: Partial<GrantPostResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, grantPostResponse)
-    writer.writeCollectionOfObjectValues<Permission>("value", grantPostResponse.value, serializePermission);
+export function serializeGrantPostResponse(writer: SerializationWriter, grantPostResponse: Partial<GrantPostResponse> | undefined | null = {}) : void {
+    if (grantPostResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, grantPostResponse)
+        writer.writeCollectionOfObjectValues<Permission>("value", grantPostResponse.value, serializePermission);
+    }
 }
 /**
  * Uri template for the request builder.

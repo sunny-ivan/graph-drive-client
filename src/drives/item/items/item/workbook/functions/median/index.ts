@@ -35,7 +35,7 @@ export interface MedianPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the median method.
@@ -62,9 +62,11 @@ export interface MedianRequestBuilder extends BaseRequestBuilder<MedianRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMedianPostRequestBody(writer: SerializationWriter, medianPostRequestBody: Partial<MedianPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", medianPostRequestBody.values);
-    writer.writeAdditionalData(medianPostRequestBody.additionalData);
+export function serializeMedianPostRequestBody(writer: SerializationWriter, medianPostRequestBody: Partial<MedianPostRequestBody> | undefined | null = {}) : void {
+    if (medianPostRequestBody) {
+        writer.writeObjectValue("values", medianPostRequestBody.values);
+        writer.writeAdditionalData(medianPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

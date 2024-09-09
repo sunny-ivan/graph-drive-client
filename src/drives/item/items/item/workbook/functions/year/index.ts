@@ -32,9 +32,11 @@ export function deserializeIntoYearPostRequestBody(yearPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeYearPostRequestBody(writer: SerializationWriter, yearPostRequestBody: Partial<YearPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("serialNumber", yearPostRequestBody.serialNumber);
-    writer.writeAdditionalData(yearPostRequestBody.additionalData);
+export function serializeYearPostRequestBody(writer: SerializationWriter, yearPostRequestBody: Partial<YearPostRequestBody> | undefined | null = {}) : void {
+    if (yearPostRequestBody) {
+        writer.writeObjectValue("serialNumber", yearPostRequestBody.serialNumber);
+        writer.writeAdditionalData(yearPostRequestBody.additionalData);
+    }
 }
 export interface YearPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface YearPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the year method.

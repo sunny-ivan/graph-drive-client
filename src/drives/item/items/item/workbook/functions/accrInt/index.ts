@@ -16,35 +16,35 @@ export interface AccrIntPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The calcMethod property
      */
-    calcMethod?: UntypedNode;
+    calcMethod?: UntypedNode | null;
     /**
      * The firstInterest property
      */
-    firstInterest?: UntypedNode;
+    firstInterest?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The issue property
      */
-    issue?: UntypedNode;
+    issue?: UntypedNode | null;
     /**
      * The par property
      */
-    par?: UntypedNode;
+    par?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the accrInt method.
@@ -97,16 +97,18 @@ export function deserializeIntoAccrIntPostRequestBody(accrIntPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAccrIntPostRequestBody(writer: SerializationWriter, accrIntPostRequestBody: Partial<AccrIntPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", accrIntPostRequestBody.basis);
-    writer.writeObjectValue("calcMethod", accrIntPostRequestBody.calcMethod);
-    writer.writeObjectValue("firstInterest", accrIntPostRequestBody.firstInterest);
-    writer.writeObjectValue("frequency", accrIntPostRequestBody.frequency);
-    writer.writeObjectValue("issue", accrIntPostRequestBody.issue);
-    writer.writeObjectValue("par", accrIntPostRequestBody.par);
-    writer.writeObjectValue("rate", accrIntPostRequestBody.rate);
-    writer.writeObjectValue("settlement", accrIntPostRequestBody.settlement);
-    writer.writeAdditionalData(accrIntPostRequestBody.additionalData);
+export function serializeAccrIntPostRequestBody(writer: SerializationWriter, accrIntPostRequestBody: Partial<AccrIntPostRequestBody> | undefined | null = {}) : void {
+    if (accrIntPostRequestBody) {
+        writer.writeObjectValue("basis", accrIntPostRequestBody.basis);
+        writer.writeObjectValue("calcMethod", accrIntPostRequestBody.calcMethod);
+        writer.writeObjectValue("firstInterest", accrIntPostRequestBody.firstInterest);
+        writer.writeObjectValue("frequency", accrIntPostRequestBody.frequency);
+        writer.writeObjectValue("issue", accrIntPostRequestBody.issue);
+        writer.writeObjectValue("par", accrIntPostRequestBody.par);
+        writer.writeObjectValue("rate", accrIntPostRequestBody.rate);
+        writer.writeObjectValue("settlement", accrIntPostRequestBody.settlement);
+        writer.writeAdditionalData(accrIntPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

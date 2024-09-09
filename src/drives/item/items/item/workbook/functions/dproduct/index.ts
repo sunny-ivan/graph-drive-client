@@ -37,15 +37,15 @@ export interface DproductPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dproduct method.
@@ -72,11 +72,13 @@ export interface DproductRequestBuilder extends BaseRequestBuilder<DproductReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDproductPostRequestBody(writer: SerializationWriter, dproductPostRequestBody: Partial<DproductPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dproductPostRequestBody.criteria);
-    writer.writeObjectValue("database", dproductPostRequestBody.database);
-    writer.writeObjectValue("field", dproductPostRequestBody.field);
-    writer.writeAdditionalData(dproductPostRequestBody.additionalData);
+export function serializeDproductPostRequestBody(writer: SerializationWriter, dproductPostRequestBody: Partial<DproductPostRequestBody> | undefined | null = {}) : void {
+    if (dproductPostRequestBody) {
+        writer.writeObjectValue("criteria", dproductPostRequestBody.criteria);
+        writer.writeObjectValue("database", dproductPostRequestBody.database);
+        writer.writeObjectValue("field", dproductPostRequestBody.field);
+        writer.writeAdditionalData(dproductPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

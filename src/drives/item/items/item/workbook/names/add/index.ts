@@ -16,15 +16,15 @@ export interface AddPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The comment property
      */
-    comment?: string;
+    comment?: string | null;
     /**
      * The name property
      */
-    name?: string;
+    name?: string | null;
     /**
      * The reference property
      */
-    reference?: UntypedNode;
+    reference?: UntypedNode | null;
 }
 /**
  * Provides operations to call the add method.
@@ -73,11 +73,13 @@ export function deserializeIntoAddPostRequestBody(addPostRequestBody: Partial<Ad
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddPostRequestBody(writer: SerializationWriter, addPostRequestBody: Partial<AddPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("comment", addPostRequestBody.comment);
-    writer.writeStringValue("name", addPostRequestBody.name);
-    writer.writeObjectValue("reference", addPostRequestBody.reference);
-    writer.writeAdditionalData(addPostRequestBody.additionalData);
+export function serializeAddPostRequestBody(writer: SerializationWriter, addPostRequestBody: Partial<AddPostRequestBody> | undefined | null = {}) : void {
+    if (addPostRequestBody) {
+        writer.writeStringValue("comment", addPostRequestBody.comment);
+        writer.writeStringValue("name", addPostRequestBody.name);
+        writer.writeObjectValue("reference", addPostRequestBody.reference);
+        writer.writeAdditionalData(addPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -16,15 +16,15 @@ export interface Binom_InvPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The probabilityS property
      */
-    probabilityS?: UntypedNode;
+    probabilityS?: UntypedNode | null;
     /**
      * The trials property
      */
-    trials?: UntypedNode;
+    trials?: UntypedNode | null;
 }
 /**
  * Provides operations to call the binom_Inv method.
@@ -72,11 +72,13 @@ export function deserializeIntoBinom_InvPostRequestBody(binom_InvPostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBinom_InvPostRequestBody(writer: SerializationWriter, binom_InvPostRequestBody: Partial<Binom_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("alpha", binom_InvPostRequestBody.alpha);
-    writer.writeObjectValue("probabilityS", binom_InvPostRequestBody.probabilityS);
-    writer.writeObjectValue("trials", binom_InvPostRequestBody.trials);
-    writer.writeAdditionalData(binom_InvPostRequestBody.additionalData);
+export function serializeBinom_InvPostRequestBody(writer: SerializationWriter, binom_InvPostRequestBody: Partial<Binom_InvPostRequestBody> | undefined | null = {}) : void {
+    if (binom_InvPostRequestBody) {
+        writer.writeObjectValue("alpha", binom_InvPostRequestBody.alpha);
+        writer.writeObjectValue("probabilityS", binom_InvPostRequestBody.probabilityS);
+        writer.writeObjectValue("trials", binom_InvPostRequestBody.trials);
+        writer.writeAdditionalData(binom_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

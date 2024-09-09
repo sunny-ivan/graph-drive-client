@@ -35,7 +35,7 @@ export interface FisherInvPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The y property
      */
-    y?: UntypedNode;
+    y?: UntypedNode | null;
 }
 /**
  * Provides operations to call the fisherInv method.
@@ -62,9 +62,11 @@ export interface FisherInvRequestBuilder extends BaseRequestBuilder<FisherInvReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFisherInvPostRequestBody(writer: SerializationWriter, fisherInvPostRequestBody: Partial<FisherInvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("y", fisherInvPostRequestBody.y);
-    writer.writeAdditionalData(fisherInvPostRequestBody.additionalData);
+export function serializeFisherInvPostRequestBody(writer: SerializationWriter, fisherInvPostRequestBody: Partial<FisherInvPostRequestBody> | undefined | null = {}) : void {
+    if (fisherInvPostRequestBody) {
+        writer.writeObjectValue("y", fisherInvPostRequestBody.y);
+        writer.writeAdditionalData(fisherInvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

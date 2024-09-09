@@ -36,11 +36,11 @@ export interface RightbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The numBytes property
      */
-    numBytes?: UntypedNode;
+    numBytes?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the rightb method.
@@ -67,10 +67,12 @@ export interface RightbRequestBuilder extends BaseRequestBuilder<RightbRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRightbPostRequestBody(writer: SerializationWriter, rightbPostRequestBody: Partial<RightbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numBytes", rightbPostRequestBody.numBytes);
-    writer.writeObjectValue("text", rightbPostRequestBody.text);
-    writer.writeAdditionalData(rightbPostRequestBody.additionalData);
+export function serializeRightbPostRequestBody(writer: SerializationWriter, rightbPostRequestBody: Partial<RightbPostRequestBody> | undefined | null = {}) : void {
+    if (rightbPostRequestBody) {
+        writer.writeObjectValue("numBytes", rightbPostRequestBody.numBytes);
+        writer.writeObjectValue("text", rightbPostRequestBody.text);
+        writer.writeAdditionalData(rightbPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

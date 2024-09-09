@@ -16,15 +16,15 @@ export interface ConvertPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fromUnit property
      */
-    fromUnit?: UntypedNode;
+    fromUnit?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The toUnit property
      */
-    toUnit?: UntypedNode;
+    toUnit?: UntypedNode | null;
 }
 /**
  * Provides operations to call the convert method.
@@ -72,11 +72,13 @@ export function deserializeIntoConvertPostRequestBody(convertPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeConvertPostRequestBody(writer: SerializationWriter, convertPostRequestBody: Partial<ConvertPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fromUnit", convertPostRequestBody.fromUnit);
-    writer.writeObjectValue("number", convertPostRequestBody.number);
-    writer.writeObjectValue("toUnit", convertPostRequestBody.toUnit);
-    writer.writeAdditionalData(convertPostRequestBody.additionalData);
+export function serializeConvertPostRequestBody(writer: SerializationWriter, convertPostRequestBody: Partial<ConvertPostRequestBody> | undefined | null = {}) : void {
+    if (convertPostRequestBody) {
+        writer.writeObjectValue("fromUnit", convertPostRequestBody.fromUnit);
+        writer.writeObjectValue("number", convertPostRequestBody.number);
+        writer.writeObjectValue("toUnit", convertPostRequestBody.toUnit);
+        writer.writeAdditionalData(convertPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

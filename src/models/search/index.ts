@@ -10,11 +10,11 @@ export interface Acronym extends Parsable, SearchAnswer {
     /**
      * What the acronym stands for.
      */
-    standsFor?: string;
+    standsFor?: string | null;
     /**
      * The state property
      */
-    state?: AnswerState;
+    state?: AnswerState | null;
 }
 export interface AnswerKeyword extends AdditionalDataHolder, Parsable {
     /**
@@ -24,19 +24,19 @@ export interface AnswerKeyword extends AdditionalDataHolder, Parsable {
     /**
      * A collection of keywords used to trigger the search answer.
      */
-    keywords?: string[];
+    keywords?: string[] | null;
     /**
      * If true, indicates that the search term contains similar words to the keywords that should trigger the search answer.
      */
-    matchSimilarKeywords?: boolean;
+    matchSimilarKeywords?: boolean | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * Unique keywords that guarantee the search answer is triggered.
      */
-    reservedKeywords?: string[];
+    reservedKeywords?: string[] | null;
 }
 export type AnswerState = (typeof AnswerStateObject)[keyof typeof AnswerStateObject];
 export interface AnswerVariant extends AdditionalDataHolder, Parsable {
@@ -47,73 +47,73 @@ export interface AnswerVariant extends AdditionalDataHolder, Parsable {
     /**
      * The answer variation description that is shown on the search results page.
      */
-    description?: string;
+    description?: string | null;
     /**
      * The answer variation name that is displayed in search results.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * The country or region that can view this answer variation.
      */
-    languageTag?: string;
+    languageTag?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * The device or operating system that can view this answer variation. Possible values are: android, androidForWork, ios, macOS, windowsPhone81, windowsPhone81AndLater, windows10AndLater, androidWorkProfile, unknown, androidASOP, androidMobileApplicationManagement, iOSMobileApplicationManagement, unknownFutureValue.
      */
-    platform?: DevicePlatformType;
+    platform?: DevicePlatformType | null;
     /**
      * The URL link for the answer variation. When users select this answer variation from the search results, they're directed to the specified URL.
      */
-    webUrl?: string;
+    webUrl?: string | null;
 }
 export interface Bookmark extends Parsable, SearchAnswer {
     /**
      * Date and time when the bookmark stops appearing as a search result. Set as null for always available. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    availabilityEndDateTime?: Date;
+    availabilityEndDateTime?: Date | null;
     /**
      * Date and time when the bookmark starts to appear as a search result. Set as null for always available. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    availabilityStartDateTime?: Date;
+    availabilityStartDateTime?: Date | null;
     /**
      * Categories commonly used to describe this bookmark. For example, IT and HR.
      */
-    categories?: string[];
+    categories?: string[] | null;
     /**
      * The list of security groups that are able to view this bookmark.
      */
-    groupIds?: string[];
+    groupIds?: string[] | null;
     /**
      * True if this bookmark was suggested to the admin, by a user, or was mined and suggested by Microsoft. Read-only.
      */
-    isSuggested?: boolean;
+    isSuggested?: boolean | null;
     /**
      * Keywords that trigger this bookmark to appear in search results.
      */
-    keywords?: AnswerKeyword;
+    keywords?: AnswerKeyword | null;
     /**
      * A list of geographically specific language names in which this bookmark can be viewed. Each language tag value follows the pattern {language}-{region}. For example, en-us is English as used in the United States. For the list of possible values, see Supported language tags.
      */
-    languageTags?: string[];
+    languageTags?: string[] | null;
     /**
      * List of devices and operating systems that are able to view this bookmark. Possible values are: android, androidForWork, ios, macOS, windowsPhone81, windowsPhone81AndLater, windows10AndLater, androidWorkProfile, unknown, androidASOP, androidMobileApplicationManagement, iOSMobileApplicationManagement, unknownFutureValue.
      */
-    platforms?: DevicePlatformType[];
+    platforms?: DevicePlatformType[] | null;
     /**
      * List of Power Apps associated with this bookmark. If users add existing Power Apps to a bookmark, they can complete tasks directly on the search results page, such as entering vacation time or reporting expenses.
      */
-    powerAppIds?: string[];
+    powerAppIds?: string[] | null;
     /**
      * The state property
      */
-    state?: AnswerState;
+    state?: AnswerState | null;
     /**
      * Variations of a bookmark for different countries or devices. Use when you need to show different content to users based on their device, country/region, or both. The date and group settings apply to all variations.
      */
-    targetedVariations?: AnswerVariant[];
+    targetedVariations?: AnswerVariant[] | null;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -186,7 +186,7 @@ export function createQnaFromDiscriminatorValue(parseNode: ParseNode | undefined
 // @ts-ignore
 export function createSearchAnswerFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     if(!parseNode) throw new Error("parseNode cannot be undefined");
-    const mappingValueNode = parseNode.getChildNode("@odata.type");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
     if (mappingValueNode) {
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
@@ -330,15 +330,15 @@ export interface Identity extends AdditionalDataHolder, Parsable {
     /**
      * The displayName property
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * The id property
      */
-    id?: string;
+    id?: string | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
 }
 export interface IdentitySet extends AdditionalDataHolder, Parsable {
     /**
@@ -348,189 +348,205 @@ export interface IdentitySet extends AdditionalDataHolder, Parsable {
     /**
      * The application property
      */
-    application?: Identity;
+    application?: Identity | null;
     /**
      * The device property
      */
-    device?: Identity;
+    device?: Identity | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * The user property
      */
-    user?: Identity;
+    user?: Identity | null;
 }
 export interface Qna extends Parsable, SearchAnswer {
     /**
      * Date and time when the QnA stops appearing as a search result. Set as null for always available. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    availabilityEndDateTime?: Date;
+    availabilityEndDateTime?: Date | null;
     /**
      * Date and time when the QnA starts to appear as a search result. Set as null for always available. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
-    availabilityStartDateTime?: Date;
+    availabilityStartDateTime?: Date | null;
     /**
      * The list of security groups that are able to view this QnA.
      */
-    groupIds?: string[];
+    groupIds?: string[] | null;
     /**
      * True if a user or Microsoft suggested this QnA to the admin. Read-only.
      */
-    isSuggested?: boolean;
+    isSuggested?: boolean | null;
     /**
      * Keywords that trigger this QnA to appear in search results.
      */
-    keywords?: AnswerKeyword;
+    keywords?: AnswerKeyword | null;
     /**
      * A list of geographically specific language names in which this QnA can be viewed. Each language tag value follows the pattern {language}-{region}. For example, en-us is English as used in the United States. For the list of possible values, see Supported language tags.
      */
-    languageTags?: string[];
+    languageTags?: string[] | null;
     /**
      * List of devices and operating systems that are able to view this QnA. Possible values are: android, androidForWork, ios, macOS, windowsPhone81, windowsPhone81AndLater, windows10AndLater, androidWorkProfile, unknown, androidASOP, androidMobileApplicationManagement, iOSMobileApplicationManagement, unknownFutureValue.
      */
-    platforms?: DevicePlatformType[];
+    platforms?: DevicePlatformType[] | null;
     /**
      * The state property
      */
-    state?: AnswerState;
+    state?: AnswerState | null;
     /**
      * Variations of a QnA for different countries or devices. Use when you need to show different content to users based on their device, country/region, or both. The date and group settings apply to all variations.
      */
-    targetedVariations?: AnswerVariant[];
+    targetedVariations?: AnswerVariant[] | null;
 }
 export interface SearchAnswer extends Entity, Parsable {
     /**
      * The search answer description that is shown on the search results page.
      */
-    description?: string;
+    description?: string | null;
     /**
      * The search answer name that is displayed in search results.
      */
-    displayName?: string;
+    displayName?: string | null;
     /**
      * Details of the user who created or last modified the search answer. Read-only.
      */
-    lastModifiedBy?: IdentitySet;
+    lastModifiedBy?: IdentitySet | null;
     /**
      * Date and time when the search answer was created or last edited. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Read-only.
      */
-    lastModifiedDateTime?: Date;
+    lastModifiedDateTime?: Date | null;
     /**
      * The URL link for the search answer. When users select this search answer from the search results, they are directed to the specified URL.
      */
-    webUrl?: string;
+    webUrl?: string | null;
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAcronym(writer: SerializationWriter, acronym: Partial<Acronym> | undefined = {}) : void {
-    serializeSearchAnswer(writer, acronym)
-    writer.writeStringValue("standsFor", acronym.standsFor);
-    writer.writeEnumValue<AnswerState>("state", acronym.state);
+export function serializeAcronym(writer: SerializationWriter, acronym: Partial<Acronym> | undefined | null = {}) : void {
+    if (acronym) {
+        serializeSearchAnswer(writer, acronym)
+        writer.writeStringValue("standsFor", acronym.standsFor);
+        writer.writeEnumValue<AnswerState>("state", acronym.state);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAnswerKeyword(writer: SerializationWriter, answerKeyword: Partial<AnswerKeyword> | undefined = {}) : void {
-    writer.writeCollectionOfPrimitiveValues<string>("keywords", answerKeyword.keywords);
-    writer.writeBooleanValue("matchSimilarKeywords", answerKeyword.matchSimilarKeywords);
-    writer.writeStringValue("@odata.type", answerKeyword.odataType);
-    writer.writeCollectionOfPrimitiveValues<string>("reservedKeywords", answerKeyword.reservedKeywords);
-    writer.writeAdditionalData(answerKeyword.additionalData);
+export function serializeAnswerKeyword(writer: SerializationWriter, answerKeyword: Partial<AnswerKeyword> | undefined | null = {}) : void {
+    if (answerKeyword) {
+        writer.writeCollectionOfPrimitiveValues<string>("keywords", answerKeyword.keywords);
+        writer.writeBooleanValue("matchSimilarKeywords", answerKeyword.matchSimilarKeywords);
+        writer.writeStringValue("@odata.type", answerKeyword.odataType);
+        writer.writeCollectionOfPrimitiveValues<string>("reservedKeywords", answerKeyword.reservedKeywords);
+        writer.writeAdditionalData(answerKeyword.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAnswerVariant(writer: SerializationWriter, answerVariant: Partial<AnswerVariant> | undefined = {}) : void {
-    writer.writeStringValue("description", answerVariant.description);
-    writer.writeStringValue("displayName", answerVariant.displayName);
-    writer.writeStringValue("languageTag", answerVariant.languageTag);
-    writer.writeStringValue("@odata.type", answerVariant.odataType);
-    writer.writeEnumValue<DevicePlatformType>("platform", answerVariant.platform);
-    writer.writeStringValue("webUrl", answerVariant.webUrl);
-    writer.writeAdditionalData(answerVariant.additionalData);
+export function serializeAnswerVariant(writer: SerializationWriter, answerVariant: Partial<AnswerVariant> | undefined | null = {}) : void {
+    if (answerVariant) {
+        writer.writeStringValue("description", answerVariant.description);
+        writer.writeStringValue("displayName", answerVariant.displayName);
+        writer.writeStringValue("languageTag", answerVariant.languageTag);
+        writer.writeStringValue("@odata.type", answerVariant.odataType);
+        writer.writeEnumValue<DevicePlatformType>("platform", answerVariant.platform);
+        writer.writeStringValue("webUrl", answerVariant.webUrl);
+        writer.writeAdditionalData(answerVariant.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBookmark(writer: SerializationWriter, bookmark: Partial<Bookmark> | undefined = {}) : void {
-    serializeSearchAnswer(writer, bookmark)
-    writer.writeDateValue("availabilityEndDateTime", bookmark.availabilityEndDateTime);
-    writer.writeDateValue("availabilityStartDateTime", bookmark.availabilityStartDateTime);
-    writer.writeCollectionOfPrimitiveValues<string>("categories", bookmark.categories);
-    writer.writeCollectionOfPrimitiveValues<string>("groupIds", bookmark.groupIds);
-    writer.writeBooleanValue("isSuggested", bookmark.isSuggested);
-    writer.writeObjectValue<AnswerKeyword>("keywords", bookmark.keywords, serializeAnswerKeyword);
-    writer.writeCollectionOfPrimitiveValues<string>("languageTags", bookmark.languageTags);
-    if(bookmark.platforms)
-    writer.writeEnumValue<DevicePlatformType>("platforms", ...bookmark.platforms);
-    writer.writeCollectionOfPrimitiveValues<string>("powerAppIds", bookmark.powerAppIds);
-    writer.writeEnumValue<AnswerState>("state", bookmark.state);
-    writer.writeCollectionOfObjectValues<AnswerVariant>("targetedVariations", bookmark.targetedVariations, serializeAnswerVariant);
+export function serializeBookmark(writer: SerializationWriter, bookmark: Partial<Bookmark> | undefined | null = {}) : void {
+    if (bookmark) {
+        serializeSearchAnswer(writer, bookmark)
+        writer.writeDateValue("availabilityEndDateTime", bookmark.availabilityEndDateTime);
+        writer.writeDateValue("availabilityStartDateTime", bookmark.availabilityStartDateTime);
+        writer.writeCollectionOfPrimitiveValues<string>("categories", bookmark.categories);
+        writer.writeCollectionOfPrimitiveValues<string>("groupIds", bookmark.groupIds);
+        writer.writeBooleanValue("isSuggested", bookmark.isSuggested);
+        writer.writeObjectValue<AnswerKeyword>("keywords", bookmark.keywords, serializeAnswerKeyword);
+        writer.writeCollectionOfPrimitiveValues<string>("languageTags", bookmark.languageTags);
+        if(bookmark.platforms)
+        writer.writeEnumValue<DevicePlatformType>("platforms", ...bookmark.platforms);
+        writer.writeCollectionOfPrimitiveValues<string>("powerAppIds", bookmark.powerAppIds);
+        writer.writeEnumValue<AnswerState>("state", bookmark.state);
+        writer.writeCollectionOfObjectValues<AnswerVariant>("targetedVariations", bookmark.targetedVariations, serializeAnswerVariant);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIdentity(writer: SerializationWriter, identity: Partial<Identity> | undefined = {}) : void {
-    writer.writeStringValue("displayName", identity.displayName);
-    writer.writeStringValue("id", identity.id);
-    writer.writeStringValue("@odata.type", identity.odataType);
-    writer.writeAdditionalData(identity.additionalData);
+export function serializeIdentity(writer: SerializationWriter, identity: Partial<Identity> | undefined | null = {}) : void {
+    if (identity) {
+        writer.writeStringValue("displayName", identity.displayName);
+        writer.writeStringValue("id", identity.id);
+        writer.writeStringValue("@odata.type", identity.odataType);
+        writer.writeAdditionalData(identity.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIdentitySet(writer: SerializationWriter, identitySet: Partial<IdentitySet> | undefined = {}) : void {
-    writer.writeObjectValue<Identity>("application", identitySet.application, serializeIdentity);
-    writer.writeObjectValue<Identity>("device", identitySet.device, serializeIdentity);
-    writer.writeStringValue("@odata.type", identitySet.odataType);
-    writer.writeObjectValue<Identity>("user", identitySet.user, serializeIdentity);
-    writer.writeAdditionalData(identitySet.additionalData);
+export function serializeIdentitySet(writer: SerializationWriter, identitySet: Partial<IdentitySet> | undefined | null = {}) : void {
+    if (identitySet) {
+        writer.writeObjectValue<Identity>("application", identitySet.application, serializeIdentity);
+        writer.writeObjectValue<Identity>("device", identitySet.device, serializeIdentity);
+        writer.writeStringValue("@odata.type", identitySet.odataType);
+        writer.writeObjectValue<Identity>("user", identitySet.user, serializeIdentity);
+        writer.writeAdditionalData(identitySet.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeQna(writer: SerializationWriter, qna: Partial<Qna> | undefined = {}) : void {
-    serializeSearchAnswer(writer, qna)
-    writer.writeDateValue("availabilityEndDateTime", qna.availabilityEndDateTime);
-    writer.writeDateValue("availabilityStartDateTime", qna.availabilityStartDateTime);
-    writer.writeCollectionOfPrimitiveValues<string>("groupIds", qna.groupIds);
-    writer.writeBooleanValue("isSuggested", qna.isSuggested);
-    writer.writeObjectValue<AnswerKeyword>("keywords", qna.keywords, serializeAnswerKeyword);
-    writer.writeCollectionOfPrimitiveValues<string>("languageTags", qna.languageTags);
-    if(qna.platforms)
-    writer.writeEnumValue<DevicePlatformType>("platforms", ...qna.platforms);
-    writer.writeEnumValue<AnswerState>("state", qna.state);
-    writer.writeCollectionOfObjectValues<AnswerVariant>("targetedVariations", qna.targetedVariations, serializeAnswerVariant);
+export function serializeQna(writer: SerializationWriter, qna: Partial<Qna> | undefined | null = {}) : void {
+    if (qna) {
+        serializeSearchAnswer(writer, qna)
+        writer.writeDateValue("availabilityEndDateTime", qna.availabilityEndDateTime);
+        writer.writeDateValue("availabilityStartDateTime", qna.availabilityStartDateTime);
+        writer.writeCollectionOfPrimitiveValues<string>("groupIds", qna.groupIds);
+        writer.writeBooleanValue("isSuggested", qna.isSuggested);
+        writer.writeObjectValue<AnswerKeyword>("keywords", qna.keywords, serializeAnswerKeyword);
+        writer.writeCollectionOfPrimitiveValues<string>("languageTags", qna.languageTags);
+        if(qna.platforms)
+        writer.writeEnumValue<DevicePlatformType>("platforms", ...qna.platforms);
+        writer.writeEnumValue<AnswerState>("state", qna.state);
+        writer.writeCollectionOfObjectValues<AnswerVariant>("targetedVariations", qna.targetedVariations, serializeAnswerVariant);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSearchAnswer(writer: SerializationWriter, searchAnswer: Partial<SearchAnswer> | undefined = {}) : void {
-    serializeEntity(writer, searchAnswer)
-    writer.writeStringValue("description", searchAnswer.description);
-    writer.writeStringValue("displayName", searchAnswer.displayName);
-    writer.writeObjectValue<IdentitySet>("lastModifiedBy", searchAnswer.lastModifiedBy, serializeIdentitySet);
-    writer.writeDateValue("lastModifiedDateTime", searchAnswer.lastModifiedDateTime);
-    writer.writeStringValue("webUrl", searchAnswer.webUrl);
+export function serializeSearchAnswer(writer: SerializationWriter, searchAnswer: Partial<SearchAnswer> | undefined | null = {}) : void {
+    if (searchAnswer) {
+        serializeEntity(writer, searchAnswer)
+        writer.writeStringValue("description", searchAnswer.description);
+        writer.writeStringValue("displayName", searchAnswer.displayName);
+        writer.writeObjectValue<IdentitySet>("lastModifiedBy", searchAnswer.lastModifiedBy, serializeIdentitySet);
+        writer.writeDateValue("lastModifiedDateTime", searchAnswer.lastModifiedDateTime);
+        writer.writeStringValue("webUrl", searchAnswer.webUrl);
+    }
 }
 export const AnswerStateObject = {
     Published: "published",

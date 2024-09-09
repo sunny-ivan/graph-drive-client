@@ -35,7 +35,7 @@ export interface MinutePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the minute method.
@@ -62,9 +62,11 @@ export interface MinuteRequestBuilder extends BaseRequestBuilder<MinuteRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMinutePostRequestBody(writer: SerializationWriter, minutePostRequestBody: Partial<MinutePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("serialNumber", minutePostRequestBody.serialNumber);
-    writer.writeAdditionalData(minutePostRequestBody.additionalData);
+export function serializeMinutePostRequestBody(writer: SerializationWriter, minutePostRequestBody: Partial<MinutePostRequestBody> | undefined | null = {}) : void {
+    if (minutePostRequestBody) {
+        writer.writeObjectValue("serialNumber", minutePostRequestBody.serialNumber);
+        writer.writeAdditionalData(minutePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

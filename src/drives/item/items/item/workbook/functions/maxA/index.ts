@@ -35,7 +35,7 @@ export interface MaxAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the maxA method.
@@ -62,9 +62,11 @@ export interface MaxARequestBuilder extends BaseRequestBuilder<MaxARequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMaxAPostRequestBody(writer: SerializationWriter, maxAPostRequestBody: Partial<MaxAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", maxAPostRequestBody.values);
-    writer.writeAdditionalData(maxAPostRequestBody.additionalData);
+export function serializeMaxAPostRequestBody(writer: SerializationWriter, maxAPostRequestBody: Partial<MaxAPostRequestBody> | undefined | null = {}) : void {
+    if (maxAPostRequestBody) {
+        writer.writeObjectValue("values", maxAPostRequestBody.values);
+        writer.writeAdditionalData(maxAPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

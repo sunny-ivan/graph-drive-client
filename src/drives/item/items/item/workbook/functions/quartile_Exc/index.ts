@@ -36,11 +36,11 @@ export interface Quartile_ExcPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The quart property
      */
-    quart?: UntypedNode;
+    quart?: UntypedNode | null;
 }
 /**
  * Provides operations to call the quartile_Exc method.
@@ -67,10 +67,12 @@ export interface Quartile_ExcRequestBuilder extends BaseRequestBuilder<Quartile_
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeQuartile_ExcPostRequestBody(writer: SerializationWriter, quartile_ExcPostRequestBody: Partial<Quartile_ExcPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", quartile_ExcPostRequestBody.array);
-    writer.writeObjectValue("quart", quartile_ExcPostRequestBody.quart);
-    writer.writeAdditionalData(quartile_ExcPostRequestBody.additionalData);
+export function serializeQuartile_ExcPostRequestBody(writer: SerializationWriter, quartile_ExcPostRequestBody: Partial<Quartile_ExcPostRequestBody> | undefined | null = {}) : void {
+    if (quartile_ExcPostRequestBody) {
+        writer.writeObjectValue("array", quartile_ExcPostRequestBody.array);
+        writer.writeObjectValue("quart", quartile_ExcPostRequestBody.quart);
+        writer.writeAdditionalData(quartile_ExcPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

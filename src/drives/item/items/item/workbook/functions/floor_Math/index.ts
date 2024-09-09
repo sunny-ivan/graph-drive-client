@@ -37,15 +37,15 @@ export interface Floor_MathPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The mode property
      */
-    mode?: UntypedNode;
+    mode?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
 }
 /**
  * Provides operations to call the floor_Math method.
@@ -72,11 +72,13 @@ export interface Floor_MathRequestBuilder extends BaseRequestBuilder<Floor_MathR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloor_MathPostRequestBody(writer: SerializationWriter, floor_MathPostRequestBody: Partial<Floor_MathPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("mode", floor_MathPostRequestBody.mode);
-    writer.writeObjectValue("number", floor_MathPostRequestBody.number);
-    writer.writeObjectValue("significance", floor_MathPostRequestBody.significance);
-    writer.writeAdditionalData(floor_MathPostRequestBody.additionalData);
+export function serializeFloor_MathPostRequestBody(writer: SerializationWriter, floor_MathPostRequestBody: Partial<Floor_MathPostRequestBody> | undefined | null = {}) : void {
+    if (floor_MathPostRequestBody) {
+        writer.writeObjectValue("mode", floor_MathPostRequestBody.mode);
+        writer.writeObjectValue("number", floor_MathPostRequestBody.number);
+        writer.writeObjectValue("significance", floor_MathPostRequestBody.significance);
+        writer.writeAdditionalData(floor_MathPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

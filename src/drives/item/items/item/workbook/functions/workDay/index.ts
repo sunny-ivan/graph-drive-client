@@ -34,11 +34,13 @@ export function deserializeIntoWorkDayPostRequestBody(workDayPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkDayPostRequestBody(writer: SerializationWriter, workDayPostRequestBody: Partial<WorkDayPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("days", workDayPostRequestBody.days);
-    writer.writeObjectValue("holidays", workDayPostRequestBody.holidays);
-    writer.writeObjectValue("startDate", workDayPostRequestBody.startDate);
-    writer.writeAdditionalData(workDayPostRequestBody.additionalData);
+export function serializeWorkDayPostRequestBody(writer: SerializationWriter, workDayPostRequestBody: Partial<WorkDayPostRequestBody> | undefined | null = {}) : void {
+    if (workDayPostRequestBody) {
+        writer.writeObjectValue("days", workDayPostRequestBody.days);
+        writer.writeObjectValue("holidays", workDayPostRequestBody.holidays);
+        writer.writeObjectValue("startDate", workDayPostRequestBody.startDate);
+        writer.writeAdditionalData(workDayPostRequestBody.additionalData);
+    }
 }
 export interface WorkDayPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface WorkDayPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The days property
      */
-    days?: UntypedNode;
+    days?: UntypedNode | null;
     /**
      * The holidays property
      */
-    holidays?: UntypedNode;
+    holidays?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the workDay method.

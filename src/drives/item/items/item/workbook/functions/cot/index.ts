@@ -16,7 +16,7 @@ export interface CotPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the cot method.
@@ -62,9 +62,11 @@ export function deserializeIntoCotPostRequestBody(cotPostRequestBody: Partial<Co
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCotPostRequestBody(writer: SerializationWriter, cotPostRequestBody: Partial<CotPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", cotPostRequestBody.number);
-    writer.writeAdditionalData(cotPostRequestBody.additionalData);
+export function serializeCotPostRequestBody(writer: SerializationWriter, cotPostRequestBody: Partial<CotPostRequestBody> | undefined | null = {}) : void {
+    if (cotPostRequestBody) {
+        writer.writeObjectValue("number", cotPostRequestBody.number);
+        writer.writeAdditionalData(cotPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

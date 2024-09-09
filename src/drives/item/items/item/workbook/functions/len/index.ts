@@ -35,7 +35,7 @@ export interface LenPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the len method.
@@ -62,9 +62,11 @@ export interface LenRequestBuilder extends BaseRequestBuilder<LenRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLenPostRequestBody(writer: SerializationWriter, lenPostRequestBody: Partial<LenPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", lenPostRequestBody.text);
-    writer.writeAdditionalData(lenPostRequestBody.additionalData);
+export function serializeLenPostRequestBody(writer: SerializationWriter, lenPostRequestBody: Partial<LenPostRequestBody> | undefined | null = {}) : void {
+    if (lenPostRequestBody) {
+        writer.writeObjectValue("text", lenPostRequestBody.text);
+        writer.writeAdditionalData(lenPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

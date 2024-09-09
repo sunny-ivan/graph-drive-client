@@ -36,11 +36,11 @@ export interface Ecma_CeilingPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ecma_Ceiling method.
@@ -67,10 +67,12 @@ export interface Ecma_CeilingRequestBuilder extends BaseRequestBuilder<Ecma_Ceil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEcma_CeilingPostRequestBody(writer: SerializationWriter, ecma_CeilingPostRequestBody: Partial<Ecma_CeilingPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", ecma_CeilingPostRequestBody.number);
-    writer.writeObjectValue("significance", ecma_CeilingPostRequestBody.significance);
-    writer.writeAdditionalData(ecma_CeilingPostRequestBody.additionalData);
+export function serializeEcma_CeilingPostRequestBody(writer: SerializationWriter, ecma_CeilingPostRequestBody: Partial<Ecma_CeilingPostRequestBody> | undefined | null = {}) : void {
+    if (ecma_CeilingPostRequestBody) {
+        writer.writeObjectValue("number", ecma_CeilingPostRequestBody.number);
+        writer.writeObjectValue("significance", ecma_CeilingPostRequestBody.significance);
+        writer.writeAdditionalData(ecma_CeilingPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

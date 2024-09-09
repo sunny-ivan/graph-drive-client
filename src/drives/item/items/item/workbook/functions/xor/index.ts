@@ -32,9 +32,11 @@ export function deserializeIntoXorPostRequestBody(xorPostRequestBody: Partial<Xo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeXorPostRequestBody(writer: SerializationWriter, xorPostRequestBody: Partial<XorPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", xorPostRequestBody.values);
-    writer.writeAdditionalData(xorPostRequestBody.additionalData);
+export function serializeXorPostRequestBody(writer: SerializationWriter, xorPostRequestBody: Partial<XorPostRequestBody> | undefined | null = {}) : void {
+    if (xorPostRequestBody) {
+        writer.writeObjectValue("values", xorPostRequestBody.values);
+        writer.writeAdditionalData(xorPostRequestBody.additionalData);
+    }
 }
 export interface XorPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface XorPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the xor method.

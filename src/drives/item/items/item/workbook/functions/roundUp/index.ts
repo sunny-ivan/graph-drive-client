@@ -36,11 +36,11 @@ export interface RoundUpPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numDigits property
      */
-    numDigits?: UntypedNode;
+    numDigits?: UntypedNode | null;
 }
 /**
  * Provides operations to call the roundUp method.
@@ -67,10 +67,12 @@ export interface RoundUpRequestBuilder extends BaseRequestBuilder<RoundUpRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRoundUpPostRequestBody(writer: SerializationWriter, roundUpPostRequestBody: Partial<RoundUpPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", roundUpPostRequestBody.number);
-    writer.writeObjectValue("numDigits", roundUpPostRequestBody.numDigits);
-    writer.writeAdditionalData(roundUpPostRequestBody.additionalData);
+export function serializeRoundUpPostRequestBody(writer: SerializationWriter, roundUpPostRequestBody: Partial<RoundUpPostRequestBody> | undefined | null = {}) : void {
+    if (roundUpPostRequestBody) {
+        writer.writeObjectValue("number", roundUpPostRequestBody.number);
+        writer.writeObjectValue("numDigits", roundUpPostRequestBody.numDigits);
+        writer.writeAdditionalData(roundUpPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

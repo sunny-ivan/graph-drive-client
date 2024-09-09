@@ -35,7 +35,7 @@ export interface LnPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ln method.
@@ -62,9 +62,11 @@ export interface LnRequestBuilder extends BaseRequestBuilder<LnRequestBuilder> {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLnPostRequestBody(writer: SerializationWriter, lnPostRequestBody: Partial<LnPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", lnPostRequestBody.number);
-    writer.writeAdditionalData(lnPostRequestBody.additionalData);
+export function serializeLnPostRequestBody(writer: SerializationWriter, lnPostRequestBody: Partial<LnPostRequestBody> | undefined | null = {}) : void {
+    if (lnPostRequestBody) {
+        writer.writeObjectValue("number", lnPostRequestBody.number);
+        writer.writeAdditionalData(lnPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

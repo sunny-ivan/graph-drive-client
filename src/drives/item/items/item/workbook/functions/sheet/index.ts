@@ -32,9 +32,11 @@ export function deserializeIntoSheetPostRequestBody(sheetPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSheetPostRequestBody(writer: SerializationWriter, sheetPostRequestBody: Partial<SheetPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", sheetPostRequestBody.value);
-    writer.writeAdditionalData(sheetPostRequestBody.additionalData);
+export function serializeSheetPostRequestBody(writer: SerializationWriter, sheetPostRequestBody: Partial<SheetPostRequestBody> | undefined | null = {}) : void {
+    if (sheetPostRequestBody) {
+        writer.writeObjectValue("value", sheetPostRequestBody.value);
+        writer.writeAdditionalData(sheetPostRequestBody.additionalData);
+    }
 }
 export interface SheetPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SheetPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sheet method.

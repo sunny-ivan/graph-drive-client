@@ -36,11 +36,11 @@ export interface RoundDownPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numDigits property
      */
-    numDigits?: UntypedNode;
+    numDigits?: UntypedNode | null;
 }
 /**
  * Provides operations to call the roundDown method.
@@ -67,10 +67,12 @@ export interface RoundDownRequestBuilder extends BaseRequestBuilder<RoundDownReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRoundDownPostRequestBody(writer: SerializationWriter, roundDownPostRequestBody: Partial<RoundDownPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", roundDownPostRequestBody.number);
-    writer.writeObjectValue("numDigits", roundDownPostRequestBody.numDigits);
-    writer.writeAdditionalData(roundDownPostRequestBody.additionalData);
+export function serializeRoundDownPostRequestBody(writer: SerializationWriter, roundDownPostRequestBody: Partial<RoundDownPostRequestBody> | undefined | null = {}) : void {
+    if (roundDownPostRequestBody) {
+        writer.writeObjectValue("number", roundDownPostRequestBody.number);
+        writer.writeObjectValue("numDigits", roundDownPostRequestBody.numDigits);
+        writer.writeAdditionalData(roundDownPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

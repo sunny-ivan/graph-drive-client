@@ -14,15 +14,15 @@ export interface ApplyCustomFilterPostRequestBody extends AdditionalDataHolder, 
     /**
      * The criteria1 property
      */
-    criteria1?: string;
+    criteria1?: string | null;
     /**
      * The criteria2 property
      */
-    criteria2?: string;
+    criteria2?: string | null;
     /**
      * The oper property
      */
-    oper?: string;
+    oper?: string | null;
 }
 /**
  * Provides operations to call the applyCustomFilter method.
@@ -69,11 +69,13 @@ export function deserializeIntoApplyCustomFilterPostRequestBody(applyCustomFilte
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyCustomFilterPostRequestBody(writer: SerializationWriter, applyCustomFilterPostRequestBody: Partial<ApplyCustomFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("criteria1", applyCustomFilterPostRequestBody.criteria1);
-    writer.writeStringValue("criteria2", applyCustomFilterPostRequestBody.criteria2);
-    writer.writeStringValue("oper", applyCustomFilterPostRequestBody.oper);
-    writer.writeAdditionalData(applyCustomFilterPostRequestBody.additionalData);
+export function serializeApplyCustomFilterPostRequestBody(writer: SerializationWriter, applyCustomFilterPostRequestBody: Partial<ApplyCustomFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyCustomFilterPostRequestBody) {
+        writer.writeStringValue("criteria1", applyCustomFilterPostRequestBody.criteria1);
+        writer.writeStringValue("criteria2", applyCustomFilterPostRequestBody.criteria2);
+        writer.writeStringValue("oper", applyCustomFilterPostRequestBody.oper);
+        writer.writeAdditionalData(applyCustomFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

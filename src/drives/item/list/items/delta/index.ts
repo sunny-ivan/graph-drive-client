@@ -21,7 +21,7 @@ export interface DeltaGetResponse extends BaseDeltaFunctionResponse, Parsable {
     /**
      * The value property
      */
-    value?: ListItem[];
+    value?: ListItem[] | null;
 }
 /**
  * Provides operations to call the delta method.
@@ -95,9 +95,11 @@ export function deserializeIntoDeltaGetResponse(deltaGetResponse: Partial<DeltaG
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDeltaGetResponse(writer: SerializationWriter, deltaGetResponse: Partial<DeltaGetResponse> | undefined = {}) : void {
-    serializeBaseDeltaFunctionResponse(writer, deltaGetResponse)
-    writer.writeCollectionOfObjectValues<ListItem>("value", deltaGetResponse.value, serializeListItem);
+export function serializeDeltaGetResponse(writer: SerializationWriter, deltaGetResponse: Partial<DeltaGetResponse> | undefined | null = {}) : void {
+    if (deltaGetResponse) {
+        serializeBaseDeltaFunctionResponse(writer, deltaGetResponse)
+        writer.writeCollectionOfObjectValues<ListItem>("value", deltaGetResponse.value, serializeListItem);
+    }
 }
 /**
  * Uri template for the request builder.

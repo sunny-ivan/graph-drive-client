@@ -34,11 +34,13 @@ export function deserializeIntoZ_TestPostRequestBody(z_TestPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeZ_TestPostRequestBody(writer: SerializationWriter, z_TestPostRequestBody: Partial<Z_TestPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", z_TestPostRequestBody.array);
-    writer.writeObjectValue("sigma", z_TestPostRequestBody.sigma);
-    writer.writeObjectValue("x", z_TestPostRequestBody.x);
-    writer.writeAdditionalData(z_TestPostRequestBody.additionalData);
+export function serializeZ_TestPostRequestBody(writer: SerializationWriter, z_TestPostRequestBody: Partial<Z_TestPostRequestBody> | undefined | null = {}) : void {
+    if (z_TestPostRequestBody) {
+        writer.writeObjectValue("array", z_TestPostRequestBody.array);
+        writer.writeObjectValue("sigma", z_TestPostRequestBody.sigma);
+        writer.writeObjectValue("x", z_TestPostRequestBody.x);
+        writer.writeAdditionalData(z_TestPostRequestBody.additionalData);
+    }
 }
 export interface Z_TestPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface Z_TestPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The sigma property
      */
-    sigma?: UntypedNode;
+    sigma?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the z_Test method.

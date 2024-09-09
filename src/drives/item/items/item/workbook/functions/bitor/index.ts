@@ -16,11 +16,11 @@ export interface BitorPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number1 property
      */
-    number1?: UntypedNode;
+    number1?: UntypedNode | null;
     /**
      * The number2 property
      */
-    number2?: UntypedNode;
+    number2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bitor method.
@@ -67,10 +67,12 @@ export function deserializeIntoBitorPostRequestBody(bitorPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBitorPostRequestBody(writer: SerializationWriter, bitorPostRequestBody: Partial<BitorPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number1", bitorPostRequestBody.number1);
-    writer.writeObjectValue("number2", bitorPostRequestBody.number2);
-    writer.writeAdditionalData(bitorPostRequestBody.additionalData);
+export function serializeBitorPostRequestBody(writer: SerializationWriter, bitorPostRequestBody: Partial<BitorPostRequestBody> | undefined | null = {}) : void {
+    if (bitorPostRequestBody) {
+        writer.writeObjectValue("number1", bitorPostRequestBody.number1);
+        writer.writeObjectValue("number2", bitorPostRequestBody.number2);
+        writer.writeAdditionalData(bitorPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

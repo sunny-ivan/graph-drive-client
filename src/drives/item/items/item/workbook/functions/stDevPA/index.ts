@@ -32,9 +32,11 @@ export function deserializeIntoStDevPAPostRequestBody(stDevPAPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeStDevPAPostRequestBody(writer: SerializationWriter, stDevPAPostRequestBody: Partial<StDevPAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", stDevPAPostRequestBody.values);
-    writer.writeAdditionalData(stDevPAPostRequestBody.additionalData);
+export function serializeStDevPAPostRequestBody(writer: SerializationWriter, stDevPAPostRequestBody: Partial<StDevPAPostRequestBody> | undefined | null = {}) : void {
+    if (stDevPAPostRequestBody) {
+        writer.writeObjectValue("values", stDevPAPostRequestBody.values);
+        writer.writeAdditionalData(stDevPAPostRequestBody.additionalData);
+    }
 }
 export interface StDevPAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface StDevPAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the stDevPA method.

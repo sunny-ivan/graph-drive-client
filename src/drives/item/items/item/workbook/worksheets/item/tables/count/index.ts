@@ -14,7 +14,7 @@ export interface CountGetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: number;
+    value?: number | null;
 }
 /**
  * Provides operations to call the count method.
@@ -58,9 +58,11 @@ export function deserializeIntoCountGetResponse(countGetResponse: Partial<CountG
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCountGetResponse(writer: SerializationWriter, countGetResponse: Partial<CountGetResponse> | undefined = {}) : void {
-    writer.writeNumberValue("value", countGetResponse.value);
-    writer.writeAdditionalData(countGetResponse.additionalData);
+export function serializeCountGetResponse(writer: SerializationWriter, countGetResponse: Partial<CountGetResponse> | undefined | null = {}) : void {
+    if (countGetResponse) {
+        writer.writeNumberValue("value", countGetResponse.value);
+        writer.writeAdditionalData(countGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

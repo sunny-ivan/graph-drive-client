@@ -25,15 +25,15 @@ export interface DaveragePostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the daverage method.
@@ -72,11 +72,13 @@ export function deserializeIntoDaveragePostRequestBody(daveragePostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDaveragePostRequestBody(writer: SerializationWriter, daveragePostRequestBody: Partial<DaveragePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", daveragePostRequestBody.criteria);
-    writer.writeObjectValue("database", daveragePostRequestBody.database);
-    writer.writeObjectValue("field", daveragePostRequestBody.field);
-    writer.writeAdditionalData(daveragePostRequestBody.additionalData);
+export function serializeDaveragePostRequestBody(writer: SerializationWriter, daveragePostRequestBody: Partial<DaveragePostRequestBody> | undefined | null = {}) : void {
+    if (daveragePostRequestBody) {
+        writer.writeObjectValue("criteria", daveragePostRequestBody.criteria);
+        writer.writeObjectValue("database", daveragePostRequestBody.database);
+        writer.writeObjectValue("field", daveragePostRequestBody.field);
+        writer.writeAdditionalData(daveragePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

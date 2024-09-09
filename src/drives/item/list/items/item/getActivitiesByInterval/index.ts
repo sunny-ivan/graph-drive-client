@@ -32,7 +32,7 @@ export interface GetActivitiesByIntervalGetResponse extends BaseCollectionPagina
     /**
      * The value property
      */
-    value?: ItemActivityStat[];
+    value?: ItemActivityStat[] | null;
 }
 /**
  * Provides operations to call the getActivitiesByInterval method.
@@ -94,9 +94,11 @@ export interface GetActivitiesByIntervalRequestBuilderGetQueryParameters {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGetActivitiesByIntervalGetResponse(writer: SerializationWriter, getActivitiesByIntervalGetResponse: Partial<GetActivitiesByIntervalGetResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, getActivitiesByIntervalGetResponse)
-    writer.writeCollectionOfObjectValues<ItemActivityStat>("value", getActivitiesByIntervalGetResponse.value, serializeItemActivityStat);
+export function serializeGetActivitiesByIntervalGetResponse(writer: SerializationWriter, getActivitiesByIntervalGetResponse: Partial<GetActivitiesByIntervalGetResponse> | undefined | null = {}) : void {
+    if (getActivitiesByIntervalGetResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, getActivitiesByIntervalGetResponse)
+        writer.writeCollectionOfObjectValues<ItemActivityStat>("value", getActivitiesByIntervalGetResponse.value, serializeItemActivityStat);
+    }
 }
 /**
  * Uri template for the request builder.

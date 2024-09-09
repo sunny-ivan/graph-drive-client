@@ -32,9 +32,11 @@ export function deserializeIntoTanPostRequestBody(tanPostRequestBody: Partial<Ta
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTanPostRequestBody(writer: SerializationWriter, tanPostRequestBody: Partial<TanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", tanPostRequestBody.number);
-    writer.writeAdditionalData(tanPostRequestBody.additionalData);
+export function serializeTanPostRequestBody(writer: SerializationWriter, tanPostRequestBody: Partial<TanPostRequestBody> | undefined | null = {}) : void {
+    if (tanPostRequestBody) {
+        writer.writeObjectValue("number", tanPostRequestBody.number);
+        writer.writeAdditionalData(tanPostRequestBody.additionalData);
+    }
 }
 export interface TanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface TanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the tan method.

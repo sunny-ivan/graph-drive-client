@@ -36,11 +36,11 @@ export interface ImPowerPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imPower method.
@@ -67,10 +67,12 @@ export interface ImPowerRequestBuilder extends BaseRequestBuilder<ImPowerRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImPowerPostRequestBody(writer: SerializationWriter, imPowerPostRequestBody: Partial<ImPowerPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imPowerPostRequestBody.inumber);
-    writer.writeObjectValue("number", imPowerPostRequestBody.number);
-    writer.writeAdditionalData(imPowerPostRequestBody.additionalData);
+export function serializeImPowerPostRequestBody(writer: SerializationWriter, imPowerPostRequestBody: Partial<ImPowerPostRequestBody> | undefined | null = {}) : void {
+    if (imPowerPostRequestBody) {
+        writer.writeObjectValue("inumber", imPowerPostRequestBody.inumber);
+        writer.writeObjectValue("number", imPowerPostRequestBody.number);
+        writer.writeAdditionalData(imPowerPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

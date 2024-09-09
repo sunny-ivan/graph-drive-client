@@ -39,23 +39,23 @@ export interface DiscPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The pr property
      */
-    pr?: UntypedNode;
+    pr?: UntypedNode | null;
     /**
      * The redemption property
      */
-    redemption?: UntypedNode;
+    redemption?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the disc method.
@@ -82,13 +82,15 @@ export interface DiscRequestBuilder extends BaseRequestBuilder<DiscRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDiscPostRequestBody(writer: SerializationWriter, discPostRequestBody: Partial<DiscPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", discPostRequestBody.basis);
-    writer.writeObjectValue("maturity", discPostRequestBody.maturity);
-    writer.writeObjectValue("pr", discPostRequestBody.pr);
-    writer.writeObjectValue("redemption", discPostRequestBody.redemption);
-    writer.writeObjectValue("settlement", discPostRequestBody.settlement);
-    writer.writeAdditionalData(discPostRequestBody.additionalData);
+export function serializeDiscPostRequestBody(writer: SerializationWriter, discPostRequestBody: Partial<DiscPostRequestBody> | undefined | null = {}) : void {
+    if (discPostRequestBody) {
+        writer.writeObjectValue("basis", discPostRequestBody.basis);
+        writer.writeObjectValue("maturity", discPostRequestBody.maturity);
+        writer.writeObjectValue("pr", discPostRequestBody.pr);
+        writer.writeObjectValue("redemption", discPostRequestBody.redemption);
+        writer.writeObjectValue("settlement", discPostRequestBody.settlement);
+        writer.writeAdditionalData(discPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

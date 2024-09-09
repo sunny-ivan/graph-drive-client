@@ -36,11 +36,11 @@ export interface LeftPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The numChars property
      */
-    numChars?: UntypedNode;
+    numChars?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the left method.
@@ -67,10 +67,12 @@ export interface LeftRequestBuilder extends BaseRequestBuilder<LeftRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLeftPostRequestBody(writer: SerializationWriter, leftPostRequestBody: Partial<LeftPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numChars", leftPostRequestBody.numChars);
-    writer.writeObjectValue("text", leftPostRequestBody.text);
-    writer.writeAdditionalData(leftPostRequestBody.additionalData);
+export function serializeLeftPostRequestBody(writer: SerializationWriter, leftPostRequestBody: Partial<LeftPostRequestBody> | undefined | null = {}) : void {
+    if (leftPostRequestBody) {
+        writer.writeObjectValue("numChars", leftPostRequestBody.numChars);
+        writer.writeObjectValue("text", leftPostRequestBody.text);
+        writer.writeAdditionalData(leftPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

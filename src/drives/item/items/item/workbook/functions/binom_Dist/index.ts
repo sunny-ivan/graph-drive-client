@@ -16,19 +16,19 @@ export interface Binom_DistPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The numberS property
      */
-    numberS?: UntypedNode;
+    numberS?: UntypedNode | null;
     /**
      * The probabilityS property
      */
-    probabilityS?: UntypedNode;
+    probabilityS?: UntypedNode | null;
     /**
      * The trials property
      */
-    trials?: UntypedNode;
+    trials?: UntypedNode | null;
 }
 /**
  * Provides operations to call the binom_Dist method.
@@ -77,12 +77,14 @@ export function deserializeIntoBinom_DistPostRequestBody(binom_DistPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBinom_DistPostRequestBody(writer: SerializationWriter, binom_DistPostRequestBody: Partial<Binom_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", binom_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("numberS", binom_DistPostRequestBody.numberS);
-    writer.writeObjectValue("probabilityS", binom_DistPostRequestBody.probabilityS);
-    writer.writeObjectValue("trials", binom_DistPostRequestBody.trials);
-    writer.writeAdditionalData(binom_DistPostRequestBody.additionalData);
+export function serializeBinom_DistPostRequestBody(writer: SerializationWriter, binom_DistPostRequestBody: Partial<Binom_DistPostRequestBody> | undefined | null = {}) : void {
+    if (binom_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", binom_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("numberS", binom_DistPostRequestBody.numberS);
+        writer.writeObjectValue("probabilityS", binom_DistPostRequestBody.probabilityS);
+        writer.writeObjectValue("trials", binom_DistPostRequestBody.trials);
+        writer.writeAdditionalData(binom_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

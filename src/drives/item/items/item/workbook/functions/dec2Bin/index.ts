@@ -25,11 +25,11 @@ export interface Dec2BinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dec2Bin method.
@@ -67,10 +67,12 @@ export function deserializeIntoDec2BinPostRequestBody(dec2BinPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDec2BinPostRequestBody(writer: SerializationWriter, dec2BinPostRequestBody: Partial<Dec2BinPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", dec2BinPostRequestBody.number);
-    writer.writeObjectValue("places", dec2BinPostRequestBody.places);
-    writer.writeAdditionalData(dec2BinPostRequestBody.additionalData);
+export function serializeDec2BinPostRequestBody(writer: SerializationWriter, dec2BinPostRequestBody: Partial<Dec2BinPostRequestBody> | undefined | null = {}) : void {
+    if (dec2BinPostRequestBody) {
+        writer.writeObjectValue("number", dec2BinPostRequestBody.number);
+        writer.writeObjectValue("places", dec2BinPostRequestBody.places);
+        writer.writeAdditionalData(dec2BinPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

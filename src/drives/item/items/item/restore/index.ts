@@ -36,11 +36,11 @@ export interface RestorePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The name property
      */
-    name?: string;
+    name?: string | null;
     /**
      * The parentReference property
      */
-    parentReference?: ItemReference;
+    parentReference?: ItemReference | null;
 }
 /**
  * Provides operations to call the restore method.
@@ -68,10 +68,12 @@ export interface RestoreRequestBuilder extends BaseRequestBuilder<RestoreRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRestorePostRequestBody(writer: SerializationWriter, restorePostRequestBody: Partial<RestorePostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("name", restorePostRequestBody.name);
-    writer.writeObjectValue<ItemReference>("parentReference", restorePostRequestBody.parentReference, serializeItemReference);
-    writer.writeAdditionalData(restorePostRequestBody.additionalData);
+export function serializeRestorePostRequestBody(writer: SerializationWriter, restorePostRequestBody: Partial<RestorePostRequestBody> | undefined | null = {}) : void {
+    if (restorePostRequestBody) {
+        writer.writeStringValue("name", restorePostRequestBody.name);
+        writer.writeObjectValue<ItemReference>("parentReference", restorePostRequestBody.parentReference, serializeItemReference);
+        writer.writeAdditionalData(restorePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

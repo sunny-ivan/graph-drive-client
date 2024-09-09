@@ -35,7 +35,7 @@ export interface EvenPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the even method.
@@ -62,9 +62,11 @@ export interface EvenRequestBuilder extends BaseRequestBuilder<EvenRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEvenPostRequestBody(writer: SerializationWriter, evenPostRequestBody: Partial<EvenPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", evenPostRequestBody.number);
-    writer.writeAdditionalData(evenPostRequestBody.additionalData);
+export function serializeEvenPostRequestBody(writer: SerializationWriter, evenPostRequestBody: Partial<EvenPostRequestBody> | undefined | null = {}) : void {
+    if (evenPostRequestBody) {
+        writer.writeObjectValue("number", evenPostRequestBody.number);
+        writer.writeAdditionalData(evenPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

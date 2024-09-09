@@ -36,11 +36,11 @@ export interface ErfPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The lowerLimit property
      */
-    lowerLimit?: UntypedNode;
+    lowerLimit?: UntypedNode | null;
     /**
      * The upperLimit property
      */
-    upperLimit?: UntypedNode;
+    upperLimit?: UntypedNode | null;
 }
 /**
  * Provides operations to call the erf method.
@@ -67,10 +67,12 @@ export interface ErfRequestBuilder extends BaseRequestBuilder<ErfRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeErfPostRequestBody(writer: SerializationWriter, erfPostRequestBody: Partial<ErfPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("lowerLimit", erfPostRequestBody.lowerLimit);
-    writer.writeObjectValue("upperLimit", erfPostRequestBody.upperLimit);
-    writer.writeAdditionalData(erfPostRequestBody.additionalData);
+export function serializeErfPostRequestBody(writer: SerializationWriter, erfPostRequestBody: Partial<ErfPostRequestBody> | undefined | null = {}) : void {
+    if (erfPostRequestBody) {
+        writer.writeObjectValue("lowerLimit", erfPostRequestBody.lowerLimit);
+        writer.writeObjectValue("upperLimit", erfPostRequestBody.upperLimit);
+        writer.writeAdditionalData(erfPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

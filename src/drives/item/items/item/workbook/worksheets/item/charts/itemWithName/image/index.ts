@@ -33,7 +33,7 @@ export interface ImageGetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: string;
+    value?: string | null;
 }
 /**
  * Provides operations to call the image method.
@@ -58,9 +58,11 @@ export interface ImageRequestBuilder extends BaseRequestBuilder<ImageRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImageGetResponse(writer: SerializationWriter, imageGetResponse: Partial<ImageGetResponse> | undefined = {}) : void {
-    writer.writeStringValue("value", imageGetResponse.value);
-    writer.writeAdditionalData(imageGetResponse.additionalData);
+export function serializeImageGetResponse(writer: SerializationWriter, imageGetResponse: Partial<ImageGetResponse> | undefined | null = {}) : void {
+    if (imageGetResponse) {
+        writer.writeStringValue("value", imageGetResponse.value);
+        writer.writeAdditionalData(imageGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

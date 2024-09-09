@@ -35,7 +35,7 @@ export interface IsNumberPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isNumber method.
@@ -62,9 +62,11 @@ export interface IsNumberRequestBuilder extends BaseRequestBuilder<IsNumberReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsNumberPostRequestBody(writer: SerializationWriter, isNumberPostRequestBody: Partial<IsNumberPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isNumberPostRequestBody.value);
-    writer.writeAdditionalData(isNumberPostRequestBody.additionalData);
+export function serializeIsNumberPostRequestBody(writer: SerializationWriter, isNumberPostRequestBody: Partial<IsNumberPostRequestBody> | undefined | null = {}) : void {
+    if (isNumberPostRequestBody) {
+        writer.writeObjectValue("value", isNumberPostRequestBody.value);
+        writer.writeAdditionalData(isNumberPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

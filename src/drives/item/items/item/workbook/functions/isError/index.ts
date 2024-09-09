@@ -35,7 +35,7 @@ export interface IsErrorPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isError method.
@@ -62,9 +62,11 @@ export interface IsErrorRequestBuilder extends BaseRequestBuilder<IsErrorRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsErrorPostRequestBody(writer: SerializationWriter, isErrorPostRequestBody: Partial<IsErrorPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isErrorPostRequestBody.value);
-    writer.writeAdditionalData(isErrorPostRequestBody.additionalData);
+export function serializeIsErrorPostRequestBody(writer: SerializationWriter, isErrorPostRequestBody: Partial<IsErrorPostRequestBody> | undefined | null = {}) : void {
+    if (isErrorPostRequestBody) {
+        writer.writeObjectValue("value", isErrorPostRequestBody.value);
+        writer.writeAdditionalData(isErrorPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

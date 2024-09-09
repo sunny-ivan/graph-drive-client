@@ -39,23 +39,23 @@ export interface ReceivedPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The discount property
      */
-    discount?: UntypedNode;
+    discount?: UntypedNode | null;
     /**
      * The investment property
      */
-    investment?: UntypedNode;
+    investment?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the received method.
@@ -82,13 +82,15 @@ export interface ReceivedRequestBuilder extends BaseRequestBuilder<ReceivedReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReceivedPostRequestBody(writer: SerializationWriter, receivedPostRequestBody: Partial<ReceivedPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", receivedPostRequestBody.basis);
-    writer.writeObjectValue("discount", receivedPostRequestBody.discount);
-    writer.writeObjectValue("investment", receivedPostRequestBody.investment);
-    writer.writeObjectValue("maturity", receivedPostRequestBody.maturity);
-    writer.writeObjectValue("settlement", receivedPostRequestBody.settlement);
-    writer.writeAdditionalData(receivedPostRequestBody.additionalData);
+export function serializeReceivedPostRequestBody(writer: SerializationWriter, receivedPostRequestBody: Partial<ReceivedPostRequestBody> | undefined | null = {}) : void {
+    if (receivedPostRequestBody) {
+        writer.writeObjectValue("basis", receivedPostRequestBody.basis);
+        writer.writeObjectValue("discount", receivedPostRequestBody.discount);
+        writer.writeObjectValue("investment", receivedPostRequestBody.investment);
+        writer.writeObjectValue("maturity", receivedPostRequestBody.maturity);
+        writer.writeObjectValue("settlement", receivedPostRequestBody.settlement);
+        writer.writeAdditionalData(receivedPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

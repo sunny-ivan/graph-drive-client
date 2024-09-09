@@ -37,15 +37,15 @@ export interface Poisson_DistPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The mean property
      */
-    mean?: UntypedNode;
+    mean?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the poisson_Dist method.
@@ -72,11 +72,13 @@ export interface Poisson_DistRequestBuilder extends BaseRequestBuilder<Poisson_D
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePoisson_DistPostRequestBody(writer: SerializationWriter, poisson_DistPostRequestBody: Partial<Poisson_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", poisson_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("mean", poisson_DistPostRequestBody.mean);
-    writer.writeObjectValue("x", poisson_DistPostRequestBody.x);
-    writer.writeAdditionalData(poisson_DistPostRequestBody.additionalData);
+export function serializePoisson_DistPostRequestBody(writer: SerializationWriter, poisson_DistPostRequestBody: Partial<Poisson_DistPostRequestBody> | undefined | null = {}) : void {
+    if (poisson_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", poisson_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("mean", poisson_DistPostRequestBody.mean);
+        writer.writeObjectValue("x", poisson_DistPostRequestBody.x);
+        writer.writeAdditionalData(poisson_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

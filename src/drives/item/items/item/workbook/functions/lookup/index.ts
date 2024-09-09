@@ -37,15 +37,15 @@ export interface LookupPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The lookupValue property
      */
-    lookupValue?: UntypedNode;
+    lookupValue?: UntypedNode | null;
     /**
      * The lookupVector property
      */
-    lookupVector?: UntypedNode;
+    lookupVector?: UntypedNode | null;
     /**
      * The resultVector property
      */
-    resultVector?: UntypedNode;
+    resultVector?: UntypedNode | null;
 }
 /**
  * Provides operations to call the lookup method.
@@ -72,11 +72,13 @@ export interface LookupRequestBuilder extends BaseRequestBuilder<LookupRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLookupPostRequestBody(writer: SerializationWriter, lookupPostRequestBody: Partial<LookupPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("lookupValue", lookupPostRequestBody.lookupValue);
-    writer.writeObjectValue("lookupVector", lookupPostRequestBody.lookupVector);
-    writer.writeObjectValue("resultVector", lookupPostRequestBody.resultVector);
-    writer.writeAdditionalData(lookupPostRequestBody.additionalData);
+export function serializeLookupPostRequestBody(writer: SerializationWriter, lookupPostRequestBody: Partial<LookupPostRequestBody> | undefined | null = {}) : void {
+    if (lookupPostRequestBody) {
+        writer.writeObjectValue("lookupValue", lookupPostRequestBody.lookupValue);
+        writer.writeObjectValue("lookupVector", lookupPostRequestBody.lookupVector);
+        writer.writeObjectValue("resultVector", lookupPostRequestBody.resultVector);
+        writer.writeAdditionalData(lookupPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

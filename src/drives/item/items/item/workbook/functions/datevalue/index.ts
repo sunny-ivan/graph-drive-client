@@ -25,7 +25,7 @@ export interface DatevaluePostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The dateText property
      */
-    dateText?: UntypedNode;
+    dateText?: UntypedNode | null;
 }
 /**
  * Provides operations to call the datevalue method.
@@ -62,9 +62,11 @@ export function deserializeIntoDatevaluePostRequestBody(datevaluePostRequestBody
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDatevaluePostRequestBody(writer: SerializationWriter, datevaluePostRequestBody: Partial<DatevaluePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("dateText", datevaluePostRequestBody.dateText);
-    writer.writeAdditionalData(datevaluePostRequestBody.additionalData);
+export function serializeDatevaluePostRequestBody(writer: SerializationWriter, datevaluePostRequestBody: Partial<DatevaluePostRequestBody> | undefined | null = {}) : void {
+    if (datevaluePostRequestBody) {
+        writer.writeObjectValue("dateText", datevaluePostRequestBody.dateText);
+        writer.writeAdditionalData(datevaluePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -25,7 +25,7 @@ export interface CreateUploadSessionPostRequestBody extends AdditionalDataHolder
     /**
      * The item property
      */
-    item?: DriveItemUploadableProperties;
+    item?: DriveItemUploadableProperties | null;
 }
 /**
  * Provides operations to call the createUploadSession method.
@@ -62,9 +62,11 @@ export function deserializeIntoCreateUploadSessionPostRequestBody(createUploadSe
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCreateUploadSessionPostRequestBody(writer: SerializationWriter, createUploadSessionPostRequestBody: Partial<CreateUploadSessionPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue<DriveItemUploadableProperties>("item", createUploadSessionPostRequestBody.item, serializeDriveItemUploadableProperties);
-    writer.writeAdditionalData(createUploadSessionPostRequestBody.additionalData);
+export function serializeCreateUploadSessionPostRequestBody(writer: SerializationWriter, createUploadSessionPostRequestBody: Partial<CreateUploadSessionPostRequestBody> | undefined | null = {}) : void {
+    if (createUploadSessionPostRequestBody) {
+        writer.writeObjectValue<DriveItemUploadableProperties>("item", createUploadSessionPostRequestBody.item, serializeDriveItemUploadableProperties);
+        writer.writeAdditionalData(createUploadSessionPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -25,15 +25,15 @@ export interface DcountAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dcountA method.
@@ -72,11 +72,13 @@ export function deserializeIntoDcountAPostRequestBody(dcountAPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDcountAPostRequestBody(writer: SerializationWriter, dcountAPostRequestBody: Partial<DcountAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dcountAPostRequestBody.criteria);
-    writer.writeObjectValue("database", dcountAPostRequestBody.database);
-    writer.writeObjectValue("field", dcountAPostRequestBody.field);
-    writer.writeAdditionalData(dcountAPostRequestBody.additionalData);
+export function serializeDcountAPostRequestBody(writer: SerializationWriter, dcountAPostRequestBody: Partial<DcountAPostRequestBody> | undefined | null = {}) : void {
+    if (dcountAPostRequestBody) {
+        writer.writeObjectValue("criteria", dcountAPostRequestBody.criteria);
+        writer.writeObjectValue("database", dcountAPostRequestBody.database);
+        writer.writeObjectValue("field", dcountAPostRequestBody.field);
+        writer.writeAdditionalData(dcountAPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

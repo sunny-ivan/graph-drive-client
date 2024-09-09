@@ -33,7 +33,7 @@ export interface ImageWithWidthGetResponse extends AdditionalDataHolder, Parsabl
     /**
      * The value property
      */
-    value?: string;
+    value?: string | null;
 }
 /**
  * Provides operations to call the image method.
@@ -58,9 +58,11 @@ export interface ImageWithWidthRequestBuilder extends BaseRequestBuilder<ImageWi
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImageWithWidthGetResponse(writer: SerializationWriter, imageWithWidthGetResponse: Partial<ImageWithWidthGetResponse> | undefined = {}) : void {
-    writer.writeStringValue("value", imageWithWidthGetResponse.value);
-    writer.writeAdditionalData(imageWithWidthGetResponse.additionalData);
+export function serializeImageWithWidthGetResponse(writer: SerializationWriter, imageWithWidthGetResponse: Partial<ImageWithWidthGetResponse> | undefined | null = {}) : void {
+    if (imageWithWidthGetResponse) {
+        writer.writeStringValue("value", imageWithWidthGetResponse.value);
+        writer.writeAdditionalData(imageWithWidthGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

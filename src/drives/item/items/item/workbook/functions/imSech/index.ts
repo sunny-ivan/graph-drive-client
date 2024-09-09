@@ -35,7 +35,7 @@ export interface ImSechPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imSech method.
@@ -62,9 +62,11 @@ export interface ImSechRequestBuilder extends BaseRequestBuilder<ImSechRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImSechPostRequestBody(writer: SerializationWriter, imSechPostRequestBody: Partial<ImSechPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imSechPostRequestBody.inumber);
-    writer.writeAdditionalData(imSechPostRequestBody.additionalData);
+export function serializeImSechPostRequestBody(writer: SerializationWriter, imSechPostRequestBody: Partial<ImSechPostRequestBody> | undefined | null = {}) : void {
+    if (imSechPostRequestBody) {
+        writer.writeObjectValue("inumber", imSechPostRequestBody.inumber);
+        writer.writeAdditionalData(imSechPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -42,35 +42,35 @@ export interface OddLYieldPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The lastInterest property
      */
-    lastInterest?: UntypedNode;
+    lastInterest?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The pr property
      */
-    pr?: UntypedNode;
+    pr?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The redemption property
      */
-    redemption?: UntypedNode;
+    redemption?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the oddLYield method.
@@ -97,16 +97,18 @@ export interface OddLYieldRequestBuilder extends BaseRequestBuilder<OddLYieldReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOddLYieldPostRequestBody(writer: SerializationWriter, oddLYieldPostRequestBody: Partial<OddLYieldPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", oddLYieldPostRequestBody.basis);
-    writer.writeObjectValue("frequency", oddLYieldPostRequestBody.frequency);
-    writer.writeObjectValue("lastInterest", oddLYieldPostRequestBody.lastInterest);
-    writer.writeObjectValue("maturity", oddLYieldPostRequestBody.maturity);
-    writer.writeObjectValue("pr", oddLYieldPostRequestBody.pr);
-    writer.writeObjectValue("rate", oddLYieldPostRequestBody.rate);
-    writer.writeObjectValue("redemption", oddLYieldPostRequestBody.redemption);
-    writer.writeObjectValue("settlement", oddLYieldPostRequestBody.settlement);
-    writer.writeAdditionalData(oddLYieldPostRequestBody.additionalData);
+export function serializeOddLYieldPostRequestBody(writer: SerializationWriter, oddLYieldPostRequestBody: Partial<OddLYieldPostRequestBody> | undefined | null = {}) : void {
+    if (oddLYieldPostRequestBody) {
+        writer.writeObjectValue("basis", oddLYieldPostRequestBody.basis);
+        writer.writeObjectValue("frequency", oddLYieldPostRequestBody.frequency);
+        writer.writeObjectValue("lastInterest", oddLYieldPostRequestBody.lastInterest);
+        writer.writeObjectValue("maturity", oddLYieldPostRequestBody.maturity);
+        writer.writeObjectValue("pr", oddLYieldPostRequestBody.pr);
+        writer.writeObjectValue("rate", oddLYieldPostRequestBody.rate);
+        writer.writeObjectValue("redemption", oddLYieldPostRequestBody.redemption);
+        writer.writeObjectValue("settlement", oddLYieldPostRequestBody.settlement);
+        writer.writeAdditionalData(oddLYieldPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

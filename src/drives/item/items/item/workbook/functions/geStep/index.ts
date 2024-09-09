@@ -36,11 +36,11 @@ export interface GeStepPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The step property
      */
-    step?: UntypedNode;
+    step?: UntypedNode | null;
 }
 /**
  * Provides operations to call the geStep method.
@@ -67,10 +67,12 @@ export interface GeStepRequestBuilder extends BaseRequestBuilder<GeStepRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGeStepPostRequestBody(writer: SerializationWriter, geStepPostRequestBody: Partial<GeStepPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", geStepPostRequestBody.number);
-    writer.writeObjectValue("step", geStepPostRequestBody.step);
-    writer.writeAdditionalData(geStepPostRequestBody.additionalData);
+export function serializeGeStepPostRequestBody(writer: SerializationWriter, geStepPostRequestBody: Partial<GeStepPostRequestBody> | undefined | null = {}) : void {
+    if (geStepPostRequestBody) {
+        writer.writeObjectValue("number", geStepPostRequestBody.number);
+        writer.writeObjectValue("step", geStepPostRequestBody.step);
+        writer.writeAdditionalData(geStepPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

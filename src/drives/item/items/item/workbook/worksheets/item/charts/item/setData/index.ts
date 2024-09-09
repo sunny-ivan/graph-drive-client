@@ -31,10 +31,12 @@ export function deserializeIntoSetDataPostRequestBody(setDataPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSetDataPostRequestBody(writer: SerializationWriter, setDataPostRequestBody: Partial<SetDataPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("seriesBy", setDataPostRequestBody.seriesBy);
-    writer.writeObjectValue("sourceData", setDataPostRequestBody.sourceData);
-    writer.writeAdditionalData(setDataPostRequestBody.additionalData);
+export function serializeSetDataPostRequestBody(writer: SerializationWriter, setDataPostRequestBody: Partial<SetDataPostRequestBody> | undefined | null = {}) : void {
+    if (setDataPostRequestBody) {
+        writer.writeStringValue("seriesBy", setDataPostRequestBody.seriesBy);
+        writer.writeObjectValue("sourceData", setDataPostRequestBody.sourceData);
+        writer.writeAdditionalData(setDataPostRequestBody.additionalData);
+    }
 }
 export interface SetDataPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,11 +46,11 @@ export interface SetDataPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The seriesBy property
      */
-    seriesBy?: string;
+    seriesBy?: string | null;
     /**
      * The sourceData property
      */
-    sourceData?: UntypedNode;
+    sourceData?: UntypedNode | null;
 }
 /**
  * Provides operations to call the setData method.

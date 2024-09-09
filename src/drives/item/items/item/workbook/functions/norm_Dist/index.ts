@@ -38,19 +38,19 @@ export interface Norm_DistPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The mean property
      */
-    mean?: UntypedNode;
+    mean?: UntypedNode | null;
     /**
      * The standardDev property
      */
-    standardDev?: UntypedNode;
+    standardDev?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the norm_Dist method.
@@ -77,12 +77,14 @@ export interface Norm_DistRequestBuilder extends BaseRequestBuilder<Norm_DistReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNorm_DistPostRequestBody(writer: SerializationWriter, norm_DistPostRequestBody: Partial<Norm_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", norm_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("mean", norm_DistPostRequestBody.mean);
-    writer.writeObjectValue("standardDev", norm_DistPostRequestBody.standardDev);
-    writer.writeObjectValue("x", norm_DistPostRequestBody.x);
-    writer.writeAdditionalData(norm_DistPostRequestBody.additionalData);
+export function serializeNorm_DistPostRequestBody(writer: SerializationWriter, norm_DistPostRequestBody: Partial<Norm_DistPostRequestBody> | undefined | null = {}) : void {
+    if (norm_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", norm_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("mean", norm_DistPostRequestBody.mean);
+        writer.writeObjectValue("standardDev", norm_DistPostRequestBody.standardDev);
+        writer.writeObjectValue("x", norm_DistPostRequestBody.x);
+        writer.writeAdditionalData(norm_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

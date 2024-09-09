@@ -37,15 +37,15 @@ export interface Expon_DistPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The lambda property
      */
-    lambda?: UntypedNode;
+    lambda?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the expon_Dist method.
@@ -72,11 +72,13 @@ export interface Expon_DistRequestBuilder extends BaseRequestBuilder<Expon_DistR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeExpon_DistPostRequestBody(writer: SerializationWriter, expon_DistPostRequestBody: Partial<Expon_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", expon_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("lambda", expon_DistPostRequestBody.lambda);
-    writer.writeObjectValue("x", expon_DistPostRequestBody.x);
-    writer.writeAdditionalData(expon_DistPostRequestBody.additionalData);
+export function serializeExpon_DistPostRequestBody(writer: SerializationWriter, expon_DistPostRequestBody: Partial<Expon_DistPostRequestBody> | undefined | null = {}) : void {
+    if (expon_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", expon_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("lambda", expon_DistPostRequestBody.lambda);
+        writer.writeObjectValue("x", expon_DistPostRequestBody.x);
+        writer.writeAdditionalData(expon_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

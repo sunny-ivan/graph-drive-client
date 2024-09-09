@@ -35,7 +35,7 @@ export interface ImSecPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imSec method.
@@ -62,9 +62,11 @@ export interface ImSecRequestBuilder extends BaseRequestBuilder<ImSecRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImSecPostRequestBody(writer: SerializationWriter, imSecPostRequestBody: Partial<ImSecPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imSecPostRequestBody.inumber);
-    writer.writeAdditionalData(imSecPostRequestBody.additionalData);
+export function serializeImSecPostRequestBody(writer: SerializationWriter, imSecPostRequestBody: Partial<ImSecPostRequestBody> | undefined | null = {}) : void {
+    if (imSecPostRequestBody) {
+        writer.writeObjectValue("inumber", imSecPostRequestBody.inumber);
+        writer.writeAdditionalData(imSecPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

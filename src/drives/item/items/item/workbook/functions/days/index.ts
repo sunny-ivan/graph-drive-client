@@ -25,11 +25,11 @@ export interface DaysPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The endDate property
      */
-    endDate?: UntypedNode;
+    endDate?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the days method.
@@ -67,10 +67,12 @@ export function deserializeIntoDaysPostRequestBody(daysPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDaysPostRequestBody(writer: SerializationWriter, daysPostRequestBody: Partial<DaysPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endDate", daysPostRequestBody.endDate);
-    writer.writeObjectValue("startDate", daysPostRequestBody.startDate);
-    writer.writeAdditionalData(daysPostRequestBody.additionalData);
+export function serializeDaysPostRequestBody(writer: SerializationWriter, daysPostRequestBody: Partial<DaysPostRequestBody> | undefined | null = {}) : void {
+    if (daysPostRequestBody) {
+        writer.writeObjectValue("endDate", daysPostRequestBody.endDate);
+        writer.writeObjectValue("startDate", daysPostRequestBody.startDate);
+        writer.writeAdditionalData(daysPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

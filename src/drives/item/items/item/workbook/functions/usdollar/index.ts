@@ -33,10 +33,12 @@ export function deserializeIntoUsdollarPostRequestBody(usdollarPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUsdollarPostRequestBody(writer: SerializationWriter, usdollarPostRequestBody: Partial<UsdollarPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("decimals", usdollarPostRequestBody.decimals);
-    writer.writeObjectValue("number", usdollarPostRequestBody.number);
-    writer.writeAdditionalData(usdollarPostRequestBody.additionalData);
+export function serializeUsdollarPostRequestBody(writer: SerializationWriter, usdollarPostRequestBody: Partial<UsdollarPostRequestBody> | undefined | null = {}) : void {
+    if (usdollarPostRequestBody) {
+        writer.writeObjectValue("decimals", usdollarPostRequestBody.decimals);
+        writer.writeObjectValue("number", usdollarPostRequestBody.number);
+        writer.writeAdditionalData(usdollarPostRequestBody.additionalData);
+    }
 }
 export interface UsdollarPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface UsdollarPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The decimals property
      */
-    decimals?: UntypedNode;
+    decimals?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the usdollar method.

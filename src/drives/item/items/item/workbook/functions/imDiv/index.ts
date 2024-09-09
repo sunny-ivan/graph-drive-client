@@ -36,11 +36,11 @@ export interface ImDivPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber1 property
      */
-    inumber1?: UntypedNode;
+    inumber1?: UntypedNode | null;
     /**
      * The inumber2 property
      */
-    inumber2?: UntypedNode;
+    inumber2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imDiv method.
@@ -67,10 +67,12 @@ export interface ImDivRequestBuilder extends BaseRequestBuilder<ImDivRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImDivPostRequestBody(writer: SerializationWriter, imDivPostRequestBody: Partial<ImDivPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber1", imDivPostRequestBody.inumber1);
-    writer.writeObjectValue("inumber2", imDivPostRequestBody.inumber2);
-    writer.writeAdditionalData(imDivPostRequestBody.additionalData);
+export function serializeImDivPostRequestBody(writer: SerializationWriter, imDivPostRequestBody: Partial<ImDivPostRequestBody> | undefined | null = {}) : void {
+    if (imDivPostRequestBody) {
+        writer.writeObjectValue("inumber1", imDivPostRequestBody.inumber1);
+        writer.writeObjectValue("inumber2", imDivPostRequestBody.inumber2);
+        writer.writeAdditionalData(imDivPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

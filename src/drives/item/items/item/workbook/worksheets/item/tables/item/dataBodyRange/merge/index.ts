@@ -29,7 +29,7 @@ export interface MergePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The across property
      */
-    across?: boolean;
+    across?: boolean | null;
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
      */
@@ -59,9 +59,11 @@ export interface MergeRequestBuilder extends BaseRequestBuilder<MergeRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMergePostRequestBody(writer: SerializationWriter, mergePostRequestBody: Partial<MergePostRequestBody> | undefined = {}) : void {
-    writer.writeBooleanValue("across", mergePostRequestBody.across);
-    writer.writeAdditionalData(mergePostRequestBody.additionalData);
+export function serializeMergePostRequestBody(writer: SerializationWriter, mergePostRequestBody: Partial<MergePostRequestBody> | undefined | null = {}) : void {
+    if (mergePostRequestBody) {
+        writer.writeBooleanValue("across", mergePostRequestBody.across);
+        writer.writeAdditionalData(mergePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

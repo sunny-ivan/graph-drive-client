@@ -16,7 +16,7 @@ export interface ArabicPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the arabic method.
@@ -62,9 +62,11 @@ export function deserializeIntoArabicPostRequestBody(arabicPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeArabicPostRequestBody(writer: SerializationWriter, arabicPostRequestBody: Partial<ArabicPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", arabicPostRequestBody.text);
-    writer.writeAdditionalData(arabicPostRequestBody.additionalData);
+export function serializeArabicPostRequestBody(writer: SerializationWriter, arabicPostRequestBody: Partial<ArabicPostRequestBody> | undefined | null = {}) : void {
+    if (arabicPostRequestBody) {
+        writer.writeObjectValue("text", arabicPostRequestBody.text);
+        writer.writeAdditionalData(arabicPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

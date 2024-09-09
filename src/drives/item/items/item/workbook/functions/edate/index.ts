@@ -36,11 +36,11 @@ export interface EdatePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The months property
      */
-    months?: UntypedNode;
+    months?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
 }
 /**
  * Provides operations to call the edate method.
@@ -67,10 +67,12 @@ export interface EdateRequestBuilder extends BaseRequestBuilder<EdateRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeEdatePostRequestBody(writer: SerializationWriter, edatePostRequestBody: Partial<EdatePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("months", edatePostRequestBody.months);
-    writer.writeObjectValue("startDate", edatePostRequestBody.startDate);
-    writer.writeAdditionalData(edatePostRequestBody.additionalData);
+export function serializeEdatePostRequestBody(writer: SerializationWriter, edatePostRequestBody: Partial<EdatePostRequestBody> | undefined | null = {}) : void {
+    if (edatePostRequestBody) {
+        writer.writeObjectValue("months", edatePostRequestBody.months);
+        writer.writeObjectValue("startDate", edatePostRequestBody.startDate);
+        writer.writeAdditionalData(edatePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

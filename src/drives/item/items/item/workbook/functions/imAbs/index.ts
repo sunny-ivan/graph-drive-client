@@ -35,7 +35,7 @@ export interface ImAbsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imAbs method.
@@ -62,9 +62,11 @@ export interface ImAbsRequestBuilder extends BaseRequestBuilder<ImAbsRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImAbsPostRequestBody(writer: SerializationWriter, imAbsPostRequestBody: Partial<ImAbsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imAbsPostRequestBody.inumber);
-    writer.writeAdditionalData(imAbsPostRequestBody.additionalData);
+export function serializeImAbsPostRequestBody(writer: SerializationWriter, imAbsPostRequestBody: Partial<ImAbsPostRequestBody> | undefined | null = {}) : void {
+    if (imAbsPostRequestBody) {
+        writer.writeObjectValue("inumber", imAbsPostRequestBody.inumber);
+        writer.writeAdditionalData(imAbsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

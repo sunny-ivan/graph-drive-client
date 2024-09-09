@@ -31,10 +31,12 @@ export function deserializeIntoValidatePermissionPostRequestBody(validatePermiss
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeValidatePermissionPostRequestBody(writer: SerializationWriter, validatePermissionPostRequestBody: Partial<ValidatePermissionPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("challengeToken", validatePermissionPostRequestBody.challengeToken);
-    writer.writeStringValue("password", validatePermissionPostRequestBody.password);
-    writer.writeAdditionalData(validatePermissionPostRequestBody.additionalData);
+export function serializeValidatePermissionPostRequestBody(writer: SerializationWriter, validatePermissionPostRequestBody: Partial<ValidatePermissionPostRequestBody> | undefined | null = {}) : void {
+    if (validatePermissionPostRequestBody) {
+        writer.writeStringValue("challengeToken", validatePermissionPostRequestBody.challengeToken);
+        writer.writeStringValue("password", validatePermissionPostRequestBody.password);
+        writer.writeAdditionalData(validatePermissionPostRequestBody.additionalData);
+    }
 }
 export interface ValidatePermissionPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,11 +46,11 @@ export interface ValidatePermissionPostRequestBody extends AdditionalDataHolder,
     /**
      * The challengeToken property
      */
-    challengeToken?: string;
+    challengeToken?: string | null;
     /**
      * The password property
      */
-    password?: string;
+    password?: string | null;
 }
 /**
  * Provides operations to call the validatePermission method.

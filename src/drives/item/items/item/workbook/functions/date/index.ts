@@ -25,15 +25,15 @@ export interface DatePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The day property
      */
-    day?: UntypedNode;
+    day?: UntypedNode | null;
     /**
      * The month property
      */
-    month?: UntypedNode;
+    month?: UntypedNode | null;
     /**
      * The year property
      */
-    year?: UntypedNode;
+    year?: UntypedNode | null;
 }
 /**
  * Provides operations to call the date method.
@@ -72,11 +72,13 @@ export function deserializeIntoDatePostRequestBody(datePostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDatePostRequestBody(writer: SerializationWriter, datePostRequestBody: Partial<DatePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("day", datePostRequestBody.day);
-    writer.writeObjectValue("month", datePostRequestBody.month);
-    writer.writeObjectValue("year", datePostRequestBody.year);
-    writer.writeAdditionalData(datePostRequestBody.additionalData);
+export function serializeDatePostRequestBody(writer: SerializationWriter, datePostRequestBody: Partial<DatePostRequestBody> | undefined | null = {}) : void {
+    if (datePostRequestBody) {
+        writer.writeObjectValue("day", datePostRequestBody.day);
+        writer.writeObjectValue("month", datePostRequestBody.month);
+        writer.writeObjectValue("year", datePostRequestBody.year);
+        writer.writeAdditionalData(datePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface ImExpPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imExp method.
@@ -62,9 +62,11 @@ export interface ImExpRequestBuilder extends BaseRequestBuilder<ImExpRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImExpPostRequestBody(writer: SerializationWriter, imExpPostRequestBody: Partial<ImExpPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imExpPostRequestBody.inumber);
-    writer.writeAdditionalData(imExpPostRequestBody.additionalData);
+export function serializeImExpPostRequestBody(writer: SerializationWriter, imExpPostRequestBody: Partial<ImExpPostRequestBody> | undefined | null = {}) : void {
+    if (imExpPostRequestBody) {
+        writer.writeObjectValue("inumber", imExpPostRequestBody.inumber);
+        writer.writeAdditionalData(imExpPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -36,11 +36,11 @@ export interface Hex2OctPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the hex2Oct method.
@@ -67,10 +67,12 @@ export interface Hex2OctRequestBuilder extends BaseRequestBuilder<Hex2OctRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHex2OctPostRequestBody(writer: SerializationWriter, hex2OctPostRequestBody: Partial<Hex2OctPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", hex2OctPostRequestBody.number);
-    writer.writeObjectValue("places", hex2OctPostRequestBody.places);
-    writer.writeAdditionalData(hex2OctPostRequestBody.additionalData);
+export function serializeHex2OctPostRequestBody(writer: SerializationWriter, hex2OctPostRequestBody: Partial<Hex2OctPostRequestBody> | undefined | null = {}) : void {
+    if (hex2OctPostRequestBody) {
+        writer.writeObjectValue("number", hex2OctPostRequestBody.number);
+        writer.writeObjectValue("places", hex2OctPostRequestBody.places);
+        writer.writeAdditionalData(hex2OctPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

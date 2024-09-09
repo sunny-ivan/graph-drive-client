@@ -37,15 +37,15 @@ export interface Rank_AvgPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The order property
      */
-    order?: UntypedNode;
+    order?: UntypedNode | null;
     /**
      * The ref property
      */
-    ref?: UntypedNode;
+    ref?: UntypedNode | null;
 }
 /**
  * Provides operations to call the rank_Avg method.
@@ -72,11 +72,13 @@ export interface Rank_AvgRequestBuilder extends BaseRequestBuilder<Rank_AvgReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRank_AvgPostRequestBody(writer: SerializationWriter, rank_AvgPostRequestBody: Partial<Rank_AvgPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", rank_AvgPostRequestBody.number);
-    writer.writeObjectValue("order", rank_AvgPostRequestBody.order);
-    writer.writeObjectValue("ref", rank_AvgPostRequestBody.ref);
-    writer.writeAdditionalData(rank_AvgPostRequestBody.additionalData);
+export function serializeRank_AvgPostRequestBody(writer: SerializationWriter, rank_AvgPostRequestBody: Partial<Rank_AvgPostRequestBody> | undefined | null = {}) : void {
+    if (rank_AvgPostRequestBody) {
+        writer.writeObjectValue("number", rank_AvgPostRequestBody.number);
+        writer.writeObjectValue("order", rank_AvgPostRequestBody.order);
+        writer.writeObjectValue("ref", rank_AvgPostRequestBody.ref);
+        writer.writeAdditionalData(rank_AvgPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

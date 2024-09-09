@@ -32,9 +32,11 @@ export function deserializeIntoSumSqPostRequestBody(sumSqPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSumSqPostRequestBody(writer: SerializationWriter, sumSqPostRequestBody: Partial<SumSqPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", sumSqPostRequestBody.values);
-    writer.writeAdditionalData(sumSqPostRequestBody.additionalData);
+export function serializeSumSqPostRequestBody(writer: SerializationWriter, sumSqPostRequestBody: Partial<SumSqPostRequestBody> | undefined | null = {}) : void {
+    if (sumSqPostRequestBody) {
+        writer.writeObjectValue("values", sumSqPostRequestBody.values);
+        writer.writeAdditionalData(sumSqPostRequestBody.additionalData);
+    }
 }
 export interface SumSqPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SumSqPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sumSq method.

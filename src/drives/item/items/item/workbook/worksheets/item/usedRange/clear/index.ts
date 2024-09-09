@@ -14,7 +14,7 @@ export interface ClearPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The applyTo property
      */
-    applyTo?: string;
+    applyTo?: string | null;
 }
 /**
  * Provides operations to call the clear method.
@@ -59,9 +59,11 @@ export function deserializeIntoClearPostRequestBody(clearPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeClearPostRequestBody(writer: SerializationWriter, clearPostRequestBody: Partial<ClearPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("applyTo", clearPostRequestBody.applyTo);
-    writer.writeAdditionalData(clearPostRequestBody.additionalData);
+export function serializeClearPostRequestBody(writer: SerializationWriter, clearPostRequestBody: Partial<ClearPostRequestBody> | undefined | null = {}) : void {
+    if (clearPostRequestBody) {
+        writer.writeStringValue("applyTo", clearPostRequestBody.applyTo);
+        writer.writeAdditionalData(clearPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

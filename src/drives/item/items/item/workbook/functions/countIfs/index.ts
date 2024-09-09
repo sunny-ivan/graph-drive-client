@@ -16,7 +16,7 @@ export interface CountIfsPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the countIfs method.
@@ -62,9 +62,11 @@ export function deserializeIntoCountIfsPostRequestBody(countIfsPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCountIfsPostRequestBody(writer: SerializationWriter, countIfsPostRequestBody: Partial<CountIfsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", countIfsPostRequestBody.values);
-    writer.writeAdditionalData(countIfsPostRequestBody.additionalData);
+export function serializeCountIfsPostRequestBody(writer: SerializationWriter, countIfsPostRequestBody: Partial<CountIfsPostRequestBody> | undefined | null = {}) : void {
+    if (countIfsPostRequestBody) {
+        writer.writeObjectValue("values", countIfsPostRequestBody.values);
+        writer.writeAdditionalData(countIfsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

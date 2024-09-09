@@ -34,11 +34,13 @@ export function deserializeIntoXirrPostRequestBody(xirrPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeXirrPostRequestBody(writer: SerializationWriter, xirrPostRequestBody: Partial<XirrPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("dates", xirrPostRequestBody.dates);
-    writer.writeObjectValue("guess", xirrPostRequestBody.guess);
-    writer.writeObjectValue("values", xirrPostRequestBody.values);
-    writer.writeAdditionalData(xirrPostRequestBody.additionalData);
+export function serializeXirrPostRequestBody(writer: SerializationWriter, xirrPostRequestBody: Partial<XirrPostRequestBody> | undefined | null = {}) : void {
+    if (xirrPostRequestBody) {
+        writer.writeObjectValue("dates", xirrPostRequestBody.dates);
+        writer.writeObjectValue("guess", xirrPostRequestBody.guess);
+        writer.writeObjectValue("values", xirrPostRequestBody.values);
+        writer.writeAdditionalData(xirrPostRequestBody.additionalData);
+    }
 }
 export interface XirrPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface XirrPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The dates property
      */
-    dates?: UntypedNode;
+    dates?: UntypedNode | null;
     /**
      * The guess property
      */
-    guess?: UntypedNode;
+    guess?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the xirr method.

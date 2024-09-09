@@ -35,7 +35,7 @@ export interface ImCotPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imCot method.
@@ -62,9 +62,11 @@ export interface ImCotRequestBuilder extends BaseRequestBuilder<ImCotRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImCotPostRequestBody(writer: SerializationWriter, imCotPostRequestBody: Partial<ImCotPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imCotPostRequestBody.inumber);
-    writer.writeAdditionalData(imCotPostRequestBody.additionalData);
+export function serializeImCotPostRequestBody(writer: SerializationWriter, imCotPostRequestBody: Partial<ImCotPostRequestBody> | undefined | null = {}) : void {
+    if (imCotPostRequestBody) {
+        writer.writeObjectValue("inumber", imCotPostRequestBody.inumber);
+        writer.writeAdditionalData(imCotPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -33,10 +33,12 @@ export function deserializeIntoSubtotalPostRequestBody(subtotalPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSubtotalPostRequestBody(writer: SerializationWriter, subtotalPostRequestBody: Partial<SubtotalPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("functionNum", subtotalPostRequestBody.functionNum);
-    writer.writeObjectValue("values", subtotalPostRequestBody.values);
-    writer.writeAdditionalData(subtotalPostRequestBody.additionalData);
+export function serializeSubtotalPostRequestBody(writer: SerializationWriter, subtotalPostRequestBody: Partial<SubtotalPostRequestBody> | undefined | null = {}) : void {
+    if (subtotalPostRequestBody) {
+        writer.writeObjectValue("functionNum", subtotalPostRequestBody.functionNum);
+        writer.writeObjectValue("values", subtotalPostRequestBody.values);
+        writer.writeAdditionalData(subtotalPostRequestBody.additionalData);
+    }
 }
 export interface SubtotalPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface SubtotalPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The functionNum property
      */
-    functionNum?: UntypedNode;
+    functionNum?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the subtotal method.

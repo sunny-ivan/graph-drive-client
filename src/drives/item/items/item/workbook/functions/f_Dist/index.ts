@@ -38,19 +38,19 @@ export interface F_DistPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The degFreedom1 property
      */
-    degFreedom1?: UntypedNode;
+    degFreedom1?: UntypedNode | null;
     /**
      * The degFreedom2 property
      */
-    degFreedom2?: UntypedNode;
+    degFreedom2?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the f_Dist method.
@@ -77,12 +77,14 @@ export interface F_DistRequestBuilder extends BaseRequestBuilder<F_DistRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeF_DistPostRequestBody(writer: SerializationWriter, f_DistPostRequestBody: Partial<F_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", f_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("degFreedom1", f_DistPostRequestBody.degFreedom1);
-    writer.writeObjectValue("degFreedom2", f_DistPostRequestBody.degFreedom2);
-    writer.writeObjectValue("x", f_DistPostRequestBody.x);
-    writer.writeAdditionalData(f_DistPostRequestBody.additionalData);
+export function serializeF_DistPostRequestBody(writer: SerializationWriter, f_DistPostRequestBody: Partial<F_DistPostRequestBody> | undefined | null = {}) : void {
+    if (f_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", f_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("degFreedom1", f_DistPostRequestBody.degFreedom1);
+        writer.writeObjectValue("degFreedom2", f_DistPostRequestBody.degFreedom2);
+        writer.writeObjectValue("x", f_DistPostRequestBody.x);
+        writer.writeAdditionalData(f_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

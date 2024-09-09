@@ -36,11 +36,11 @@ export interface IrrPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The guess property
      */
-    guess?: UntypedNode;
+    guess?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the irr method.
@@ -67,10 +67,12 @@ export interface IrrRequestBuilder extends BaseRequestBuilder<IrrRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIrrPostRequestBody(writer: SerializationWriter, irrPostRequestBody: Partial<IrrPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("guess", irrPostRequestBody.guess);
-    writer.writeObjectValue("values", irrPostRequestBody.values);
-    writer.writeAdditionalData(irrPostRequestBody.additionalData);
+export function serializeIrrPostRequestBody(writer: SerializationWriter, irrPostRequestBody: Partial<IrrPostRequestBody> | undefined | null = {}) : void {
+    if (irrPostRequestBody) {
+        writer.writeObjectValue("guess", irrPostRequestBody.guess);
+        writer.writeObjectValue("values", irrPostRequestBody.values);
+        writer.writeAdditionalData(irrPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

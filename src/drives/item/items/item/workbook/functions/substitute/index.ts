@@ -35,12 +35,14 @@ export function deserializeIntoSubstitutePostRequestBody(substitutePostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSubstitutePostRequestBody(writer: SerializationWriter, substitutePostRequestBody: Partial<SubstitutePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("instanceNum", substitutePostRequestBody.instanceNum);
-    writer.writeObjectValue("newText", substitutePostRequestBody.newText);
-    writer.writeObjectValue("oldText", substitutePostRequestBody.oldText);
-    writer.writeObjectValue("text", substitutePostRequestBody.text);
-    writer.writeAdditionalData(substitutePostRequestBody.additionalData);
+export function serializeSubstitutePostRequestBody(writer: SerializationWriter, substitutePostRequestBody: Partial<SubstitutePostRequestBody> | undefined | null = {}) : void {
+    if (substitutePostRequestBody) {
+        writer.writeObjectValue("instanceNum", substitutePostRequestBody.instanceNum);
+        writer.writeObjectValue("newText", substitutePostRequestBody.newText);
+        writer.writeObjectValue("oldText", substitutePostRequestBody.oldText);
+        writer.writeObjectValue("text", substitutePostRequestBody.text);
+        writer.writeAdditionalData(substitutePostRequestBody.additionalData);
+    }
 }
 export interface SubstitutePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -50,19 +52,19 @@ export interface SubstitutePostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The instanceNum property
      */
-    instanceNum?: UntypedNode;
+    instanceNum?: UntypedNode | null;
     /**
      * The newText property
      */
-    newText?: UntypedNode;
+    newText?: UntypedNode | null;
     /**
      * The oldText property
      */
-    oldText?: UntypedNode;
+    oldText?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the substitute method.

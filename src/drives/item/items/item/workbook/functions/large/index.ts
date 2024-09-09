@@ -36,11 +36,11 @@ export interface LargePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The k property
      */
-    k?: UntypedNode;
+    k?: UntypedNode | null;
 }
 /**
  * Provides operations to call the large method.
@@ -67,10 +67,12 @@ export interface LargeRequestBuilder extends BaseRequestBuilder<LargeRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLargePostRequestBody(writer: SerializationWriter, largePostRequestBody: Partial<LargePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", largePostRequestBody.array);
-    writer.writeObjectValue("k", largePostRequestBody.k);
-    writer.writeAdditionalData(largePostRequestBody.additionalData);
+export function serializeLargePostRequestBody(writer: SerializationWriter, largePostRequestBody: Partial<LargePostRequestBody> | undefined | null = {}) : void {
+    if (largePostRequestBody) {
+        writer.writeObjectValue("array", largePostRequestBody.array);
+        writer.writeObjectValue("k", largePostRequestBody.k);
+        writer.writeAdditionalData(largePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface HourPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the hour method.
@@ -62,9 +62,11 @@ export interface HourRequestBuilder extends BaseRequestBuilder<HourRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHourPostRequestBody(writer: SerializationWriter, hourPostRequestBody: Partial<HourPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("serialNumber", hourPostRequestBody.serialNumber);
-    writer.writeAdditionalData(hourPostRequestBody.additionalData);
+export function serializeHourPostRequestBody(writer: SerializationWriter, hourPostRequestBody: Partial<HourPostRequestBody> | undefined | null = {}) : void {
+    if (hourPostRequestBody) {
+        writer.writeObjectValue("serialNumber", hourPostRequestBody.serialNumber);
+        writer.writeAdditionalData(hourPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

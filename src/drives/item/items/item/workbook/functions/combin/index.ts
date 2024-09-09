@@ -16,11 +16,11 @@ export interface CombinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numberChosen property
      */
-    numberChosen?: UntypedNode;
+    numberChosen?: UntypedNode | null;
 }
 /**
  * Provides operations to call the combin method.
@@ -67,10 +67,12 @@ export function deserializeIntoCombinPostRequestBody(combinPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCombinPostRequestBody(writer: SerializationWriter, combinPostRequestBody: Partial<CombinPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", combinPostRequestBody.number);
-    writer.writeObjectValue("numberChosen", combinPostRequestBody.numberChosen);
-    writer.writeAdditionalData(combinPostRequestBody.additionalData);
+export function serializeCombinPostRequestBody(writer: SerializationWriter, combinPostRequestBody: Partial<CombinPostRequestBody> | undefined | null = {}) : void {
+    if (combinPostRequestBody) {
+        writer.writeObjectValue("number", combinPostRequestBody.number);
+        writer.writeObjectValue("numberChosen", combinPostRequestBody.numberChosen);
+        writer.writeAdditionalData(combinPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

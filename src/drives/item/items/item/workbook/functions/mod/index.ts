@@ -36,11 +36,11 @@ export interface ModPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The divisor property
      */
-    divisor?: UntypedNode;
+    divisor?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the mod method.
@@ -67,10 +67,12 @@ export interface ModRequestBuilder extends BaseRequestBuilder<ModRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeModPostRequestBody(writer: SerializationWriter, modPostRequestBody: Partial<ModPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("divisor", modPostRequestBody.divisor);
-    writer.writeObjectValue("number", modPostRequestBody.number);
-    writer.writeAdditionalData(modPostRequestBody.additionalData);
+export function serializeModPostRequestBody(writer: SerializationWriter, modPostRequestBody: Partial<ModPostRequestBody> | undefined | null = {}) : void {
+    if (modPostRequestBody) {
+        writer.writeObjectValue("divisor", modPostRequestBody.divisor);
+        writer.writeObjectValue("number", modPostRequestBody.number);
+        writer.writeAdditionalData(modPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -34,11 +34,13 @@ export function deserializeIntoTbillYieldPostRequestBody(tbillYieldPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTbillYieldPostRequestBody(writer: SerializationWriter, tbillYieldPostRequestBody: Partial<TbillYieldPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("maturity", tbillYieldPostRequestBody.maturity);
-    writer.writeObjectValue("pr", tbillYieldPostRequestBody.pr);
-    writer.writeObjectValue("settlement", tbillYieldPostRequestBody.settlement);
-    writer.writeAdditionalData(tbillYieldPostRequestBody.additionalData);
+export function serializeTbillYieldPostRequestBody(writer: SerializationWriter, tbillYieldPostRequestBody: Partial<TbillYieldPostRequestBody> | undefined | null = {}) : void {
+    if (tbillYieldPostRequestBody) {
+        writer.writeObjectValue("maturity", tbillYieldPostRequestBody.maturity);
+        writer.writeObjectValue("pr", tbillYieldPostRequestBody.pr);
+        writer.writeObjectValue("settlement", tbillYieldPostRequestBody.settlement);
+        writer.writeAdditionalData(tbillYieldPostRequestBody.additionalData);
+    }
 }
 export interface TbillYieldPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface TbillYieldPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The pr property
      */
-    pr?: UntypedNode;
+    pr?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the tbillYield method.

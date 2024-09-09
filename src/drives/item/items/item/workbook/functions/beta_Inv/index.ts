@@ -12,7 +12,7 @@ export interface Beta_InvPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The A property
      */
-    a?: UntypedNode;
+    a?: UntypedNode | null;
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
      */
@@ -20,19 +20,19 @@ export interface Beta_InvPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The B property
      */
-    b?: UntypedNode;
+    b?: UntypedNode | null;
     /**
      * The beta property
      */
-    beta?: UntypedNode;
+    beta?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the beta_Inv method.
@@ -82,13 +82,15 @@ export function deserializeIntoBeta_InvPostRequestBody(beta_InvPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBeta_InvPostRequestBody(writer: SerializationWriter, beta_InvPostRequestBody: Partial<Beta_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("A", beta_InvPostRequestBody.a);
-    writer.writeObjectValue("alpha", beta_InvPostRequestBody.alpha);
-    writer.writeObjectValue("B", beta_InvPostRequestBody.b);
-    writer.writeObjectValue("beta", beta_InvPostRequestBody.beta);
-    writer.writeObjectValue("probability", beta_InvPostRequestBody.probability);
-    writer.writeAdditionalData(beta_InvPostRequestBody.additionalData);
+export function serializeBeta_InvPostRequestBody(writer: SerializationWriter, beta_InvPostRequestBody: Partial<Beta_InvPostRequestBody> | undefined | null = {}) : void {
+    if (beta_InvPostRequestBody) {
+        writer.writeObjectValue("A", beta_InvPostRequestBody.a);
+        writer.writeObjectValue("alpha", beta_InvPostRequestBody.alpha);
+        writer.writeObjectValue("B", beta_InvPostRequestBody.b);
+        writer.writeObjectValue("beta", beta_InvPostRequestBody.beta);
+        writer.writeObjectValue("probability", beta_InvPostRequestBody.probability);
+        writer.writeAdditionalData(beta_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

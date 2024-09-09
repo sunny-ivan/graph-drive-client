@@ -97,15 +97,15 @@ export interface ErrorDetails extends AdditionalDataHolder, Parsable {
     /**
      * The code property
      */
-    code?: string;
+    code?: string | null;
     /**
      * The message property
      */
-    message?: string;
+    message?: string | null;
     /**
      * The target property
      */
-    target?: string;
+    target?: string | null;
 }
 export interface InnerError extends AdditionalDataHolder, Parsable {
     /**
@@ -115,19 +115,19 @@ export interface InnerError extends AdditionalDataHolder, Parsable {
     /**
      * Client request Id as sent by the client application.
      */
-    clientRequestId?: string;
+    clientRequestId?: string | null;
     /**
      * Date when the error occured.
      */
-    date?: Date;
+    date?: Date | null;
     /**
      * The OdataType property
      */
-    odataType?: string;
+    odataType?: string | null;
     /**
      * Request Id as tracked internally by the service
      */
-    requestId?: string;
+    requestId?: string | null;
 }
 export interface MainError extends AdditionalDataHolder, Parsable {
     /**
@@ -137,23 +137,23 @@ export interface MainError extends AdditionalDataHolder, Parsable {
     /**
      * The code property
      */
-    code?: string;
+    code?: string | null;
     /**
      * The details property
      */
-    details?: ErrorDetails[];
+    details?: ErrorDetails[] | null;
     /**
      * The innerError property
      */
-    innerError?: InnerError;
+    innerError?: InnerError | null;
     /**
      * The message property
      */
-    message?: string;
+    message?: string | null;
     /**
      * The target property
      */
-    target?: string;
+    target?: string | null;
 }
 export interface ODataError extends AdditionalDataHolder, ApiError, Parsable {
     /**
@@ -163,52 +163,60 @@ export interface ODataError extends AdditionalDataHolder, ApiError, Parsable {
     /**
      * The error property
      */
-    errorEscaped?: MainError;
+    errorEscaped?: MainError | null;
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeErrorDetails(writer: SerializationWriter, errorDetails: Partial<ErrorDetails> | undefined = {}) : void {
-    writer.writeStringValue("code", errorDetails.code);
-    writer.writeStringValue("message", errorDetails.message);
-    writer.writeStringValue("target", errorDetails.target);
-    writer.writeAdditionalData(errorDetails.additionalData);
+export function serializeErrorDetails(writer: SerializationWriter, errorDetails: Partial<ErrorDetails> | undefined | null = {}) : void {
+    if (errorDetails) {
+        writer.writeStringValue("code", errorDetails.code);
+        writer.writeStringValue("message", errorDetails.message);
+        writer.writeStringValue("target", errorDetails.target);
+        writer.writeAdditionalData(errorDetails.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeInnerError(writer: SerializationWriter, innerError: Partial<InnerError> | undefined = {}) : void {
-    writer.writeStringValue("client-request-id", innerError.clientRequestId);
-    writer.writeDateValue("date", innerError.date);
-    writer.writeStringValue("@odata.type", innerError.odataType);
-    writer.writeStringValue("request-id", innerError.requestId);
-    writer.writeAdditionalData(innerError.additionalData);
+export function serializeInnerError(writer: SerializationWriter, innerError: Partial<InnerError> | undefined | null = {}) : void {
+    if (innerError) {
+        writer.writeStringValue("client-request-id", innerError.clientRequestId);
+        writer.writeDateValue("date", innerError.date);
+        writer.writeStringValue("@odata.type", innerError.odataType);
+        writer.writeStringValue("request-id", innerError.requestId);
+        writer.writeAdditionalData(innerError.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMainError(writer: SerializationWriter, mainError: Partial<MainError> | undefined = {}) : void {
-    writer.writeStringValue("code", mainError.code);
-    writer.writeCollectionOfObjectValues<ErrorDetails>("details", mainError.details, serializeErrorDetails);
-    writer.writeObjectValue<InnerError>("innerError", mainError.innerError, serializeInnerError);
-    writer.writeStringValue("message", mainError.message);
-    writer.writeStringValue("target", mainError.target);
-    writer.writeAdditionalData(mainError.additionalData);
+export function serializeMainError(writer: SerializationWriter, mainError: Partial<MainError> | undefined | null = {}) : void {
+    if (mainError) {
+        writer.writeStringValue("code", mainError.code);
+        writer.writeCollectionOfObjectValues<ErrorDetails>("details", mainError.details, serializeErrorDetails);
+        writer.writeObjectValue<InnerError>("innerError", mainError.innerError, serializeInnerError);
+        writer.writeStringValue("message", mainError.message);
+        writer.writeStringValue("target", mainError.target);
+        writer.writeAdditionalData(mainError.additionalData);
+    }
 }
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeODataError(writer: SerializationWriter, oDataError: Partial<ODataError> | undefined = {}) : void {
-    writer.writeObjectValue<MainError>("error", oDataError.errorEscaped, serializeMainError);
-    writer.writeAdditionalData(oDataError.additionalData);
+export function serializeODataError(writer: SerializationWriter, oDataError: Partial<ODataError> | undefined | null = {}) : void {
+    if (oDataError) {
+        writer.writeObjectValue<MainError>("error", oDataError.errorEscaped, serializeMainError);
+        writer.writeAdditionalData(oDataError.additionalData);
+    }
 }
 /* tslint:enable */
 /* eslint-enable */

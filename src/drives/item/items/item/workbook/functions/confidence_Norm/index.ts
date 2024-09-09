@@ -16,15 +16,15 @@ export interface Confidence_NormPostRequestBody extends AdditionalDataHolder, Pa
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The size property
      */
-    size?: UntypedNode;
+    size?: UntypedNode | null;
     /**
      * The standardDev property
      */
-    standardDev?: UntypedNode;
+    standardDev?: UntypedNode | null;
 }
 /**
  * Provides operations to call the confidence_Norm method.
@@ -72,11 +72,13 @@ export function deserializeIntoConfidence_NormPostRequestBody(confidence_NormPos
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeConfidence_NormPostRequestBody(writer: SerializationWriter, confidence_NormPostRequestBody: Partial<Confidence_NormPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("alpha", confidence_NormPostRequestBody.alpha);
-    writer.writeObjectValue("size", confidence_NormPostRequestBody.size);
-    writer.writeObjectValue("standardDev", confidence_NormPostRequestBody.standardDev);
-    writer.writeAdditionalData(confidence_NormPostRequestBody.additionalData);
+export function serializeConfidence_NormPostRequestBody(writer: SerializationWriter, confidence_NormPostRequestBody: Partial<Confidence_NormPostRequestBody> | undefined | null = {}) : void {
+    if (confidence_NormPostRequestBody) {
+        writer.writeObjectValue("alpha", confidence_NormPostRequestBody.alpha);
+        writer.writeObjectValue("size", confidence_NormPostRequestBody.size);
+        writer.writeObjectValue("standardDev", confidence_NormPostRequestBody.standardDev);
+        writer.writeAdditionalData(confidence_NormPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

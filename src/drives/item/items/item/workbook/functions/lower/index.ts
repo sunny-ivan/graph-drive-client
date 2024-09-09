@@ -35,7 +35,7 @@ export interface LowerPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the lower method.
@@ -62,9 +62,11 @@ export interface LowerRequestBuilder extends BaseRequestBuilder<LowerRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLowerPostRequestBody(writer: SerializationWriter, lowerPostRequestBody: Partial<LowerPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", lowerPostRequestBody.text);
-    writer.writeAdditionalData(lowerPostRequestBody.additionalData);
+export function serializeLowerPostRequestBody(writer: SerializationWriter, lowerPostRequestBody: Partial<LowerPostRequestBody> | undefined | null = {}) : void {
+    if (lowerPostRequestBody) {
+        writer.writeObjectValue("text", lowerPostRequestBody.text);
+        writer.writeAdditionalData(lowerPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

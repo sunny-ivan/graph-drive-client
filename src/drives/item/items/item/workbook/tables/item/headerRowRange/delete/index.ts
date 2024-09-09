@@ -23,7 +23,7 @@ export interface DeletePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The shift property
      */
-    shift?: string;
+    shift?: string | null;
 }
 /**
  * Provides operations to call the delete method.
@@ -59,9 +59,11 @@ export function deserializeIntoDeletePostRequestBody(deletePostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDeletePostRequestBody(writer: SerializationWriter, deletePostRequestBody: Partial<DeletePostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("shift", deletePostRequestBody.shift);
-    writer.writeAdditionalData(deletePostRequestBody.additionalData);
+export function serializeDeletePostRequestBody(writer: SerializationWriter, deletePostRequestBody: Partial<DeletePostRequestBody> | undefined | null = {}) : void {
+    if (deletePostRequestBody) {
+        writer.writeStringValue("shift", deletePostRequestBody.shift);
+        writer.writeAdditionalData(deletePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

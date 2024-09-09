@@ -35,7 +35,7 @@ export interface RadiansPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The angle property
      */
-    angle?: UntypedNode;
+    angle?: UntypedNode | null;
 }
 /**
  * Provides operations to call the radians method.
@@ -62,9 +62,11 @@ export interface RadiansRequestBuilder extends BaseRequestBuilder<RadiansRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRadiansPostRequestBody(writer: SerializationWriter, radiansPostRequestBody: Partial<RadiansPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("angle", radiansPostRequestBody.angle);
-    writer.writeAdditionalData(radiansPostRequestBody.additionalData);
+export function serializeRadiansPostRequestBody(writer: SerializationWriter, radiansPostRequestBody: Partial<RadiansPostRequestBody> | undefined | null = {}) : void {
+    if (radiansPostRequestBody) {
+        writer.writeObjectValue("angle", radiansPostRequestBody.angle);
+        writer.writeAdditionalData(radiansPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

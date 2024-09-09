@@ -16,7 +16,7 @@ export interface CoshPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the cosh method.
@@ -62,9 +62,11 @@ export function deserializeIntoCoshPostRequestBody(coshPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCoshPostRequestBody(writer: SerializationWriter, coshPostRequestBody: Partial<CoshPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", coshPostRequestBody.number);
-    writer.writeAdditionalData(coshPostRequestBody.additionalData);
+export function serializeCoshPostRequestBody(writer: SerializationWriter, coshPostRequestBody: Partial<CoshPostRequestBody> | undefined | null = {}) : void {
+    if (coshPostRequestBody) {
+        writer.writeObjectValue("number", coshPostRequestBody.number);
+        writer.writeAdditionalData(coshPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

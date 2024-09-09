@@ -35,7 +35,7 @@ export interface IsTextPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isText method.
@@ -62,9 +62,11 @@ export interface IsTextRequestBuilder extends BaseRequestBuilder<IsTextRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsTextPostRequestBody(writer: SerializationWriter, isTextPostRequestBody: Partial<IsTextPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isTextPostRequestBody.value);
-    writer.writeAdditionalData(isTextPostRequestBody.additionalData);
+export function serializeIsTextPostRequestBody(writer: SerializationWriter, isTextPostRequestBody: Partial<IsTextPostRequestBody> | undefined | null = {}) : void {
+    if (isTextPostRequestBody) {
+        writer.writeObjectValue("value", isTextPostRequestBody.value);
+        writer.writeAdditionalData(isTextPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

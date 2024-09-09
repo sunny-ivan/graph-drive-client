@@ -35,7 +35,7 @@ export interface ProductPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the product method.
@@ -62,9 +62,11 @@ export interface ProductRequestBuilder extends BaseRequestBuilder<ProductRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeProductPostRequestBody(writer: SerializationWriter, productPostRequestBody: Partial<ProductPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", productPostRequestBody.values);
-    writer.writeAdditionalData(productPostRequestBody.additionalData);
+export function serializeProductPostRequestBody(writer: SerializationWriter, productPostRequestBody: Partial<ProductPostRequestBody> | undefined | null = {}) : void {
+    if (productPostRequestBody) {
+        writer.writeObjectValue("values", productPostRequestBody.values);
+        writer.writeAdditionalData(productPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

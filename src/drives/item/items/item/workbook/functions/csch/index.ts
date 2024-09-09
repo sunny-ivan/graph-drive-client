@@ -25,7 +25,7 @@ export interface CschPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the csch method.
@@ -62,9 +62,11 @@ export function deserializeIntoCschPostRequestBody(cschPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCschPostRequestBody(writer: SerializationWriter, cschPostRequestBody: Partial<CschPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", cschPostRequestBody.number);
-    writer.writeAdditionalData(cschPostRequestBody.additionalData);
+export function serializeCschPostRequestBody(writer: SerializationWriter, cschPostRequestBody: Partial<CschPostRequestBody> | undefined | null = {}) : void {
+    if (cschPostRequestBody) {
+        writer.writeObjectValue("number", cschPostRequestBody.number);
+        writer.writeAdditionalData(cschPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

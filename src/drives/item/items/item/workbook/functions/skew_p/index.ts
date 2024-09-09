@@ -32,9 +32,11 @@ export function deserializeIntoSkew_pPostRequestBody(skew_pPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSkew_pPostRequestBody(writer: SerializationWriter, skew_pPostRequestBody: Partial<Skew_pPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", skew_pPostRequestBody.values);
-    writer.writeAdditionalData(skew_pPostRequestBody.additionalData);
+export function serializeSkew_pPostRequestBody(writer: SerializationWriter, skew_pPostRequestBody: Partial<Skew_pPostRequestBody> | undefined | null = {}) : void {
+    if (skew_pPostRequestBody) {
+        writer.writeObjectValue("values", skew_pPostRequestBody.values);
+        writer.writeAdditionalData(skew_pPostRequestBody.additionalData);
+    }
 }
 export interface Skew_pPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface Skew_pPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the skew_p method.

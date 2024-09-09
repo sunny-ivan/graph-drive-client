@@ -35,7 +35,7 @@ export interface MinAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the minA method.
@@ -62,9 +62,11 @@ export interface MinARequestBuilder extends BaseRequestBuilder<MinARequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMinAPostRequestBody(writer: SerializationWriter, minAPostRequestBody: Partial<MinAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", minAPostRequestBody.values);
-    writer.writeAdditionalData(minAPostRequestBody.additionalData);
+export function serializeMinAPostRequestBody(writer: SerializationWriter, minAPostRequestBody: Partial<MinAPostRequestBody> | undefined | null = {}) : void {
+    if (minAPostRequestBody) {
+        writer.writeObjectValue("values", minAPostRequestBody.values);
+        writer.writeAdditionalData(minAPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -36,11 +36,11 @@ export interface PermutPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numberChosen property
      */
-    numberChosen?: UntypedNode;
+    numberChosen?: UntypedNode | null;
 }
 /**
  * Provides operations to call the permut method.
@@ -67,10 +67,12 @@ export interface PermutRequestBuilder extends BaseRequestBuilder<PermutRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePermutPostRequestBody(writer: SerializationWriter, permutPostRequestBody: Partial<PermutPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", permutPostRequestBody.number);
-    writer.writeObjectValue("numberChosen", permutPostRequestBody.numberChosen);
-    writer.writeAdditionalData(permutPostRequestBody.additionalData);
+export function serializePermutPostRequestBody(writer: SerializationWriter, permutPostRequestBody: Partial<PermutPostRequestBody> | undefined | null = {}) : void {
+    if (permutPostRequestBody) {
+        writer.writeObjectValue("number", permutPostRequestBody.number);
+        writer.writeObjectValue("numberChosen", permutPostRequestBody.numberChosen);
+        writer.writeAdditionalData(permutPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

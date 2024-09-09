@@ -34,11 +34,13 @@ export function deserializeIntoTimePostRequestBody(timePostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTimePostRequestBody(writer: SerializationWriter, timePostRequestBody: Partial<TimePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("hour", timePostRequestBody.hour);
-    writer.writeObjectValue("minute", timePostRequestBody.minute);
-    writer.writeObjectValue("second", timePostRequestBody.second);
-    writer.writeAdditionalData(timePostRequestBody.additionalData);
+export function serializeTimePostRequestBody(writer: SerializationWriter, timePostRequestBody: Partial<TimePostRequestBody> | undefined | null = {}) : void {
+    if (timePostRequestBody) {
+        writer.writeObjectValue("hour", timePostRequestBody.hour);
+        writer.writeObjectValue("minute", timePostRequestBody.minute);
+        writer.writeObjectValue("second", timePostRequestBody.second);
+        writer.writeAdditionalData(timePostRequestBody.additionalData);
+    }
 }
 export interface TimePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface TimePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The hour property
      */
-    hour?: UntypedNode;
+    hour?: UntypedNode | null;
     /**
      * The minute property
      */
-    minute?: UntypedNode;
+    minute?: UntypedNode | null;
     /**
      * The second property
      */
-    second?: UntypedNode;
+    second?: UntypedNode | null;
 }
 /**
  * Provides operations to call the time method.

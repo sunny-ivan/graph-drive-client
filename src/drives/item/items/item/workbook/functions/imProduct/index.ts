@@ -35,7 +35,7 @@ export interface ImProductPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imProduct method.
@@ -62,9 +62,11 @@ export interface ImProductRequestBuilder extends BaseRequestBuilder<ImProductReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImProductPostRequestBody(writer: SerializationWriter, imProductPostRequestBody: Partial<ImProductPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", imProductPostRequestBody.values);
-    writer.writeAdditionalData(imProductPostRequestBody.additionalData);
+export function serializeImProductPostRequestBody(writer: SerializationWriter, imProductPostRequestBody: Partial<ImProductPostRequestBody> | undefined | null = {}) : void {
+    if (imProductPostRequestBody) {
+        writer.writeObjectValue("values", imProductPostRequestBody.values);
+        writer.writeAdditionalData(imProductPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

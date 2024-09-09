@@ -35,7 +35,7 @@ export interface NPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the n method.
@@ -62,9 +62,11 @@ export interface NRequestBuilder extends BaseRequestBuilder<NRequestBuilder> {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNPostRequestBody(writer: SerializationWriter, nPostRequestBody: Partial<NPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", nPostRequestBody.value);
-    writer.writeAdditionalData(nPostRequestBody.additionalData);
+export function serializeNPostRequestBody(writer: SerializationWriter, nPostRequestBody: Partial<NPostRequestBody> | undefined | null = {}) : void {
+    if (nPostRequestBody) {
+        writer.writeObjectValue("value", nPostRequestBody.value);
+        writer.writeAdditionalData(nPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

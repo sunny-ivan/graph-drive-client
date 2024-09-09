@@ -35,7 +35,7 @@ export interface ImCscPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imCsc method.
@@ -62,9 +62,11 @@ export interface ImCscRequestBuilder extends BaseRequestBuilder<ImCscRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImCscPostRequestBody(writer: SerializationWriter, imCscPostRequestBody: Partial<ImCscPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imCscPostRequestBody.inumber);
-    writer.writeAdditionalData(imCscPostRequestBody.additionalData);
+export function serializeImCscPostRequestBody(writer: SerializationWriter, imCscPostRequestBody: Partial<ImCscPostRequestBody> | undefined | null = {}) : void {
+    if (imCscPostRequestBody) {
+        writer.writeObjectValue("inumber", imCscPostRequestBody.inumber);
+        writer.writeAdditionalData(imCscPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

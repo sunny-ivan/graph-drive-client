@@ -16,11 +16,11 @@ export interface CountIfPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The range property
      */
-    range?: UntypedNode;
+    range?: UntypedNode | null;
 }
 /**
  * Provides operations to call the countIf method.
@@ -67,10 +67,12 @@ export function deserializeIntoCountIfPostRequestBody(countIfPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCountIfPostRequestBody(writer: SerializationWriter, countIfPostRequestBody: Partial<CountIfPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", countIfPostRequestBody.criteria);
-    writer.writeObjectValue("range", countIfPostRequestBody.range);
-    writer.writeAdditionalData(countIfPostRequestBody.additionalData);
+export function serializeCountIfPostRequestBody(writer: SerializationWriter, countIfPostRequestBody: Partial<CountIfPostRequestBody> | undefined | null = {}) : void {
+    if (countIfPostRequestBody) {
+        writer.writeObjectValue("criteria", countIfPostRequestBody.criteria);
+        writer.writeObjectValue("range", countIfPostRequestBody.range);
+        writer.writeAdditionalData(countIfPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

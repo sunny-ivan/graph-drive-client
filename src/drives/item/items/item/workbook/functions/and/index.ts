@@ -16,7 +16,7 @@ export interface AndPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the and method.
@@ -62,9 +62,11 @@ export function deserializeIntoAndPostRequestBody(andPostRequestBody: Partial<An
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAndPostRequestBody(writer: SerializationWriter, andPostRequestBody: Partial<AndPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", andPostRequestBody.values);
-    writer.writeAdditionalData(andPostRequestBody.additionalData);
+export function serializeAndPostRequestBody(writer: SerializationWriter, andPostRequestBody: Partial<AndPostRequestBody> | undefined | null = {}) : void {
+    if (andPostRequestBody) {
+        writer.writeObjectValue("values", andPostRequestBody.values);
+        writer.writeAdditionalData(andPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

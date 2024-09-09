@@ -16,7 +16,7 @@ export interface AveragePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the average method.
@@ -62,9 +62,11 @@ export function deserializeIntoAveragePostRequestBody(averagePostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAveragePostRequestBody(writer: SerializationWriter, averagePostRequestBody: Partial<AveragePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", averagePostRequestBody.values);
-    writer.writeAdditionalData(averagePostRequestBody.additionalData);
+export function serializeAveragePostRequestBody(writer: SerializationWriter, averagePostRequestBody: Partial<AveragePostRequestBody> | undefined | null = {}) : void {
+    if (averagePostRequestBody) {
+        writer.writeObjectValue("values", averagePostRequestBody.values);
+        writer.writeAdditionalData(averagePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

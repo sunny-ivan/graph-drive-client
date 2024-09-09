@@ -35,12 +35,14 @@ export function deserializeIntoWorkDay_IntlPostRequestBody(workDay_IntlPostReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeWorkDay_IntlPostRequestBody(writer: SerializationWriter, workDay_IntlPostRequestBody: Partial<WorkDay_IntlPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("days", workDay_IntlPostRequestBody.days);
-    writer.writeObjectValue("holidays", workDay_IntlPostRequestBody.holidays);
-    writer.writeObjectValue("startDate", workDay_IntlPostRequestBody.startDate);
-    writer.writeObjectValue("weekend", workDay_IntlPostRequestBody.weekend);
-    writer.writeAdditionalData(workDay_IntlPostRequestBody.additionalData);
+export function serializeWorkDay_IntlPostRequestBody(writer: SerializationWriter, workDay_IntlPostRequestBody: Partial<WorkDay_IntlPostRequestBody> | undefined | null = {}) : void {
+    if (workDay_IntlPostRequestBody) {
+        writer.writeObjectValue("days", workDay_IntlPostRequestBody.days);
+        writer.writeObjectValue("holidays", workDay_IntlPostRequestBody.holidays);
+        writer.writeObjectValue("startDate", workDay_IntlPostRequestBody.startDate);
+        writer.writeObjectValue("weekend", workDay_IntlPostRequestBody.weekend);
+        writer.writeAdditionalData(workDay_IntlPostRequestBody.additionalData);
+    }
 }
 export interface WorkDay_IntlPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -50,19 +52,19 @@ export interface WorkDay_IntlPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The days property
      */
-    days?: UntypedNode;
+    days?: UntypedNode | null;
     /**
      * The holidays property
      */
-    holidays?: UntypedNode;
+    holidays?: UntypedNode | null;
     /**
      * The startDate property
      */
-    startDate?: UntypedNode;
+    startDate?: UntypedNode | null;
     /**
      * The weekend property
      */
-    weekend?: UntypedNode;
+    weekend?: UntypedNode | null;
 }
 /**
  * Provides operations to call the workDay_Intl method.

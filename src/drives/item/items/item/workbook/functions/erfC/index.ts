@@ -35,7 +35,7 @@ export interface ErfCPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the erfC method.
@@ -62,9 +62,11 @@ export interface ErfCRequestBuilder extends BaseRequestBuilder<ErfCRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeErfCPostRequestBody(writer: SerializationWriter, erfCPostRequestBody: Partial<ErfCPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("x", erfCPostRequestBody.x);
-    writer.writeAdditionalData(erfCPostRequestBody.additionalData);
+export function serializeErfCPostRequestBody(writer: SerializationWriter, erfCPostRequestBody: Partial<ErfCPostRequestBody> | undefined | null = {}) : void {
+    if (erfCPostRequestBody) {
+        writer.writeObjectValue("x", erfCPostRequestBody.x);
+        writer.writeAdditionalData(erfCPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

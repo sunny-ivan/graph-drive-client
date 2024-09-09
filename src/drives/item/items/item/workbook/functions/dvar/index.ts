@@ -37,15 +37,15 @@ export interface DvarPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dvar method.
@@ -72,11 +72,13 @@ export interface DvarRequestBuilder extends BaseRequestBuilder<DvarRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDvarPostRequestBody(writer: SerializationWriter, dvarPostRequestBody: Partial<DvarPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dvarPostRequestBody.criteria);
-    writer.writeObjectValue("database", dvarPostRequestBody.database);
-    writer.writeObjectValue("field", dvarPostRequestBody.field);
-    writer.writeAdditionalData(dvarPostRequestBody.additionalData);
+export function serializeDvarPostRequestBody(writer: SerializationWriter, dvarPostRequestBody: Partial<DvarPostRequestBody> | undefined | null = {}) : void {
+    if (dvarPostRequestBody) {
+        writer.writeObjectValue("criteria", dvarPostRequestBody.criteria);
+        writer.writeObjectValue("database", dvarPostRequestBody.database);
+        writer.writeObjectValue("field", dvarPostRequestBody.field);
+        writer.writeAdditionalData(dvarPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

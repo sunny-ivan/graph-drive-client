@@ -16,19 +16,19 @@ export interface CoupDaysNcPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the coupDaysNc method.
@@ -77,12 +77,14 @@ export function deserializeIntoCoupDaysNcPostRequestBody(coupDaysNcPostRequestBo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCoupDaysNcPostRequestBody(writer: SerializationWriter, coupDaysNcPostRequestBody: Partial<CoupDaysNcPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", coupDaysNcPostRequestBody.basis);
-    writer.writeObjectValue("frequency", coupDaysNcPostRequestBody.frequency);
-    writer.writeObjectValue("maturity", coupDaysNcPostRequestBody.maturity);
-    writer.writeObjectValue("settlement", coupDaysNcPostRequestBody.settlement);
-    writer.writeAdditionalData(coupDaysNcPostRequestBody.additionalData);
+export function serializeCoupDaysNcPostRequestBody(writer: SerializationWriter, coupDaysNcPostRequestBody: Partial<CoupDaysNcPostRequestBody> | undefined | null = {}) : void {
+    if (coupDaysNcPostRequestBody) {
+        writer.writeObjectValue("basis", coupDaysNcPostRequestBody.basis);
+        writer.writeObjectValue("frequency", coupDaysNcPostRequestBody.frequency);
+        writer.writeObjectValue("maturity", coupDaysNcPostRequestBody.maturity);
+        writer.writeObjectValue("settlement", coupDaysNcPostRequestBody.settlement);
+        writer.writeAdditionalData(coupDaysNcPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

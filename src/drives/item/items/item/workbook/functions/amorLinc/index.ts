@@ -16,31 +16,31 @@ export interface AmorLincPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The cost property
      */
-    cost?: UntypedNode;
+    cost?: UntypedNode | null;
     /**
      * The datePurchased property
      */
-    datePurchased?: UntypedNode;
+    datePurchased?: UntypedNode | null;
     /**
      * The firstPeriod property
      */
-    firstPeriod?: UntypedNode;
+    firstPeriod?: UntypedNode | null;
     /**
      * The period property
      */
-    period?: UntypedNode;
+    period?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The salvage property
      */
-    salvage?: UntypedNode;
+    salvage?: UntypedNode | null;
 }
 /**
  * Provides operations to call the amorLinc method.
@@ -92,15 +92,17 @@ export function deserializeIntoAmorLincPostRequestBody(amorLincPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAmorLincPostRequestBody(writer: SerializationWriter, amorLincPostRequestBody: Partial<AmorLincPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", amorLincPostRequestBody.basis);
-    writer.writeObjectValue("cost", amorLincPostRequestBody.cost);
-    writer.writeObjectValue("datePurchased", amorLincPostRequestBody.datePurchased);
-    writer.writeObjectValue("firstPeriod", amorLincPostRequestBody.firstPeriod);
-    writer.writeObjectValue("period", amorLincPostRequestBody.period);
-    writer.writeObjectValue("rate", amorLincPostRequestBody.rate);
-    writer.writeObjectValue("salvage", amorLincPostRequestBody.salvage);
-    writer.writeAdditionalData(amorLincPostRequestBody.additionalData);
+export function serializeAmorLincPostRequestBody(writer: SerializationWriter, amorLincPostRequestBody: Partial<AmorLincPostRequestBody> | undefined | null = {}) : void {
+    if (amorLincPostRequestBody) {
+        writer.writeObjectValue("basis", amorLincPostRequestBody.basis);
+        writer.writeObjectValue("cost", amorLincPostRequestBody.cost);
+        writer.writeObjectValue("datePurchased", amorLincPostRequestBody.datePurchased);
+        writer.writeObjectValue("firstPeriod", amorLincPostRequestBody.firstPeriod);
+        writer.writeObjectValue("period", amorLincPostRequestBody.period);
+        writer.writeObjectValue("rate", amorLincPostRequestBody.rate);
+        writer.writeObjectValue("salvage", amorLincPostRequestBody.salvage);
+        writer.writeAdditionalData(amorLincPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

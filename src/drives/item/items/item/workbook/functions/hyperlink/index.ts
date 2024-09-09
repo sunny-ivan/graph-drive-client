@@ -36,11 +36,11 @@ export interface HyperlinkPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The friendlyName property
      */
-    friendlyName?: UntypedNode;
+    friendlyName?: UntypedNode | null;
     /**
      * The linkLocation property
      */
-    linkLocation?: UntypedNode;
+    linkLocation?: UntypedNode | null;
 }
 /**
  * Provides operations to call the hyperlink method.
@@ -67,10 +67,12 @@ export interface HyperlinkRequestBuilder extends BaseRequestBuilder<HyperlinkReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHyperlinkPostRequestBody(writer: SerializationWriter, hyperlinkPostRequestBody: Partial<HyperlinkPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("friendlyName", hyperlinkPostRequestBody.friendlyName);
-    writer.writeObjectValue("linkLocation", hyperlinkPostRequestBody.linkLocation);
-    writer.writeAdditionalData(hyperlinkPostRequestBody.additionalData);
+export function serializeHyperlinkPostRequestBody(writer: SerializationWriter, hyperlinkPostRequestBody: Partial<HyperlinkPostRequestBody> | undefined | null = {}) : void {
+    if (hyperlinkPostRequestBody) {
+        writer.writeObjectValue("friendlyName", hyperlinkPostRequestBody.friendlyName);
+        writer.writeObjectValue("linkLocation", hyperlinkPostRequestBody.linkLocation);
+        writer.writeAdditionalData(hyperlinkPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

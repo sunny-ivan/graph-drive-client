@@ -35,7 +35,7 @@ export interface ImaginaryPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imaginary method.
@@ -62,9 +62,11 @@ export interface ImaginaryRequestBuilder extends BaseRequestBuilder<ImaginaryReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImaginaryPostRequestBody(writer: SerializationWriter, imaginaryPostRequestBody: Partial<ImaginaryPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imaginaryPostRequestBody.inumber);
-    writer.writeAdditionalData(imaginaryPostRequestBody.additionalData);
+export function serializeImaginaryPostRequestBody(writer: SerializationWriter, imaginaryPostRequestBody: Partial<ImaginaryPostRequestBody> | undefined | null = {}) : void {
+    if (imaginaryPostRequestBody) {
+        writer.writeObjectValue("inumber", imaginaryPostRequestBody.inumber);
+        writer.writeAdditionalData(imaginaryPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -16,11 +16,11 @@ export interface CopyToDefaultContentLocationPostRequestBody extends AdditionalD
     /**
      * The destinationFileName property
      */
-    destinationFileName?: string;
+    destinationFileName?: string | null;
     /**
      * The sourceFile property
      */
-    sourceFile?: ItemReference;
+    sourceFile?: ItemReference | null;
 }
 /**
  * Provides operations to call the copyToDefaultContentLocation method.
@@ -67,10 +67,12 @@ export function deserializeIntoCopyToDefaultContentLocationPostRequestBody(copyT
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCopyToDefaultContentLocationPostRequestBody(writer: SerializationWriter, copyToDefaultContentLocationPostRequestBody: Partial<CopyToDefaultContentLocationPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("destinationFileName", copyToDefaultContentLocationPostRequestBody.destinationFileName);
-    writer.writeObjectValue<ItemReference>("sourceFile", copyToDefaultContentLocationPostRequestBody.sourceFile, serializeItemReference);
-    writer.writeAdditionalData(copyToDefaultContentLocationPostRequestBody.additionalData);
+export function serializeCopyToDefaultContentLocationPostRequestBody(writer: SerializationWriter, copyToDefaultContentLocationPostRequestBody: Partial<CopyToDefaultContentLocationPostRequestBody> | undefined | null = {}) : void {
+    if (copyToDefaultContentLocationPostRequestBody) {
+        writer.writeStringValue("destinationFileName", copyToDefaultContentLocationPostRequestBody.destinationFileName);
+        writer.writeObjectValue<ItemReference>("sourceFile", copyToDefaultContentLocationPostRequestBody.sourceFile, serializeItemReference);
+        writer.writeAdditionalData(copyToDefaultContentLocationPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

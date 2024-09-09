@@ -16,7 +16,7 @@ export interface CleanPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the clean method.
@@ -62,9 +62,11 @@ export function deserializeIntoCleanPostRequestBody(cleanPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCleanPostRequestBody(writer: SerializationWriter, cleanPostRequestBody: Partial<CleanPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", cleanPostRequestBody.text);
-    writer.writeAdditionalData(cleanPostRequestBody.additionalData);
+export function serializeCleanPostRequestBody(writer: SerializationWriter, cleanPostRequestBody: Partial<CleanPostRequestBody> | undefined | null = {}) : void {
+    if (cleanPostRequestBody) {
+        writer.writeObjectValue("text", cleanPostRequestBody.text);
+        writer.writeAdditionalData(cleanPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

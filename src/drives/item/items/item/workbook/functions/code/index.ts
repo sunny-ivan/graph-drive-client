@@ -16,7 +16,7 @@ export interface CodePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the code method.
@@ -62,9 +62,11 @@ export function deserializeIntoCodePostRequestBody(codePostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCodePostRequestBody(writer: SerializationWriter, codePostRequestBody: Partial<CodePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", codePostRequestBody.text);
-    writer.writeAdditionalData(codePostRequestBody.additionalData);
+export function serializeCodePostRequestBody(writer: SerializationWriter, codePostRequestBody: Partial<CodePostRequestBody> | undefined | null = {}) : void {
+    if (codePostRequestBody) {
+        writer.writeObjectValue("text", codePostRequestBody.text);
+        writer.writeAdditionalData(codePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

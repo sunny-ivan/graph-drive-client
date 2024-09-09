@@ -33,10 +33,12 @@ export function deserializeIntoT_Inv_2TPostRequestBody(t_Inv_2TPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeT_Inv_2TPostRequestBody(writer: SerializationWriter, t_Inv_2TPostRequestBody: Partial<T_Inv_2TPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom", t_Inv_2TPostRequestBody.degFreedom);
-    writer.writeObjectValue("probability", t_Inv_2TPostRequestBody.probability);
-    writer.writeAdditionalData(t_Inv_2TPostRequestBody.additionalData);
+export function serializeT_Inv_2TPostRequestBody(writer: SerializationWriter, t_Inv_2TPostRequestBody: Partial<T_Inv_2TPostRequestBody> | undefined | null = {}) : void {
+    if (t_Inv_2TPostRequestBody) {
+        writer.writeObjectValue("degFreedom", t_Inv_2TPostRequestBody.degFreedom);
+        writer.writeObjectValue("probability", t_Inv_2TPostRequestBody.probability);
+        writer.writeAdditionalData(t_Inv_2TPostRequestBody.additionalData);
+    }
 }
 export interface T_Inv_2TPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface T_Inv_2TPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the t_Inv_2T method.

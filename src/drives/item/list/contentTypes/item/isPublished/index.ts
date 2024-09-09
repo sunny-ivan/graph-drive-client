@@ -33,7 +33,7 @@ export interface IsPublishedGetResponse extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: boolean;
+    value?: boolean | null;
 }
 /**
  * Provides operations to call the isPublished method.
@@ -59,9 +59,11 @@ export interface IsPublishedRequestBuilder extends BaseRequestBuilder<IsPublishe
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsPublishedGetResponse(writer: SerializationWriter, isPublishedGetResponse: Partial<IsPublishedGetResponse> | undefined = {}) : void {
-    writer.writeBooleanValue("value", isPublishedGetResponse.value);
-    writer.writeAdditionalData(isPublishedGetResponse.additionalData);
+export function serializeIsPublishedGetResponse(writer: SerializationWriter, isPublishedGetResponse: Partial<IsPublishedGetResponse> | undefined | null = {}) : void {
+    if (isPublishedGetResponse) {
+        writer.writeBooleanValue("value", isPublishedGetResponse.value);
+        writer.writeAdditionalData(isPublishedGetResponse.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

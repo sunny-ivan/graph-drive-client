@@ -16,11 +16,11 @@ export interface CombinaPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The numberChosen property
      */
-    numberChosen?: UntypedNode;
+    numberChosen?: UntypedNode | null;
 }
 /**
  * Provides operations to call the combina method.
@@ -67,10 +67,12 @@ export function deserializeIntoCombinaPostRequestBody(combinaPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCombinaPostRequestBody(writer: SerializationWriter, combinaPostRequestBody: Partial<CombinaPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", combinaPostRequestBody.number);
-    writer.writeObjectValue("numberChosen", combinaPostRequestBody.numberChosen);
-    writer.writeAdditionalData(combinaPostRequestBody.additionalData);
+export function serializeCombinaPostRequestBody(writer: SerializationWriter, combinaPostRequestBody: Partial<CombinaPostRequestBody> | undefined | null = {}) : void {
+    if (combinaPostRequestBody) {
+        writer.writeObjectValue("number", combinaPostRequestBody.number);
+        writer.writeObjectValue("numberChosen", combinaPostRequestBody.numberChosen);
+        writer.writeAdditionalData(combinaPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

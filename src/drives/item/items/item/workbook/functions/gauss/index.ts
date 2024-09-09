@@ -35,7 +35,7 @@ export interface GaussPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the gauss method.
@@ -62,9 +62,11 @@ export interface GaussRequestBuilder extends BaseRequestBuilder<GaussRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGaussPostRequestBody(writer: SerializationWriter, gaussPostRequestBody: Partial<GaussPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("x", gaussPostRequestBody.x);
-    writer.writeAdditionalData(gaussPostRequestBody.additionalData);
+export function serializeGaussPostRequestBody(writer: SerializationWriter, gaussPostRequestBody: Partial<GaussPostRequestBody> | undefined | null = {}) : void {
+    if (gaussPostRequestBody) {
+        writer.writeObjectValue("x", gaussPostRequestBody.x);
+        writer.writeAdditionalData(gaussPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

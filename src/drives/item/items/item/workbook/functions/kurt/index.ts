@@ -35,7 +35,7 @@ export interface KurtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the kurt method.
@@ -62,9 +62,11 @@ export interface KurtRequestBuilder extends BaseRequestBuilder<KurtRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeKurtPostRequestBody(writer: SerializationWriter, kurtPostRequestBody: Partial<KurtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", kurtPostRequestBody.values);
-    writer.writeAdditionalData(kurtPostRequestBody.additionalData);
+export function serializeKurtPostRequestBody(writer: SerializationWriter, kurtPostRequestBody: Partial<KurtPostRequestBody> | undefined | null = {}) : void {
+    if (kurtPostRequestBody) {
+        writer.writeObjectValue("values", kurtPostRequestBody.values);
+        writer.writeAdditionalData(kurtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

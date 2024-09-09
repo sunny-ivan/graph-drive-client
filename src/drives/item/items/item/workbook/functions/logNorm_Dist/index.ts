@@ -38,19 +38,19 @@ export interface LogNorm_DistPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The mean property
      */
-    mean?: UntypedNode;
+    mean?: UntypedNode | null;
     /**
      * The standardDev property
      */
-    standardDev?: UntypedNode;
+    standardDev?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the logNorm_Dist method.
@@ -77,12 +77,14 @@ export interface LogNorm_DistRequestBuilder extends BaseRequestBuilder<LogNorm_D
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLogNorm_DistPostRequestBody(writer: SerializationWriter, logNorm_DistPostRequestBody: Partial<LogNorm_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", logNorm_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("mean", logNorm_DistPostRequestBody.mean);
-    writer.writeObjectValue("standardDev", logNorm_DistPostRequestBody.standardDev);
-    writer.writeObjectValue("x", logNorm_DistPostRequestBody.x);
-    writer.writeAdditionalData(logNorm_DistPostRequestBody.additionalData);
+export function serializeLogNorm_DistPostRequestBody(writer: SerializationWriter, logNorm_DistPostRequestBody: Partial<LogNorm_DistPostRequestBody> | undefined | null = {}) : void {
+    if (logNorm_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", logNorm_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("mean", logNorm_DistPostRequestBody.mean);
+        writer.writeObjectValue("standardDev", logNorm_DistPostRequestBody.standardDev);
+        writer.writeObjectValue("x", logNorm_DistPostRequestBody.x);
+        writer.writeAdditionalData(logNorm_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

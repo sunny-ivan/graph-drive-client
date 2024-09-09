@@ -37,15 +37,15 @@ export interface LogNorm_InvPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The mean property
      */
-    mean?: UntypedNode;
+    mean?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
     /**
      * The standardDev property
      */
-    standardDev?: UntypedNode;
+    standardDev?: UntypedNode | null;
 }
 /**
  * Provides operations to call the logNorm_Inv method.
@@ -72,11 +72,13 @@ export interface LogNorm_InvRequestBuilder extends BaseRequestBuilder<LogNorm_In
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLogNorm_InvPostRequestBody(writer: SerializationWriter, logNorm_InvPostRequestBody: Partial<LogNorm_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("mean", logNorm_InvPostRequestBody.mean);
-    writer.writeObjectValue("probability", logNorm_InvPostRequestBody.probability);
-    writer.writeObjectValue("standardDev", logNorm_InvPostRequestBody.standardDev);
-    writer.writeAdditionalData(logNorm_InvPostRequestBody.additionalData);
+export function serializeLogNorm_InvPostRequestBody(writer: SerializationWriter, logNorm_InvPostRequestBody: Partial<LogNorm_InvPostRequestBody> | undefined | null = {}) : void {
+    if (logNorm_InvPostRequestBody) {
+        writer.writeObjectValue("mean", logNorm_InvPostRequestBody.mean);
+        writer.writeObjectValue("probability", logNorm_InvPostRequestBody.probability);
+        writer.writeObjectValue("standardDev", logNorm_InvPostRequestBody.standardDev);
+        writer.writeAdditionalData(logNorm_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

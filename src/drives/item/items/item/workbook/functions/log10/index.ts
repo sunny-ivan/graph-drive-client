@@ -35,7 +35,7 @@ export interface Log10PostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the log10 method.
@@ -62,9 +62,11 @@ export interface Log10RequestBuilder extends BaseRequestBuilder<Log10RequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLog10PostRequestBody(writer: SerializationWriter, log10PostRequestBody: Partial<Log10PostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", log10PostRequestBody.number);
-    writer.writeAdditionalData(log10PostRequestBody.additionalData);
+export function serializeLog10PostRequestBody(writer: SerializationWriter, log10PostRequestBody: Partial<Log10PostRequestBody> | undefined | null = {}) : void {
+    if (log10PostRequestBody) {
+        writer.writeObjectValue("number", log10PostRequestBody.number);
+        writer.writeAdditionalData(log10PostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

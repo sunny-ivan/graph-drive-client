@@ -35,7 +35,7 @@ export interface GammaLnPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the gammaLn method.
@@ -62,9 +62,11 @@ export interface GammaLnRequestBuilder extends BaseRequestBuilder<GammaLnRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGammaLnPostRequestBody(writer: SerializationWriter, gammaLnPostRequestBody: Partial<GammaLnPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("x", gammaLnPostRequestBody.x);
-    writer.writeAdditionalData(gammaLnPostRequestBody.additionalData);
+export function serializeGammaLnPostRequestBody(writer: SerializationWriter, gammaLnPostRequestBody: Partial<GammaLnPostRequestBody> | undefined | null = {}) : void {
+    if (gammaLnPostRequestBody) {
+        writer.writeObjectValue("x", gammaLnPostRequestBody.x);
+        writer.writeAdditionalData(gammaLnPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

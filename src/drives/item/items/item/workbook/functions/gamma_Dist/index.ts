@@ -38,19 +38,19 @@ export interface Gamma_DistPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The beta property
      */
-    beta?: UntypedNode;
+    beta?: UntypedNode | null;
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the gamma_Dist method.
@@ -77,12 +77,14 @@ export interface Gamma_DistRequestBuilder extends BaseRequestBuilder<Gamma_DistR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGamma_DistPostRequestBody(writer: SerializationWriter, gamma_DistPostRequestBody: Partial<Gamma_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("alpha", gamma_DistPostRequestBody.alpha);
-    writer.writeObjectValue("beta", gamma_DistPostRequestBody.beta);
-    writer.writeObjectValue("cumulative", gamma_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("x", gamma_DistPostRequestBody.x);
-    writer.writeAdditionalData(gamma_DistPostRequestBody.additionalData);
+export function serializeGamma_DistPostRequestBody(writer: SerializationWriter, gamma_DistPostRequestBody: Partial<Gamma_DistPostRequestBody> | undefined | null = {}) : void {
+    if (gamma_DistPostRequestBody) {
+        writer.writeObjectValue("alpha", gamma_DistPostRequestBody.alpha);
+        writer.writeObjectValue("beta", gamma_DistPostRequestBody.beta);
+        writer.writeObjectValue("cumulative", gamma_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("x", gamma_DistPostRequestBody.x);
+        writer.writeAdditionalData(gamma_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

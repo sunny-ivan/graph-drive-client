@@ -36,11 +36,11 @@ export interface ReptPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The numberTimes property
      */
-    numberTimes?: UntypedNode;
+    numberTimes?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the rept method.
@@ -67,10 +67,12 @@ export interface ReptRequestBuilder extends BaseRequestBuilder<ReptRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeReptPostRequestBody(writer: SerializationWriter, reptPostRequestBody: Partial<ReptPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numberTimes", reptPostRequestBody.numberTimes);
-    writer.writeObjectValue("text", reptPostRequestBody.text);
-    writer.writeAdditionalData(reptPostRequestBody.additionalData);
+export function serializeReptPostRequestBody(writer: SerializationWriter, reptPostRequestBody: Partial<ReptPostRequestBody> | undefined | null = {}) : void {
+    if (reptPostRequestBody) {
+        writer.writeObjectValue("numberTimes", reptPostRequestBody.numberTimes);
+        writer.writeObjectValue("text", reptPostRequestBody.text);
+        writer.writeAdditionalData(reptPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

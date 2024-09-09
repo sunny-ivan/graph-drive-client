@@ -37,15 +37,15 @@ export interface DsumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dsum method.
@@ -72,11 +72,13 @@ export interface DsumRequestBuilder extends BaseRequestBuilder<DsumRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDsumPostRequestBody(writer: SerializationWriter, dsumPostRequestBody: Partial<DsumPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dsumPostRequestBody.criteria);
-    writer.writeObjectValue("database", dsumPostRequestBody.database);
-    writer.writeObjectValue("field", dsumPostRequestBody.field);
-    writer.writeAdditionalData(dsumPostRequestBody.additionalData);
+export function serializeDsumPostRequestBody(writer: SerializationWriter, dsumPostRequestBody: Partial<DsumPostRequestBody> | undefined | null = {}) : void {
+    if (dsumPostRequestBody) {
+        writer.writeObjectValue("criteria", dsumPostRequestBody.criteria);
+        writer.writeObjectValue("database", dsumPostRequestBody.database);
+        writer.writeObjectValue("field", dsumPostRequestBody.field);
+        writer.writeAdditionalData(dsumPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

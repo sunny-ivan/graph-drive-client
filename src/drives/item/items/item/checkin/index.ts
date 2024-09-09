@@ -14,11 +14,11 @@ export interface CheckinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The checkInAs property
      */
-    checkInAs?: string;
+    checkInAs?: string | null;
     /**
      * The comment property
      */
-    comment?: string;
+    comment?: string | null;
 }
 /**
  * Provides operations to call the checkin method.
@@ -65,10 +65,12 @@ export function deserializeIntoCheckinPostRequestBody(checkinPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCheckinPostRequestBody(writer: SerializationWriter, checkinPostRequestBody: Partial<CheckinPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("checkInAs", checkinPostRequestBody.checkInAs);
-    writer.writeStringValue("comment", checkinPostRequestBody.comment);
-    writer.writeAdditionalData(checkinPostRequestBody.additionalData);
+export function serializeCheckinPostRequestBody(writer: SerializationWriter, checkinPostRequestBody: Partial<CheckinPostRequestBody> | undefined | null = {}) : void {
+    if (checkinPostRequestBody) {
+        writer.writeStringValue("checkInAs", checkinPostRequestBody.checkInAs);
+        writer.writeStringValue("comment", checkinPostRequestBody.comment);
+        writer.writeAdditionalData(checkinPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

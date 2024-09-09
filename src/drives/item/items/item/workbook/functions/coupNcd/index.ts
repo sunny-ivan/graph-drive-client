@@ -16,19 +16,19 @@ export interface CoupNcdPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
 }
 /**
  * Provides operations to call the coupNcd method.
@@ -77,12 +77,14 @@ export function deserializeIntoCoupNcdPostRequestBody(coupNcdPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCoupNcdPostRequestBody(writer: SerializationWriter, coupNcdPostRequestBody: Partial<CoupNcdPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", coupNcdPostRequestBody.basis);
-    writer.writeObjectValue("frequency", coupNcdPostRequestBody.frequency);
-    writer.writeObjectValue("maturity", coupNcdPostRequestBody.maturity);
-    writer.writeObjectValue("settlement", coupNcdPostRequestBody.settlement);
-    writer.writeAdditionalData(coupNcdPostRequestBody.additionalData);
+export function serializeCoupNcdPostRequestBody(writer: SerializationWriter, coupNcdPostRequestBody: Partial<CoupNcdPostRequestBody> | undefined | null = {}) : void {
+    if (coupNcdPostRequestBody) {
+        writer.writeObjectValue("basis", coupNcdPostRequestBody.basis);
+        writer.writeObjectValue("frequency", coupNcdPostRequestBody.frequency);
+        writer.writeObjectValue("maturity", coupNcdPostRequestBody.maturity);
+        writer.writeObjectValue("settlement", coupNcdPostRequestBody.settlement);
+        writer.writeAdditionalData(coupNcdPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

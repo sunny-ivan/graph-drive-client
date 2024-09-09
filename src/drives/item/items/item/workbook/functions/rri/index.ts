@@ -37,15 +37,15 @@ export interface RriPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fv property
      */
-    fv?: UntypedNode;
+    fv?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
 }
 /**
  * Provides operations to call the rri method.
@@ -72,11 +72,13 @@ export interface RriRequestBuilder extends BaseRequestBuilder<RriRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRriPostRequestBody(writer: SerializationWriter, rriPostRequestBody: Partial<RriPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fv", rriPostRequestBody.fv);
-    writer.writeObjectValue("nper", rriPostRequestBody.nper);
-    writer.writeObjectValue("pv", rriPostRequestBody.pv);
-    writer.writeAdditionalData(rriPostRequestBody.additionalData);
+export function serializeRriPostRequestBody(writer: SerializationWriter, rriPostRequestBody: Partial<RriPostRequestBody> | undefined | null = {}) : void {
+    if (rriPostRequestBody) {
+        writer.writeObjectValue("fv", rriPostRequestBody.fv);
+        writer.writeObjectValue("nper", rriPostRequestBody.nper);
+        writer.writeObjectValue("pv", rriPostRequestBody.pv);
+        writer.writeAdditionalData(rriPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

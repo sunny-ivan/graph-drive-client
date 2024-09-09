@@ -30,9 +30,11 @@ export function deserializeIntoSetSolidColorPostRequestBody(setSolidColorPostReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSetSolidColorPostRequestBody(writer: SerializationWriter, setSolidColorPostRequestBody: Partial<SetSolidColorPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("color", setSolidColorPostRequestBody.color);
-    writer.writeAdditionalData(setSolidColorPostRequestBody.additionalData);
+export function serializeSetSolidColorPostRequestBody(writer: SerializationWriter, setSolidColorPostRequestBody: Partial<SetSolidColorPostRequestBody> | undefined | null = {}) : void {
+    if (setSolidColorPostRequestBody) {
+        writer.writeStringValue("color", setSolidColorPostRequestBody.color);
+        writer.writeAdditionalData(setSolidColorPostRequestBody.additionalData);
+    }
 }
 export interface SetSolidColorPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -42,7 +44,7 @@ export interface SetSolidColorPostRequestBody extends AdditionalDataHolder, Pars
     /**
      * The color property
      */
-    color?: string;
+    color?: string | null;
 }
 /**
  * Provides operations to call the setSolidColor method.

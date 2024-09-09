@@ -40,27 +40,27 @@ export interface IpmtPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fv property
      */
-    fv?: UntypedNode;
+    fv?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The per property
      */
-    per?: UntypedNode;
+    per?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ipmt method.
@@ -87,14 +87,16 @@ export interface IpmtRequestBuilder extends BaseRequestBuilder<IpmtRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIpmtPostRequestBody(writer: SerializationWriter, ipmtPostRequestBody: Partial<IpmtPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("fv", ipmtPostRequestBody.fv);
-    writer.writeObjectValue("nper", ipmtPostRequestBody.nper);
-    writer.writeObjectValue("per", ipmtPostRequestBody.per);
-    writer.writeObjectValue("pv", ipmtPostRequestBody.pv);
-    writer.writeObjectValue("rate", ipmtPostRequestBody.rate);
-    writer.writeObjectValue("type", ipmtPostRequestBody.type);
-    writer.writeAdditionalData(ipmtPostRequestBody.additionalData);
+export function serializeIpmtPostRequestBody(writer: SerializationWriter, ipmtPostRequestBody: Partial<IpmtPostRequestBody> | undefined | null = {}) : void {
+    if (ipmtPostRequestBody) {
+        writer.writeObjectValue("fv", ipmtPostRequestBody.fv);
+        writer.writeObjectValue("nper", ipmtPostRequestBody.nper);
+        writer.writeObjectValue("per", ipmtPostRequestBody.per);
+        writer.writeObjectValue("pv", ipmtPostRequestBody.pv);
+        writer.writeObjectValue("rate", ipmtPostRequestBody.rate);
+        writer.writeObjectValue("type", ipmtPostRequestBody.type);
+        writer.writeAdditionalData(ipmtPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

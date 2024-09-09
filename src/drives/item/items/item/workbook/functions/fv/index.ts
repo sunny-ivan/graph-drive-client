@@ -39,23 +39,23 @@ export interface FvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The pmt property
      */
-    pmt?: UntypedNode;
+    pmt?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the fv method.
@@ -82,13 +82,15 @@ export interface FvRequestBuilder extends BaseRequestBuilder<FvRequestBuilder> {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFvPostRequestBody(writer: SerializationWriter, fvPostRequestBody: Partial<FvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("nper", fvPostRequestBody.nper);
-    writer.writeObjectValue("pmt", fvPostRequestBody.pmt);
-    writer.writeObjectValue("pv", fvPostRequestBody.pv);
-    writer.writeObjectValue("rate", fvPostRequestBody.rate);
-    writer.writeObjectValue("type", fvPostRequestBody.type);
-    writer.writeAdditionalData(fvPostRequestBody.additionalData);
+export function serializeFvPostRequestBody(writer: SerializationWriter, fvPostRequestBody: Partial<FvPostRequestBody> | undefined | null = {}) : void {
+    if (fvPostRequestBody) {
+        writer.writeObjectValue("nper", fvPostRequestBody.nper);
+        writer.writeObjectValue("pmt", fvPostRequestBody.pmt);
+        writer.writeObjectValue("pv", fvPostRequestBody.pv);
+        writer.writeObjectValue("rate", fvPostRequestBody.rate);
+        writer.writeObjectValue("type", fvPostRequestBody.type);
+        writer.writeAdditionalData(fvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

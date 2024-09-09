@@ -25,7 +25,7 @@ export interface DbcsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dbcs method.
@@ -62,9 +62,11 @@ export function deserializeIntoDbcsPostRequestBody(dbcsPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDbcsPostRequestBody(writer: SerializationWriter, dbcsPostRequestBody: Partial<DbcsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", dbcsPostRequestBody.text);
-    writer.writeAdditionalData(dbcsPostRequestBody.additionalData);
+export function serializeDbcsPostRequestBody(writer: SerializationWriter, dbcsPostRequestBody: Partial<DbcsPostRequestBody> | undefined | null = {}) : void {
+    if (dbcsPostRequestBody) {
+        writer.writeObjectValue("text", dbcsPostRequestBody.text);
+        writer.writeAdditionalData(dbcsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

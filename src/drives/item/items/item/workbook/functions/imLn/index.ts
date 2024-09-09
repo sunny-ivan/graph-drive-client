@@ -35,7 +35,7 @@ export interface ImLnPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imLn method.
@@ -62,9 +62,11 @@ export interface ImLnRequestBuilder extends BaseRequestBuilder<ImLnRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImLnPostRequestBody(writer: SerializationWriter, imLnPostRequestBody: Partial<ImLnPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imLnPostRequestBody.inumber);
-    writer.writeAdditionalData(imLnPostRequestBody.additionalData);
+export function serializeImLnPostRequestBody(writer: SerializationWriter, imLnPostRequestBody: Partial<ImLnPostRequestBody> | undefined | null = {}) : void {
+    if (imLnPostRequestBody) {
+        writer.writeObjectValue("inumber", imLnPostRequestBody.inumber);
+        writer.writeAdditionalData(imLnPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

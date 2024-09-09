@@ -36,11 +36,11 @@ export interface LeftbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The numBytes property
      */
-    numBytes?: UntypedNode;
+    numBytes?: UntypedNode | null;
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the leftb method.
@@ -67,10 +67,12 @@ export interface LeftbRequestBuilder extends BaseRequestBuilder<LeftbRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLeftbPostRequestBody(writer: SerializationWriter, leftbPostRequestBody: Partial<LeftbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numBytes", leftbPostRequestBody.numBytes);
-    writer.writeObjectValue("text", leftbPostRequestBody.text);
-    writer.writeAdditionalData(leftbPostRequestBody.additionalData);
+export function serializeLeftbPostRequestBody(writer: SerializationWriter, leftbPostRequestBody: Partial<LeftbPostRequestBody> | undefined | null = {}) : void {
+    if (leftbPostRequestBody) {
+        writer.writeObjectValue("numBytes", leftbPostRequestBody.numBytes);
+        writer.writeObjectValue("text", leftbPostRequestBody.text);
+        writer.writeAdditionalData(leftbPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

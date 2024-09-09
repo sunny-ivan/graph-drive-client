@@ -16,11 +16,11 @@ export interface ChiSq_Inv_RTPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the chiSq_Inv_RT method.
@@ -67,10 +67,12 @@ export function deserializeIntoChiSq_Inv_RTPostRequestBody(chiSq_Inv_RTPostReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChiSq_Inv_RTPostRequestBody(writer: SerializationWriter, chiSq_Inv_RTPostRequestBody: Partial<ChiSq_Inv_RTPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom", chiSq_Inv_RTPostRequestBody.degFreedom);
-    writer.writeObjectValue("probability", chiSq_Inv_RTPostRequestBody.probability);
-    writer.writeAdditionalData(chiSq_Inv_RTPostRequestBody.additionalData);
+export function serializeChiSq_Inv_RTPostRequestBody(writer: SerializationWriter, chiSq_Inv_RTPostRequestBody: Partial<ChiSq_Inv_RTPostRequestBody> | undefined | null = {}) : void {
+    if (chiSq_Inv_RTPostRequestBody) {
+        writer.writeObjectValue("degFreedom", chiSq_Inv_RTPostRequestBody.degFreedom);
+        writer.writeObjectValue("probability", chiSq_Inv_RTPostRequestBody.probability);
+        writer.writeAdditionalData(chiSq_Inv_RTPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

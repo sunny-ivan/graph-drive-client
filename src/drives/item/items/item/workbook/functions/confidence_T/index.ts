@@ -16,15 +16,15 @@ export interface Confidence_TPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The size property
      */
-    size?: UntypedNode;
+    size?: UntypedNode | null;
     /**
      * The standardDev property
      */
-    standardDev?: UntypedNode;
+    standardDev?: UntypedNode | null;
 }
 /**
  * Provides operations to call the confidence_T method.
@@ -72,11 +72,13 @@ export function deserializeIntoConfidence_TPostRequestBody(confidence_TPostReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeConfidence_TPostRequestBody(writer: SerializationWriter, confidence_TPostRequestBody: Partial<Confidence_TPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("alpha", confidence_TPostRequestBody.alpha);
-    writer.writeObjectValue("size", confidence_TPostRequestBody.size);
-    writer.writeObjectValue("standardDev", confidence_TPostRequestBody.standardDev);
-    writer.writeAdditionalData(confidence_TPostRequestBody.additionalData);
+export function serializeConfidence_TPostRequestBody(writer: SerializationWriter, confidence_TPostRequestBody: Partial<Confidence_TPostRequestBody> | undefined | null = {}) : void {
+    if (confidence_TPostRequestBody) {
+        writer.writeObjectValue("alpha", confidence_TPostRequestBody.alpha);
+        writer.writeObjectValue("size", confidence_TPostRequestBody.size);
+        writer.writeObjectValue("standardDev", confidence_TPostRequestBody.standardDev);
+        writer.writeAdditionalData(confidence_TPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

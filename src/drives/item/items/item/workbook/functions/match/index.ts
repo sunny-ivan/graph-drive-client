@@ -37,15 +37,15 @@ export interface MatchPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The lookupArray property
      */
-    lookupArray?: UntypedNode;
+    lookupArray?: UntypedNode | null;
     /**
      * The lookupValue property
      */
-    lookupValue?: UntypedNode;
+    lookupValue?: UntypedNode | null;
     /**
      * The matchType property
      */
-    matchType?: UntypedNode;
+    matchType?: UntypedNode | null;
 }
 /**
  * Provides operations to call the match method.
@@ -72,11 +72,13 @@ export interface MatchRequestBuilder extends BaseRequestBuilder<MatchRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMatchPostRequestBody(writer: SerializationWriter, matchPostRequestBody: Partial<MatchPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("lookupArray", matchPostRequestBody.lookupArray);
-    writer.writeObjectValue("lookupValue", matchPostRequestBody.lookupValue);
-    writer.writeObjectValue("matchType", matchPostRequestBody.matchType);
-    writer.writeAdditionalData(matchPostRequestBody.additionalData);
+export function serializeMatchPostRequestBody(writer: SerializationWriter, matchPostRequestBody: Partial<MatchPostRequestBody> | undefined | null = {}) : void {
+    if (matchPostRequestBody) {
+        writer.writeObjectValue("lookupArray", matchPostRequestBody.lookupArray);
+        writer.writeObjectValue("lookupValue", matchPostRequestBody.lookupValue);
+        writer.writeObjectValue("matchType", matchPostRequestBody.matchType);
+        writer.writeAdditionalData(matchPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

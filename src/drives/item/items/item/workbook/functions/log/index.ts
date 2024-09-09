@@ -36,11 +36,11 @@ export interface LogPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The base property
      */
-    base?: UntypedNode;
+    base?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the log method.
@@ -67,10 +67,12 @@ export interface LogRequestBuilder extends BaseRequestBuilder<LogRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLogPostRequestBody(writer: SerializationWriter, logPostRequestBody: Partial<LogPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("base", logPostRequestBody.base);
-    writer.writeObjectValue("number", logPostRequestBody.number);
-    writer.writeAdditionalData(logPostRequestBody.additionalData);
+export function serializeLogPostRequestBody(writer: SerializationWriter, logPostRequestBody: Partial<LogPostRequestBody> | undefined | null = {}) : void {
+    if (logPostRequestBody) {
+        writer.writeObjectValue("base", logPostRequestBody.base);
+        writer.writeObjectValue("number", logPostRequestBody.number);
+        writer.writeAdditionalData(logPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

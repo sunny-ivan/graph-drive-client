@@ -35,12 +35,14 @@ export function deserializeIntoVlookupPostRequestBody(vlookupPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVlookupPostRequestBody(writer: SerializationWriter, vlookupPostRequestBody: Partial<VlookupPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("colIndexNum", vlookupPostRequestBody.colIndexNum);
-    writer.writeObjectValue("lookupValue", vlookupPostRequestBody.lookupValue);
-    writer.writeObjectValue("rangeLookup", vlookupPostRequestBody.rangeLookup);
-    writer.writeObjectValue("tableArray", vlookupPostRequestBody.tableArray);
-    writer.writeAdditionalData(vlookupPostRequestBody.additionalData);
+export function serializeVlookupPostRequestBody(writer: SerializationWriter, vlookupPostRequestBody: Partial<VlookupPostRequestBody> | undefined | null = {}) : void {
+    if (vlookupPostRequestBody) {
+        writer.writeObjectValue("colIndexNum", vlookupPostRequestBody.colIndexNum);
+        writer.writeObjectValue("lookupValue", vlookupPostRequestBody.lookupValue);
+        writer.writeObjectValue("rangeLookup", vlookupPostRequestBody.rangeLookup);
+        writer.writeObjectValue("tableArray", vlookupPostRequestBody.tableArray);
+        writer.writeAdditionalData(vlookupPostRequestBody.additionalData);
+    }
 }
 export interface VlookupPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -50,19 +52,19 @@ export interface VlookupPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The colIndexNum property
      */
-    colIndexNum?: UntypedNode;
+    colIndexNum?: UntypedNode | null;
     /**
      * The lookupValue property
      */
-    lookupValue?: UntypedNode;
+    lookupValue?: UntypedNode | null;
     /**
      * The rangeLookup property
      */
-    rangeLookup?: UntypedNode;
+    rangeLookup?: UntypedNode | null;
     /**
      * The tableArray property
      */
-    tableArray?: UntypedNode;
+    tableArray?: UntypedNode | null;
 }
 /**
  * Provides operations to call the vlookup method.

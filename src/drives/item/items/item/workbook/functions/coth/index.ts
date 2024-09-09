@@ -16,7 +16,7 @@ export interface CothPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the coth method.
@@ -62,9 +62,11 @@ export function deserializeIntoCothPostRequestBody(cothPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCothPostRequestBody(writer: SerializationWriter, cothPostRequestBody: Partial<CothPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", cothPostRequestBody.number);
-    writer.writeAdditionalData(cothPostRequestBody.additionalData);
+export function serializeCothPostRequestBody(writer: SerializationWriter, cothPostRequestBody: Partial<CothPostRequestBody> | undefined | null = {}) : void {
+    if (cothPostRequestBody) {
+        writer.writeObjectValue("number", cothPostRequestBody.number);
+        writer.writeAdditionalData(cothPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

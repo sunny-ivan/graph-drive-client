@@ -34,11 +34,13 @@ export function deserializeIntoT_DistPostRequestBody(t_DistPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeT_DistPostRequestBody(writer: SerializationWriter, t_DistPostRequestBody: Partial<T_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", t_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("degFreedom", t_DistPostRequestBody.degFreedom);
-    writer.writeObjectValue("x", t_DistPostRequestBody.x);
-    writer.writeAdditionalData(t_DistPostRequestBody.additionalData);
+export function serializeT_DistPostRequestBody(writer: SerializationWriter, t_DistPostRequestBody: Partial<T_DistPostRequestBody> | undefined | null = {}) : void {
+    if (t_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", t_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("degFreedom", t_DistPostRequestBody.degFreedom);
+        writer.writeObjectValue("x", t_DistPostRequestBody.x);
+        writer.writeAdditionalData(t_DistPostRequestBody.additionalData);
+    }
 }
 export interface T_DistPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -48,15 +50,15 @@ export interface T_DistPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the t_Dist method.

@@ -16,15 +16,15 @@ export interface Ceiling_MathPostRequestBody extends AdditionalDataHolder, Parsa
     /**
      * The mode property
      */
-    mode?: UntypedNode;
+    mode?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The significance property
      */
-    significance?: UntypedNode;
+    significance?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ceiling_Math method.
@@ -72,11 +72,13 @@ export function deserializeIntoCeiling_MathPostRequestBody(ceiling_MathPostReque
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCeiling_MathPostRequestBody(writer: SerializationWriter, ceiling_MathPostRequestBody: Partial<Ceiling_MathPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("mode", ceiling_MathPostRequestBody.mode);
-    writer.writeObjectValue("number", ceiling_MathPostRequestBody.number);
-    writer.writeObjectValue("significance", ceiling_MathPostRequestBody.significance);
-    writer.writeAdditionalData(ceiling_MathPostRequestBody.additionalData);
+export function serializeCeiling_MathPostRequestBody(writer: SerializationWriter, ceiling_MathPostRequestBody: Partial<Ceiling_MathPostRequestBody> | undefined | null = {}) : void {
+    if (ceiling_MathPostRequestBody) {
+        writer.writeObjectValue("mode", ceiling_MathPostRequestBody.mode);
+        writer.writeObjectValue("number", ceiling_MathPostRequestBody.number);
+        writer.writeObjectValue("significance", ceiling_MathPostRequestBody.significance);
+        writer.writeAdditionalData(ceiling_MathPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

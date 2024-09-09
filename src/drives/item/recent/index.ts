@@ -32,7 +32,7 @@ export interface RecentGetResponse extends BaseCollectionPaginationCountResponse
     /**
      * The value property
      */
-    value?: DriveItem[];
+    value?: DriveItem[] | null;
 }
 /**
  * Provides operations to call the recent method.
@@ -95,9 +95,11 @@ export interface RecentRequestBuilderGetQueryParameters {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRecentGetResponse(writer: SerializationWriter, recentGetResponse: Partial<RecentGetResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, recentGetResponse)
-    writer.writeCollectionOfObjectValues<DriveItem>("value", recentGetResponse.value, serializeDriveItem);
+export function serializeRecentGetResponse(writer: SerializationWriter, recentGetResponse: Partial<RecentGetResponse> | undefined | null = {}) : void {
+    if (recentGetResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, recentGetResponse)
+        writer.writeCollectionOfObjectValues<DriveItem>("value", recentGetResponse.value, serializeDriveItem);
+    }
 }
 /**
  * Uri template for the request builder.

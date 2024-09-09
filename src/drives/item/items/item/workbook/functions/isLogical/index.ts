@@ -35,7 +35,7 @@ export interface IsLogicalPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isLogical method.
@@ -62,9 +62,11 @@ export interface IsLogicalRequestBuilder extends BaseRequestBuilder<IsLogicalReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsLogicalPostRequestBody(writer: SerializationWriter, isLogicalPostRequestBody: Partial<IsLogicalPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isLogicalPostRequestBody.value);
-    writer.writeAdditionalData(isLogicalPostRequestBody.additionalData);
+export function serializeIsLogicalPostRequestBody(writer: SerializationWriter, isLogicalPostRequestBody: Partial<IsLogicalPostRequestBody> | undefined | null = {}) : void {
+    if (isLogicalPostRequestBody) {
+        writer.writeObjectValue("value", isLogicalPostRequestBody.value);
+        writer.writeAdditionalData(isLogicalPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

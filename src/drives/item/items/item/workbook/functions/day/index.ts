@@ -25,7 +25,7 @@ export interface DayPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the day method.
@@ -62,9 +62,11 @@ export function deserializeIntoDayPostRequestBody(dayPostRequestBody: Partial<Da
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDayPostRequestBody(writer: SerializationWriter, dayPostRequestBody: Partial<DayPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("serialNumber", dayPostRequestBody.serialNumber);
-    writer.writeAdditionalData(dayPostRequestBody.additionalData);
+export function serializeDayPostRequestBody(writer: SerializationWriter, dayPostRequestBody: Partial<DayPostRequestBody> | undefined | null = {}) : void {
+    if (dayPostRequestBody) {
+        writer.writeObjectValue("serialNumber", dayPostRequestBody.serialNumber);
+        writer.writeAdditionalData(dayPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -32,9 +32,11 @@ export function deserializeIntoVarPAPostRequestBody(varPAPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVarPAPostRequestBody(writer: SerializationWriter, varPAPostRequestBody: Partial<VarPAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", varPAPostRequestBody.values);
-    writer.writeAdditionalData(varPAPostRequestBody.additionalData);
+export function serializeVarPAPostRequestBody(writer: SerializationWriter, varPAPostRequestBody: Partial<VarPAPostRequestBody> | undefined | null = {}) : void {
+    if (varPAPostRequestBody) {
+        writer.writeObjectValue("values", varPAPostRequestBody.values);
+        writer.writeAdditionalData(varPAPostRequestBody.additionalData);
+    }
 }
 export interface VarPAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface VarPAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the varPA method.

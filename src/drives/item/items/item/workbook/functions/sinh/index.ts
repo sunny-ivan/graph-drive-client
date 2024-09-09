@@ -32,9 +32,11 @@ export function deserializeIntoSinhPostRequestBody(sinhPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSinhPostRequestBody(writer: SerializationWriter, sinhPostRequestBody: Partial<SinhPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", sinhPostRequestBody.number);
-    writer.writeAdditionalData(sinhPostRequestBody.additionalData);
+export function serializeSinhPostRequestBody(writer: SerializationWriter, sinhPostRequestBody: Partial<SinhPostRequestBody> | undefined | null = {}) : void {
+    if (sinhPostRequestBody) {
+        writer.writeObjectValue("number", sinhPostRequestBody.number);
+        writer.writeAdditionalData(sinhPostRequestBody.additionalData);
+    }
 }
 export interface SinhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SinhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sinh method.

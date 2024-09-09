@@ -38,19 +38,19 @@ export interface NegBinom_DistPostRequestBody extends AdditionalDataHolder, Pars
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The numberF property
      */
-    numberF?: UntypedNode;
+    numberF?: UntypedNode | null;
     /**
      * The numberS property
      */
-    numberS?: UntypedNode;
+    numberS?: UntypedNode | null;
     /**
      * The probabilityS property
      */
-    probabilityS?: UntypedNode;
+    probabilityS?: UntypedNode | null;
 }
 /**
  * Provides operations to call the negBinom_Dist method.
@@ -77,12 +77,14 @@ export interface NegBinom_DistRequestBuilder extends BaseRequestBuilder<NegBinom
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNegBinom_DistPostRequestBody(writer: SerializationWriter, negBinom_DistPostRequestBody: Partial<NegBinom_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", negBinom_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("numberF", negBinom_DistPostRequestBody.numberF);
-    writer.writeObjectValue("numberS", negBinom_DistPostRequestBody.numberS);
-    writer.writeObjectValue("probabilityS", negBinom_DistPostRequestBody.probabilityS);
-    writer.writeAdditionalData(negBinom_DistPostRequestBody.additionalData);
+export function serializeNegBinom_DistPostRequestBody(writer: SerializationWriter, negBinom_DistPostRequestBody: Partial<NegBinom_DistPostRequestBody> | undefined | null = {}) : void {
+    if (negBinom_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", negBinom_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("numberF", negBinom_DistPostRequestBody.numberF);
+        writer.writeObjectValue("numberS", negBinom_DistPostRequestBody.numberS);
+        writer.writeObjectValue("probabilityS", negBinom_DistPostRequestBody.probabilityS);
+        writer.writeAdditionalData(negBinom_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

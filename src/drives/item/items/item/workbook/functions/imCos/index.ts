@@ -35,7 +35,7 @@ export interface ImCosPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imCos method.
@@ -62,9 +62,11 @@ export interface ImCosRequestBuilder extends BaseRequestBuilder<ImCosRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImCosPostRequestBody(writer: SerializationWriter, imCosPostRequestBody: Partial<ImCosPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imCosPostRequestBody.inumber);
-    writer.writeAdditionalData(imCosPostRequestBody.additionalData);
+export function serializeImCosPostRequestBody(writer: SerializationWriter, imCosPostRequestBody: Partial<ImCosPostRequestBody> | undefined | null = {}) : void {
+    if (imCosPostRequestBody) {
+        writer.writeObjectValue("inumber", imCosPostRequestBody.inumber);
+        writer.writeAdditionalData(imCosPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

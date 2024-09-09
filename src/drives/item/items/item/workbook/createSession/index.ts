@@ -25,7 +25,7 @@ export interface CreateSessionPostRequestBody extends AdditionalDataHolder, Pars
     /**
      * The persistChanges property
      */
-    persistChanges?: boolean;
+    persistChanges?: boolean | null;
 }
 /**
  * Provides operations to call the createSession method.
@@ -63,9 +63,11 @@ export function deserializeIntoCreateSessionPostRequestBody(createSessionPostReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCreateSessionPostRequestBody(writer: SerializationWriter, createSessionPostRequestBody: Partial<CreateSessionPostRequestBody> | undefined = {}) : void {
-    writer.writeBooleanValue("persistChanges", createSessionPostRequestBody.persistChanges);
-    writer.writeAdditionalData(createSessionPostRequestBody.additionalData);
+export function serializeCreateSessionPostRequestBody(writer: SerializationWriter, createSessionPostRequestBody: Partial<CreateSessionPostRequestBody> | undefined | null = {}) : void {
+    if (createSessionPostRequestBody) {
+        writer.writeBooleanValue("persistChanges", createSessionPostRequestBody.persistChanges);
+        writer.writeAdditionalData(createSessionPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

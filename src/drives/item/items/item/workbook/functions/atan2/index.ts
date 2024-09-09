@@ -16,11 +16,11 @@ export interface Atan2PostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The xNum property
      */
-    xNum?: UntypedNode;
+    xNum?: UntypedNode | null;
     /**
      * The yNum property
      */
-    yNum?: UntypedNode;
+    yNum?: UntypedNode | null;
 }
 /**
  * Provides operations to call the atan2 method.
@@ -67,10 +67,12 @@ export function deserializeIntoAtan2PostRequestBody(atan2PostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAtan2PostRequestBody(writer: SerializationWriter, atan2PostRequestBody: Partial<Atan2PostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("xNum", atan2PostRequestBody.xNum);
-    writer.writeObjectValue("yNum", atan2PostRequestBody.yNum);
-    writer.writeAdditionalData(atan2PostRequestBody.additionalData);
+export function serializeAtan2PostRequestBody(writer: SerializationWriter, atan2PostRequestBody: Partial<Atan2PostRequestBody> | undefined | null = {}) : void {
+    if (atan2PostRequestBody) {
+        writer.writeObjectValue("xNum", atan2PostRequestBody.xNum);
+        writer.writeObjectValue("yNum", atan2PostRequestBody.yNum);
+        writer.writeAdditionalData(atan2PostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

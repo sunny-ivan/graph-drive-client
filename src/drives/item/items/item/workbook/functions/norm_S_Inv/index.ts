@@ -35,7 +35,7 @@ export interface Norm_S_InvPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the norm_S_Inv method.
@@ -62,9 +62,11 @@ export interface Norm_S_InvRequestBuilder extends BaseRequestBuilder<Norm_S_InvR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNorm_S_InvPostRequestBody(writer: SerializationWriter, norm_S_InvPostRequestBody: Partial<Norm_S_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("probability", norm_S_InvPostRequestBody.probability);
-    writer.writeAdditionalData(norm_S_InvPostRequestBody.additionalData);
+export function serializeNorm_S_InvPostRequestBody(writer: SerializationWriter, norm_S_InvPostRequestBody: Partial<Norm_S_InvPostRequestBody> | undefined | null = {}) : void {
+    if (norm_S_InvPostRequestBody) {
+        writer.writeObjectValue("probability", norm_S_InvPostRequestBody.probability);
+        writer.writeAdditionalData(norm_S_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

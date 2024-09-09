@@ -25,11 +25,11 @@ export interface DecimalPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The radix property
      */
-    radix?: UntypedNode;
+    radix?: UntypedNode | null;
 }
 /**
  * Provides operations to call the decimal method.
@@ -67,10 +67,12 @@ export function deserializeIntoDecimalPostRequestBody(decimalPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDecimalPostRequestBody(writer: SerializationWriter, decimalPostRequestBody: Partial<DecimalPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", decimalPostRequestBody.number);
-    writer.writeObjectValue("radix", decimalPostRequestBody.radix);
-    writer.writeAdditionalData(decimalPostRequestBody.additionalData);
+export function serializeDecimalPostRequestBody(writer: SerializationWriter, decimalPostRequestBody: Partial<DecimalPostRequestBody> | undefined | null = {}) : void {
+    if (decimalPostRequestBody) {
+        writer.writeObjectValue("number", decimalPostRequestBody.number);
+        writer.writeObjectValue("radix", decimalPostRequestBody.radix);
+        writer.writeAdditionalData(decimalPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

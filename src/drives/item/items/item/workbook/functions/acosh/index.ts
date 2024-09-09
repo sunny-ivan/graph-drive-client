@@ -16,7 +16,7 @@ export interface AcoshPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the acosh method.
@@ -62,9 +62,11 @@ export function deserializeIntoAcoshPostRequestBody(acoshPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAcoshPostRequestBody(writer: SerializationWriter, acoshPostRequestBody: Partial<AcoshPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", acoshPostRequestBody.number);
-    writer.writeAdditionalData(acoshPostRequestBody.additionalData);
+export function serializeAcoshPostRequestBody(writer: SerializationWriter, acoshPostRequestBody: Partial<AcoshPostRequestBody> | undefined | null = {}) : void {
+    if (acoshPostRequestBody) {
+        writer.writeObjectValue("number", acoshPostRequestBody.number);
+        writer.writeAdditionalData(acoshPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

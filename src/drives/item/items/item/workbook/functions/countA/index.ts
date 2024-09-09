@@ -16,7 +16,7 @@ export interface CountAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the countA method.
@@ -62,9 +62,11 @@ export function deserializeIntoCountAPostRequestBody(countAPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCountAPostRequestBody(writer: SerializationWriter, countAPostRequestBody: Partial<CountAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", countAPostRequestBody.values);
-    writer.writeAdditionalData(countAPostRequestBody.additionalData);
+export function serializeCountAPostRequestBody(writer: SerializationWriter, countAPostRequestBody: Partial<CountAPostRequestBody> | undefined | null = {}) : void {
+    if (countAPostRequestBody) {
+        writer.writeObjectValue("values", countAPostRequestBody.values);
+        writer.writeAdditionalData(countAPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

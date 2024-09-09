@@ -37,15 +37,15 @@ export interface DstDevPPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dstDevP method.
@@ -72,11 +72,13 @@ export interface DstDevPRequestBuilder extends BaseRequestBuilder<DstDevPRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDstDevPPostRequestBody(writer: SerializationWriter, dstDevPPostRequestBody: Partial<DstDevPPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dstDevPPostRequestBody.criteria);
-    writer.writeObjectValue("database", dstDevPPostRequestBody.database);
-    writer.writeObjectValue("field", dstDevPPostRequestBody.field);
-    writer.writeAdditionalData(dstDevPPostRequestBody.additionalData);
+export function serializeDstDevPPostRequestBody(writer: SerializationWriter, dstDevPPostRequestBody: Partial<DstDevPPostRequestBody> | undefined | null = {}) : void {
+    if (dstDevPPostRequestBody) {
+        writer.writeObjectValue("criteria", dstDevPPostRequestBody.criteria);
+        writer.writeObjectValue("database", dstDevPPostRequestBody.database);
+        writer.writeObjectValue("field", dstDevPPostRequestBody.field);
+        writer.writeAdditionalData(dstDevPPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

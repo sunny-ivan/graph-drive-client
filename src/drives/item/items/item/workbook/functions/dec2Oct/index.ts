@@ -25,11 +25,11 @@ export interface Dec2OctPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dec2Oct method.
@@ -67,10 +67,12 @@ export function deserializeIntoDec2OctPostRequestBody(dec2OctPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDec2OctPostRequestBody(writer: SerializationWriter, dec2OctPostRequestBody: Partial<Dec2OctPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", dec2OctPostRequestBody.number);
-    writer.writeObjectValue("places", dec2OctPostRequestBody.places);
-    writer.writeAdditionalData(dec2OctPostRequestBody.additionalData);
+export function serializeDec2OctPostRequestBody(writer: SerializationWriter, dec2OctPostRequestBody: Partial<Dec2OctPostRequestBody> | undefined | null = {}) : void {
+    if (dec2OctPostRequestBody) {
+        writer.writeObjectValue("number", dec2OctPostRequestBody.number);
+        writer.writeObjectValue("places", dec2OctPostRequestBody.places);
+        writer.writeAdditionalData(dec2OctPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface MaxPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the max method.
@@ -62,9 +62,11 @@ export interface MaxRequestBuilder extends BaseRequestBuilder<MaxRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMaxPostRequestBody(writer: SerializationWriter, maxPostRequestBody: Partial<MaxPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", maxPostRequestBody.values);
-    writer.writeAdditionalData(maxPostRequestBody.additionalData);
+export function serializeMaxPostRequestBody(writer: SerializationWriter, maxPostRequestBody: Partial<MaxPostRequestBody> | undefined | null = {}) : void {
+    if (maxPostRequestBody) {
+        writer.writeObjectValue("values", maxPostRequestBody.values);
+        writer.writeAdditionalData(maxPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

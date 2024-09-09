@@ -21,7 +21,7 @@ export interface DeltaWithTokenGetResponse extends BaseDeltaFunctionResponse, Pa
     /**
      * The value property
      */
-    value?: DriveItem[];
+    value?: DriveItem[] | null;
 }
 /**
  * Provides operations to call the delta method.
@@ -94,9 +94,11 @@ export function deserializeIntoDeltaWithTokenGetResponse(deltaWithTokenGetRespon
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDeltaWithTokenGetResponse(writer: SerializationWriter, deltaWithTokenGetResponse: Partial<DeltaWithTokenGetResponse> | undefined = {}) : void {
-    serializeBaseDeltaFunctionResponse(writer, deltaWithTokenGetResponse)
-    writer.writeCollectionOfObjectValues<DriveItem>("value", deltaWithTokenGetResponse.value, serializeDriveItem);
+export function serializeDeltaWithTokenGetResponse(writer: SerializationWriter, deltaWithTokenGetResponse: Partial<DeltaWithTokenGetResponse> | undefined | null = {}) : void {
+    if (deltaWithTokenGetResponse) {
+        serializeBaseDeltaFunctionResponse(writer, deltaWithTokenGetResponse)
+        writer.writeCollectionOfObjectValues<DriveItem>("value", deltaWithTokenGetResponse.value, serializeDriveItem);
+    }
 }
 /**
  * Uri template for the request builder.

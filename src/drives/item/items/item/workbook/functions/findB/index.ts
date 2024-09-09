@@ -37,15 +37,15 @@ export interface FindBPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The findText property
      */
-    findText?: UntypedNode;
+    findText?: UntypedNode | null;
     /**
      * The startNum property
      */
-    startNum?: UntypedNode;
+    startNum?: UntypedNode | null;
     /**
      * The withinText property
      */
-    withinText?: UntypedNode;
+    withinText?: UntypedNode | null;
 }
 /**
  * Provides operations to call the findB method.
@@ -72,11 +72,13 @@ export interface FindBRequestBuilder extends BaseRequestBuilder<FindBRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFindBPostRequestBody(writer: SerializationWriter, findBPostRequestBody: Partial<FindBPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("findText", findBPostRequestBody.findText);
-    writer.writeObjectValue("startNum", findBPostRequestBody.startNum);
-    writer.writeObjectValue("withinText", findBPostRequestBody.withinText);
-    writer.writeAdditionalData(findBPostRequestBody.additionalData);
+export function serializeFindBPostRequestBody(writer: SerializationWriter, findBPostRequestBody: Partial<FindBPostRequestBody> | undefined | null = {}) : void {
+    if (findBPostRequestBody) {
+        writer.writeObjectValue("findText", findBPostRequestBody.findText);
+        writer.writeObjectValue("startNum", findBPostRequestBody.startNum);
+        writer.writeObjectValue("withinText", findBPostRequestBody.withinText);
+        writer.writeAdditionalData(findBPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

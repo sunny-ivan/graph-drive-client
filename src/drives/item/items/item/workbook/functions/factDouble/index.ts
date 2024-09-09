@@ -35,7 +35,7 @@ export interface FactDoublePostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the factDouble method.
@@ -62,9 +62,11 @@ export interface FactDoubleRequestBuilder extends BaseRequestBuilder<FactDoubleR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFactDoublePostRequestBody(writer: SerializationWriter, factDoublePostRequestBody: Partial<FactDoublePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", factDoublePostRequestBody.number);
-    writer.writeAdditionalData(factDoublePostRequestBody.additionalData);
+export function serializeFactDoublePostRequestBody(writer: SerializationWriter, factDoublePostRequestBody: Partial<FactDoublePostRequestBody> | undefined | null = {}) : void {
+    if (factDoublePostRequestBody) {
+        writer.writeObjectValue("number", factDoublePostRequestBody.number);
+        writer.writeAdditionalData(factDoublePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

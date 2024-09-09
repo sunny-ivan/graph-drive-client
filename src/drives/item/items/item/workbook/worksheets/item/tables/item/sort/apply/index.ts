@@ -16,15 +16,15 @@ export interface ApplyPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The fields property
      */
-    fields?: WorkbookSortField[];
+    fields?: WorkbookSortField[] | null;
     /**
      * The matchCase property
      */
-    matchCase?: boolean;
+    matchCase?: boolean | null;
     /**
      * The method property
      */
-    method?: string;
+    method?: string | null;
 }
 /**
  * Provides operations to call the apply method.
@@ -72,11 +72,13 @@ export function deserializeIntoApplyPostRequestBody(applyPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyPostRequestBody(writer: SerializationWriter, applyPostRequestBody: Partial<ApplyPostRequestBody> | undefined = {}) : void {
-    writer.writeCollectionOfObjectValues<WorkbookSortField>("fields", applyPostRequestBody.fields, serializeWorkbookSortField);
-    writer.writeBooleanValue("matchCase", applyPostRequestBody.matchCase);
-    writer.writeStringValue("method", applyPostRequestBody.method);
-    writer.writeAdditionalData(applyPostRequestBody.additionalData);
+export function serializeApplyPostRequestBody(writer: SerializationWriter, applyPostRequestBody: Partial<ApplyPostRequestBody> | undefined | null = {}) : void {
+    if (applyPostRequestBody) {
+        writer.writeCollectionOfObjectValues<WorkbookSortField>("fields", applyPostRequestBody.fields, serializeWorkbookSortField);
+        writer.writeBooleanValue("matchCase", applyPostRequestBody.matchCase);
+        writer.writeStringValue("method", applyPostRequestBody.method);
+        writer.writeAdditionalData(applyPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

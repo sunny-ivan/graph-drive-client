@@ -36,11 +36,11 @@ export interface Norm_S_DistPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The cumulative property
      */
-    cumulative?: UntypedNode;
+    cumulative?: UntypedNode | null;
     /**
      * The z property
      */
-    z?: UntypedNode;
+    z?: UntypedNode | null;
 }
 /**
  * Provides operations to call the norm_S_Dist method.
@@ -67,10 +67,12 @@ export interface Norm_S_DistRequestBuilder extends BaseRequestBuilder<Norm_S_Dis
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNorm_S_DistPostRequestBody(writer: SerializationWriter, norm_S_DistPostRequestBody: Partial<Norm_S_DistPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cumulative", norm_S_DistPostRequestBody.cumulative);
-    writer.writeObjectValue("z", norm_S_DistPostRequestBody.z);
-    writer.writeAdditionalData(norm_S_DistPostRequestBody.additionalData);
+export function serializeNorm_S_DistPostRequestBody(writer: SerializationWriter, norm_S_DistPostRequestBody: Partial<Norm_S_DistPostRequestBody> | undefined | null = {}) : void {
+    if (norm_S_DistPostRequestBody) {
+        writer.writeObjectValue("cumulative", norm_S_DistPostRequestBody.cumulative);
+        writer.writeObjectValue("z", norm_S_DistPostRequestBody.z);
+        writer.writeAdditionalData(norm_S_DistPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

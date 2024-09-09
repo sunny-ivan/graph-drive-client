@@ -16,11 +16,11 @@ export interface BitandPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number1 property
      */
-    number1?: UntypedNode;
+    number1?: UntypedNode | null;
     /**
      * The number2 property
      */
-    number2?: UntypedNode;
+    number2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bitand method.
@@ -67,10 +67,12 @@ export function deserializeIntoBitandPostRequestBody(bitandPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBitandPostRequestBody(writer: SerializationWriter, bitandPostRequestBody: Partial<BitandPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number1", bitandPostRequestBody.number1);
-    writer.writeObjectValue("number2", bitandPostRequestBody.number2);
-    writer.writeAdditionalData(bitandPostRequestBody.additionalData);
+export function serializeBitandPostRequestBody(writer: SerializationWriter, bitandPostRequestBody: Partial<BitandPostRequestBody> | undefined | null = {}) : void {
+    if (bitandPostRequestBody) {
+        writer.writeObjectValue("number1", bitandPostRequestBody.number1);
+        writer.writeObjectValue("number2", bitandPostRequestBody.number2);
+        writer.writeAdditionalData(bitandPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

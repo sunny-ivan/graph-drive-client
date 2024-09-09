@@ -16,11 +16,11 @@ export interface Bin2OctPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the bin2Oct method.
@@ -67,10 +67,12 @@ export function deserializeIntoBin2OctPostRequestBody(bin2OctPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBin2OctPostRequestBody(writer: SerializationWriter, bin2OctPostRequestBody: Partial<Bin2OctPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", bin2OctPostRequestBody.number);
-    writer.writeObjectValue("places", bin2OctPostRequestBody.places);
-    writer.writeAdditionalData(bin2OctPostRequestBody.additionalData);
+export function serializeBin2OctPostRequestBody(writer: SerializationWriter, bin2OctPostRequestBody: Partial<Bin2OctPostRequestBody> | undefined | null = {}) : void {
+    if (bin2OctPostRequestBody) {
+        writer.writeObjectValue("number", bin2OctPostRequestBody.number);
+        writer.writeObjectValue("places", bin2OctPostRequestBody.places);
+        writer.writeAdditionalData(bin2OctPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

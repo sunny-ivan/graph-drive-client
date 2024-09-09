@@ -32,9 +32,11 @@ export function deserializeIntoTypePostRequestBody(typePostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTypePostRequestBody(writer: SerializationWriter, typePostRequestBody: Partial<TypePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", typePostRequestBody.value);
-    writer.writeAdditionalData(typePostRequestBody.additionalData);
+export function serializeTypePostRequestBody(writer: SerializationWriter, typePostRequestBody: Partial<TypePostRequestBody> | undefined | null = {}) : void {
+    if (typePostRequestBody) {
+        writer.writeObjectValue("value", typePostRequestBody.value);
+        writer.writeAdditionalData(typePostRequestBody.additionalData);
+    }
 }
 export interface TypePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface TypePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the type method.

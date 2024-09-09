@@ -37,15 +37,15 @@ export interface DminPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dmin method.
@@ -72,11 +72,13 @@ export interface DminRequestBuilder extends BaseRequestBuilder<DminRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDminPostRequestBody(writer: SerializationWriter, dminPostRequestBody: Partial<DminPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dminPostRequestBody.criteria);
-    writer.writeObjectValue("database", dminPostRequestBody.database);
-    writer.writeObjectValue("field", dminPostRequestBody.field);
-    writer.writeAdditionalData(dminPostRequestBody.additionalData);
+export function serializeDminPostRequestBody(writer: SerializationWriter, dminPostRequestBody: Partial<DminPostRequestBody> | undefined | null = {}) : void {
+    if (dminPostRequestBody) {
+        writer.writeObjectValue("criteria", dminPostRequestBody.criteria);
+        writer.writeObjectValue("database", dminPostRequestBody.database);
+        writer.writeObjectValue("field", dminPostRequestBody.field);
+        writer.writeAdditionalData(dminPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

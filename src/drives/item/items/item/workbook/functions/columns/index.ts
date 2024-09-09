@@ -16,7 +16,7 @@ export interface ColumnsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
 }
 /**
  * Provides operations to call the columns method.
@@ -62,9 +62,11 @@ export function deserializeIntoColumnsPostRequestBody(columnsPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeColumnsPostRequestBody(writer: SerializationWriter, columnsPostRequestBody: Partial<ColumnsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", columnsPostRequestBody.array);
-    writer.writeAdditionalData(columnsPostRequestBody.additionalData);
+export function serializeColumnsPostRequestBody(writer: SerializationWriter, columnsPostRequestBody: Partial<ColumnsPostRequestBody> | undefined | null = {}) : void {
+    if (columnsPostRequestBody) {
+        writer.writeObjectValue("array", columnsPostRequestBody.array);
+        writer.writeAdditionalData(columnsPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

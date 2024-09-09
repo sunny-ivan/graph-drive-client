@@ -38,15 +38,17 @@ export function deserializeIntoVdbPostRequestBody(vdbPostRequestBody: Partial<Vd
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeVdbPostRequestBody(writer: SerializationWriter, vdbPostRequestBody: Partial<VdbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cost", vdbPostRequestBody.cost);
-    writer.writeObjectValue("endPeriod", vdbPostRequestBody.endPeriod);
-    writer.writeObjectValue("factor", vdbPostRequestBody.factor);
-    writer.writeObjectValue("life", vdbPostRequestBody.life);
-    writer.writeObjectValue("noSwitch", vdbPostRequestBody.noSwitch);
-    writer.writeObjectValue("salvage", vdbPostRequestBody.salvage);
-    writer.writeObjectValue("startPeriod", vdbPostRequestBody.startPeriod);
-    writer.writeAdditionalData(vdbPostRequestBody.additionalData);
+export function serializeVdbPostRequestBody(writer: SerializationWriter, vdbPostRequestBody: Partial<VdbPostRequestBody> | undefined | null = {}) : void {
+    if (vdbPostRequestBody) {
+        writer.writeObjectValue("cost", vdbPostRequestBody.cost);
+        writer.writeObjectValue("endPeriod", vdbPostRequestBody.endPeriod);
+        writer.writeObjectValue("factor", vdbPostRequestBody.factor);
+        writer.writeObjectValue("life", vdbPostRequestBody.life);
+        writer.writeObjectValue("noSwitch", vdbPostRequestBody.noSwitch);
+        writer.writeObjectValue("salvage", vdbPostRequestBody.salvage);
+        writer.writeObjectValue("startPeriod", vdbPostRequestBody.startPeriod);
+        writer.writeAdditionalData(vdbPostRequestBody.additionalData);
+    }
 }
 export interface VdbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -56,31 +58,31 @@ export interface VdbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cost property
      */
-    cost?: UntypedNode;
+    cost?: UntypedNode | null;
     /**
      * The endPeriod property
      */
-    endPeriod?: UntypedNode;
+    endPeriod?: UntypedNode | null;
     /**
      * The factor property
      */
-    factor?: UntypedNode;
+    factor?: UntypedNode | null;
     /**
      * The life property
      */
-    life?: UntypedNode;
+    life?: UntypedNode | null;
     /**
      * The noSwitch property
      */
-    noSwitch?: UntypedNode;
+    noSwitch?: UntypedNode | null;
     /**
      * The salvage property
      */
-    salvage?: UntypedNode;
+    salvage?: UntypedNode | null;
     /**
      * The startPeriod property
      */
-    startPeriod?: UntypedNode;
+    startPeriod?: UntypedNode | null;
 }
 /**
  * Provides operations to call the vdb method.

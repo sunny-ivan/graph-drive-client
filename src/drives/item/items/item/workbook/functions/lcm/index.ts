@@ -35,7 +35,7 @@ export interface LcmPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the lcm method.
@@ -62,9 +62,11 @@ export interface LcmRequestBuilder extends BaseRequestBuilder<LcmRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLcmPostRequestBody(writer: SerializationWriter, lcmPostRequestBody: Partial<LcmPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", lcmPostRequestBody.values);
-    writer.writeAdditionalData(lcmPostRequestBody.additionalData);
+export function serializeLcmPostRequestBody(writer: SerializationWriter, lcmPostRequestBody: Partial<LcmPostRequestBody> | undefined | null = {}) : void {
+    if (lcmPostRequestBody) {
+        writer.writeObjectValue("values", lcmPostRequestBody.values);
+        writer.writeAdditionalData(lcmPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

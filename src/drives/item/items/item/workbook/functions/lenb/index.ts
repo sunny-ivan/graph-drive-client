@@ -35,7 +35,7 @@ export interface LenbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the lenb method.
@@ -62,9 +62,11 @@ export interface LenbRequestBuilder extends BaseRequestBuilder<LenbRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLenbPostRequestBody(writer: SerializationWriter, lenbPostRequestBody: Partial<LenbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", lenbPostRequestBody.text);
-    writer.writeAdditionalData(lenbPostRequestBody.additionalData);
+export function serializeLenbPostRequestBody(writer: SerializationWriter, lenbPostRequestBody: Partial<LenbPostRequestBody> | undefined | null = {}) : void {
+    if (lenbPostRequestBody) {
+        writer.writeObjectValue("text", lenbPostRequestBody.text);
+        writer.writeAdditionalData(lenbPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -31,10 +31,12 @@ export function deserializeIntoSetPositionPostRequestBody(setPositionPostRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSetPositionPostRequestBody(writer: SerializationWriter, setPositionPostRequestBody: Partial<SetPositionPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endCell", setPositionPostRequestBody.endCell);
-    writer.writeObjectValue("startCell", setPositionPostRequestBody.startCell);
-    writer.writeAdditionalData(setPositionPostRequestBody.additionalData);
+export function serializeSetPositionPostRequestBody(writer: SerializationWriter, setPositionPostRequestBody: Partial<SetPositionPostRequestBody> | undefined | null = {}) : void {
+    if (setPositionPostRequestBody) {
+        writer.writeObjectValue("endCell", setPositionPostRequestBody.endCell);
+        writer.writeObjectValue("startCell", setPositionPostRequestBody.startCell);
+        writer.writeAdditionalData(setPositionPostRequestBody.additionalData);
+    }
 }
 export interface SetPositionPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,11 +46,11 @@ export interface SetPositionPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The endCell property
      */
-    endCell?: UntypedNode;
+    endCell?: UntypedNode | null;
     /**
      * The startCell property
      */
-    startCell?: UntypedNode;
+    startCell?: UntypedNode | null;
 }
 /**
  * Provides operations to call the setPosition method.

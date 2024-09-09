@@ -32,9 +32,11 @@ export function deserializeIntoSumPostRequestBody(sumPostRequestBody: Partial<Su
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSumPostRequestBody(writer: SerializationWriter, sumPostRequestBody: Partial<SumPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", sumPostRequestBody.values);
-    writer.writeAdditionalData(sumPostRequestBody.additionalData);
+export function serializeSumPostRequestBody(writer: SerializationWriter, sumPostRequestBody: Partial<SumPostRequestBody> | undefined | null = {}) : void {
+    if (sumPostRequestBody) {
+        writer.writeObjectValue("values", sumPostRequestBody.values);
+        writer.writeAdditionalData(sumPostRequestBody.additionalData);
+    }
 }
 export interface SumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface SumPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sum method.

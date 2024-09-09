@@ -33,10 +33,12 @@ export function deserializeIntoT_InvPostRequestBody(t_InvPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeT_InvPostRequestBody(writer: SerializationWriter, t_InvPostRequestBody: Partial<T_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom", t_InvPostRequestBody.degFreedom);
-    writer.writeObjectValue("probability", t_InvPostRequestBody.probability);
-    writer.writeAdditionalData(t_InvPostRequestBody.additionalData);
+export function serializeT_InvPostRequestBody(writer: SerializationWriter, t_InvPostRequestBody: Partial<T_InvPostRequestBody> | undefined | null = {}) : void {
+    if (t_InvPostRequestBody) {
+        writer.writeObjectValue("degFreedom", t_InvPostRequestBody.degFreedom);
+        writer.writeObjectValue("probability", t_InvPostRequestBody.probability);
+        writer.writeAdditionalData(t_InvPostRequestBody.additionalData);
+    }
 }
 export interface T_InvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface T_InvPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the t_Inv method.

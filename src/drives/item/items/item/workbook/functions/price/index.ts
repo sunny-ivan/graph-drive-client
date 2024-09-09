@@ -41,31 +41,31 @@ export interface PricePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The basis property
      */
-    basis?: UntypedNode;
+    basis?: UntypedNode | null;
     /**
      * The frequency property
      */
-    frequency?: UntypedNode;
+    frequency?: UntypedNode | null;
     /**
      * The maturity property
      */
-    maturity?: UntypedNode;
+    maturity?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The redemption property
      */
-    redemption?: UntypedNode;
+    redemption?: UntypedNode | null;
     /**
      * The settlement property
      */
-    settlement?: UntypedNode;
+    settlement?: UntypedNode | null;
     /**
      * The yld property
      */
-    yld?: UntypedNode;
+    yld?: UntypedNode | null;
 }
 /**
  * Provides operations to call the price method.
@@ -92,15 +92,17 @@ export interface PriceRequestBuilder extends BaseRequestBuilder<PriceRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePricePostRequestBody(writer: SerializationWriter, pricePostRequestBody: Partial<PricePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("basis", pricePostRequestBody.basis);
-    writer.writeObjectValue("frequency", pricePostRequestBody.frequency);
-    writer.writeObjectValue("maturity", pricePostRequestBody.maturity);
-    writer.writeObjectValue("rate", pricePostRequestBody.rate);
-    writer.writeObjectValue("redemption", pricePostRequestBody.redemption);
-    writer.writeObjectValue("settlement", pricePostRequestBody.settlement);
-    writer.writeObjectValue("yld", pricePostRequestBody.yld);
-    writer.writeAdditionalData(pricePostRequestBody.additionalData);
+export function serializePricePostRequestBody(writer: SerializationWriter, pricePostRequestBody: Partial<PricePostRequestBody> | undefined | null = {}) : void {
+    if (pricePostRequestBody) {
+        writer.writeObjectValue("basis", pricePostRequestBody.basis);
+        writer.writeObjectValue("frequency", pricePostRequestBody.frequency);
+        writer.writeObjectValue("maturity", pricePostRequestBody.maturity);
+        writer.writeObjectValue("rate", pricePostRequestBody.rate);
+        writer.writeObjectValue("redemption", pricePostRequestBody.redemption);
+        writer.writeObjectValue("settlement", pricePostRequestBody.settlement);
+        writer.writeObjectValue("yld", pricePostRequestBody.yld);
+        writer.writeAdditionalData(pricePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

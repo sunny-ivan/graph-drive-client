@@ -25,27 +25,27 @@ export interface CumPrincPostRequestBody extends AdditionalDataHolder, Parsable 
     /**
      * The endPeriod property
      */
-    endPeriod?: UntypedNode;
+    endPeriod?: UntypedNode | null;
     /**
      * The nper property
      */
-    nper?: UntypedNode;
+    nper?: UntypedNode | null;
     /**
      * The pv property
      */
-    pv?: UntypedNode;
+    pv?: UntypedNode | null;
     /**
      * The rate property
      */
-    rate?: UntypedNode;
+    rate?: UntypedNode | null;
     /**
      * The startPeriod property
      */
-    startPeriod?: UntypedNode;
+    startPeriod?: UntypedNode | null;
     /**
      * The type property
      */
-    type?: UntypedNode;
+    type?: UntypedNode | null;
 }
 /**
  * Provides operations to call the cumPrinc method.
@@ -87,14 +87,16 @@ export function deserializeIntoCumPrincPostRequestBody(cumPrincPostRequestBody: 
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCumPrincPostRequestBody(writer: SerializationWriter, cumPrincPostRequestBody: Partial<CumPrincPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("endPeriod", cumPrincPostRequestBody.endPeriod);
-    writer.writeObjectValue("nper", cumPrincPostRequestBody.nper);
-    writer.writeObjectValue("pv", cumPrincPostRequestBody.pv);
-    writer.writeObjectValue("rate", cumPrincPostRequestBody.rate);
-    writer.writeObjectValue("startPeriod", cumPrincPostRequestBody.startPeriod);
-    writer.writeObjectValue("type", cumPrincPostRequestBody.type);
-    writer.writeAdditionalData(cumPrincPostRequestBody.additionalData);
+export function serializeCumPrincPostRequestBody(writer: SerializationWriter, cumPrincPostRequestBody: Partial<CumPrincPostRequestBody> | undefined | null = {}) : void {
+    if (cumPrincPostRequestBody) {
+        writer.writeObjectValue("endPeriod", cumPrincPostRequestBody.endPeriod);
+        writer.writeObjectValue("nper", cumPrincPostRequestBody.nper);
+        writer.writeObjectValue("pv", cumPrincPostRequestBody.pv);
+        writer.writeObjectValue("rate", cumPrincPostRequestBody.rate);
+        writer.writeObjectValue("startPeriod", cumPrincPostRequestBody.startPeriod);
+        writer.writeObjectValue("type", cumPrincPostRequestBody.type);
+        writer.writeAdditionalData(cumPrincPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

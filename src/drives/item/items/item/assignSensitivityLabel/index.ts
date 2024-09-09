@@ -16,15 +16,15 @@ export interface AssignSensitivityLabelPostRequestBody extends AdditionalDataHol
     /**
      * The assignmentMethod property
      */
-    assignmentMethod?: SensitivityLabelAssignmentMethod;
+    assignmentMethod?: SensitivityLabelAssignmentMethod | null;
     /**
      * The justificationText property
      */
-    justificationText?: string;
+    justificationText?: string | null;
     /**
      * The sensitivityLabelId property
      */
-    sensitivityLabelId?: string;
+    sensitivityLabelId?: string | null;
 }
 /**
  * Provides operations to call the assignSensitivityLabel method.
@@ -71,11 +71,13 @@ export function deserializeIntoAssignSensitivityLabelPostRequestBody(assignSensi
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAssignSensitivityLabelPostRequestBody(writer: SerializationWriter, assignSensitivityLabelPostRequestBody: Partial<AssignSensitivityLabelPostRequestBody> | undefined = {}) : void {
-    writer.writeEnumValue<SensitivityLabelAssignmentMethod>("assignmentMethod", assignSensitivityLabelPostRequestBody.assignmentMethod);
-    writer.writeStringValue("justificationText", assignSensitivityLabelPostRequestBody.justificationText);
-    writer.writeStringValue("sensitivityLabelId", assignSensitivityLabelPostRequestBody.sensitivityLabelId);
-    writer.writeAdditionalData(assignSensitivityLabelPostRequestBody.additionalData);
+export function serializeAssignSensitivityLabelPostRequestBody(writer: SerializationWriter, assignSensitivityLabelPostRequestBody: Partial<AssignSensitivityLabelPostRequestBody> | undefined | null = {}) : void {
+    if (assignSensitivityLabelPostRequestBody) {
+        writer.writeEnumValue<SensitivityLabelAssignmentMethod>("assignmentMethod", assignSensitivityLabelPostRequestBody.assignmentMethod);
+        writer.writeStringValue("justificationText", assignSensitivityLabelPostRequestBody.justificationText);
+        writer.writeStringValue("sensitivityLabelId", assignSensitivityLabelPostRequestBody.sensitivityLabelId);
+        writer.writeAdditionalData(assignSensitivityLabelPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

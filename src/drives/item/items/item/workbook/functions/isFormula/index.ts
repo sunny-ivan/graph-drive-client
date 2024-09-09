@@ -35,7 +35,7 @@ export interface IsFormulaPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The reference property
      */
-    reference?: UntypedNode;
+    reference?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isFormula method.
@@ -62,9 +62,11 @@ export interface IsFormulaRequestBuilder extends BaseRequestBuilder<IsFormulaReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsFormulaPostRequestBody(writer: SerializationWriter, isFormulaPostRequestBody: Partial<IsFormulaPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("reference", isFormulaPostRequestBody.reference);
-    writer.writeAdditionalData(isFormulaPostRequestBody.additionalData);
+export function serializeIsFormulaPostRequestBody(writer: SerializationWriter, isFormulaPostRequestBody: Partial<IsFormulaPostRequestBody> | undefined | null = {}) : void {
+    if (isFormulaPostRequestBody) {
+        writer.writeObjectValue("reference", isFormulaPostRequestBody.reference);
+        writer.writeAdditionalData(isFormulaPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

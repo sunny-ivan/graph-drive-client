@@ -14,7 +14,7 @@ export interface ApplyFontColorFilterPostRequestBody extends AdditionalDataHolde
     /**
      * The color property
      */
-    color?: string;
+    color?: string | null;
 }
 /**
  * Provides operations to call the applyFontColorFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyFontColorFilterPostRequestBody(applyFontColo
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyFontColorFilterPostRequestBody(writer: SerializationWriter, applyFontColorFilterPostRequestBody: Partial<ApplyFontColorFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeStringValue("color", applyFontColorFilterPostRequestBody.color);
-    writer.writeAdditionalData(applyFontColorFilterPostRequestBody.additionalData);
+export function serializeApplyFontColorFilterPostRequestBody(writer: SerializationWriter, applyFontColorFilterPostRequestBody: Partial<ApplyFontColorFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyFontColorFilterPostRequestBody) {
+        writer.writeStringValue("color", applyFontColorFilterPostRequestBody.color);
+        writer.writeAdditionalData(applyFontColorFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

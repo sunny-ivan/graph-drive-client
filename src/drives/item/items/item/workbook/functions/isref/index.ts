@@ -35,7 +35,7 @@ export interface IsrefPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isref method.
@@ -62,9 +62,11 @@ export interface IsrefRequestBuilder extends BaseRequestBuilder<IsrefRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsrefPostRequestBody(writer: SerializationWriter, isrefPostRequestBody: Partial<IsrefPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isrefPostRequestBody.value);
-    writer.writeAdditionalData(isrefPostRequestBody.additionalData);
+export function serializeIsrefPostRequestBody(writer: SerializationWriter, isrefPostRequestBody: Partial<IsrefPostRequestBody> | undefined | null = {}) : void {
+    if (isrefPostRequestBody) {
+        writer.writeObjectValue("value", isrefPostRequestBody.value);
+        writer.writeAdditionalData(isrefPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

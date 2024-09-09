@@ -16,7 +16,7 @@ export interface AsinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the asin method.
@@ -62,9 +62,11 @@ export function deserializeIntoAsinPostRequestBody(asinPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAsinPostRequestBody(writer: SerializationWriter, asinPostRequestBody: Partial<AsinPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", asinPostRequestBody.number);
-    writer.writeAdditionalData(asinPostRequestBody.additionalData);
+export function serializeAsinPostRequestBody(writer: SerializationWriter, asinPostRequestBody: Partial<AsinPostRequestBody> | undefined | null = {}) : void {
+    if (asinPostRequestBody) {
+        writer.writeObjectValue("number", asinPostRequestBody.number);
+        writer.writeAdditionalData(asinPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

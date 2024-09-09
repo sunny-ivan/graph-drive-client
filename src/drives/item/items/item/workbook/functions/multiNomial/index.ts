@@ -35,7 +35,7 @@ export interface MultiNomialPostRequestBody extends AdditionalDataHolder, Parsab
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the multiNomial method.
@@ -62,9 +62,11 @@ export interface MultiNomialRequestBuilder extends BaseRequestBuilder<MultiNomia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMultiNomialPostRequestBody(writer: SerializationWriter, multiNomialPostRequestBody: Partial<MultiNomialPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("values", multiNomialPostRequestBody.values);
-    writer.writeAdditionalData(multiNomialPostRequestBody.additionalData);
+export function serializeMultiNomialPostRequestBody(writer: SerializationWriter, multiNomialPostRequestBody: Partial<MultiNomialPostRequestBody> | undefined | null = {}) : void {
+    if (multiNomialPostRequestBody) {
+        writer.writeObjectValue("values", multiNomialPostRequestBody.values);
+        writer.writeAdditionalData(multiNomialPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface ProperPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The text property
      */
-    text?: UntypedNode;
+    text?: UntypedNode | null;
 }
 /**
  * Provides operations to call the proper method.
@@ -62,9 +62,11 @@ export interface ProperRequestBuilder extends BaseRequestBuilder<ProperRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeProperPostRequestBody(writer: SerializationWriter, properPostRequestBody: Partial<ProperPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("text", properPostRequestBody.text);
-    writer.writeAdditionalData(properPostRequestBody.additionalData);
+export function serializeProperPostRequestBody(writer: SerializationWriter, properPostRequestBody: Partial<ProperPostRequestBody> | undefined | null = {}) : void {
+    if (properPostRequestBody) {
+        writer.writeObjectValue("text", properPostRequestBody.text);
+        writer.writeAdditionalData(properPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

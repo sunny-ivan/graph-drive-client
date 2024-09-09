@@ -14,7 +14,7 @@ export interface ApplyBottomPercentFilterPostRequestBody extends AdditionalDataH
     /**
      * The percent property
      */
-    percent?: number;
+    percent?: number | null;
 }
 /**
  * Provides operations to call the applyBottomPercentFilter method.
@@ -59,9 +59,11 @@ export function deserializeIntoApplyBottomPercentFilterPostRequestBody(applyBott
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyBottomPercentFilterPostRequestBody(writer: SerializationWriter, applyBottomPercentFilterPostRequestBody: Partial<ApplyBottomPercentFilterPostRequestBody> | undefined = {}) : void {
-    writer.writeNumberValue("percent", applyBottomPercentFilterPostRequestBody.percent);
-    writer.writeAdditionalData(applyBottomPercentFilterPostRequestBody.additionalData);
+export function serializeApplyBottomPercentFilterPostRequestBody(writer: SerializationWriter, applyBottomPercentFilterPostRequestBody: Partial<ApplyBottomPercentFilterPostRequestBody> | undefined | null = {}) : void {
+    if (applyBottomPercentFilterPostRequestBody) {
+        writer.writeNumberValue("percent", applyBottomPercentFilterPostRequestBody.percent);
+        writer.writeAdditionalData(applyBottomPercentFilterPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -35,7 +35,7 @@ export interface FactPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the fact method.
@@ -62,9 +62,11 @@ export interface FactRequestBuilder extends BaseRequestBuilder<FactRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFactPostRequestBody(writer: SerializationWriter, factPostRequestBody: Partial<FactPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", factPostRequestBody.number);
-    writer.writeAdditionalData(factPostRequestBody.additionalData);
+export function serializeFactPostRequestBody(writer: SerializationWriter, factPostRequestBody: Partial<FactPostRequestBody> | undefined | null = {}) : void {
+    if (factPostRequestBody) {
+        writer.writeObjectValue("number", factPostRequestBody.number);
+        writer.writeAdditionalData(factPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

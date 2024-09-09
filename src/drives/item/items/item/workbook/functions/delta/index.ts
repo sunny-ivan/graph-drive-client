@@ -25,11 +25,11 @@ export interface DeltaPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number1 property
      */
-    number1?: UntypedNode;
+    number1?: UntypedNode | null;
     /**
      * The number2 property
      */
-    number2?: UntypedNode;
+    number2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the delta method.
@@ -67,10 +67,12 @@ export function deserializeIntoDeltaPostRequestBody(deltaPostRequestBody: Partia
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDeltaPostRequestBody(writer: SerializationWriter, deltaPostRequestBody: Partial<DeltaPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number1", deltaPostRequestBody.number1);
-    writer.writeObjectValue("number2", deltaPostRequestBody.number2);
-    writer.writeAdditionalData(deltaPostRequestBody.additionalData);
+export function serializeDeltaPostRequestBody(writer: SerializationWriter, deltaPostRequestBody: Partial<DeltaPostRequestBody> | undefined | null = {}) : void {
+    if (deltaPostRequestBody) {
+        writer.writeObjectValue("number1", deltaPostRequestBody.number1);
+        writer.writeObjectValue("number2", deltaPostRequestBody.number2);
+        writer.writeAdditionalData(deltaPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

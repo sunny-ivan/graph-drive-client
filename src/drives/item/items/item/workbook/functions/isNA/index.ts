@@ -35,7 +35,7 @@ export interface IsNAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The value property
      */
-    value?: UntypedNode;
+    value?: UntypedNode | null;
 }
 /**
  * Provides operations to call the isNA method.
@@ -62,9 +62,11 @@ export interface IsNARequestBuilder extends BaseRequestBuilder<IsNARequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsNAPostRequestBody(writer: SerializationWriter, isNAPostRequestBody: Partial<IsNAPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("value", isNAPostRequestBody.value);
-    writer.writeAdditionalData(isNAPostRequestBody.additionalData);
+export function serializeIsNAPostRequestBody(writer: SerializationWriter, isNAPostRequestBody: Partial<IsNAPostRequestBody> | undefined | null = {}) : void {
+    if (isNAPostRequestBody) {
+        writer.writeObjectValue("value", isNAPostRequestBody.value);
+        writer.writeAdditionalData(isNAPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

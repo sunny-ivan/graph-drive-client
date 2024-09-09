@@ -16,7 +16,7 @@ export interface AbsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the abs method.
@@ -62,9 +62,11 @@ export function deserializeIntoAbsPostRequestBody(absPostRequestBody: Partial<Ab
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAbsPostRequestBody(writer: SerializationWriter, absPostRequestBody: Partial<AbsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", absPostRequestBody.number);
-    writer.writeAdditionalData(absPostRequestBody.additionalData);
+export function serializeAbsPostRequestBody(writer: SerializationWriter, absPostRequestBody: Partial<AbsPostRequestBody> | undefined | null = {}) : void {
+    if (absPostRequestBody) {
+        writer.writeObjectValue("number", absPostRequestBody.number);
+        writer.writeAdditionalData(absPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

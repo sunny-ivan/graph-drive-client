@@ -35,7 +35,7 @@ export interface IntPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the int method.
@@ -62,9 +62,11 @@ export interface IntRequestBuilder extends BaseRequestBuilder<IntRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIntPostRequestBody(writer: SerializationWriter, intPostRequestBody: Partial<IntPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", intPostRequestBody.number);
-    writer.writeAdditionalData(intPostRequestBody.additionalData);
+export function serializeIntPostRequestBody(writer: SerializationWriter, intPostRequestBody: Partial<IntPostRequestBody> | undefined | null = {}) : void {
+    if (intPostRequestBody) {
+        writer.writeObjectValue("number", intPostRequestBody.number);
+        writer.writeAdditionalData(intPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

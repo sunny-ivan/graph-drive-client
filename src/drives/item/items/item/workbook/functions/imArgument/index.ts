@@ -35,7 +35,7 @@ export interface ImArgumentPostRequestBody extends AdditionalDataHolder, Parsabl
     /**
      * The inumber property
      */
-    inumber?: UntypedNode;
+    inumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imArgument method.
@@ -62,9 +62,11 @@ export interface ImArgumentRequestBuilder extends BaseRequestBuilder<ImArgumentR
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImArgumentPostRequestBody(writer: SerializationWriter, imArgumentPostRequestBody: Partial<ImArgumentPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber", imArgumentPostRequestBody.inumber);
-    writer.writeAdditionalData(imArgumentPostRequestBody.additionalData);
+export function serializeImArgumentPostRequestBody(writer: SerializationWriter, imArgumentPostRequestBody: Partial<ImArgumentPostRequestBody> | undefined | null = {}) : void {
+    if (imArgumentPostRequestBody) {
+        writer.writeObjectValue("inumber", imArgumentPostRequestBody.inumber);
+        writer.writeAdditionalData(imArgumentPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

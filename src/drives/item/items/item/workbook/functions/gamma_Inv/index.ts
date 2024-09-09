@@ -37,15 +37,15 @@ export interface Gamma_InvPostRequestBody extends AdditionalDataHolder, Parsable
     /**
      * The alpha property
      */
-    alpha?: UntypedNode;
+    alpha?: UntypedNode | null;
     /**
      * The beta property
      */
-    beta?: UntypedNode;
+    beta?: UntypedNode | null;
     /**
      * The probability property
      */
-    probability?: UntypedNode;
+    probability?: UntypedNode | null;
 }
 /**
  * Provides operations to call the gamma_Inv method.
@@ -72,11 +72,13 @@ export interface Gamma_InvRequestBuilder extends BaseRequestBuilder<Gamma_InvReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGamma_InvPostRequestBody(writer: SerializationWriter, gamma_InvPostRequestBody: Partial<Gamma_InvPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("alpha", gamma_InvPostRequestBody.alpha);
-    writer.writeObjectValue("beta", gamma_InvPostRequestBody.beta);
-    writer.writeObjectValue("probability", gamma_InvPostRequestBody.probability);
-    writer.writeAdditionalData(gamma_InvPostRequestBody.additionalData);
+export function serializeGamma_InvPostRequestBody(writer: SerializationWriter, gamma_InvPostRequestBody: Partial<Gamma_InvPostRequestBody> | undefined | null = {}) : void {
+    if (gamma_InvPostRequestBody) {
+        writer.writeObjectValue("alpha", gamma_InvPostRequestBody.alpha);
+        writer.writeObjectValue("beta", gamma_InvPostRequestBody.beta);
+        writer.writeObjectValue("probability", gamma_InvPostRequestBody.probability);
+        writer.writeAdditionalData(gamma_InvPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

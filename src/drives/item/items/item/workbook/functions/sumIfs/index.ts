@@ -33,10 +33,12 @@ export function deserializeIntoSumIfsPostRequestBody(sumIfsPostRequestBody: Part
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSumIfsPostRequestBody(writer: SerializationWriter, sumIfsPostRequestBody: Partial<SumIfsPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("sumRange", sumIfsPostRequestBody.sumRange);
-    writer.writeObjectValue("values", sumIfsPostRequestBody.values);
-    writer.writeAdditionalData(sumIfsPostRequestBody.additionalData);
+export function serializeSumIfsPostRequestBody(writer: SerializationWriter, sumIfsPostRequestBody: Partial<SumIfsPostRequestBody> | undefined | null = {}) : void {
+    if (sumIfsPostRequestBody) {
+        writer.writeObjectValue("sumRange", sumIfsPostRequestBody.sumRange);
+        writer.writeObjectValue("values", sumIfsPostRequestBody.values);
+        writer.writeAdditionalData(sumIfsPostRequestBody.additionalData);
+    }
 }
 export interface SumIfsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -46,11 +48,11 @@ export interface SumIfsPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The sumRange property
      */
-    sumRange?: UntypedNode;
+    sumRange?: UntypedNode | null;
     /**
      * The values property
      */
-    values?: UntypedNode;
+    values?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sumIfs method.

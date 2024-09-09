@@ -37,15 +37,15 @@ export interface FixedPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The decimals property
      */
-    decimals?: UntypedNode;
+    decimals?: UntypedNode | null;
     /**
      * The noCommas property
      */
-    noCommas?: UntypedNode;
+    noCommas?: UntypedNode | null;
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the fixed method.
@@ -72,11 +72,13 @@ export interface FixedRequestBuilder extends BaseRequestBuilder<FixedRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFixedPostRequestBody(writer: SerializationWriter, fixedPostRequestBody: Partial<FixedPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("decimals", fixedPostRequestBody.decimals);
-    writer.writeObjectValue("noCommas", fixedPostRequestBody.noCommas);
-    writer.writeObjectValue("number", fixedPostRequestBody.number);
-    writer.writeAdditionalData(fixedPostRequestBody.additionalData);
+export function serializeFixedPostRequestBody(writer: SerializationWriter, fixedPostRequestBody: Partial<FixedPostRequestBody> | undefined | null = {}) : void {
+    if (fixedPostRequestBody) {
+        writer.writeObjectValue("decimals", fixedPostRequestBody.decimals);
+        writer.writeObjectValue("noCommas", fixedPostRequestBody.noCommas);
+        writer.writeObjectValue("number", fixedPostRequestBody.number);
+        writer.writeAdditionalData(fixedPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -32,7 +32,7 @@ export interface GetCompatibleHubContentTypesGetResponse extends BaseCollectionP
     /**
      * The value property
      */
-    value?: ContentType[];
+    value?: ContentType[] | null;
 }
 /**
  * Provides operations to call the getCompatibleHubContentTypes method.
@@ -95,9 +95,11 @@ export interface GetCompatibleHubContentTypesRequestBuilderGetQueryParameters {
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGetCompatibleHubContentTypesGetResponse(writer: SerializationWriter, getCompatibleHubContentTypesGetResponse: Partial<GetCompatibleHubContentTypesGetResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, getCompatibleHubContentTypesGetResponse)
-    writer.writeCollectionOfObjectValues<ContentType>("value", getCompatibleHubContentTypesGetResponse.value, serializeContentType);
+export function serializeGetCompatibleHubContentTypesGetResponse(writer: SerializationWriter, getCompatibleHubContentTypesGetResponse: Partial<GetCompatibleHubContentTypesGetResponse> | undefined | null = {}) : void {
+    if (getCompatibleHubContentTypesGetResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, getCompatibleHubContentTypesGetResponse)
+        writer.writeCollectionOfObjectValues<ContentType>("value", getCompatibleHubContentTypesGetResponse.value, serializeContentType);
+    }
 }
 /**
  * Uri template for the request builder.

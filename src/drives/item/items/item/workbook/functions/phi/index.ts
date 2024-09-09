@@ -35,7 +35,7 @@ export interface PhiPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the phi method.
@@ -62,9 +62,11 @@ export interface PhiRequestBuilder extends BaseRequestBuilder<PhiRequestBuilder>
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePhiPostRequestBody(writer: SerializationWriter, phiPostRequestBody: Partial<PhiPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("x", phiPostRequestBody.x);
-    writer.writeAdditionalData(phiPostRequestBody.additionalData);
+export function serializePhiPostRequestBody(writer: SerializationWriter, phiPostRequestBody: Partial<PhiPostRequestBody> | undefined | null = {}) : void {
+    if (phiPostRequestBody) {
+        writer.writeObjectValue("x", phiPostRequestBody.x);
+        writer.writeAdditionalData(phiPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

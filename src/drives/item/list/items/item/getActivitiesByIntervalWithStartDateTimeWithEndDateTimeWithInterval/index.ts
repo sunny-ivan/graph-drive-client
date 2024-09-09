@@ -32,7 +32,7 @@ export interface GetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithInte
     /**
      * The value property
      */
-    value?: ItemActivityStat[];
+    value?: ItemActivityStat[] | null;
 }
 /**
  * Provides operations to call the getActivitiesByInterval method.
@@ -94,9 +94,11 @@ export interface GetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithInte
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse(writer: SerializationWriter, getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse: Partial<GetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse> | undefined = {}) : void {
-    serializeBaseCollectionPaginationCountResponse(writer, getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse)
-    writer.writeCollectionOfObjectValues<ItemActivityStat>("value", getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse.value, serializeItemActivityStat);
+export function serializeGetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse(writer: SerializationWriter, getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse: Partial<GetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse> | undefined | null = {}) : void {
+    if (getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse) {
+        serializeBaseCollectionPaginationCountResponse(writer, getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse)
+        writer.writeCollectionOfObjectValues<ItemActivityStat>("value", getActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalGetResponse.value, serializeItemActivityStat);
+    }
 }
 /**
  * Uri template for the request builder.

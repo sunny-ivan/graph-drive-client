@@ -35,7 +35,7 @@ export interface Hex2DecPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the hex2Dec method.
@@ -62,9 +62,11 @@ export interface Hex2DecRequestBuilder extends BaseRequestBuilder<Hex2DecRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHex2DecPostRequestBody(writer: SerializationWriter, hex2DecPostRequestBody: Partial<Hex2DecPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", hex2DecPostRequestBody.number);
-    writer.writeAdditionalData(hex2DecPostRequestBody.additionalData);
+export function serializeHex2DecPostRequestBody(writer: SerializationWriter, hex2DecPostRequestBody: Partial<Hex2DecPostRequestBody> | undefined | null = {}) : void {
+    if (hex2DecPostRequestBody) {
+        writer.writeObjectValue("number", hex2DecPostRequestBody.number);
+        writer.writeAdditionalData(hex2DecPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

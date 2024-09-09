@@ -36,11 +36,11 @@ export interface Percentile_ExcPostRequestBody extends AdditionalDataHolder, Par
     /**
      * The array property
      */
-    array?: UntypedNode;
+    array?: UntypedNode | null;
     /**
      * The k property
      */
-    k?: UntypedNode;
+    k?: UntypedNode | null;
 }
 /**
  * Provides operations to call the percentile_Exc method.
@@ -67,10 +67,12 @@ export interface Percentile_ExcRequestBuilder extends BaseRequestBuilder<Percent
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePercentile_ExcPostRequestBody(writer: SerializationWriter, percentile_ExcPostRequestBody: Partial<Percentile_ExcPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("array", percentile_ExcPostRequestBody.array);
-    writer.writeObjectValue("k", percentile_ExcPostRequestBody.k);
-    writer.writeAdditionalData(percentile_ExcPostRequestBody.additionalData);
+export function serializePercentile_ExcPostRequestBody(writer: SerializationWriter, percentile_ExcPostRequestBody: Partial<Percentile_ExcPostRequestBody> | undefined | null = {}) : void {
+    if (percentile_ExcPostRequestBody) {
+        writer.writeObjectValue("array", percentile_ExcPostRequestBody.array);
+        writer.writeObjectValue("k", percentile_ExcPostRequestBody.k);
+        writer.writeAdditionalData(percentile_ExcPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

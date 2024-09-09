@@ -16,15 +16,15 @@ export interface ComplexPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The iNum property
      */
-    iNum?: UntypedNode;
+    iNum?: UntypedNode | null;
     /**
      * The realNum property
      */
-    realNum?: UntypedNode;
+    realNum?: UntypedNode | null;
     /**
      * The suffix property
      */
-    suffix?: UntypedNode;
+    suffix?: UntypedNode | null;
 }
 /**
  * Provides operations to call the complex method.
@@ -72,11 +72,13 @@ export function deserializeIntoComplexPostRequestBody(complexPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeComplexPostRequestBody(writer: SerializationWriter, complexPostRequestBody: Partial<ComplexPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("iNum", complexPostRequestBody.iNum);
-    writer.writeObjectValue("realNum", complexPostRequestBody.realNum);
-    writer.writeObjectValue("suffix", complexPostRequestBody.suffix);
-    writer.writeAdditionalData(complexPostRequestBody.additionalData);
+export function serializeComplexPostRequestBody(writer: SerializationWriter, complexPostRequestBody: Partial<ComplexPostRequestBody> | undefined | null = {}) : void {
+    if (complexPostRequestBody) {
+        writer.writeObjectValue("iNum", complexPostRequestBody.iNum);
+        writer.writeObjectValue("realNum", complexPostRequestBody.realNum);
+        writer.writeObjectValue("suffix", complexPostRequestBody.suffix);
+        writer.writeAdditionalData(complexPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

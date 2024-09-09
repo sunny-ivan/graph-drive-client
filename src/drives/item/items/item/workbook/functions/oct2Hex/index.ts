@@ -36,11 +36,11 @@ export interface Oct2HexPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
     /**
      * The places property
      */
-    places?: UntypedNode;
+    places?: UntypedNode | null;
 }
 /**
  * Provides operations to call the oct2Hex method.
@@ -67,10 +67,12 @@ export interface Oct2HexRequestBuilder extends BaseRequestBuilder<Oct2HexRequest
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeOct2HexPostRequestBody(writer: SerializationWriter, oct2HexPostRequestBody: Partial<Oct2HexPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", oct2HexPostRequestBody.number);
-    writer.writeObjectValue("places", oct2HexPostRequestBody.places);
-    writer.writeAdditionalData(oct2HexPostRequestBody.additionalData);
+export function serializeOct2HexPostRequestBody(writer: SerializationWriter, oct2HexPostRequestBody: Partial<Oct2HexPostRequestBody> | undefined | null = {}) : void {
+    if (oct2HexPostRequestBody) {
+        writer.writeObjectValue("number", oct2HexPostRequestBody.number);
+        writer.writeObjectValue("places", oct2HexPostRequestBody.places);
+        writer.writeAdditionalData(oct2HexPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

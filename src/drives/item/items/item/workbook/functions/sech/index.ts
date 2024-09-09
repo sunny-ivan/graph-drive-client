@@ -35,7 +35,7 @@ export interface SechPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the sech method.
@@ -62,9 +62,11 @@ export interface SechRequestBuilder extends BaseRequestBuilder<SechRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSechPostRequestBody(writer: SerializationWriter, sechPostRequestBody: Partial<SechPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", sechPostRequestBody.number);
-    writer.writeAdditionalData(sechPostRequestBody.additionalData);
+export function serializeSechPostRequestBody(writer: SerializationWriter, sechPostRequestBody: Partial<SechPostRequestBody> | undefined | null = {}) : void {
+    if (sechPostRequestBody) {
+        writer.writeObjectValue("number", sechPostRequestBody.number);
+        writer.writeAdditionalData(sechPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

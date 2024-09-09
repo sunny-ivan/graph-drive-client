@@ -36,11 +36,11 @@ export interface ImSubPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The inumber1 property
      */
-    inumber1?: UntypedNode;
+    inumber1?: UntypedNode | null;
     /**
      * The inumber2 property
      */
-    inumber2?: UntypedNode;
+    inumber2?: UntypedNode | null;
 }
 /**
  * Provides operations to call the imSub method.
@@ -67,10 +67,12 @@ export interface ImSubRequestBuilder extends BaseRequestBuilder<ImSubRequestBuil
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImSubPostRequestBody(writer: SerializationWriter, imSubPostRequestBody: Partial<ImSubPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("inumber1", imSubPostRequestBody.inumber1);
-    writer.writeObjectValue("inumber2", imSubPostRequestBody.inumber2);
-    writer.writeAdditionalData(imSubPostRequestBody.additionalData);
+export function serializeImSubPostRequestBody(writer: SerializationWriter, imSubPostRequestBody: Partial<ImSubPostRequestBody> | undefined | null = {}) : void {
+    if (imSubPostRequestBody) {
+        writer.writeObjectValue("inumber1", imSubPostRequestBody.inumber1);
+        writer.writeObjectValue("inumber2", imSubPostRequestBody.inumber2);
+        writer.writeAdditionalData(imSubPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -16,11 +16,11 @@ export interface ChiSq_Dist_RTPostRequestBody extends AdditionalDataHolder, Pars
     /**
      * The degFreedom property
      */
-    degFreedom?: UntypedNode;
+    degFreedom?: UntypedNode | null;
     /**
      * The x property
      */
-    x?: UntypedNode;
+    x?: UntypedNode | null;
 }
 /**
  * Provides operations to call the chiSq_Dist_RT method.
@@ -67,10 +67,12 @@ export function deserializeIntoChiSq_Dist_RTPostRequestBody(chiSq_Dist_RTPostReq
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeChiSq_Dist_RTPostRequestBody(writer: SerializationWriter, chiSq_Dist_RTPostRequestBody: Partial<ChiSq_Dist_RTPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("degFreedom", chiSq_Dist_RTPostRequestBody.degFreedom);
-    writer.writeObjectValue("x", chiSq_Dist_RTPostRequestBody.x);
-    writer.writeAdditionalData(chiSq_Dist_RTPostRequestBody.additionalData);
+export function serializeChiSq_Dist_RTPostRequestBody(writer: SerializationWriter, chiSq_Dist_RTPostRequestBody: Partial<ChiSq_Dist_RTPostRequestBody> | undefined | null = {}) : void {
+    if (chiSq_Dist_RTPostRequestBody) {
+        writer.writeObjectValue("degFreedom", chiSq_Dist_RTPostRequestBody.degFreedom);
+        writer.writeObjectValue("x", chiSq_Dist_RTPostRequestBody.x);
+        writer.writeAdditionalData(chiSq_Dist_RTPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

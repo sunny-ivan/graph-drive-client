@@ -16,19 +16,19 @@ export interface Binom_Dist_RangePostRequestBody extends AdditionalDataHolder, P
     /**
      * The numberS property
      */
-    numberS?: UntypedNode;
+    numberS?: UntypedNode | null;
     /**
      * The numberS2 property
      */
-    numberS2?: UntypedNode;
+    numberS2?: UntypedNode | null;
     /**
      * The probabilityS property
      */
-    probabilityS?: UntypedNode;
+    probabilityS?: UntypedNode | null;
     /**
      * The trials property
      */
-    trials?: UntypedNode;
+    trials?: UntypedNode | null;
 }
 /**
  * Provides operations to call the binom_Dist_Range method.
@@ -77,12 +77,14 @@ export function deserializeIntoBinom_Dist_RangePostRequestBody(binom_Dist_RangeP
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBinom_Dist_RangePostRequestBody(writer: SerializationWriter, binom_Dist_RangePostRequestBody: Partial<Binom_Dist_RangePostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("numberS", binom_Dist_RangePostRequestBody.numberS);
-    writer.writeObjectValue("numberS2", binom_Dist_RangePostRequestBody.numberS2);
-    writer.writeObjectValue("probabilityS", binom_Dist_RangePostRequestBody.probabilityS);
-    writer.writeObjectValue("trials", binom_Dist_RangePostRequestBody.trials);
-    writer.writeAdditionalData(binom_Dist_RangePostRequestBody.additionalData);
+export function serializeBinom_Dist_RangePostRequestBody(writer: SerializationWriter, binom_Dist_RangePostRequestBody: Partial<Binom_Dist_RangePostRequestBody> | undefined | null = {}) : void {
+    if (binom_Dist_RangePostRequestBody) {
+        writer.writeObjectValue("numberS", binom_Dist_RangePostRequestBody.numberS);
+        writer.writeObjectValue("numberS2", binom_Dist_RangePostRequestBody.numberS2);
+        writer.writeObjectValue("probabilityS", binom_Dist_RangePostRequestBody.probabilityS);
+        writer.writeObjectValue("trials", binom_Dist_RangePostRequestBody.trials);
+        writer.writeAdditionalData(binom_Dist_RangePostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

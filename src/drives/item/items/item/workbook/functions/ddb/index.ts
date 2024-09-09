@@ -25,23 +25,23 @@ export interface DdbPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The cost property
      */
-    cost?: UntypedNode;
+    cost?: UntypedNode | null;
     /**
      * The factor property
      */
-    factor?: UntypedNode;
+    factor?: UntypedNode | null;
     /**
      * The life property
      */
-    life?: UntypedNode;
+    life?: UntypedNode | null;
     /**
      * The period property
      */
-    period?: UntypedNode;
+    period?: UntypedNode | null;
     /**
      * The salvage property
      */
-    salvage?: UntypedNode;
+    salvage?: UntypedNode | null;
 }
 /**
  * Provides operations to call the ddb method.
@@ -82,13 +82,15 @@ export function deserializeIntoDdbPostRequestBody(ddbPostRequestBody: Partial<Dd
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDdbPostRequestBody(writer: SerializationWriter, ddbPostRequestBody: Partial<DdbPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("cost", ddbPostRequestBody.cost);
-    writer.writeObjectValue("factor", ddbPostRequestBody.factor);
-    writer.writeObjectValue("life", ddbPostRequestBody.life);
-    writer.writeObjectValue("period", ddbPostRequestBody.period);
-    writer.writeObjectValue("salvage", ddbPostRequestBody.salvage);
-    writer.writeAdditionalData(ddbPostRequestBody.additionalData);
+export function serializeDdbPostRequestBody(writer: SerializationWriter, ddbPostRequestBody: Partial<DdbPostRequestBody> | undefined | null = {}) : void {
+    if (ddbPostRequestBody) {
+        writer.writeObjectValue("cost", ddbPostRequestBody.cost);
+        writer.writeObjectValue("factor", ddbPostRequestBody.factor);
+        writer.writeObjectValue("life", ddbPostRequestBody.life);
+        writer.writeObjectValue("period", ddbPostRequestBody.period);
+        writer.writeObjectValue("salvage", ddbPostRequestBody.salvage);
+        writer.writeAdditionalData(ddbPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

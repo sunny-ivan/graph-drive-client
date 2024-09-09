@@ -32,9 +32,11 @@ export function deserializeIntoUnicharPostRequestBody(unicharPostRequestBody: Pa
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUnicharPostRequestBody(writer: SerializationWriter, unicharPostRequestBody: Partial<UnicharPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", unicharPostRequestBody.number);
-    writer.writeAdditionalData(unicharPostRequestBody.additionalData);
+export function serializeUnicharPostRequestBody(writer: SerializationWriter, unicharPostRequestBody: Partial<UnicharPostRequestBody> | undefined | null = {}) : void {
+    if (unicharPostRequestBody) {
+        writer.writeObjectValue("number", unicharPostRequestBody.number);
+        writer.writeAdditionalData(unicharPostRequestBody.additionalData);
+    }
 }
 export interface UnicharPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
@@ -44,7 +46,7 @@ export interface UnicharPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the unichar method.

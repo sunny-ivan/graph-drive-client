@@ -16,7 +16,7 @@ export interface AcosPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The number property
      */
-    number?: UntypedNode;
+    number?: UntypedNode | null;
 }
 /**
  * Provides operations to call the acos method.
@@ -62,9 +62,11 @@ export function deserializeIntoAcosPostRequestBody(acosPostRequestBody: Partial<
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAcosPostRequestBody(writer: SerializationWriter, acosPostRequestBody: Partial<AcosPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("number", acosPostRequestBody.number);
-    writer.writeAdditionalData(acosPostRequestBody.additionalData);
+export function serializeAcosPostRequestBody(writer: SerializationWriter, acosPostRequestBody: Partial<AcosPostRequestBody> | undefined | null = {}) : void {
+    if (acosPostRequestBody) {
+        writer.writeObjectValue("number", acosPostRequestBody.number);
+        writer.writeAdditionalData(acosPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

@@ -37,15 +37,15 @@ export interface DmaxPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The criteria property
      */
-    criteria?: UntypedNode;
+    criteria?: UntypedNode | null;
     /**
      * The database property
      */
-    database?: UntypedNode;
+    database?: UntypedNode | null;
     /**
      * The field property
      */
-    field?: UntypedNode;
+    field?: UntypedNode | null;
 }
 /**
  * Provides operations to call the dmax method.
@@ -72,11 +72,13 @@ export interface DmaxRequestBuilder extends BaseRequestBuilder<DmaxRequestBuilde
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDmaxPostRequestBody(writer: SerializationWriter, dmaxPostRequestBody: Partial<DmaxPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("criteria", dmaxPostRequestBody.criteria);
-    writer.writeObjectValue("database", dmaxPostRequestBody.database);
-    writer.writeObjectValue("field", dmaxPostRequestBody.field);
-    writer.writeAdditionalData(dmaxPostRequestBody.additionalData);
+export function serializeDmaxPostRequestBody(writer: SerializationWriter, dmaxPostRequestBody: Partial<DmaxPostRequestBody> | undefined | null = {}) : void {
+    if (dmaxPostRequestBody) {
+        writer.writeObjectValue("criteria", dmaxPostRequestBody.criteria);
+        writer.writeObjectValue("database", dmaxPostRequestBody.database);
+        writer.writeObjectValue("field", dmaxPostRequestBody.field);
+        writer.writeAdditionalData(dmaxPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.

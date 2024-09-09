@@ -35,7 +35,7 @@ export interface SecondPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
      * The serialNumber property
      */
-    serialNumber?: UntypedNode;
+    serialNumber?: UntypedNode | null;
 }
 /**
  * Provides operations to call the second method.
@@ -62,9 +62,11 @@ export interface SecondRequestBuilder extends BaseRequestBuilder<SecondRequestBu
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSecondPostRequestBody(writer: SerializationWriter, secondPostRequestBody: Partial<SecondPostRequestBody> | undefined = {}) : void {
-    writer.writeObjectValue("serialNumber", secondPostRequestBody.serialNumber);
-    writer.writeAdditionalData(secondPostRequestBody.additionalData);
+export function serializeSecondPostRequestBody(writer: SerializationWriter, secondPostRequestBody: Partial<SecondPostRequestBody> | undefined | null = {}) : void {
+    if (secondPostRequestBody) {
+        writer.writeObjectValue("serialNumber", secondPostRequestBody.serialNumber);
+        writer.writeAdditionalData(secondPostRequestBody.additionalData);
+    }
 }
 /**
  * Uri template for the request builder.
