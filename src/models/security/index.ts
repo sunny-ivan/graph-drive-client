@@ -9,6 +9,7 @@ import { type AdditionalDataHolder, type Duration, type Parsable, type ParseNode
 import { type Guid } from 'guid-typescript';
 
 export type ActionAfterRetentionPeriod = (typeof ActionAfterRetentionPeriodObject)[keyof typeof ActionAfterRetentionPeriodObject];
+export type AdditionalOptions = (typeof AdditionalOptionsObject)[keyof typeof AdditionalOptionsObject];
 export interface Alert extends Entity, Parsable {
     /**
      * The adversary or activity group that is associated with this alert.
@@ -910,6 +911,8 @@ export function createCaseOperationFromDiscriminatorValue(parseNode: ParseNode |
                     return deserializeIntoEdiscoveryIndexOperation;
                 case "#microsoft.graph.security.ediscoveryPurgeDataOperation":
                     return deserializeIntoEdiscoveryPurgeDataOperation;
+                case "#microsoft.graph.security.ediscoverySearchExportOperation":
+                    return deserializeIntoEdiscoverySearchExportOperation;
                 case "#microsoft.graph.security.ediscoveryTagOperation":
                     return deserializeIntoEdiscoveryTagOperation;
             }
@@ -1234,6 +1237,15 @@ export function createEdiscoveryReviewSetQueryFromDiscriminatorValue(parseNode: 
 // @ts-ignore
 export function createEdiscoveryReviewTagFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoEdiscoveryReviewTag;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {EdiscoverySearchExportOperation}
+ */
+// @ts-ignore
+export function createEdiscoverySearchExportOperationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEdiscoverySearchExportOperation;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -2888,13 +2900,16 @@ export function deserializeIntoDeviceEvidence(deviceEvidence: Partial<DeviceEvid
         "azureAdDeviceId": n => { deviceEvidence.azureAdDeviceId = n.getStringValue(); },
         "defenderAvStatus": n => { deviceEvidence.defenderAvStatus = n.getEnumValue<DefenderAvStatus>(DefenderAvStatusObject); },
         "deviceDnsName": n => { deviceEvidence.deviceDnsName = n.getStringValue(); },
+        "dnsDomain": n => { deviceEvidence.dnsDomain = n.getStringValue(); },
         "firstSeenDateTime": n => { deviceEvidence.firstSeenDateTime = n.getDateValue(); },
         "healthStatus": n => { deviceEvidence.healthStatus = n.getEnumValue<DeviceHealthStatus>(DeviceHealthStatusObject); },
+        "hostName": n => { deviceEvidence.hostName = n.getStringValue(); },
         "ipInterfaces": n => { deviceEvidence.ipInterfaces = n.getCollectionOfPrimitiveValues<string>(); },
         "lastExternalIpAddress": n => { deviceEvidence.lastExternalIpAddress = n.getStringValue(); },
         "lastIpAddress": n => { deviceEvidence.lastIpAddress = n.getStringValue(); },
         "loggedOnUsers": n => { deviceEvidence.loggedOnUsers = n.getCollectionOfObjectValues<LoggedOnUser>(createLoggedOnUserFromDiscriminatorValue); },
         "mdeDeviceId": n => { deviceEvidence.mdeDeviceId = n.getStringValue(); },
+        "ntDomain": n => { deviceEvidence.ntDomain = n.getStringValue(); },
         "onboardingStatus": n => { deviceEvidence.onboardingStatus = n.getEnumValue<OnboardingStatus>(OnboardingStatusObject); },
         "osBuild": n => { deviceEvidence.osBuild = n.getNumberValue(); },
         "osPlatform": n => { deviceEvidence.osPlatform = n.getStringValue(); },
@@ -3127,6 +3142,25 @@ export function deserializeIntoEdiscoverySearch(ediscoverySearch: Partial<Edisco
         "dataSourceScopes": n => { ediscoverySearch.dataSourceScopes = n.getCollectionOfEnumValues<DataSourceScopes>(DataSourceScopesObject); },
         "lastEstimateStatisticsOperation": n => { ediscoverySearch.lastEstimateStatisticsOperation = n.getObjectValue<EdiscoveryEstimateOperation>(createEdiscoveryEstimateOperationFromDiscriminatorValue); },
         "noncustodialSources": n => { ediscoverySearch.noncustodialSources = n.getCollectionOfObjectValues<EdiscoveryNoncustodialDataSource>(createEdiscoveryNoncustodialDataSourceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEdiscoverySearchExportOperation(ediscoverySearchExportOperation: Partial<EdiscoverySearchExportOperation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoCaseOperation(ediscoverySearchExportOperation),
+        "additionalOptions": n => { ediscoverySearchExportOperation.additionalOptions = n.getCollectionOfEnumValues<AdditionalOptions>(AdditionalOptionsObject); },
+        "description": n => { ediscoverySearchExportOperation.description = n.getStringValue(); },
+        "displayName": n => { ediscoverySearchExportOperation.displayName = n.getStringValue(); },
+        "exportCriteria": n => { ediscoverySearchExportOperation.exportCriteria = n.getCollectionOfEnumValues<ExportCriteria>(ExportCriteriaObject); },
+        "exportFileMetadata": n => { ediscoverySearchExportOperation.exportFileMetadata = n.getCollectionOfObjectValues<ExportFileMetadata>(createExportFileMetadataFromDiscriminatorValue); },
+        "exportFormat": n => { ediscoverySearchExportOperation.exportFormat = n.getEnumValue<ExportFormat>(ExportFormatObject); },
+        "exportLocation": n => { ediscoverySearchExportOperation.exportLocation = n.getCollectionOfEnumValues<ExportLocation>(ExportLocationObject); },
+        "exportSingleItems": n => { ediscoverySearchExportOperation.exportSingleItems = n.getBooleanValue(); },
+        "search": n => { ediscoverySearchExportOperation.search = n.getObjectValue<EdiscoverySearch>(createEdiscoverySearchFromDiscriminatorValue); },
     }
 }
 /**
@@ -4780,6 +4814,10 @@ export interface DeviceEvidence extends AlertEvidence, Parsable {
      */
     deviceDnsName?: string | null;
     /**
+     * The DNS domain that this computer belongs to. A sequence of labels separated by dots.
+     */
+    dnsDomain?: string | null;
+    /**
      * The date and time when the device was first seen.
      */
     firstSeenDateTime?: Date | null;
@@ -4787,6 +4825,10 @@ export interface DeviceEvidence extends AlertEvidence, Parsable {
      * The health state of the device. The possible values are: active, inactive, impairedCommunication, noSensorData, noSensorDataImpairedCommunication, unknown, unknownFutureValue.
      */
     healthStatus?: DeviceHealthStatus | null;
+    /**
+     * The hostname without the domain suffix.
+     */
+    hostName?: string | null;
     /**
      * Ip interfaces of the device during the time of the alert.
      */
@@ -4807,6 +4849,10 @@ export interface DeviceEvidence extends AlertEvidence, Parsable {
      * A unique identifier assigned to a device by Microsoft Defender for Endpoint.
      */
     mdeDeviceId?: string | null;
+    /**
+     * A logical grouping of computers within a Microsoft Windows network.
+     */
+    ntDomain?: string | null;
     /**
      * The status of the machine onboarding to Microsoft Defender for Endpoint. The possible values are: insufficientInfo, onboarded, canBeOnboarded, unsupported, unknownFutureValue.
      */
@@ -5100,6 +5146,44 @@ export interface EdiscoverySearch extends Parsable, Search {
      */
     noncustodialSources?: EdiscoveryNoncustodialDataSource[] | null;
 }
+export interface EdiscoverySearchExportOperation extends CaseOperation, Parsable {
+    /**
+     * The additionalOptions property
+     */
+    additionalOptions?: AdditionalOptions[] | null;
+    /**
+     * The description property
+     */
+    description?: string | null;
+    /**
+     * The displayName property
+     */
+    displayName?: string | null;
+    /**
+     * The exportCriteria property
+     */
+    exportCriteria?: ExportCriteria[] | null;
+    /**
+     * The exportFileMetadata property
+     */
+    exportFileMetadata?: ExportFileMetadata[] | null;
+    /**
+     * The exportFormat property
+     */
+    exportFormat?: ExportFormat | null;
+    /**
+     * The exportLocation property
+     */
+    exportLocation?: ExportLocation[] | null;
+    /**
+     * The exportSingleItems property
+     */
+    exportSingleItems?: boolean | null;
+    /**
+     * The search property
+     */
+    search?: EdiscoverySearch | null;
+}
 export interface EdiscoveryTagOperation extends CaseOperation, Parsable {
 }
 export interface EmailSender extends AdditionalDataHolder, Parsable {
@@ -5173,6 +5257,7 @@ export type EventStatusType = (typeof EventStatusTypeObject)[keyof typeof EventS
 export type EvidenceRemediationStatus = (typeof EvidenceRemediationStatusObject)[keyof typeof EvidenceRemediationStatusObject];
 export type EvidenceRole = (typeof EvidenceRoleObject)[keyof typeof EvidenceRoleObject];
 export type EvidenceVerdict = (typeof EvidenceVerdictObject)[keyof typeof EvidenceVerdictObject];
+export type ExportCriteria = (typeof ExportCriteriaObject)[keyof typeof ExportCriteriaObject];
 export interface ExportFileMetadata extends AdditionalDataHolder, Parsable {
     /**
      * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
@@ -5196,6 +5281,8 @@ export interface ExportFileMetadata extends AdditionalDataHolder, Parsable {
     size?: number | null;
 }
 export type ExportFileStructure = (typeof ExportFileStructureObject)[keyof typeof ExportFileStructureObject];
+export type ExportFormat = (typeof ExportFormatObject)[keyof typeof ExportFormatObject];
+export type ExportLocation = (typeof ExportLocationObject)[keyof typeof ExportLocationObject];
 export type ExportOptions = (typeof ExportOptionsObject)[keyof typeof ExportOptionsObject];
 export interface FileDetails extends AdditionalDataHolder, Parsable {
     /**
@@ -7531,13 +7618,16 @@ export function serializeDeviceEvidence(writer: SerializationWriter, deviceEvide
         writer.writeStringValue("azureAdDeviceId", deviceEvidence.azureAdDeviceId);
         writer.writeEnumValue<DefenderAvStatus>("defenderAvStatus", deviceEvidence.defenderAvStatus);
         writer.writeStringValue("deviceDnsName", deviceEvidence.deviceDnsName);
+        writer.writeStringValue("dnsDomain", deviceEvidence.dnsDomain);
         writer.writeDateValue("firstSeenDateTime", deviceEvidence.firstSeenDateTime);
         writer.writeEnumValue<DeviceHealthStatus>("healthStatus", deviceEvidence.healthStatus);
+        writer.writeStringValue("hostName", deviceEvidence.hostName);
         writer.writeCollectionOfPrimitiveValues<string>("ipInterfaces", deviceEvidence.ipInterfaces);
         writer.writeStringValue("lastExternalIpAddress", deviceEvidence.lastExternalIpAddress);
         writer.writeStringValue("lastIpAddress", deviceEvidence.lastIpAddress);
         writer.writeCollectionOfObjectValues<LoggedOnUser>("loggedOnUsers", deviceEvidence.loggedOnUsers, serializeLoggedOnUser);
         writer.writeStringValue("mdeDeviceId", deviceEvidence.mdeDeviceId);
+        writer.writeStringValue("ntDomain", deviceEvidence.ntDomain);
         writer.writeEnumValue<OnboardingStatus>("onboardingStatus", deviceEvidence.onboardingStatus);
         writer.writeNumberValue("osBuild", deviceEvidence.osBuild);
         writer.writeStringValue("osPlatform", deviceEvidence.osPlatform);
@@ -7771,6 +7861,25 @@ export function serializeEdiscoverySearch(writer: SerializationWriter, ediscover
         writer.writeEnumValue<DataSourceScopes[]>("dataSourceScopes", ediscoverySearch.dataSourceScopes);
         writer.writeObjectValue<EdiscoveryEstimateOperation>("lastEstimateStatisticsOperation", ediscoverySearch.lastEstimateStatisticsOperation, serializeEdiscoveryEstimateOperation);
         writer.writeCollectionOfObjectValues<EdiscoveryNoncustodialDataSource>("noncustodialSources", ediscoverySearch.noncustodialSources, serializeEdiscoveryNoncustodialDataSource);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEdiscoverySearchExportOperation(writer: SerializationWriter, ediscoverySearchExportOperation: Partial<EdiscoverySearchExportOperation> | undefined | null = {}) : void {
+    if (ediscoverySearchExportOperation) {
+        serializeCaseOperation(writer, ediscoverySearchExportOperation)
+        writer.writeEnumValue<AdditionalOptions[]>("additionalOptions", ediscoverySearchExportOperation.additionalOptions);
+        writer.writeStringValue("description", ediscoverySearchExportOperation.description);
+        writer.writeStringValue("displayName", ediscoverySearchExportOperation.displayName);
+        writer.writeEnumValue<ExportCriteria[]>("exportCriteria", ediscoverySearchExportOperation.exportCriteria);
+        writer.writeCollectionOfObjectValues<ExportFileMetadata>("exportFileMetadata", ediscoverySearchExportOperation.exportFileMetadata, serializeExportFileMetadata);
+        writer.writeEnumValue<ExportFormat>("exportFormat", ediscoverySearchExportOperation.exportFormat);
+        writer.writeEnumValue<ExportLocation[]>("exportLocation", ediscoverySearchExportOperation.exportLocation);
+        writer.writeBooleanValue("exportSingleItems", ediscoverySearchExportOperation.exportSingleItems);
+        writer.writeObjectValue<EdiscoverySearch>("search", ediscoverySearchExportOperation.search, serializeEdiscoverySearch);
     }
 }
 /**
@@ -10082,6 +10191,15 @@ export const ActionAfterRetentionPeriodObject = {
     Relabel: "relabel",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const AdditionalOptionsObject = {
+    None: "none",
+    TeamsAndYammerConversations: "teamsAndYammerConversations",
+    CloudAttachments: "cloudAttachments",
+    AllDocumentVersions: "allDocumentVersions",
+    SubfolderContents: "subfolderContents",
+    ListAttachments: "listAttachments",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const AlertClassificationObject = {
     Unknown: "unknown",
     FalsePositive: "falsePositive",
@@ -10139,6 +10257,8 @@ export const CaseActionObject = {
     HoldUpdate: "holdUpdate",
     UnknownFutureValue: "unknownFutureValue",
     PurgeData: "purgeData",
+    ExportReport: "exportReport",
+    ExportResult: "exportResult",
 } as const;
 export const CaseOperationStatusObject = {
     NotStarted: "notStarted",
@@ -10318,10 +10438,26 @@ export const EvidenceVerdictObject = {
     NoThreatsFound: "noThreatsFound",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const ExportCriteriaObject = {
+    SearchHits: "searchHits",
+    PartiallyIndexed: "partiallyIndexed",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const ExportFileStructureObject = {
     None: "none",
     Directory: "directory",
     Pst: "pst",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const ExportFormatObject = {
+    Pst: "pst",
+    Msg: "msg",
+    Eml: "eml",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const ExportLocationObject = {
+    ResponsiveLocations: "responsiveLocations",
+    NonresponsiveLocations: "nonresponsiveLocations",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const ExportOptionsObject = {

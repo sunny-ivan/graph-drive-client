@@ -1,9 +1,10 @@
 {
-  "descriptionHash": "7CE887A1597AF8E60885E01A3E4B5E756FDFFDBCD76A8C6987C59697881831717701767C96D16B2AD7B32DC02CC56B0EA00ECF16F4A09B34E14A6A9C46AA8F52",
+  "descriptionHash": "9F60E21AC5C7A6B53C6D01CB7A5594587AD84E16B1FB65B58F10E95D002A7BEF5E5CF5E791539B06F9348E4960FCFAF113338C6A7710A85F60D267F25503818F",
   "descriptionLocation": "../data/openapi.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.18.0",
+  "kiotaVersion": "1.19.1",
   "clientClassName": "GraphDriveClient",
+  "typeAccessModifier": "Public",
   "clientNamespaceName": "ApiSdk",
   "language": "TypeScript",
   "usesBackingStore": false,
