@@ -5134,7 +5134,7 @@ export interface EdiscoverySearch extends Parsable, Search {
      */
     custodianSources?: DataSource[] | null;
     /**
-     * When specified, the collection will span across a service for an entire workload. Possible values are: none, allTenantMailboxes, allTenantSites, allCaseCustodians, allCaseNoncustodialDataSources.
+     * When specified, the collection spans across a service for an entire workload. Possible values are: none, allTenantMailboxes, allTenantSites, allCaseCustodians, allCaseNoncustodialDataSources.
      */
     dataSourceScopes?: DataSourceScopes[] | null;
     /**
