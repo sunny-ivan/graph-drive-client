@@ -6,6 +6,20 @@ import { createCommunicationsIdentitySetFromDiscriminatorValue, createIdentityFr
 // @ts-ignore
 import { type AdditionalDataHolder, type Duration, type Parsable, type ParseNode, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
+export interface AdministrativeUnitInfo extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
+     * The id property
+     */
+    id?: string | null;
+    /**
+     * The OdataType property
+     */
+    odataType?: string | null;
+}
 export type AudioCodec = (typeof AudioCodecObject)[keyof typeof AudioCodecObject];
 export interface CallRecord extends Entity, Parsable {
     /**
@@ -76,6 +90,15 @@ export interface ClientUserAgent extends Parsable, UserAgent {
      * The productFamily property
      */
     productFamily?: ProductFamily | null;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {AdministrativeUnitInfo}
+ */
+// @ts-ignore
+export function createAdministrativeUnitInfoFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAdministrativeUnitInfo;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -310,6 +333,17 @@ export function createUserIdentityFromDiscriminatorValue(parseNode: ParseNode | 
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoAdministrativeUnitInfo(administrativeUnitInfo: Partial<AdministrativeUnitInfo> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "id": n => { administrativeUnitInfo.id = n.getStringValue(); },
+        "@odata.type": n => { administrativeUnitInfo.odataType = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoCallRecord(callRecord: Partial<CallRecord> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(callRecord),
@@ -525,6 +559,7 @@ export function deserializeIntoParticipant(participant: Partial<Participant> | u
 export function deserializeIntoParticipantBase(participantBase: Partial<ParticipantBase> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(participantBase),
+        "administrativeUnitInfos": n => { participantBase.administrativeUnitInfos = n.getCollectionOfObjectValues<AdministrativeUnitInfo>(createAdministrativeUnitInfoFromDiscriminatorValue); },
         "identity": n => { participantBase.identity = n.getObjectValue<CommunicationsIdentitySet>(createCommunicationsIdentitySetFromDiscriminatorValue); },
     }
 }
@@ -1074,6 +1109,10 @@ export interface Participant extends Parsable, ParticipantBase {
 }
 export interface ParticipantBase extends Entity, Parsable {
     /**
+     * The administrativeUnitInfos property
+     */
+    administrativeUnitInfos?: AdministrativeUnitInfo[] | null;
+    /**
      * The identity of the call participant.
      */
     identity?: CommunicationsIdentitySet | null;
@@ -1134,6 +1173,18 @@ export interface Segment extends Entity, Parsable {
      * UTC time when the segment started. The DateTimeOffset type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
      */
     startDateTime?: Date | null;
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAdministrativeUnitInfo(writer: SerializationWriter, administrativeUnitInfo: Partial<AdministrativeUnitInfo> | undefined | null = {}) : void {
+    if (administrativeUnitInfo) {
+        writer.writeStringValue("id", administrativeUnitInfo.id);
+        writer.writeStringValue("@odata.type", administrativeUnitInfo.odataType);
+        writer.writeAdditionalData(administrativeUnitInfo.additionalData);
+    }
 }
 /**
  * Serializes information the current object
@@ -1363,6 +1414,7 @@ export function serializeParticipant(writer: SerializationWriter, participant: P
 export function serializeParticipantBase(writer: SerializationWriter, participantBase: Partial<ParticipantBase> | undefined | null = {}) : void {
     if (participantBase) {
         serializeEntity(writer, participantBase)
+        writer.writeCollectionOfObjectValues<AdministrativeUnitInfo>("administrativeUnitInfos", participantBase.administrativeUnitInfos, serializeAdministrativeUnitInfo);
         writer.writeObjectValue<CommunicationsIdentitySet>("identity", participantBase.identity, serializeCommunicationsIdentitySet);
     }
 }

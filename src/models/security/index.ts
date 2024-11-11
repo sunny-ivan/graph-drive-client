@@ -4,9 +4,7 @@
 // @ts-ignore
 import { createGroupFromDiscriminatorValue, createIdentitySetFromDiscriminatorValue, createPhysicalAddressFromDiscriminatorValue, createPublicErrorFromDiscriminatorValue, createResultInfoFromDiscriminatorValue, createSiteFromDiscriminatorValue, deserializeIntoEntity, serializeEntity, serializeGroup, serializeIdentitySet, serializePhysicalAddress, serializePublicError, serializeResultInfo, serializeSite, type Entity, type Group, type IdentitySet, type PhysicalAddress, type PublicError, type ResultInfo, type Site } from '../index.js';
 // @ts-ignore
-import { type AdditionalDataHolder, type Duration, type Parsable, type ParseNode, type SerializationWriter } from '@microsoft/kiota-abstractions';
-// @ts-ignore
-import { type Guid } from 'guid-typescript';
+import { type AdditionalDataHolder, type Duration, type Guid, type Parsable, type ParseNode, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
 export type ActionAfterRetentionPeriod = (typeof ActionAfterRetentionPeriodObject)[keyof typeof ActionAfterRetentionPeriodObject];
 export type AdditionalOptions = (typeof AdditionalOptionsObject)[keyof typeof AdditionalOptionsObject];
@@ -446,7 +444,7 @@ export interface CaseEscaped extends Entity, Parsable {
 }
 export interface CaseOperation extends Entity, Parsable {
     /**
-     * The type of action the operation represents. Possible values are: addToReviewSet,applyTags,contentExport,convertToPdf,estimateStatistics, purgeData
+     * The type of action the operation represents. Possible values are: contentExport,  applyTags, convertToPdf, index, estimateStatistics, addToReviewSet, holdUpdate, unknownFutureValue, purgeData, exportReport, exportResult. You must use the Prefer: include-unknown-enum-members request header to get the following values from this evolvable enum: purgeData, exportReport, exportResult.
      */
     action?: CaseAction | null;
     /**
@@ -5148,39 +5146,39 @@ export interface EdiscoverySearch extends Parsable, Search {
 }
 export interface EdiscoverySearchExportOperation extends CaseOperation, Parsable {
     /**
-     * The additionalOptions property
+     * The additional items to include in the export. The possible values are: none, teamsAndYammerConversations, cloudAttachments, allDocumentVersions, subfolderContents, listAttachments, unknownFutureValue.
      */
     additionalOptions?: AdditionalOptions[] | null;
     /**
-     * The description property
+     * The description of the export by the user.
      */
     description?: string | null;
     /**
-     * The displayName property
+     * The name of export provided by the user.
      */
     displayName?: string | null;
     /**
-     * The exportCriteria property
+     * Items to be included in the export. The possible values are: searchHits, partiallyIndexed, unknownFutureValue.
      */
     exportCriteria?: ExportCriteria[] | null;
     /**
-     * The exportFileMetadata property
+     * Contains the properties for an export file metadata, including downloadUrl, fileName, and size.
      */
     exportFileMetadata?: ExportFileMetadata[] | null;
     /**
-     * The exportFormat property
+     * Format of the emails of the export. The possible values are: pst, msg, eml, unknownFutureValue.
      */
     exportFormat?: ExportFormat | null;
     /**
-     * The exportLocation property
+     * Location scope for partially indexed items. You can choose to include partially indexed items only in responsive locations with search hits or in all targeted locations. The possible values are: responsiveLocations, nonresponsiveLocations, unknownFutureValue.
      */
     exportLocation?: ExportLocation[] | null;
     /**
-     * The exportSingleItems property
+     * Indicates whether to export single items.
      */
     exportSingleItems?: boolean | null;
     /**
-     * The search property
+     * The eDiscovery searches under each case.
      */
     search?: EdiscoverySearch | null;
 }
