@@ -12,7 +12,7 @@ export interface AdministrativeUnitInfo extends AdditionalDataHolder, Parsable {
      */
     additionalData?: Record<string, unknown>;
     /**
-     * The id property
+     * Unique identifier for the administrative unit.
      */
     id?: string | null;
     /**
@@ -1109,7 +1109,7 @@ export interface Participant extends Parsable, ParticipantBase {
 }
 export interface ParticipantBase extends Entity, Parsable {
     /**
-     * The administrativeUnitInfos property
+     * List of administrativeUnitInfo objects for the call participant.
      */
     administrativeUnitInfos?: AdministrativeUnitInfo[] | null;
     /**
