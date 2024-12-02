@@ -1901,6 +1901,15 @@ export function createMalwareEvidenceFromDiscriminatorValue(parseNode: ParseNode
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {NetworkAdapter}
+ */
+// @ts-ignore
+export function createNetworkAdapterFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoNetworkAdapter;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {NetworkConnectionEvidence}
  */
 // @ts-ignore
@@ -2094,6 +2103,24 @@ export function createSearchFromDiscriminatorValue(parseNode: ParseNode | undefi
 // @ts-ignore
 export function createSecurityGroupEvidenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoSecurityGroupEvidence;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Sensor}
+ */
+// @ts-ignore
+export function createSensorFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSensor;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {SensorSettings}
+ */
+// @ts-ignore
+export function createSensorSettingsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSensorSettings;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -2449,6 +2476,7 @@ export type DefaultRecordBehavior = (typeof DefaultRecordBehaviorObject)[keyof t
 export type DefenderAvStatus = (typeof DefenderAvStatusObject)[keyof typeof DefenderAvStatusObject];
 export interface DepartmentTemplate extends FilePlanDescriptorTemplate, Parsable {
 }
+export type DeploymentStatus = (typeof DeploymentStatusObject)[keyof typeof DeploymentStatusObject];
 /**
  * The deserialization information for the current model
  * @returns {Record<string, (node: ParseNode) => void>}
@@ -3747,6 +3775,7 @@ export function deserializeIntoIdentityContainer(identityContainer: Partial<Iden
     return {
         ...deserializeIntoEntity(identityContainer),
         "healthIssues": n => { identityContainer.healthIssues = n.getCollectionOfObjectValues<HealthIssue>(createHealthIssueFromDiscriminatorValue); },
+        "sensors": n => { identityContainer.sensors = n.getCollectionOfObjectValues<Sensor>(createSensorFromDiscriminatorValue); },
     }
 }
 /**
@@ -4110,6 +4139,18 @@ export function deserializeIntoMalwareEvidence(malwareEvidence: Partial<MalwareE
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
+export function deserializeIntoNetworkAdapter(networkAdapter: Partial<NetworkAdapter> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEntity(networkAdapter),
+        "isEnabled": n => { networkAdapter.isEnabled = n.getBooleanValue(); },
+        "name": n => { networkAdapter.name = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
 export function deserializeIntoNetworkConnectionEvidence(networkConnectionEvidence: Partial<NetworkConnectionEvidence> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoAlertEvidence(networkConnectionEvidence),
@@ -4393,6 +4434,40 @@ export function deserializeIntoSecurityGroupEvidence(securityGroupEvidence: Part
         ...deserializeIntoAlertEvidence(securityGroupEvidence),
         "displayName": n => { securityGroupEvidence.displayName = n.getStringValue(); },
         "securityGroupId": n => { securityGroupEvidence.securityGroupId = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSensor(sensor: Partial<Sensor> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEntity(sensor),
+        "createdDateTime": n => { sensor.createdDateTime = n.getDateValue(); },
+        "deploymentStatus": n => { sensor.deploymentStatus = n.getEnumValue<DeploymentStatus>(DeploymentStatusObject); },
+        "displayName": n => { sensor.displayName = n.getStringValue(); },
+        "domainName": n => { sensor.domainName = n.getStringValue(); },
+        "healthIssues": n => { sensor.healthIssues = n.getCollectionOfObjectValues<HealthIssue>(createHealthIssueFromDiscriminatorValue); },
+        "healthStatus": n => { sensor.healthStatus = n.getEnumValue<SensorHealthStatus>(SensorHealthStatusObject); },
+        "openHealthIssuesCount": n => { sensor.openHealthIssuesCount = n.getNumberValue(); },
+        "sensorType": n => { sensor.sensorType = n.getEnumValue<SensorType>(SensorTypeObject); },
+        "settings": n => { sensor.settings = n.getObjectValue<SensorSettings>(createSensorSettingsFromDiscriminatorValue); },
+        "version": n => { sensor.version = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSensorSettings(sensorSettings: Partial<SensorSettings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "description": n => { sensorSettings.description = n.getStringValue(); },
+        "domainControllerDnsNames": n => { sensorSettings.domainControllerDnsNames = n.getCollectionOfPrimitiveValues<string>(); },
+        "isDelayedDeploymentEnabled": n => { sensorSettings.isDelayedDeploymentEnabled = n.getBooleanValue(); },
+        "networkAdapters": n => { sensorSettings.networkAdapters = n.getCollectionOfObjectValues<NetworkAdapter>(createNetworkAdapterFromDiscriminatorValue); },
+        "@odata.type": n => { sensorSettings.odataType = n.getStringValue(); },
     }
 }
 /**
@@ -6068,6 +6143,10 @@ export interface IdentityContainer extends Entity, Parsable {
      * Represents potential issues identified by Microsoft Defender for Identity within a customer's Microsoft Defender for Identity configuration.
      */
     healthIssues?: HealthIssue[] | null;
+    /**
+     * Represents a customer's Microsoft Defender for Identity sensors.
+     */
+    sensors?: Sensor[] | null;
 }
 export interface Incident extends Entity, Parsable {
     /**
@@ -6688,6 +6767,16 @@ export interface MalwareEvidence extends AlertEvidence, Parsable {
      */
     processes?: ProcessEvidence[] | null;
 }
+export interface NetworkAdapter extends Entity, Parsable {
+    /**
+     * Indicates whether the network adapter is selected for capturing and analyzing network traffic.
+     */
+    isEnabled?: boolean | null;
+    /**
+     * The name of the network adapter.
+     */
+    name?: string | null;
+}
 export interface NetworkConnectionEvidence extends AlertEvidence, Parsable {
     /**
      * The destinationAddress property
@@ -7162,6 +7251,76 @@ export interface SecurityGroupEvidence extends AlertEvidence, Parsable {
      */
     securityGroupId?: string | null;
 }
+export interface Sensor extends Entity, Parsable {
+    /**
+     * The date and time when the sensor was generated. The Timestamp represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     */
+    createdDateTime?: Date | null;
+    /**
+     * The deploymentStatus property
+     */
+    deploymentStatus?: DeploymentStatus | null;
+    /**
+     * The display name of the sensor.
+     */
+    displayName?: string | null;
+    /**
+     * The fully qualified domain name of the sensor.
+     */
+    domainName?: string | null;
+    /**
+     * Represents potential issues within a customer's Microsoft Defender for Identity configuration that Microsoft Defender for Identity identified related to the sensor.
+     */
+    healthIssues?: HealthIssue[] | null;
+    /**
+     * The healthStatus property
+     */
+    healthStatus?: SensorHealthStatus | null;
+    /**
+     * This field displays the count of health issues related to this sensor.
+     */
+    openHealthIssuesCount?: number | null;
+    /**
+     * The sensorType property
+     */
+    sensorType?: SensorType | null;
+    /**
+     * The settings property
+     */
+    settings?: SensorSettings | null;
+    /**
+     * The version of the sensor.
+     */
+    version?: string | null;
+}
+export type SensorHealthStatus = (typeof SensorHealthStatusObject)[keyof typeof SensorHealthStatusObject];
+export interface SensorSettings extends AdditionalDataHolder, Parsable {
+    /**
+     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
+     */
+    additionalData?: Record<string, unknown>;
+    /**
+     * Description of the sensor.
+     */
+    description?: string | null;
+    /**
+     * DNS names for the domain controller
+     */
+    domainControllerDnsNames?: string[] | null;
+    /**
+     * Indicates whether to delay updates for the sensor.
+     */
+    isDelayedDeploymentEnabled?: boolean | null;
+    /**
+     * The networkAdapters property
+     */
+    networkAdapters?: NetworkAdapter[] | null;
+    /**
+     * The OdataType property
+     */
+    odataType?: string | null;
+}
+export type SensorType = (typeof SensorTypeObject)[keyof typeof SensorTypeObject];
 /**
  * Serializes information the current object
  * @param writer Serialization writer to use to serialize this model
@@ -8480,6 +8639,7 @@ export function serializeIdentityContainer(writer: SerializationWriter, identity
     if (identityContainer) {
         serializeEntity(writer, identityContainer)
         writer.writeCollectionOfObjectValues<HealthIssue>("healthIssues", identityContainer.healthIssues, serializeHealthIssue);
+        writer.writeCollectionOfObjectValues<Sensor>("sensors", identityContainer.sensors, serializeSensor);
     }
 }
 /**
@@ -8846,6 +9006,18 @@ export function serializeMalwareEvidence(writer: SerializationWriter, malwareEvi
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
+export function serializeNetworkAdapter(writer: SerializationWriter, networkAdapter: Partial<NetworkAdapter> | undefined | null = {}) : void {
+    if (networkAdapter) {
+        serializeEntity(writer, networkAdapter)
+        writer.writeBooleanValue("isEnabled", networkAdapter.isEnabled);
+        writer.writeStringValue("name", networkAdapter.name);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
 export function serializeNetworkConnectionEvidence(writer: SerializationWriter, networkConnectionEvidence: Partial<NetworkConnectionEvidence> | undefined | null = {}) : void {
     if (networkConnectionEvidence) {
         serializeAlertEvidence(writer, networkConnectionEvidence)
@@ -9133,6 +9305,41 @@ export function serializeSecurityGroupEvidence(writer: SerializationWriter, secu
         serializeAlertEvidence(writer, securityGroupEvidence)
         writer.writeStringValue("displayName", securityGroupEvidence.displayName);
         writer.writeStringValue("securityGroupId", securityGroupEvidence.securityGroupId);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSensor(writer: SerializationWriter, sensor: Partial<Sensor> | undefined | null = {}) : void {
+    if (sensor) {
+        serializeEntity(writer, sensor)
+        writer.writeDateValue("createdDateTime", sensor.createdDateTime);
+        writer.writeEnumValue<DeploymentStatus>("deploymentStatus", sensor.deploymentStatus);
+        writer.writeStringValue("displayName", sensor.displayName);
+        writer.writeStringValue("domainName", sensor.domainName);
+        writer.writeCollectionOfObjectValues<HealthIssue>("healthIssues", sensor.healthIssues, serializeHealthIssue);
+        writer.writeEnumValue<SensorHealthStatus>("healthStatus", sensor.healthStatus);
+        writer.writeNumberValue("openHealthIssuesCount", sensor.openHealthIssuesCount);
+        writer.writeEnumValue<SensorType>("sensorType", sensor.sensorType);
+        writer.writeObjectValue<SensorSettings>("settings", sensor.settings, serializeSensorSettings);
+        writer.writeStringValue("version", sensor.version);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSensorSettings(writer: SerializationWriter, sensorSettings: Partial<SensorSettings> | undefined | null = {}) : void {
+    if (sensorSettings) {
+        writer.writeStringValue("description", sensorSettings.description);
+        writer.writeCollectionOfPrimitiveValues<string>("domainControllerDnsNames", sensorSettings.domainControllerDnsNames);
+        writer.writeBooleanValue("isDelayedDeploymentEnabled", sensorSettings.isDelayedDeploymentEnabled);
+        writer.writeCollectionOfObjectValues<NetworkAdapter>("networkAdapters", sensorSettings.networkAdapters, serializeNetworkAdapter);
+        writer.writeStringValue("@odata.type", sensorSettings.odataType);
+        writer.writeAdditionalData(sensorSettings.additionalData);
     }
 }
 /**
@@ -10328,6 +10535,18 @@ export const DefenderAvStatusObject = {
     NotSupported: "notSupported",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const DeploymentStatusObject = {
+    UpToDate: "upToDate",
+    Outdated: "outdated",
+    Updating: "updating",
+    UpdateFailed: "updateFailed",
+    NotConfigured: "notConfigured",
+    Unreachable: "unreachable",
+    Disconnected: "disconnected",
+    StartFailure: "startFailure",
+    Syncing: "syncing",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const DetectionSourceObject = {
     Unknown: "unknown",
     MicrosoftDefenderForEndpoint: "microsoftDefenderForEndpoint",
@@ -10410,6 +10629,12 @@ export const EvidenceRemediationStatusObject = {
     Blocked: "blocked",
     NotFound: "notFound",
     UnknownFutureValue: "unknownFutureValue",
+    Active: "active",
+    PendingApproval: "pendingApproval",
+    Declined: "declined",
+    Unremediated: "unremediated",
+    Running: "running",
+    PartiallyRemediated: "partiallyRemediated",
 } as const;
 export const EvidenceRoleObject = {
     Unknown: "unknown",
@@ -10594,6 +10819,21 @@ export const RetentionTriggerObject = {
     DateCreated: "dateCreated",
     DateModified: "dateModified",
     DateOfEvent: "dateOfEvent",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const SensorHealthStatusObject = {
+    Healthy: "healthy",
+    NotHealthyLow: "notHealthyLow",
+    NotHealthyMedium: "notHealthyMedium",
+    NotHealthyHigh: "notHealthyHigh",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const SensorTypeObject = {
+    AdConnectIntegrated: "adConnectIntegrated",
+    AdcsIntegrated: "adcsIntegrated",
+    AdfsIntegrated: "adfsIntegrated",
+    DomainControllerIntegrated: "domainControllerIntegrated",
+    DomainControllerStandalone: "domainControllerStandalone",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const ServicePrincipalTypeObject = {
