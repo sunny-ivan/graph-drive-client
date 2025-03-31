@@ -1,3 +1,5 @@
 .github
 data
 .*
+src
+tsconfig.json
