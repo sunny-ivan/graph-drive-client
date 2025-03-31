@@ -67,7 +67,7 @@ jobs:
           workd=$(pwd)
           dist_zip=$tempd/dist.zip
           dist_sha1=$tempd/dist.sha1
-          zip -r $dist_zip dist LICENSE package.json README.md yarn.lock 
+          zip -r $dist_zip dist LICENSE package.json README.md tsconfig.json
           cd $tempd
           sha1sum dist.zip | cut -d ' ' -f1 >> $dist_sha1
           cd $workd
