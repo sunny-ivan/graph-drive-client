@@ -111,7 +111,7 @@ export interface Bookmark extends Parsable, SearchAnswer {
      */
     state?: AnswerState | null;
     /**
-     * Variations of a bookmark for different countries or devices. Use when you need to show different content to users based on their device, country/region, or both. The date and group settings apply to all variations.
+     * Variations of a bookmark for different countries/regions or devices. Use when you need to show different content to users based on their device, country/region, or both. The date and group settings apply to all variations.
      */
     targetedVariations?: AnswerVariant[] | null;
 }
@@ -396,7 +396,7 @@ export interface Qna extends Parsable, SearchAnswer {
      */
     state?: AnswerState | null;
     /**
-     * Variations of a QnA for different countries or devices. Use when you need to show different content to users based on their device, country/region, or both. The date and group settings apply to all variations.
+     * Variations of a QnA for different countries/regions or devices. Use when you need to show different content to users based on their device, country/region, or both. The date and group settings apply to all variations.
      */
     targetedVariations?: AnswerVariant[] | null;
 }
@@ -480,7 +480,7 @@ export function serializeBookmark(writer: SerializationWriter, bookmark: Partial
         writer.writeObjectValue<AnswerKeyword>("keywords", bookmark.keywords, serializeAnswerKeyword);
         writer.writeCollectionOfPrimitiveValues<string>("languageTags", bookmark.languageTags);
         if(bookmark.platforms)
-        writer.writeEnumValue<DevicePlatformType>("platforms", ...bookmark.platforms);
+        writer.writeCollectionOfEnumValues<DevicePlatformType>("platforms", bookmark.platforms);
         writer.writeCollectionOfPrimitiveValues<string>("powerAppIds", bookmark.powerAppIds);
         writer.writeEnumValue<AnswerState>("state", bookmark.state);
         writer.writeCollectionOfObjectValues<AnswerVariant>("targetedVariations", bookmark.targetedVariations, serializeAnswerVariant);
@@ -528,7 +528,7 @@ export function serializeQna(writer: SerializationWriter, qna: Partial<Qna> | un
         writer.writeObjectValue<AnswerKeyword>("keywords", qna.keywords, serializeAnswerKeyword);
         writer.writeCollectionOfPrimitiveValues<string>("languageTags", qna.languageTags);
         if(qna.platforms)
-        writer.writeEnumValue<DevicePlatformType>("platforms", ...qna.platforms);
+        writer.writeCollectionOfEnumValues<DevicePlatformType>("platforms", qna.platforms);
         writer.writeEnumValue<AnswerState>("state", qna.state);
         writer.writeCollectionOfObjectValues<AnswerVariant>("targetedVariations", qna.targetedVariations, serializeAnswerVariant);
     }

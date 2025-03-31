@@ -990,7 +990,7 @@ export function serializeProperty(writer: SerializationWriter, property: Partial
         writer.writeBooleanValue("isRetrievable", property.isRetrievable);
         writer.writeBooleanValue("isSearchable", property.isSearchable);
         if(property.labels)
-        writer.writeEnumValue<Label>("labels", ...property.labels);
+        writer.writeCollectionOfEnumValues<Label>("labels", property.labels);
         writer.writeStringValue("name", property.name);
         writer.writeStringValue("@odata.type", property.odataType);
         writer.writeEnumValue<PropertyType>("type", property.type);
@@ -1164,6 +1164,7 @@ export const PropertyTypeObject = {
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const RuleOperationObject = {
+    NullEscaped: "null",
     Equals: "equals",
     NotEquals: "notEquals",
     Contains: "contains",

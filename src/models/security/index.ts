@@ -294,6 +294,7 @@ export interface AnalyzedMessageEvidence extends AlertEvidence, Parsable {
      */
     urn?: string | null;
 }
+export type AntispamTeamsDirection = (typeof AntispamTeamsDirectionObject)[keyof typeof AntispamTeamsDirectionObject];
 export interface Article extends Entity, Parsable {
     /**
      * The body property
@@ -727,6 +728,8 @@ export function createAlertEvidenceFromDiscriminatorValue(parseNode: ParseNode |
                     return deserializeIntoServicePrincipalEvidence;
                 case "#microsoft.graph.security.submissionMailEvidence":
                     return deserializeIntoSubmissionMailEvidence;
+                case "#microsoft.graph.security.teamsMessageEvidence":
+                    return deserializeIntoTeamsMessageEvidence;
                 case "#microsoft.graph.security.urlEvidence":
                     return deserializeIntoUrlEvidence;
                 case "#microsoft.graph.security.userEvidence":
@@ -2213,6 +2216,15 @@ export function createTagFromDiscriminatorValue(parseNode: ParseNode | undefined
         }
     }
     return deserializeIntoTag;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {TeamsMessageEvidence}
+ */
+// @ts-ignore
+export function createTeamsMessageEvidenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoTeamsMessageEvidence;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -4106,6 +4118,7 @@ export function deserializeIntoMailboxEvidence(mailboxEvidence: Partial<MailboxE
         ...deserializeIntoAlertEvidence(mailboxEvidence),
         "displayName": n => { mailboxEvidence.displayName = n.getStringValue(); },
         "primaryAddress": n => { mailboxEvidence.primaryAddress = n.getStringValue(); },
+        "upn": n => { mailboxEvidence.upn = n.getStringValue(); },
         "userAccount": n => { mailboxEvidence.userAccount = n.getObjectValue<UserAccount>(createUserAccountFromDiscriminatorValue); },
     }
 }
@@ -4605,6 +4618,40 @@ export function deserializeIntoTag(tag: Partial<Tag> | undefined = {}) : Record<
         "description": n => { tag.description = n.getStringValue(); },
         "displayName": n => { tag.displayName = n.getStringValue(); },
         "lastModifiedDateTime": n => { tag.lastModifiedDateTime = n.getDateValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoTeamsMessageEvidence(teamsMessageEvidence: Partial<TeamsMessageEvidence> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoAlertEvidence(teamsMessageEvidence),
+        "campaignId": n => { teamsMessageEvidence.campaignId = n.getStringValue(); },
+        "channelId": n => { teamsMessageEvidence.channelId = n.getStringValue(); },
+        "deliveryAction": n => { teamsMessageEvidence.deliveryAction = n.getEnumValue<TeamsMessageDeliveryAction>(TeamsMessageDeliveryActionObject); },
+        "deliveryLocation": n => { teamsMessageEvidence.deliveryLocation = n.getEnumValue<TeamsDeliveryLocation>(TeamsDeliveryLocationObject); },
+        "files": n => { teamsMessageEvidence.files = n.getCollectionOfObjectValues<FileEvidence>(createFileEvidenceFromDiscriminatorValue); },
+        "groupId": n => { teamsMessageEvidence.groupId = n.getStringValue(); },
+        "isExternal": n => { teamsMessageEvidence.isExternal = n.getBooleanValue(); },
+        "isOwned": n => { teamsMessageEvidence.isOwned = n.getBooleanValue(); },
+        "lastModifiedDateTime": n => { teamsMessageEvidence.lastModifiedDateTime = n.getDateValue(); },
+        "messageDirection": n => { teamsMessageEvidence.messageDirection = n.getEnumValue<AntispamTeamsDirection>(AntispamTeamsDirectionObject); },
+        "messageId": n => { teamsMessageEvidence.messageId = n.getStringValue(); },
+        "owningTenantId": n => { teamsMessageEvidence.owningTenantId = n.getGuidValue(); },
+        "parentMessageId": n => { teamsMessageEvidence.parentMessageId = n.getStringValue(); },
+        "receivedDateTime": n => { teamsMessageEvidence.receivedDateTime = n.getDateValue(); },
+        "recipients": n => { teamsMessageEvidence.recipients = n.getCollectionOfPrimitiveValues<string>(); },
+        "senderFromAddress": n => { teamsMessageEvidence.senderFromAddress = n.getStringValue(); },
+        "senderIP": n => { teamsMessageEvidence.senderIP = n.getStringValue(); },
+        "sourceAppName": n => { teamsMessageEvidence.sourceAppName = n.getStringValue(); },
+        "sourceId": n => { teamsMessageEvidence.sourceId = n.getStringValue(); },
+        "subject": n => { teamsMessageEvidence.subject = n.getStringValue(); },
+        "suspiciousRecipients": n => { teamsMessageEvidence.suspiciousRecipients = n.getCollectionOfPrimitiveValues<string>(); },
+        "threadId": n => { teamsMessageEvidence.threadId = n.getStringValue(); },
+        "threadType": n => { teamsMessageEvidence.threadType = n.getStringValue(); },
+        "urls": n => { teamsMessageEvidence.urls = n.getCollectionOfObjectValues<UrlEvidence>(createUrlEvidenceFromDiscriminatorValue); },
     }
 }
 /**
@@ -6724,6 +6771,10 @@ export interface MailboxEvidence extends AlertEvidence, Parsable {
      */
     primaryAddress?: string | null;
     /**
+     * The user principal name of the mailbox.
+     */
+    upn?: string | null;
+    /**
      * The user account of the mailbox.
      */
     userAccount?: UserAccount | null;
@@ -7395,7 +7446,7 @@ export function serializeAlertEvidence(writer: SerializationWriter, alertEvidenc
         writer.writeEnumValue<EvidenceRemediationStatus>("remediationStatus", alertEvidence.remediationStatus);
         writer.writeStringValue("remediationStatusDetails", alertEvidence.remediationStatusDetails);
         if(alertEvidence.roles)
-        writer.writeEnumValue<EvidenceRole>("roles", ...alertEvidence.roles);
+        writer.writeCollectionOfEnumValues<EvidenceRole>("roles", alertEvidence.roles);
         writer.writeCollectionOfPrimitiveValues<string>("tags", alertEvidence.tags);
         writer.writeEnumValue<EvidenceVerdict>("verdict", alertEvidence.verdict);
         writer.writeAdditionalData(alertEvidence.additionalData);
@@ -8974,6 +9025,7 @@ export function serializeMailboxEvidence(writer: SerializationWriter, mailboxEvi
         serializeAlertEvidence(writer, mailboxEvidence)
         writer.writeStringValue("displayName", mailboxEvidence.displayName);
         writer.writeStringValue("primaryAddress", mailboxEvidence.primaryAddress);
+        writer.writeStringValue("upn", mailboxEvidence.upn);
         writer.writeObjectValue<UserAccount>("userAccount", mailboxEvidence.userAccount, serializeUserAccount);
     }
 }
@@ -9487,6 +9539,40 @@ export function serializeTag(writer: SerializationWriter, tag: Partial<Tag> | un
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
+export function serializeTeamsMessageEvidence(writer: SerializationWriter, teamsMessageEvidence: Partial<TeamsMessageEvidence> | undefined | null = {}) : void {
+    if (teamsMessageEvidence) {
+        serializeAlertEvidence(writer, teamsMessageEvidence)
+        writer.writeStringValue("campaignId", teamsMessageEvidence.campaignId);
+        writer.writeStringValue("channelId", teamsMessageEvidence.channelId);
+        writer.writeEnumValue<TeamsMessageDeliveryAction>("deliveryAction", teamsMessageEvidence.deliveryAction);
+        writer.writeEnumValue<TeamsDeliveryLocation>("deliveryLocation", teamsMessageEvidence.deliveryLocation);
+        writer.writeCollectionOfObjectValues<FileEvidence>("files", teamsMessageEvidence.files, serializeFileEvidence);
+        writer.writeStringValue("groupId", teamsMessageEvidence.groupId);
+        writer.writeBooleanValue("isExternal", teamsMessageEvidence.isExternal);
+        writer.writeBooleanValue("isOwned", teamsMessageEvidence.isOwned);
+        writer.writeDateValue("lastModifiedDateTime", teamsMessageEvidence.lastModifiedDateTime);
+        writer.writeEnumValue<AntispamTeamsDirection>("messageDirection", teamsMessageEvidence.messageDirection);
+        writer.writeStringValue("messageId", teamsMessageEvidence.messageId);
+        writer.writeGuidValue("owningTenantId", teamsMessageEvidence.owningTenantId);
+        writer.writeStringValue("parentMessageId", teamsMessageEvidence.parentMessageId);
+        writer.writeDateValue("receivedDateTime", teamsMessageEvidence.receivedDateTime);
+        writer.writeCollectionOfPrimitiveValues<string>("recipients", teamsMessageEvidence.recipients);
+        writer.writeStringValue("senderFromAddress", teamsMessageEvidence.senderFromAddress);
+        writer.writeStringValue("senderIP", teamsMessageEvidence.senderIP);
+        writer.writeStringValue("sourceAppName", teamsMessageEvidence.sourceAppName);
+        writer.writeStringValue("sourceId", teamsMessageEvidence.sourceId);
+        writer.writeStringValue("subject", teamsMessageEvidence.subject);
+        writer.writeCollectionOfPrimitiveValues<string>("suspiciousRecipients", teamsMessageEvidence.suspiciousRecipients);
+        writer.writeStringValue("threadId", teamsMessageEvidence.threadId);
+        writer.writeStringValue("threadType", teamsMessageEvidence.threadType);
+        writer.writeCollectionOfObjectValues<UrlEvidence>("urls", teamsMessageEvidence.urls, serializeUrlEvidence);
+    }
+}
+/**
+ * Serializes information the current object
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
 export function serializeThreatIntelligence(writer: SerializationWriter, threatIntelligence: Partial<ThreatIntelligence> | undefined | null = {}) : void {
     if (threatIntelligence) {
         serializeEntity(writer, threatIntelligence)
@@ -9960,6 +10046,106 @@ export interface Tag extends Entity, Parsable {
      * The lastModifiedDateTime property
      */
     lastModifiedDateTime?: Date | null;
+}
+export type TeamsDeliveryLocation = (typeof TeamsDeliveryLocationObject)[keyof typeof TeamsDeliveryLocationObject];
+export type TeamsMessageDeliveryAction = (typeof TeamsMessageDeliveryActionObject)[keyof typeof TeamsMessageDeliveryActionObject];
+export interface TeamsMessageEvidence extends AlertEvidence, Parsable {
+    /**
+     * The identifier of the campaign that this Teams message is part of.
+     */
+    campaignId?: string | null;
+    /**
+     * The channel ID associated with this Teams message.
+     */
+    channelId?: string | null;
+    /**
+     * The delivery action of this Teams message. Possible values are: unknown, deliveredAsSpam, delivered, blocked, replaced, unknownFutureValue.
+     */
+    deliveryAction?: TeamsMessageDeliveryAction | null;
+    /**
+     * The delivery location of this Teams message. Possible values are: unknown, teams, quarantine, failed, unknownFutureValue.
+     */
+    deliveryLocation?: TeamsDeliveryLocation | null;
+    /**
+     * The list of file entities that are attached to this Teams message.
+     */
+    files?: FileEvidence[] | null;
+    /**
+     * The identifier of the team or group that this message is part of.
+     */
+    groupId?: string | null;
+    /**
+     * Indicates whether the message is owned by the organization that reported the security detection alert.
+     */
+    isExternal?: boolean | null;
+    /**
+     * Indicates whether the message is owned by your organization.
+     */
+    isOwned?: boolean | null;
+    /**
+     * Date and time when the message was last edited. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     */
+    lastModifiedDateTime?: Date | null;
+    /**
+     * The direction of the Teams message. The possible values are: unknown, inbound, outbound, intraorg, unknownFutureValue.
+     */
+    messageDirection?: AntispamTeamsDirection | null;
+    /**
+     * Message identifier unique within the thread.
+     */
+    messageId?: string | null;
+    /**
+     * Tenant ID (GUID) of the owner of the message.
+     */
+    owningTenantId?: Guid | null;
+    /**
+     * Identifier of the message to which the current message is a reply; otherwise, it's the same as the messageId.
+     */
+    parentMessageId?: string | null;
+    /**
+     * The received date of this message. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     */
+    receivedDateTime?: Date | null;
+    /**
+     * The recipients of this Teams message.
+     */
+    recipients?: string[] | null;
+    /**
+     * The SMTP format address of the sender.
+     */
+    senderFromAddress?: string | null;
+    /**
+     * The IP address of the sender.
+     */
+    senderIP?: string | null;
+    /**
+     * Source of the message; for example, desktop and mobile.
+     */
+    sourceAppName?: string | null;
+    /**
+     * The source ID of this Teams message.
+     */
+    sourceId?: string | null;
+    /**
+     * The subject of this Teams message.
+     */
+    subject?: string | null;
+    /**
+     * The list of recipients who were detected as suspicious.
+     */
+    suspiciousRecipients?: string[] | null;
+    /**
+     * Identifier of the channel or chat that this message is part of.
+     */
+    threadId?: string | null;
+    /**
+     * The Teams message type. Supported values are: Chat, Topic, Space, and Meeting.
+     */
+    threadType?: string | null;
+    /**
+     * The URLs contained in this Teams message.
+     */
+    urls?: UrlEvidence[] | null;
 }
 export interface ThreatIntelligence extends Entity, Parsable {
     /**
@@ -10451,6 +10637,13 @@ export const AlertStatusObject = {
     Resolved: "resolved",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const AntispamTeamsDirectionObject = {
+    Unknown: "unknown",
+    Inbound: "inbound",
+    Outbound: "outbound",
+    Intraorg: "intraorg",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const BehaviorDuringRetentionPeriodObject = {
     DoNotRetain: "doNotRetain",
     Retain: "retain",
@@ -10867,6 +11060,21 @@ export const ServiceSourceObject = {
 export const SourceTypeObject = {
     Mailbox: "mailbox",
     Site: "site",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const TeamsDeliveryLocationObject = {
+    Unknown: "unknown",
+    Teams: "teams",
+    Quarantine: "quarantine",
+    Failed: "failed",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const TeamsMessageDeliveryActionObject = {
+    Unknown: "unknown",
+    DeliveredAsSpam: "deliveredAsSpam",
+    Delivered: "delivered",
+    Blocked: "blocked",
+    Replaced: "replaced",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const VmCloudProviderObject = {
