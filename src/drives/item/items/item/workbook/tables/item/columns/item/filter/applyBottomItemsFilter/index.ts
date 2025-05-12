@@ -75,7 +75,6 @@ export const ApplyBottomItemsFilterRequestBuilderUriTemplate = "{+baseurl}/drive
 export const ApplyBottomItemsFilterRequestBuilderRequestsMetadata: RequestsMetadata = {
     post: {
         uriTemplate: ApplyBottomItemsFilterRequestBuilderUriTemplate,
-        responseBodyContentType: "application/json",
         errorMappings: {
             XXX: createODataErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
         },

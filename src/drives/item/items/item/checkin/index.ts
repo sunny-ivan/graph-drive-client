@@ -82,7 +82,6 @@ export const CheckinRequestBuilderUriTemplate = "{+baseurl}/drives/{drive%2Did}/
 export const CheckinRequestBuilderRequestsMetadata: RequestsMetadata = {
     post: {
         uriTemplate: CheckinRequestBuilderUriTemplate,
-        responseBodyContentType: "application/json",
         errorMappings: {
             XXX: createODataErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
