@@ -75,6 +75,7 @@ export const ApplyFontColorFilterRequestBuilderUriTemplate = "{+baseurl}/drives/
 export const ApplyFontColorFilterRequestBuilderRequestsMetadata: RequestsMetadata = {
     post: {
         uriTemplate: ApplyFontColorFilterRequestBuilderUriTemplate,
+        responseBodyContentType: "application/json",
         errorMappings: {
             XXX: createODataErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
         },

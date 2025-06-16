@@ -75,6 +75,7 @@ export const DeleteRequestBuilderUriTemplate = "{+baseurl}/drives/{drive%2Did}/i
 export const DeleteRequestBuilderRequestsMetadata: RequestsMetadata = {
     post: {
         uriTemplate: DeleteRequestBuilderUriTemplate,
+        responseBodyContentType: "application/json",
         errorMappings: {
             XXX: createODataErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
         },

@@ -75,6 +75,7 @@ export const ApplyDynamicFilterRequestBuilderUriTemplate = "{+baseurl}/drives/{d
 export const ApplyDynamicFilterRequestBuilderRequestsMetadata: RequestsMetadata = {
     post: {
         uriTemplate: ApplyDynamicFilterRequestBuilderUriTemplate,
+        responseBodyContentType: "application/json",
         errorMappings: {
             XXX: createODataErrorFromDiscriminatorValue as ParsableFactory<Parsable>,
         },
