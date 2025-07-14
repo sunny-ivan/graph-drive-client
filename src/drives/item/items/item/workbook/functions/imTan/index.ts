@@ -19,6 +19,7 @@ export function createImTanPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param ImTanPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoImTanPostRequestBody(imTanPostRequestBody: Partia
     }
 }
 export interface ImTanPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The inumber property
      */
@@ -59,14 +56,15 @@ export interface ImTanRequestBuilder extends BaseRequestBuilder<ImTanRequestBuil
 }
 /**
  * Serializes information the current object
+ * @param ImTanPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeImTanPostRequestBody(writer: SerializationWriter, imTanPostRequestBody: Partial<ImTanPostRequestBody> | undefined | null = {}) : void {
-    if (imTanPostRequestBody) {
-        writer.writeObjectValue("inumber", imTanPostRequestBody.inumber);
-        writer.writeAdditionalData(imTanPostRequestBody.additionalData);
-    }
+export function serializeImTanPostRequestBody(writer: SerializationWriter, imTanPostRequestBody: Partial<ImTanPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!imTanPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("inumber", imTanPostRequestBody.inumber);
+    writer.writeAdditionalData(imTanPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

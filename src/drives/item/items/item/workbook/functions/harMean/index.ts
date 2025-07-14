@@ -19,6 +19,7 @@ export function createHarMeanPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param HarMeanPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoHarMeanPostRequestBody(harMeanPostRequestBody: Pa
     }
 }
 export interface HarMeanPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The values property
      */
@@ -59,14 +56,15 @@ export interface HarMeanRequestBuilder extends BaseRequestBuilder<HarMeanRequest
 }
 /**
  * Serializes information the current object
+ * @param HarMeanPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeHarMeanPostRequestBody(writer: SerializationWriter, harMeanPostRequestBody: Partial<HarMeanPostRequestBody> | undefined | null = {}) : void {
-    if (harMeanPostRequestBody) {
-        writer.writeObjectValue("values", harMeanPostRequestBody.values);
-        writer.writeAdditionalData(harMeanPostRequestBody.additionalData);
-    }
+export function serializeHarMeanPostRequestBody(writer: SerializationWriter, harMeanPostRequestBody: Partial<HarMeanPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!harMeanPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("values", harMeanPostRequestBody.values);
+    writer.writeAdditionalData(harMeanPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

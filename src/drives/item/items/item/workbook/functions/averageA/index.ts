@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface AverageAPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The values property
      */
     values?: UntypedNode | null;
@@ -49,6 +45,7 @@ export function createAverageAPostRequestBodyFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param AverageAPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoAverageAPostRequestBody(averageAPostRequestBody: 
 }
 /**
  * Serializes information the current object
+ * @param AverageAPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAverageAPostRequestBody(writer: SerializationWriter, averageAPostRequestBody: Partial<AverageAPostRequestBody> | undefined | null = {}) : void {
-    if (averageAPostRequestBody) {
-        writer.writeObjectValue("values", averageAPostRequestBody.values);
-        writer.writeAdditionalData(averageAPostRequestBody.additionalData);
-    }
+export function serializeAverageAPostRequestBody(writer: SerializationWriter, averageAPostRequestBody: Partial<AverageAPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!averageAPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("values", averageAPostRequestBody.values);
+    writer.writeAdditionalData(averageAPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

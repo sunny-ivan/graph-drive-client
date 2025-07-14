@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ApplyFontColorFilterPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The color property
      */
     color?: string | null;
@@ -46,6 +42,7 @@ export function createApplyFontColorFilterPostRequestBodyFromDiscriminatorValue(
 }
 /**
  * The deserialization information for the current model
+ * @param ApplyFontColorFilterPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -56,14 +53,15 @@ export function deserializeIntoApplyFontColorFilterPostRequestBody(applyFontColo
 }
 /**
  * Serializes information the current object
+ * @param ApplyFontColorFilterPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyFontColorFilterPostRequestBody(writer: SerializationWriter, applyFontColorFilterPostRequestBody: Partial<ApplyFontColorFilterPostRequestBody> | undefined | null = {}) : void {
-    if (applyFontColorFilterPostRequestBody) {
-        writer.writeStringValue("color", applyFontColorFilterPostRequestBody.color);
-        writer.writeAdditionalData(applyFontColorFilterPostRequestBody.additionalData);
-    }
+export function serializeApplyFontColorFilterPostRequestBody(writer: SerializationWriter, applyFontColorFilterPostRequestBody: Partial<ApplyFontColorFilterPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!applyFontColorFilterPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("color", applyFontColorFilterPostRequestBody.color);
+    writer.writeAdditionalData(applyFontColorFilterPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

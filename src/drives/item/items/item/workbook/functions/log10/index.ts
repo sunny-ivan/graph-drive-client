@@ -19,6 +19,7 @@ export function createLog10PostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param Log10PostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoLog10PostRequestBody(log10PostRequestBody: Partia
     }
 }
 export interface Log10PostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The number property
      */
@@ -59,14 +56,15 @@ export interface Log10RequestBuilder extends BaseRequestBuilder<Log10RequestBuil
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Log10PostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLog10PostRequestBody(writer: SerializationWriter, log10PostRequestBody: Partial<Log10PostRequestBody> | undefined | null = {}) : void {
-    if (log10PostRequestBody) {
-        writer.writeObjectValue("number", log10PostRequestBody.number);
-        writer.writeAdditionalData(log10PostRequestBody.additionalData);
-    }
+export function serializeLog10PostRequestBody(writer: SerializationWriter, log10PostRequestBody: Partial<Log10PostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!log10PostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", log10PostRequestBody.number);
+    writer.writeAdditionalData(log10PostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

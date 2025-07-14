@@ -19,6 +19,7 @@ export function createMaxAPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param MaxAPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoMaxAPostRequestBody(maxAPostRequestBody: Partial<
     }
 }
 export interface MaxAPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The values property
      */
@@ -59,14 +56,15 @@ export interface MaxARequestBuilder extends BaseRequestBuilder<MaxARequestBuilde
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param MaxAPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMaxAPostRequestBody(writer: SerializationWriter, maxAPostRequestBody: Partial<MaxAPostRequestBody> | undefined | null = {}) : void {
-    if (maxAPostRequestBody) {
-        writer.writeObjectValue("values", maxAPostRequestBody.values);
-        writer.writeAdditionalData(maxAPostRequestBody.additionalData);
-    }
+export function serializeMaxAPostRequestBody(writer: SerializationWriter, maxAPostRequestBody: Partial<MaxAPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!maxAPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("values", maxAPostRequestBody.values);
+    writer.writeAdditionalData(maxAPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

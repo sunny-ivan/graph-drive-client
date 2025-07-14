@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ApplyBottomPercentFilterPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The percent property
      */
     percent?: number | null;
@@ -46,6 +42,7 @@ export function createApplyBottomPercentFilterPostRequestBodyFromDiscriminatorVa
 }
 /**
  * The deserialization information for the current model
+ * @param ApplyBottomPercentFilterPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -56,14 +53,15 @@ export function deserializeIntoApplyBottomPercentFilterPostRequestBody(applyBott
 }
 /**
  * Serializes information the current object
+ * @param ApplyBottomPercentFilterPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyBottomPercentFilterPostRequestBody(writer: SerializationWriter, applyBottomPercentFilterPostRequestBody: Partial<ApplyBottomPercentFilterPostRequestBody> | undefined | null = {}) : void {
-    if (applyBottomPercentFilterPostRequestBody) {
-        writer.writeNumberValue("percent", applyBottomPercentFilterPostRequestBody.percent);
-        writer.writeAdditionalData(applyBottomPercentFilterPostRequestBody.additionalData);
-    }
+export function serializeApplyBottomPercentFilterPostRequestBody(writer: SerializationWriter, applyBottomPercentFilterPostRequestBody: Partial<ApplyBottomPercentFilterPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!applyBottomPercentFilterPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("percent", applyBottomPercentFilterPostRequestBody.percent);
+    writer.writeAdditionalData(applyBottomPercentFilterPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

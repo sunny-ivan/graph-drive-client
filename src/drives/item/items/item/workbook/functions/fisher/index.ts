@@ -19,6 +19,7 @@ export function createFisherPostRequestBodyFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param FisherPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoFisherPostRequestBody(fisherPostRequestBody: Part
     }
 }
 export interface FisherPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The x property
      */
@@ -59,14 +56,15 @@ export interface FisherRequestBuilder extends BaseRequestBuilder<FisherRequestBu
 }
 /**
  * Serializes information the current object
+ * @param FisherPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFisherPostRequestBody(writer: SerializationWriter, fisherPostRequestBody: Partial<FisherPostRequestBody> | undefined | null = {}) : void {
-    if (fisherPostRequestBody) {
-        writer.writeObjectValue("x", fisherPostRequestBody.x);
-        writer.writeAdditionalData(fisherPostRequestBody.additionalData);
-    }
+export function serializeFisherPostRequestBody(writer: SerializationWriter, fisherPostRequestBody: Partial<FisherPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!fisherPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("x", fisherPostRequestBody.x);
+    writer.writeAdditionalData(fisherPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

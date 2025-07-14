@@ -19,6 +19,7 @@ export function createIspmtPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param IspmtPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -31,10 +32,6 @@ export function deserializeIntoIspmtPostRequestBody(ispmtPostRequestBody: Partia
     }
 }
 export interface IspmtPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The nper property
      */
@@ -74,17 +71,18 @@ export interface IspmtRequestBuilder extends BaseRequestBuilder<IspmtRequestBuil
 }
 /**
  * Serializes information the current object
+ * @param IspmtPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIspmtPostRequestBody(writer: SerializationWriter, ispmtPostRequestBody: Partial<IspmtPostRequestBody> | undefined | null = {}) : void {
-    if (ispmtPostRequestBody) {
-        writer.writeObjectValue("nper", ispmtPostRequestBody.nper);
-        writer.writeObjectValue("per", ispmtPostRequestBody.per);
-        writer.writeObjectValue("pv", ispmtPostRequestBody.pv);
-        writer.writeObjectValue("rate", ispmtPostRequestBody.rate);
-        writer.writeAdditionalData(ispmtPostRequestBody.additionalData);
-    }
+export function serializeIspmtPostRequestBody(writer: SerializationWriter, ispmtPostRequestBody: Partial<IspmtPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!ispmtPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("nper", ispmtPostRequestBody.nper);
+    writer.writeObjectValue("per", ispmtPostRequestBody.per);
+    writer.writeObjectValue("pv", ispmtPostRequestBody.pv);
+    writer.writeObjectValue("rate", ispmtPostRequestBody.rate);
+    writer.writeAdditionalData(ispmtPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

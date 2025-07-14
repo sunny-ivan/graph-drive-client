@@ -19,6 +19,7 @@ export function createTimevaluePostRequestBodyFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param TimevaluePostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoTimevaluePostRequestBody(timevaluePostRequestBody
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TimevaluePostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTimevaluePostRequestBody(writer: SerializationWriter, timevaluePostRequestBody: Partial<TimevaluePostRequestBody> | undefined | null = {}) : void {
-    if (timevaluePostRequestBody) {
-        writer.writeObjectValue("timeText", timevaluePostRequestBody.timeText);
-        writer.writeAdditionalData(timevaluePostRequestBody.additionalData);
-    }
+export function serializeTimevaluePostRequestBody(writer: SerializationWriter, timevaluePostRequestBody: Partial<TimevaluePostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!timevaluePostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("timeText", timevaluePostRequestBody.timeText);
+    writer.writeAdditionalData(timevaluePostRequestBody.additionalData);
 }
 export interface TimevaluePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The timeText property
      */

@@ -19,6 +19,7 @@ export function createExpPostRequestBodyFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param ExpPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoExpPostRequestBody(expPostRequestBody: Partial<Ex
     }
 }
 export interface ExpPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The number property
      */
@@ -59,14 +56,15 @@ export interface ExpRequestBuilder extends BaseRequestBuilder<ExpRequestBuilder>
 }
 /**
  * Serializes information the current object
+ * @param ExpPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeExpPostRequestBody(writer: SerializationWriter, expPostRequestBody: Partial<ExpPostRequestBody> | undefined | null = {}) : void {
-    if (expPostRequestBody) {
-        writer.writeObjectValue("number", expPostRequestBody.number);
-        writer.writeAdditionalData(expPostRequestBody.additionalData);
-    }
+export function serializeExpPostRequestBody(writer: SerializationWriter, expPostRequestBody: Partial<ExpPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!expPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", expPostRequestBody.number);
+    writer.writeAdditionalData(expPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

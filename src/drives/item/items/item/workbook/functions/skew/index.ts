@@ -19,6 +19,7 @@ export function createSkewPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param SkewPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoSkewPostRequestBody(skewPostRequestBody: Partial<
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SkewPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSkewPostRequestBody(writer: SerializationWriter, skewPostRequestBody: Partial<SkewPostRequestBody> | undefined | null = {}) : void {
-    if (skewPostRequestBody) {
-        writer.writeObjectValue("values", skewPostRequestBody.values);
-        writer.writeAdditionalData(skewPostRequestBody.additionalData);
-    }
+export function serializeSkewPostRequestBody(writer: SerializationWriter, skewPostRequestBody: Partial<SkewPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!skewPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("values", skewPostRequestBody.values);
+    writer.writeAdditionalData(skewPostRequestBody.additionalData);
 }
 export interface SkewPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The values property
      */

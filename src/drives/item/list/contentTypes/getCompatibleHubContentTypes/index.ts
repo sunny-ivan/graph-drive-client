@@ -19,6 +19,7 @@ export function createGetCompatibleHubContentTypesGetResponseFromDiscriminatorVa
 }
 /**
  * The deserialization information for the current model
+ * @param GetCompatibleHubContentTypesGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -43,7 +44,6 @@ export interface GetCompatibleHubContentTypesRequestBuilder extends BaseRequestB
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<GetCompatibleHubContentTypesGetResponse>}
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/contenttype-getcompatiblehubcontenttypes?view=graph-rest-1.0|Find more info here}
      */
      get(requestConfiguration?: RequestConfiguration<GetCompatibleHubContentTypesRequestBuilderGetQueryParameters> | undefined) : Promise<GetCompatibleHubContentTypesGetResponse | undefined>;
     /**
@@ -92,14 +92,15 @@ export interface GetCompatibleHubContentTypesRequestBuilderGetQueryParameters {
 }
 /**
  * Serializes information the current object
+ * @param GetCompatibleHubContentTypesGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGetCompatibleHubContentTypesGetResponse(writer: SerializationWriter, getCompatibleHubContentTypesGetResponse: Partial<GetCompatibleHubContentTypesGetResponse> | undefined | null = {}) : void {
-    if (getCompatibleHubContentTypesGetResponse) {
-        serializeBaseCollectionPaginationCountResponse(writer, getCompatibleHubContentTypesGetResponse)
-        writer.writeCollectionOfObjectValues<ContentType>("value", getCompatibleHubContentTypesGetResponse.value, serializeContentType);
-    }
+export function serializeGetCompatibleHubContentTypesGetResponse(writer: SerializationWriter, getCompatibleHubContentTypesGetResponse: Partial<GetCompatibleHubContentTypesGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!getCompatibleHubContentTypesGetResponse || isSerializingDerivedType) { return; }
+    serializeBaseCollectionPaginationCountResponse(writer, getCompatibleHubContentTypesGetResponse, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<ContentType>("value", getCompatibleHubContentTypesGetResponse.value, serializeContentType);
 }
 /**
  * Uri template for the request builder.

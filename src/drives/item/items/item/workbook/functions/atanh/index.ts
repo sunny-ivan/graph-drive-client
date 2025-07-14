@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface AtanhPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The number property
      */
     number?: UntypedNode | null;
@@ -49,6 +45,7 @@ export function createAtanhPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param AtanhPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoAtanhPostRequestBody(atanhPostRequestBody: Partia
 }
 /**
  * Serializes information the current object
+ * @param AtanhPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAtanhPostRequestBody(writer: SerializationWriter, atanhPostRequestBody: Partial<AtanhPostRequestBody> | undefined | null = {}) : void {
-    if (atanhPostRequestBody) {
-        writer.writeObjectValue("number", atanhPostRequestBody.number);
-        writer.writeAdditionalData(atanhPostRequestBody.additionalData);
-    }
+export function serializeAtanhPostRequestBody(writer: SerializationWriter, atanhPostRequestBody: Partial<AtanhPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!atanhPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", atanhPostRequestBody.number);
+    writer.writeAdditionalData(atanhPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

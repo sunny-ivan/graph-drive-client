@@ -19,6 +19,7 @@ export function createGammaPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param GammaPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoGammaPostRequestBody(gammaPostRequestBody: Partia
     }
 }
 export interface GammaPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The x property
      */
@@ -59,14 +56,15 @@ export interface GammaRequestBuilder extends BaseRequestBuilder<GammaRequestBuil
 }
 /**
  * Serializes information the current object
+ * @param GammaPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeGammaPostRequestBody(writer: SerializationWriter, gammaPostRequestBody: Partial<GammaPostRequestBody> | undefined | null = {}) : void {
-    if (gammaPostRequestBody) {
-        writer.writeObjectValue("x", gammaPostRequestBody.x);
-        writer.writeAdditionalData(gammaPostRequestBody.additionalData);
-    }
+export function serializeGammaPostRequestBody(writer: SerializationWriter, gammaPostRequestBody: Partial<GammaPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!gammaPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("x", gammaPostRequestBody.x);
+    writer.writeAdditionalData(gammaPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

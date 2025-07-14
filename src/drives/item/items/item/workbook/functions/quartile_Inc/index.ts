@@ -19,6 +19,7 @@ export function createQuartile_IncPostRequestBodyFromDiscriminatorValue(parseNod
 }
 /**
  * The deserialization information for the current model
+ * @param Quartile_IncPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,10 +30,6 @@ export function deserializeIntoQuartile_IncPostRequestBody(quartile_IncPostReque
     }
 }
 export interface Quartile_IncPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The array property
      */
@@ -64,15 +61,16 @@ export interface Quartile_IncRequestBuilder extends BaseRequestBuilder<Quartile_
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param Quartile_IncPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeQuartile_IncPostRequestBody(writer: SerializationWriter, quartile_IncPostRequestBody: Partial<Quartile_IncPostRequestBody> | undefined | null = {}) : void {
-    if (quartile_IncPostRequestBody) {
-        writer.writeObjectValue("array", quartile_IncPostRequestBody.array);
-        writer.writeObjectValue("quart", quartile_IncPostRequestBody.quart);
-        writer.writeAdditionalData(quartile_IncPostRequestBody.additionalData);
-    }
+export function serializeQuartile_IncPostRequestBody(writer: SerializationWriter, quartile_IncPostRequestBody: Partial<Quartile_IncPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!quartile_IncPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("array", quartile_IncPostRequestBody.array);
+    writer.writeObjectValue("quart", quartile_IncPostRequestBody.quart);
+    writer.writeAdditionalData(quartile_IncPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

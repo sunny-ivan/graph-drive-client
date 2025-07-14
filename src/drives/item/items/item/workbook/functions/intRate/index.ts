@@ -19,6 +19,7 @@ export function createIntRatePostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param IntRatePostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -32,10 +33,6 @@ export function deserializeIntoIntRatePostRequestBody(intRatePostRequestBody: Pa
     }
 }
 export interface IntRatePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The basis property
      */
@@ -79,18 +76,19 @@ export interface IntRateRequestBuilder extends BaseRequestBuilder<IntRateRequest
 }
 /**
  * Serializes information the current object
+ * @param IntRatePostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIntRatePostRequestBody(writer: SerializationWriter, intRatePostRequestBody: Partial<IntRatePostRequestBody> | undefined | null = {}) : void {
-    if (intRatePostRequestBody) {
-        writer.writeObjectValue("basis", intRatePostRequestBody.basis);
-        writer.writeObjectValue("investment", intRatePostRequestBody.investment);
-        writer.writeObjectValue("maturity", intRatePostRequestBody.maturity);
-        writer.writeObjectValue("redemption", intRatePostRequestBody.redemption);
-        writer.writeObjectValue("settlement", intRatePostRequestBody.settlement);
-        writer.writeAdditionalData(intRatePostRequestBody.additionalData);
-    }
+export function serializeIntRatePostRequestBody(writer: SerializationWriter, intRatePostRequestBody: Partial<IntRatePostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!intRatePostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("basis", intRatePostRequestBody.basis);
+    writer.writeObjectValue("investment", intRatePostRequestBody.investment);
+    writer.writeObjectValue("maturity", intRatePostRequestBody.maturity);
+    writer.writeObjectValue("redemption", intRatePostRequestBody.redemption);
+    writer.writeObjectValue("settlement", intRatePostRequestBody.settlement);
+    writer.writeAdditionalData(intRatePostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

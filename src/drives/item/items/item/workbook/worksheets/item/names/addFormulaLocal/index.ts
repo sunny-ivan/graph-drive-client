@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface AddFormulaLocalPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The comment property
      */
     comment?: string | null;
@@ -36,7 +32,6 @@ export interface AddFormulaLocalRequestBuilder extends BaseRequestBuilder<AddFor
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WorkbookNamedItem>}
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/nameditem-addformulalocal?view=graph-rest-1.0|Find more info here}
      */
      post(body: AddFormulaLocalPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WorkbookNamedItem | undefined>;
     /**
@@ -58,6 +53,7 @@ export function createAddFormulaLocalPostRequestBodyFromDiscriminatorValue(parse
 }
 /**
  * The deserialization information for the current model
+ * @param AddFormulaLocalPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -70,16 +66,17 @@ export function deserializeIntoAddFormulaLocalPostRequestBody(addFormulaLocalPos
 }
 /**
  * Serializes information the current object
+ * @param AddFormulaLocalPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddFormulaLocalPostRequestBody(writer: SerializationWriter, addFormulaLocalPostRequestBody: Partial<AddFormulaLocalPostRequestBody> | undefined | null = {}) : void {
-    if (addFormulaLocalPostRequestBody) {
-        writer.writeStringValue("comment", addFormulaLocalPostRequestBody.comment);
-        writer.writeStringValue("formula", addFormulaLocalPostRequestBody.formula);
-        writer.writeStringValue("name", addFormulaLocalPostRequestBody.name);
-        writer.writeAdditionalData(addFormulaLocalPostRequestBody.additionalData);
-    }
+export function serializeAddFormulaLocalPostRequestBody(writer: SerializationWriter, addFormulaLocalPostRequestBody: Partial<AddFormulaLocalPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addFormulaLocalPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("comment", addFormulaLocalPostRequestBody.comment);
+    writer.writeStringValue("formula", addFormulaLocalPostRequestBody.formula);
+    writer.writeStringValue("name", addFormulaLocalPostRequestBody.name);
+    writer.writeAdditionalData(addFormulaLocalPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

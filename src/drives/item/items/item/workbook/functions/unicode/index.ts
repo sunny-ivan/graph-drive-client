@@ -19,6 +19,7 @@ export function createUnicodePostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param UnicodePostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoUnicodePostRequestBody(unicodePostRequestBody: Pa
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param UnicodePostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeUnicodePostRequestBody(writer: SerializationWriter, unicodePostRequestBody: Partial<UnicodePostRequestBody> | undefined | null = {}) : void {
-    if (unicodePostRequestBody) {
-        writer.writeObjectValue("text", unicodePostRequestBody.text);
-        writer.writeAdditionalData(unicodePostRequestBody.additionalData);
-    }
+export function serializeUnicodePostRequestBody(writer: SerializationWriter, unicodePostRequestBody: Partial<UnicodePostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!unicodePostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("text", unicodePostRequestBody.text);
+    writer.writeAdditionalData(unicodePostRequestBody.additionalData);
 }
 export interface UnicodePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The text property
      */

@@ -19,6 +19,7 @@ export function createIsEvenPostRequestBodyFromDiscriminatorValue(parseNode: Par
 }
 /**
  * The deserialization information for the current model
+ * @param IsEvenPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoIsEvenPostRequestBody(isEvenPostRequestBody: Part
     }
 }
 export interface IsEvenPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The number property
      */
@@ -59,14 +56,15 @@ export interface IsEvenRequestBuilder extends BaseRequestBuilder<IsEvenRequestBu
 }
 /**
  * Serializes information the current object
+ * @param IsEvenPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsEvenPostRequestBody(writer: SerializationWriter, isEvenPostRequestBody: Partial<IsEvenPostRequestBody> | undefined | null = {}) : void {
-    if (isEvenPostRequestBody) {
-        writer.writeObjectValue("number", isEvenPostRequestBody.number);
-        writer.writeAdditionalData(isEvenPostRequestBody.additionalData);
-    }
+export function serializeIsEvenPostRequestBody(writer: SerializationWriter, isEvenPostRequestBody: Partial<IsEvenPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!isEvenPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", isEvenPostRequestBody.number);
+    writer.writeAdditionalData(isEvenPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

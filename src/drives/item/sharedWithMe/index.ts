@@ -19,6 +19,7 @@ export function createSharedWithMeGetResponseFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param SharedWithMeGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,14 +31,15 @@ export function deserializeIntoSharedWithMeGetResponse(sharedWithMeGetResponse: 
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SharedWithMeGetResponse The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSharedWithMeGetResponse(writer: SerializationWriter, sharedWithMeGetResponse: Partial<SharedWithMeGetResponse> | undefined | null = {}) : void {
-    if (sharedWithMeGetResponse) {
-        serializeBaseCollectionPaginationCountResponse(writer, sharedWithMeGetResponse)
-        writer.writeCollectionOfObjectValues<DriveItem>("value", sharedWithMeGetResponse.value, serializeDriveItem);
-    }
+export function serializeSharedWithMeGetResponse(writer: SerializationWriter, sharedWithMeGetResponse: Partial<SharedWithMeGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sharedWithMeGetResponse || isSerializingDerivedType) { return; }
+    serializeBaseCollectionPaginationCountResponse(writer, sharedWithMeGetResponse, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<DriveItem>("value", sharedWithMeGetResponse.value, serializeDriveItem);
 }
 export interface SharedWithMeGetResponse extends BaseCollectionPaginationCountResponse, Parsable {
     /**
@@ -54,7 +56,6 @@ export interface SharedWithMeRequestBuilder extends BaseRequestBuilder<SharedWit
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<SharedWithMeGetResponse>}
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/drive-sharedwithme?view=graph-rest-1.0|Find more info here}
      */
      get(requestConfiguration?: RequestConfiguration<SharedWithMeRequestBuilderGetQueryParameters> | undefined) : Promise<SharedWithMeGetResponse | undefined>;
     /**

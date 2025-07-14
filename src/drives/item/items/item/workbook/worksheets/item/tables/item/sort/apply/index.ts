@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ApplyPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The fields property
      */
     fields?: WorkbookSortField[] | null;
@@ -35,7 +31,6 @@ export interface ApplyRequestBuilder extends BaseRequestBuilder<ApplyRequestBuil
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/tablesort-apply?view=graph-rest-1.0|Find more info here}
      */
      post(body: ApplyPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
@@ -57,6 +52,7 @@ export function createApplyPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param ApplyPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -69,16 +65,17 @@ export function deserializeIntoApplyPostRequestBody(applyPostRequestBody: Partia
 }
 /**
  * Serializes information the current object
+ * @param ApplyPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyPostRequestBody(writer: SerializationWriter, applyPostRequestBody: Partial<ApplyPostRequestBody> | undefined | null = {}) : void {
-    if (applyPostRequestBody) {
-        writer.writeCollectionOfObjectValues<WorkbookSortField>("fields", applyPostRequestBody.fields, serializeWorkbookSortField);
-        writer.writeBooleanValue("matchCase", applyPostRequestBody.matchCase);
-        writer.writeStringValue("method", applyPostRequestBody.method);
-        writer.writeAdditionalData(applyPostRequestBody.additionalData);
-    }
+export function serializeApplyPostRequestBody(writer: SerializationWriter, applyPostRequestBody: Partial<ApplyPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!applyPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfObjectValues<WorkbookSortField>("fields", applyPostRequestBody.fields, serializeWorkbookSortField);
+    writer.writeBooleanValue("matchCase", applyPostRequestBody.matchCase);
+    writer.writeStringValue("method", applyPostRequestBody.method);
+    writer.writeAdditionalData(applyPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -19,6 +19,7 @@ export function createLowerPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param LowerPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoLowerPostRequestBody(lowerPostRequestBody: Partia
     }
 }
 export interface LowerPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The text property
      */
@@ -59,14 +56,15 @@ export interface LowerRequestBuilder extends BaseRequestBuilder<LowerRequestBuil
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param LowerPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeLowerPostRequestBody(writer: SerializationWriter, lowerPostRequestBody: Partial<LowerPostRequestBody> | undefined | null = {}) : void {
-    if (lowerPostRequestBody) {
-        writer.writeObjectValue("text", lowerPostRequestBody.text);
-        writer.writeAdditionalData(lowerPostRequestBody.additionalData);
-    }
+export function serializeLowerPostRequestBody(writer: SerializationWriter, lowerPostRequestBody: Partial<LowerPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!lowerPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("text", lowerPostRequestBody.text);
+    writer.writeAdditionalData(lowerPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

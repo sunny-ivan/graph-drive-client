@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ApplyTopPercentFilterPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The percent property
      */
     percent?: number | null;
@@ -46,6 +42,7 @@ export function createApplyTopPercentFilterPostRequestBodyFromDiscriminatorValue
 }
 /**
  * The deserialization information for the current model
+ * @param ApplyTopPercentFilterPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -56,14 +53,15 @@ export function deserializeIntoApplyTopPercentFilterPostRequestBody(applyTopPerc
 }
 /**
  * Serializes information the current object
+ * @param ApplyTopPercentFilterPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyTopPercentFilterPostRequestBody(writer: SerializationWriter, applyTopPercentFilterPostRequestBody: Partial<ApplyTopPercentFilterPostRequestBody> | undefined | null = {}) : void {
-    if (applyTopPercentFilterPostRequestBody) {
-        writer.writeNumberValue("percent", applyTopPercentFilterPostRequestBody.percent);
-        writer.writeAdditionalData(applyTopPercentFilterPostRequestBody.additionalData);
-    }
+export function serializeApplyTopPercentFilterPostRequestBody(writer: SerializationWriter, applyTopPercentFilterPostRequestBody: Partial<ApplyTopPercentFilterPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!applyTopPercentFilterPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("percent", applyTopPercentFilterPostRequestBody.percent);
+    writer.writeAdditionalData(applyTopPercentFilterPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

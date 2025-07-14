@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface AddPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The index property
      */
     index?: number | null;
@@ -36,7 +32,6 @@ export interface AddRequestBuilder extends BaseRequestBuilder<AddRequestBuilder>
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<WorkbookTableColumn>}
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/tablecolumncollection-add?view=graph-rest-1.0|Find more info here}
      */
      post(body: AddPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<WorkbookTableColumn | undefined>;
     /**
@@ -58,6 +53,7 @@ export function createAddPostRequestBodyFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param AddPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -70,16 +66,17 @@ export function deserializeIntoAddPostRequestBody(addPostRequestBody: Partial<Ad
 }
 /**
  * Serializes information the current object
+ * @param AddPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddPostRequestBody(writer: SerializationWriter, addPostRequestBody: Partial<AddPostRequestBody> | undefined | null = {}) : void {
-    if (addPostRequestBody) {
-        writer.writeNumberValue("index", addPostRequestBody.index);
-        writer.writeStringValue("name", addPostRequestBody.name);
-        writer.writeObjectValue("values", addPostRequestBody.values);
-        writer.writeAdditionalData(addPostRequestBody.additionalData);
-    }
+export function serializeAddPostRequestBody(writer: SerializationWriter, addPostRequestBody: Partial<AddPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeNumberValue("index", addPostRequestBody.index);
+    writer.writeStringValue("name", addPostRequestBody.name);
+    writer.writeObjectValue("values", addPostRequestBody.values);
+    writer.writeAdditionalData(addPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

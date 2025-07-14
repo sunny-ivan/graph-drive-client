@@ -19,6 +19,7 @@ export function createRatePostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param RatePostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -33,10 +34,6 @@ export function deserializeIntoRatePostRequestBody(ratePostRequestBody: Partial<
     }
 }
 export interface RatePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The fv property
      */
@@ -84,19 +81,20 @@ export interface RateRequestBuilder extends BaseRequestBuilder<RateRequestBuilde
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param RatePostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeRatePostRequestBody(writer: SerializationWriter, ratePostRequestBody: Partial<RatePostRequestBody> | undefined | null = {}) : void {
-    if (ratePostRequestBody) {
-        writer.writeObjectValue("fv", ratePostRequestBody.fv);
-        writer.writeObjectValue("guess", ratePostRequestBody.guess);
-        writer.writeObjectValue("nper", ratePostRequestBody.nper);
-        writer.writeObjectValue("pmt", ratePostRequestBody.pmt);
-        writer.writeObjectValue("pv", ratePostRequestBody.pv);
-        writer.writeObjectValue("type", ratePostRequestBody.type);
-        writer.writeAdditionalData(ratePostRequestBody.additionalData);
-    }
+export function serializeRatePostRequestBody(writer: SerializationWriter, ratePostRequestBody: Partial<RatePostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!ratePostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("fv", ratePostRequestBody.fv);
+    writer.writeObjectValue("guess", ratePostRequestBody.guess);
+    writer.writeObjectValue("nper", ratePostRequestBody.nper);
+    writer.writeObjectValue("pmt", ratePostRequestBody.pmt);
+    writer.writeObjectValue("pv", ratePostRequestBody.pv);
+    writer.writeObjectValue("type", ratePostRequestBody.type);
+    writer.writeAdditionalData(ratePostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

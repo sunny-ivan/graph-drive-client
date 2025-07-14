@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface AcosPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The number property
      */
     number?: UntypedNode | null;
@@ -49,6 +45,7 @@ export function createAcosPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param AcosPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoAcosPostRequestBody(acosPostRequestBody: Partial<
 }
 /**
  * Serializes information the current object
+ * @param AcosPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAcosPostRequestBody(writer: SerializationWriter, acosPostRequestBody: Partial<AcosPostRequestBody> | undefined | null = {}) : void {
-    if (acosPostRequestBody) {
-        writer.writeObjectValue("number", acosPostRequestBody.number);
-        writer.writeAdditionalData(acosPostRequestBody.additionalData);
-    }
+export function serializeAcosPostRequestBody(writer: SerializationWriter, acosPostRequestBody: Partial<AcosPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!acosPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", acosPostRequestBody.number);
+    writer.writeAdditionalData(acosPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

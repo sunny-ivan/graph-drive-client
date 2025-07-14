@@ -32,7 +32,6 @@ export interface DeltaRequestBuilder extends BaseRequestBuilder<DeltaRequestBuil
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<DeltaGetResponse>}
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/listitem-delta?view=graph-rest-1.0|Find more info here}
      */
      get(requestConfiguration?: RequestConfiguration<DeltaRequestBuilderGetQueryParameters> | undefined) : Promise<DeltaGetResponse | undefined>;
     /**
@@ -81,6 +80,7 @@ export interface DeltaRequestBuilderGetQueryParameters {
 }
 /**
  * The deserialization information for the current model
+ * @param DeltaGetResponse The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -92,14 +92,15 @@ export function deserializeIntoDeltaGetResponse(deltaGetResponse: Partial<DeltaG
 }
 /**
  * Serializes information the current object
+ * @param DeltaGetResponse The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDeltaGetResponse(writer: SerializationWriter, deltaGetResponse: Partial<DeltaGetResponse> | undefined | null = {}) : void {
-    if (deltaGetResponse) {
-        serializeBaseDeltaFunctionResponse(writer, deltaGetResponse)
-        writer.writeCollectionOfObjectValues<ListItem>("value", deltaGetResponse.value, serializeListItem);
-    }
+export function serializeDeltaGetResponse(writer: SerializationWriter, deltaGetResponse: Partial<DeltaGetResponse> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!deltaGetResponse || isSerializingDerivedType) { return; }
+    serializeBaseDeltaFunctionResponse(writer, deltaGetResponse, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<ListItem>("value", deltaGetResponse.value, serializeListItem);
 }
 /**
  * Uri template for the request builder.

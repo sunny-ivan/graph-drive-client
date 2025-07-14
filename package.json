@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/sunny-ivan/graph-drive-client.git"
   },
-  "version": "1.27.3",
+  "version": "1.28.0",
   "description": "",
   "scripts": {
     "build": "tsc",
@@ -17,7 +17,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@microsoft/kiota-authentication-azure": "1.0.0-preview.95",
-    "@microsoft/kiota-bundle": "1.0.0-preview.95"
+    "@microsoft/kiota-authentication-azure": "1.0.0-preview.96",
+    "@microsoft/kiota-bundle": "1.0.0-preview.96"
   }
 }

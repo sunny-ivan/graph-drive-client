@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface CalculatePostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The calculationType property
      */
     calculationType?: string | null;
@@ -25,7 +21,6 @@ export interface CalculateRequestBuilder extends BaseRequestBuilder<CalculateReq
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/workbookapplication-calculate?view=graph-rest-1.0|Find more info here}
      */
      post(body: CalculatePostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
@@ -47,6 +42,7 @@ export function createCalculatePostRequestBodyFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param CalculatePostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -57,14 +53,15 @@ export function deserializeIntoCalculatePostRequestBody(calculatePostRequestBody
 }
 /**
  * Serializes information the current object
+ * @param CalculatePostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCalculatePostRequestBody(writer: SerializationWriter, calculatePostRequestBody: Partial<CalculatePostRequestBody> | undefined | null = {}) : void {
-    if (calculatePostRequestBody) {
-        writer.writeStringValue("calculationType", calculatePostRequestBody.calculationType);
-        writer.writeAdditionalData(calculatePostRequestBody.additionalData);
-    }
+export function serializeCalculatePostRequestBody(writer: SerializationWriter, calculatePostRequestBody: Partial<CalculatePostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!calculatePostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("calculationType", calculatePostRequestBody.calculationType);
+    writer.writeAdditionalData(calculatePostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

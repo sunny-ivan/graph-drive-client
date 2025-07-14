@@ -19,10 +19,6 @@ export function createCscPostRequestBodyFromDiscriminatorValue(parseNode: ParseN
 }
 export interface CscPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The number property
      */
     number?: UntypedNode | null;
@@ -49,6 +45,7 @@ export interface CscRequestBuilder extends BaseRequestBuilder<CscRequestBuilder>
 }
 /**
  * The deserialization information for the current model
+ * @param CscPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoCscPostRequestBody(cscPostRequestBody: Partial<Cs
 }
 /**
  * Serializes information the current object
+ * @param CscPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCscPostRequestBody(writer: SerializationWriter, cscPostRequestBody: Partial<CscPostRequestBody> | undefined | null = {}) : void {
-    if (cscPostRequestBody) {
-        writer.writeObjectValue("number", cscPostRequestBody.number);
-        writer.writeAdditionalData(cscPostRequestBody.additionalData);
-    }
+export function serializeCscPostRequestBody(writer: SerializationWriter, cscPostRequestBody: Partial<CscPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cscPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", cscPostRequestBody.number);
+    writer.writeAdditionalData(cscPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

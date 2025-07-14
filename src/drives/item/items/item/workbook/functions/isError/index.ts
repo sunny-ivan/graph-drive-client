@@ -19,6 +19,7 @@ export function createIsErrorPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param IsErrorPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoIsErrorPostRequestBody(isErrorPostRequestBody: Pa
     }
 }
 export interface IsErrorPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The value property
      */
@@ -59,14 +56,15 @@ export interface IsErrorRequestBuilder extends BaseRequestBuilder<IsErrorRequest
 }
 /**
  * Serializes information the current object
+ * @param IsErrorPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsErrorPostRequestBody(writer: SerializationWriter, isErrorPostRequestBody: Partial<IsErrorPostRequestBody> | undefined | null = {}) : void {
-    if (isErrorPostRequestBody) {
-        writer.writeObjectValue("value", isErrorPostRequestBody.value);
-        writer.writeAdditionalData(isErrorPostRequestBody.additionalData);
-    }
+export function serializeIsErrorPostRequestBody(writer: SerializationWriter, isErrorPostRequestBody: Partial<IsErrorPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!isErrorPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("value", isErrorPostRequestBody.value);
+    writer.writeAdditionalData(isErrorPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

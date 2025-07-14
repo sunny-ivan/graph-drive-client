@@ -19,6 +19,7 @@ export function createTanPostRequestBodyFromDiscriminatorValue(parseNode: ParseN
 }
 /**
  * The deserialization information for the current model
+ * @param TanPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,20 +30,17 @@ export function deserializeIntoTanPostRequestBody(tanPostRequestBody: Partial<Ta
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param TanPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeTanPostRequestBody(writer: SerializationWriter, tanPostRequestBody: Partial<TanPostRequestBody> | undefined | null = {}) : void {
-    if (tanPostRequestBody) {
-        writer.writeObjectValue("number", tanPostRequestBody.number);
-        writer.writeAdditionalData(tanPostRequestBody.additionalData);
-    }
+export function serializeTanPostRequestBody(writer: SerializationWriter, tanPostRequestBody: Partial<TanPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!tanPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", tanPostRequestBody.number);
+    writer.writeAdditionalData(tanPostRequestBody.additionalData);
 }
 export interface TanPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The number property
      */

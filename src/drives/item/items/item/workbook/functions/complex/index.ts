@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface ComplexPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The iNum property
      */
     iNum?: UntypedNode | null;
@@ -57,6 +53,7 @@ export function createComplexPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param ComplexPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -69,16 +66,17 @@ export function deserializeIntoComplexPostRequestBody(complexPostRequestBody: Pa
 }
 /**
  * Serializes information the current object
+ * @param ComplexPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeComplexPostRequestBody(writer: SerializationWriter, complexPostRequestBody: Partial<ComplexPostRequestBody> | undefined | null = {}) : void {
-    if (complexPostRequestBody) {
-        writer.writeObjectValue("iNum", complexPostRequestBody.iNum);
-        writer.writeObjectValue("realNum", complexPostRequestBody.realNum);
-        writer.writeObjectValue("suffix", complexPostRequestBody.suffix);
-        writer.writeAdditionalData(complexPostRequestBody.additionalData);
-    }
+export function serializeComplexPostRequestBody(writer: SerializationWriter, complexPostRequestBody: Partial<ComplexPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!complexPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("iNum", complexPostRequestBody.iNum);
+    writer.writeObjectValue("realNum", complexPostRequestBody.realNum);
+    writer.writeObjectValue("suffix", complexPostRequestBody.suffix);
+    writer.writeAdditionalData(complexPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -19,6 +19,7 @@ export function createSumIfPostRequestBodyFromDiscriminatorValue(parseNode: Pars
 }
 /**
  * The deserialization information for the current model
+ * @param SumIfPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -31,22 +32,19 @@ export function deserializeIntoSumIfPostRequestBody(sumIfPostRequestBody: Partia
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SumIfPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSumIfPostRequestBody(writer: SerializationWriter, sumIfPostRequestBody: Partial<SumIfPostRequestBody> | undefined | null = {}) : void {
-    if (sumIfPostRequestBody) {
-        writer.writeObjectValue("criteria", sumIfPostRequestBody.criteria);
-        writer.writeObjectValue("range", sumIfPostRequestBody.range);
-        writer.writeObjectValue("sumRange", sumIfPostRequestBody.sumRange);
-        writer.writeAdditionalData(sumIfPostRequestBody.additionalData);
-    }
+export function serializeSumIfPostRequestBody(writer: SerializationWriter, sumIfPostRequestBody: Partial<SumIfPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sumIfPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("criteria", sumIfPostRequestBody.criteria);
+    writer.writeObjectValue("range", sumIfPostRequestBody.range);
+    writer.writeObjectValue("sumRange", sumIfPostRequestBody.sumRange);
+    writer.writeAdditionalData(sumIfPostRequestBody.additionalData);
 }
 export interface SumIfPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The criteria property
      */

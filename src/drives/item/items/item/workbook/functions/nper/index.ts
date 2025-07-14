@@ -19,6 +19,7 @@ export function createNperPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param NperPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -32,10 +33,6 @@ export function deserializeIntoNperPostRequestBody(nperPostRequestBody: Partial<
     }
 }
 export interface NperPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The fv property
      */
@@ -79,18 +76,19 @@ export interface NperRequestBuilder extends BaseRequestBuilder<NperRequestBuilde
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param NperPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeNperPostRequestBody(writer: SerializationWriter, nperPostRequestBody: Partial<NperPostRequestBody> | undefined | null = {}) : void {
-    if (nperPostRequestBody) {
-        writer.writeObjectValue("fv", nperPostRequestBody.fv);
-        writer.writeObjectValue("pmt", nperPostRequestBody.pmt);
-        writer.writeObjectValue("pv", nperPostRequestBody.pv);
-        writer.writeObjectValue("rate", nperPostRequestBody.rate);
-        writer.writeObjectValue("type", nperPostRequestBody.type);
-        writer.writeAdditionalData(nperPostRequestBody.additionalData);
-    }
+export function serializeNperPostRequestBody(writer: SerializationWriter, nperPostRequestBody: Partial<NperPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!nperPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("fv", nperPostRequestBody.fv);
+    writer.writeObjectValue("pmt", nperPostRequestBody.pmt);
+    writer.writeObjectValue("pv", nperPostRequestBody.pv);
+    writer.writeObjectValue("rate", nperPostRequestBody.rate);
+    writer.writeObjectValue("type", nperPostRequestBody.type);
+    writer.writeAdditionalData(nperPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface AddCopyFromContentTypeHubPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The contentTypeId property
      */
     contentTypeId?: string | null;
@@ -28,7 +24,6 @@ export interface AddCopyFromContentTypeHubRequestBuilder extends BaseRequestBuil
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @returns {Promise<ContentType>}
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/contenttype-addcopyfromcontenttypehub?view=graph-rest-1.0|Find more info here}
      */
      post(body: AddCopyFromContentTypeHubPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<ContentType | undefined>;
     /**
@@ -50,6 +45,7 @@ export function createAddCopyFromContentTypeHubPostRequestBodyFromDiscriminatorV
 }
 /**
  * The deserialization information for the current model
+ * @param AddCopyFromContentTypeHubPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -60,14 +56,15 @@ export function deserializeIntoAddCopyFromContentTypeHubPostRequestBody(addCopyF
 }
 /**
  * Serializes information the current object
+ * @param AddCopyFromContentTypeHubPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAddCopyFromContentTypeHubPostRequestBody(writer: SerializationWriter, addCopyFromContentTypeHubPostRequestBody: Partial<AddCopyFromContentTypeHubPostRequestBody> | undefined | null = {}) : void {
-    if (addCopyFromContentTypeHubPostRequestBody) {
-        writer.writeStringValue("contentTypeId", addCopyFromContentTypeHubPostRequestBody.contentTypeId);
-        writer.writeAdditionalData(addCopyFromContentTypeHubPostRequestBody.additionalData);
-    }
+export function serializeAddCopyFromContentTypeHubPostRequestBody(writer: SerializationWriter, addCopyFromContentTypeHubPostRequestBody: Partial<AddCopyFromContentTypeHubPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!addCopyFromContentTypeHubPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("contentTypeId", addCopyFromContentTypeHubPostRequestBody.contentTypeId);
+    writer.writeAdditionalData(addCopyFromContentTypeHubPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

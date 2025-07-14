@@ -19,6 +19,7 @@ export function createMirrPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param MirrPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,10 +31,6 @@ export function deserializeIntoMirrPostRequestBody(mirrPostRequestBody: Partial<
     }
 }
 export interface MirrPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The financeRate property
      */
@@ -69,16 +66,17 @@ export interface MirrRequestBuilder extends BaseRequestBuilder<MirrRequestBuilde
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param MirrPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMirrPostRequestBody(writer: SerializationWriter, mirrPostRequestBody: Partial<MirrPostRequestBody> | undefined | null = {}) : void {
-    if (mirrPostRequestBody) {
-        writer.writeObjectValue("financeRate", mirrPostRequestBody.financeRate);
-        writer.writeObjectValue("reinvestRate", mirrPostRequestBody.reinvestRate);
-        writer.writeObjectValue("values", mirrPostRequestBody.values);
-        writer.writeAdditionalData(mirrPostRequestBody.additionalData);
-    }
+export function serializeMirrPostRequestBody(writer: SerializationWriter, mirrPostRequestBody: Partial<MirrPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!mirrPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("financeRate", mirrPostRequestBody.financeRate);
+    writer.writeObjectValue("reinvestRate", mirrPostRequestBody.reinvestRate);
+    writer.writeObjectValue("values", mirrPostRequestBody.values);
+    writer.writeAdditionalData(mirrPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

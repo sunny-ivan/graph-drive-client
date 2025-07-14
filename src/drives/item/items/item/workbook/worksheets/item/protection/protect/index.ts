@@ -19,6 +19,7 @@ export function createProtectPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param ProtectPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoProtectPostRequestBody(protectPostRequestBody: Pa
     }
 }
 export interface ProtectPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The options property
      */
@@ -46,7 +43,6 @@ export interface ProtectRequestBuilder extends BaseRequestBuilder<ProtectRequest
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/worksheetprotection-protect?view=graph-rest-1.0|Find more info here}
      */
      post(body: ProtectPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
@@ -59,14 +55,15 @@ export interface ProtectRequestBuilder extends BaseRequestBuilder<ProtectRequest
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ProtectPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeProtectPostRequestBody(writer: SerializationWriter, protectPostRequestBody: Partial<ProtectPostRequestBody> | undefined | null = {}) : void {
-    if (protectPostRequestBody) {
-        writer.writeObjectValue<WorkbookWorksheetProtectionOptions>("options", protectPostRequestBody.options, serializeWorkbookWorksheetProtectionOptions);
-        writer.writeAdditionalData(protectPostRequestBody.additionalData);
-    }
+export function serializeProtectPostRequestBody(writer: SerializationWriter, protectPostRequestBody: Partial<ProtectPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!protectPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue<WorkbookWorksheetProtectionOptions>("options", protectPostRequestBody.options, serializeWorkbookWorksheetProtectionOptions);
+    writer.writeAdditionalData(protectPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

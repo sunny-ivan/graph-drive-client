@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface CothPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The number property
      */
     number?: UntypedNode | null;
@@ -49,6 +45,7 @@ export function createCothPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param CothPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoCothPostRequestBody(cothPostRequestBody: Partial<
 }
 /**
  * Serializes information the current object
+ * @param CothPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCothPostRequestBody(writer: SerializationWriter, cothPostRequestBody: Partial<CothPostRequestBody> | undefined | null = {}) : void {
-    if (cothPostRequestBody) {
-        writer.writeObjectValue("number", cothPostRequestBody.number);
-        writer.writeAdditionalData(cothPostRequestBody.additionalData);
-    }
+export function serializeCothPostRequestBody(writer: SerializationWriter, cothPostRequestBody: Partial<CothPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!cothPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", cothPostRequestBody.number);
+    writer.writeAdditionalData(cothPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

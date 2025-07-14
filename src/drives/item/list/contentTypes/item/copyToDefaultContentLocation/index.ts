@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface CopyToDefaultContentLocationPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The destinationFileName property
      */
     destinationFileName?: string | null;
@@ -31,7 +27,6 @@ export interface CopyToDefaultContentLocationRequestBuilder extends BaseRequestB
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/contenttype-copytodefaultcontentlocation?view=graph-rest-1.0|Find more info here}
      */
      post(body: CopyToDefaultContentLocationPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
@@ -53,6 +48,7 @@ export function createCopyToDefaultContentLocationPostRequestBodyFromDiscriminat
 }
 /**
  * The deserialization information for the current model
+ * @param CopyToDefaultContentLocationPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -64,15 +60,16 @@ export function deserializeIntoCopyToDefaultContentLocationPostRequestBody(copyT
 }
 /**
  * Serializes information the current object
+ * @param CopyToDefaultContentLocationPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCopyToDefaultContentLocationPostRequestBody(writer: SerializationWriter, copyToDefaultContentLocationPostRequestBody: Partial<CopyToDefaultContentLocationPostRequestBody> | undefined | null = {}) : void {
-    if (copyToDefaultContentLocationPostRequestBody) {
-        writer.writeStringValue("destinationFileName", copyToDefaultContentLocationPostRequestBody.destinationFileName);
-        writer.writeObjectValue<ItemReference>("sourceFile", copyToDefaultContentLocationPostRequestBody.sourceFile, serializeItemReference);
-        writer.writeAdditionalData(copyToDefaultContentLocationPostRequestBody.additionalData);
-    }
+export function serializeCopyToDefaultContentLocationPostRequestBody(writer: SerializationWriter, copyToDefaultContentLocationPostRequestBody: Partial<CopyToDefaultContentLocationPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!copyToDefaultContentLocationPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("destinationFileName", copyToDefaultContentLocationPostRequestBody.destinationFileName);
+    writer.writeObjectValue<ItemReference>("sourceFile", copyToDefaultContentLocationPostRequestBody.sourceFile, serializeItemReference);
+    writer.writeAdditionalData(copyToDefaultContentLocationPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

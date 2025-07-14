@@ -17,6 +17,7 @@ export function createSetDataPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param SetDataPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,21 +29,18 @@ export function deserializeIntoSetDataPostRequestBody(setDataPostRequestBody: Pa
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SetDataPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeSetDataPostRequestBody(writer: SerializationWriter, setDataPostRequestBody: Partial<SetDataPostRequestBody> | undefined | null = {}) : void {
-    if (setDataPostRequestBody) {
-        writer.writeStringValue("seriesBy", setDataPostRequestBody.seriesBy);
-        writer.writeObjectValue("sourceData", setDataPostRequestBody.sourceData);
-        writer.writeAdditionalData(setDataPostRequestBody.additionalData);
-    }
+export function serializeSetDataPostRequestBody(writer: SerializationWriter, setDataPostRequestBody: Partial<SetDataPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!setDataPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("seriesBy", setDataPostRequestBody.seriesBy);
+    writer.writeObjectValue("sourceData", setDataPostRequestBody.sourceData);
+    writer.writeAdditionalData(setDataPostRequestBody.additionalData);
 }
 export interface SetDataPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The seriesBy property
      */
@@ -61,7 +59,6 @@ export interface SetDataRequestBuilder extends BaseRequestBuilder<SetDataRequest
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/chart-setdata?view=graph-rest-1.0|Find more info here}
      */
      post(body: SetDataPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**

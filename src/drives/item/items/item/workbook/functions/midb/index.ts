@@ -19,6 +19,7 @@ export function createMidbPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param MidbPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,10 +31,6 @@ export function deserializeIntoMidbPostRequestBody(midbPostRequestBody: Partial<
     }
 }
 export interface MidbPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The numBytes property
      */
@@ -69,16 +66,17 @@ export interface MidbRequestBuilder extends BaseRequestBuilder<MidbRequestBuilde
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param MidbPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeMidbPostRequestBody(writer: SerializationWriter, midbPostRequestBody: Partial<MidbPostRequestBody> | undefined | null = {}) : void {
-    if (midbPostRequestBody) {
-        writer.writeObjectValue("numBytes", midbPostRequestBody.numBytes);
-        writer.writeObjectValue("startNum", midbPostRequestBody.startNum);
-        writer.writeObjectValue("text", midbPostRequestBody.text);
-        writer.writeAdditionalData(midbPostRequestBody.additionalData);
-    }
+export function serializeMidbPostRequestBody(writer: SerializationWriter, midbPostRequestBody: Partial<MidbPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!midbPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("numBytes", midbPostRequestBody.numBytes);
+    writer.writeObjectValue("startNum", midbPostRequestBody.startNum);
+    writer.writeObjectValue("text", midbPostRequestBody.text);
+    writer.writeAdditionalData(midbPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

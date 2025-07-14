@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ApplyCellColorFilterPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The color property
      */
     color?: string | null;
@@ -46,6 +42,7 @@ export function createApplyCellColorFilterPostRequestBodyFromDiscriminatorValue(
 }
 /**
  * The deserialization information for the current model
+ * @param ApplyCellColorFilterPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -56,14 +53,15 @@ export function deserializeIntoApplyCellColorFilterPostRequestBody(applyCellColo
 }
 /**
  * Serializes information the current object
+ * @param ApplyCellColorFilterPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyCellColorFilterPostRequestBody(writer: SerializationWriter, applyCellColorFilterPostRequestBody: Partial<ApplyCellColorFilterPostRequestBody> | undefined | null = {}) : void {
-    if (applyCellColorFilterPostRequestBody) {
-        writer.writeStringValue("color", applyCellColorFilterPostRequestBody.color);
-        writer.writeAdditionalData(applyCellColorFilterPostRequestBody.additionalData);
-    }
+export function serializeApplyCellColorFilterPostRequestBody(writer: SerializationWriter, applyCellColorFilterPostRequestBody: Partial<ApplyCellColorFilterPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!applyCellColorFilterPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("color", applyCellColorFilterPostRequestBody.color);
+    writer.writeAdditionalData(applyCellColorFilterPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

@@ -10,10 +10,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface CopyPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The childrenOnly property
      */
     childrenOnly?: boolean | null;
@@ -61,6 +57,7 @@ export function createCopyPostRequestBodyFromDiscriminatorValue(parseNode: Parse
 }
 /**
  * The deserialization information for the current model
+ * @param CopyPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -74,17 +71,18 @@ export function deserializeIntoCopyPostRequestBody(copyPostRequestBody: Partial<
 }
 /**
  * Serializes information the current object
+ * @param CopyPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCopyPostRequestBody(writer: SerializationWriter, copyPostRequestBody: Partial<CopyPostRequestBody> | undefined | null = {}) : void {
-    if (copyPostRequestBody) {
-        writer.writeBooleanValue("childrenOnly", copyPostRequestBody.childrenOnly);
-        writer.writeBooleanValue("includeAllVersionHistory", copyPostRequestBody.includeAllVersionHistory);
-        writer.writeStringValue("name", copyPostRequestBody.name);
-        writer.writeObjectValue<ItemReference>("parentReference", copyPostRequestBody.parentReference, serializeItemReference);
-        writer.writeAdditionalData(copyPostRequestBody.additionalData);
-    }
+export function serializeCopyPostRequestBody(writer: SerializationWriter, copyPostRequestBody: Partial<CopyPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!copyPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeBooleanValue("childrenOnly", copyPostRequestBody.childrenOnly);
+    writer.writeBooleanValue("includeAllVersionHistory", copyPostRequestBody.includeAllVersionHistory);
+    writer.writeStringValue("name", copyPostRequestBody.name);
+    writer.writeObjectValue<ItemReference>("parentReference", copyPostRequestBody.parentReference, serializeItemReference);
+    writer.writeAdditionalData(copyPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

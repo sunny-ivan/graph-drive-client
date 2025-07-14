@@ -14,10 +14,6 @@ export interface Beta_DistPostRequestBody extends AdditionalDataHolder, Parsable
      */
     a?: UntypedNode | null;
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The alpha property
      */
     alpha?: UntypedNode | null;
@@ -69,6 +65,7 @@ export function createBeta_DistPostRequestBodyFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param Beta_DistPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -84,19 +81,20 @@ export function deserializeIntoBeta_DistPostRequestBody(beta_DistPostRequestBody
 }
 /**
  * Serializes information the current object
+ * @param Beta_DistPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeBeta_DistPostRequestBody(writer: SerializationWriter, beta_DistPostRequestBody: Partial<Beta_DistPostRequestBody> | undefined | null = {}) : void {
-    if (beta_DistPostRequestBody) {
-        writer.writeObjectValue("A", beta_DistPostRequestBody.a);
-        writer.writeObjectValue("alpha", beta_DistPostRequestBody.alpha);
-        writer.writeObjectValue("B", beta_DistPostRequestBody.b);
-        writer.writeObjectValue("beta", beta_DistPostRequestBody.beta);
-        writer.writeObjectValue("cumulative", beta_DistPostRequestBody.cumulative);
-        writer.writeObjectValue("x", beta_DistPostRequestBody.x);
-        writer.writeAdditionalData(beta_DistPostRequestBody.additionalData);
-    }
+export function serializeBeta_DistPostRequestBody(writer: SerializationWriter, beta_DistPostRequestBody: Partial<Beta_DistPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!beta_DistPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("A", beta_DistPostRequestBody.a);
+    writer.writeObjectValue("alpha", beta_DistPostRequestBody.alpha);
+    writer.writeObjectValue("B", beta_DistPostRequestBody.b);
+    writer.writeObjectValue("beta", beta_DistPostRequestBody.beta);
+    writer.writeObjectValue("cumulative", beta_DistPostRequestBody.cumulative);
+    writer.writeObjectValue("x", beta_DistPostRequestBody.x);
+    writer.writeAdditionalData(beta_DistPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

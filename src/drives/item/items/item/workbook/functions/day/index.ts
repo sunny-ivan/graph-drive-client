@@ -19,10 +19,6 @@ export function createDayPostRequestBodyFromDiscriminatorValue(parseNode: ParseN
 }
 export interface DayPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The serialNumber property
      */
     serialNumber?: UntypedNode | null;
@@ -49,6 +45,7 @@ export interface DayRequestBuilder extends BaseRequestBuilder<DayRequestBuilder>
 }
 /**
  * The deserialization information for the current model
+ * @param DayPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -59,14 +56,15 @@ export function deserializeIntoDayPostRequestBody(dayPostRequestBody: Partial<Da
 }
 /**
  * Serializes information the current object
+ * @param DayPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeDayPostRequestBody(writer: SerializationWriter, dayPostRequestBody: Partial<DayPostRequestBody> | undefined | null = {}) : void {
-    if (dayPostRequestBody) {
-        writer.writeObjectValue("serialNumber", dayPostRequestBody.serialNumber);
-        writer.writeAdditionalData(dayPostRequestBody.additionalData);
-    }
+export function serializeDayPostRequestBody(writer: SerializationWriter, dayPostRequestBody: Partial<DayPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!dayPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("serialNumber", dayPostRequestBody.serialNumber);
+    writer.writeAdditionalData(dayPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

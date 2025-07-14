@@ -19,6 +19,7 @@ export function createFloor_PrecisePostRequestBodyFromDiscriminatorValue(parseNo
 }
 /**
  * The deserialization information for the current model
+ * @param Floor_PrecisePostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -29,10 +30,6 @@ export function deserializeIntoFloor_PrecisePostRequestBody(floor_PrecisePostReq
     }
 }
 export interface Floor_PrecisePostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The number property
      */
@@ -64,15 +61,16 @@ export interface Floor_PreciseRequestBuilder extends BaseRequestBuilder<Floor_Pr
 }
 /**
  * Serializes information the current object
+ * @param Floor_PrecisePostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeFloor_PrecisePostRequestBody(writer: SerializationWriter, floor_PrecisePostRequestBody: Partial<Floor_PrecisePostRequestBody> | undefined | null = {}) : void {
-    if (floor_PrecisePostRequestBody) {
-        writer.writeObjectValue("number", floor_PrecisePostRequestBody.number);
-        writer.writeObjectValue("significance", floor_PrecisePostRequestBody.significance);
-        writer.writeAdditionalData(floor_PrecisePostRequestBody.additionalData);
-    }
+export function serializeFloor_PrecisePostRequestBody(writer: SerializationWriter, floor_PrecisePostRequestBody: Partial<Floor_PrecisePostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!floor_PrecisePostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("number", floor_PrecisePostRequestBody.number);
+    writer.writeObjectValue("significance", floor_PrecisePostRequestBody.significance);
+    writer.writeAdditionalData(floor_PrecisePostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

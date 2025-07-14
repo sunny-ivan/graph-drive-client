@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface CheckinPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The checkInAs property
      */
     checkInAs?: string | null;
@@ -29,7 +25,6 @@ export interface CheckinRequestBuilder extends BaseRequestBuilder<CheckinRequest
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/driveitem-checkin?view=graph-rest-1.0|Find more info here}
      */
      post(body: CheckinPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
@@ -51,6 +46,7 @@ export function createCheckinPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param CheckinPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -62,15 +58,16 @@ export function deserializeIntoCheckinPostRequestBody(checkinPostRequestBody: Pa
 }
 /**
  * Serializes information the current object
+ * @param CheckinPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCheckinPostRequestBody(writer: SerializationWriter, checkinPostRequestBody: Partial<CheckinPostRequestBody> | undefined | null = {}) : void {
-    if (checkinPostRequestBody) {
-        writer.writeStringValue("checkInAs", checkinPostRequestBody.checkInAs);
-        writer.writeStringValue("comment", checkinPostRequestBody.comment);
-        writer.writeAdditionalData(checkinPostRequestBody.additionalData);
-    }
+export function serializeCheckinPostRequestBody(writer: SerializationWriter, checkinPostRequestBody: Partial<CheckinPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!checkinPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("checkInAs", checkinPostRequestBody.checkInAs);
+    writer.writeStringValue("comment", checkinPostRequestBody.comment);
+    writer.writeAdditionalData(checkinPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

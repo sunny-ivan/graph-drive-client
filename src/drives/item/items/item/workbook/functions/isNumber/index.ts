@@ -19,6 +19,7 @@ export function createIsNumberPostRequestBodyFromDiscriminatorValue(parseNode: P
 }
 /**
  * The deserialization information for the current model
+ * @param IsNumberPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,10 +29,6 @@ export function deserializeIntoIsNumberPostRequestBody(isNumberPostRequestBody: 
     }
 }
 export interface IsNumberPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The value property
      */
@@ -59,14 +56,15 @@ export interface IsNumberRequestBuilder extends BaseRequestBuilder<IsNumberReque
 }
 /**
  * Serializes information the current object
+ * @param IsNumberPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeIsNumberPostRequestBody(writer: SerializationWriter, isNumberPostRequestBody: Partial<IsNumberPostRequestBody> | undefined | null = {}) : void {
-    if (isNumberPostRequestBody) {
-        writer.writeObjectValue("value", isNumberPostRequestBody.value);
-        writer.writeAdditionalData(isNumberPostRequestBody.additionalData);
-    }
+export function serializeIsNumberPostRequestBody(writer: SerializationWriter, isNumberPostRequestBody: Partial<IsNumberPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!isNumberPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("value", isNumberPostRequestBody.value);
+    writer.writeAdditionalData(isNumberPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

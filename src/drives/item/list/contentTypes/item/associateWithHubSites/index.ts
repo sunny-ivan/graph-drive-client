@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface AssociateWithHubSitesPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The hubSiteUrls property
      */
     hubSiteUrls?: string[] | null;
@@ -29,7 +25,6 @@ export interface AssociateWithHubSitesRequestBuilder extends BaseRequestBuilder<
      * @param body The request body
      * @param requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @throws {ODataError} error when the service returns a 4XX or 5XX status code
-     * @see {@link https://learn.microsoft.com/graph/api/contenttype-associatewithhubsites?view=graph-rest-1.0|Find more info here}
      */
      post(body: AssociateWithHubSitesPostRequestBody, requestConfiguration?: RequestConfiguration<object> | undefined) : Promise<void>;
     /**
@@ -51,6 +46,7 @@ export function createAssociateWithHubSitesPostRequestBodyFromDiscriminatorValue
 }
 /**
  * The deserialization information for the current model
+ * @param AssociateWithHubSitesPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -62,15 +58,16 @@ export function deserializeIntoAssociateWithHubSitesPostRequestBody(associateWit
 }
 /**
  * Serializes information the current object
+ * @param AssociateWithHubSitesPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeAssociateWithHubSitesPostRequestBody(writer: SerializationWriter, associateWithHubSitesPostRequestBody: Partial<AssociateWithHubSitesPostRequestBody> | undefined | null = {}) : void {
-    if (associateWithHubSitesPostRequestBody) {
-        writer.writeCollectionOfPrimitiveValues<string>("hubSiteUrls", associateWithHubSitesPostRequestBody.hubSiteUrls);
-        writer.writeBooleanValue("propagateToExistingLists", associateWithHubSitesPostRequestBody.propagateToExistingLists);
-        writer.writeAdditionalData(associateWithHubSitesPostRequestBody.additionalData);
-    }
+export function serializeAssociateWithHubSitesPostRequestBody(writer: SerializationWriter, associateWithHubSitesPostRequestBody: Partial<AssociateWithHubSitesPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!associateWithHubSitesPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeCollectionOfPrimitiveValues<string>("hubSiteUrls", associateWithHubSitesPostRequestBody.hubSiteUrls);
+    writer.writeBooleanValue("propagateToExistingLists", associateWithHubSitesPostRequestBody.propagateToExistingLists);
+    writer.writeAdditionalData(associateWithHubSitesPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

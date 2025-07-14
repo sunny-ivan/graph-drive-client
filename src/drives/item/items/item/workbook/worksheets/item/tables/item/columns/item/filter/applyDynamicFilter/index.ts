@@ -8,10 +8,6 @@ import { type AdditionalDataHolder, type BaseRequestBuilder, type Parsable, type
 
 export interface ApplyDynamicFilterPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The criteria property
      */
     criteria?: string | null;
@@ -46,6 +42,7 @@ export function createApplyDynamicFilterPostRequestBodyFromDiscriminatorValue(pa
 }
 /**
  * The deserialization information for the current model
+ * @param ApplyDynamicFilterPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -56,14 +53,15 @@ export function deserializeIntoApplyDynamicFilterPostRequestBody(applyDynamicFil
 }
 /**
  * Serializes information the current object
+ * @param ApplyDynamicFilterPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeApplyDynamicFilterPostRequestBody(writer: SerializationWriter, applyDynamicFilterPostRequestBody: Partial<ApplyDynamicFilterPostRequestBody> | undefined | null = {}) : void {
-    if (applyDynamicFilterPostRequestBody) {
-        writer.writeStringValue("criteria", applyDynamicFilterPostRequestBody.criteria);
-        writer.writeAdditionalData(applyDynamicFilterPostRequestBody.additionalData);
-    }
+export function serializeApplyDynamicFilterPostRequestBody(writer: SerializationWriter, applyDynamicFilterPostRequestBody: Partial<ApplyDynamicFilterPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!applyDynamicFilterPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("criteria", applyDynamicFilterPostRequestBody.criteria);
+    writer.writeAdditionalData(applyDynamicFilterPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

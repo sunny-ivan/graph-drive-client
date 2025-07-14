@@ -19,6 +19,7 @@ export function createPdurationPostRequestBodyFromDiscriminatorValue(parseNode: 
 }
 /**
  * The deserialization information for the current model
+ * @param PdurationPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -30,10 +31,6 @@ export function deserializeIntoPdurationPostRequestBody(pdurationPostRequestBody
     }
 }
 export interface PdurationPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The fv property
      */
@@ -69,16 +66,17 @@ export interface PdurationRequestBuilder extends BaseRequestBuilder<PdurationReq
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param PdurationPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializePdurationPostRequestBody(writer: SerializationWriter, pdurationPostRequestBody: Partial<PdurationPostRequestBody> | undefined | null = {}) : void {
-    if (pdurationPostRequestBody) {
-        writer.writeObjectValue("fv", pdurationPostRequestBody.fv);
-        writer.writeObjectValue("pv", pdurationPostRequestBody.pv);
-        writer.writeObjectValue("rate", pdurationPostRequestBody.rate);
-        writer.writeAdditionalData(pdurationPostRequestBody.additionalData);
-    }
+export function serializePdurationPostRequestBody(writer: SerializationWriter, pdurationPostRequestBody: Partial<PdurationPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!pdurationPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("fv", pdurationPostRequestBody.fv);
+    writer.writeObjectValue("pv", pdurationPostRequestBody.pv);
+    writer.writeObjectValue("rate", pdurationPostRequestBody.rate);
+    writer.writeAdditionalData(pdurationPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

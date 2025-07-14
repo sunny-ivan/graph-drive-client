@@ -10,10 +10,6 @@ import { createUntypedNodeFromDiscriminatorValue, type AdditionalDataHolder, typ
 
 export interface CoupNcdPostRequestBody extends AdditionalDataHolder, Parsable {
     /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
-    /**
      * The basis property
      */
     basis?: UntypedNode | null;
@@ -61,6 +57,7 @@ export function createCoupNcdPostRequestBodyFromDiscriminatorValue(parseNode: Pa
 }
 /**
  * The deserialization information for the current model
+ * @param CoupNcdPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -74,17 +71,18 @@ export function deserializeIntoCoupNcdPostRequestBody(coupNcdPostRequestBody: Pa
 }
 /**
  * Serializes information the current object
+ * @param CoupNcdPostRequestBody The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeCoupNcdPostRequestBody(writer: SerializationWriter, coupNcdPostRequestBody: Partial<CoupNcdPostRequestBody> | undefined | null = {}) : void {
-    if (coupNcdPostRequestBody) {
-        writer.writeObjectValue("basis", coupNcdPostRequestBody.basis);
-        writer.writeObjectValue("frequency", coupNcdPostRequestBody.frequency);
-        writer.writeObjectValue("maturity", coupNcdPostRequestBody.maturity);
-        writer.writeObjectValue("settlement", coupNcdPostRequestBody.settlement);
-        writer.writeAdditionalData(coupNcdPostRequestBody.additionalData);
-    }
+export function serializeCoupNcdPostRequestBody(writer: SerializationWriter, coupNcdPostRequestBody: Partial<CoupNcdPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!coupNcdPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeObjectValue("basis", coupNcdPostRequestBody.basis);
+    writer.writeObjectValue("frequency", coupNcdPostRequestBody.frequency);
+    writer.writeObjectValue("maturity", coupNcdPostRequestBody.maturity);
+    writer.writeObjectValue("settlement", coupNcdPostRequestBody.settlement);
+    writer.writeAdditionalData(coupNcdPostRequestBody.additionalData);
 }
 /**
  * Uri template for the request builder.

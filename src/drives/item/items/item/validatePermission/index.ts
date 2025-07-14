@@ -17,6 +17,7 @@ export function createValidatePermissionPostRequestBodyFromDiscriminatorValue(pa
 }
 /**
  * The deserialization information for the current model
+ * @param ValidatePermissionPostRequestBody The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
 // @ts-ignore
@@ -28,21 +29,18 @@ export function deserializeIntoValidatePermissionPostRequestBody(validatePermiss
 }
 /**
  * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param ValidatePermissionPostRequestBody The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
 // @ts-ignore
-export function serializeValidatePermissionPostRequestBody(writer: SerializationWriter, validatePermissionPostRequestBody: Partial<ValidatePermissionPostRequestBody> | undefined | null = {}) : void {
-    if (validatePermissionPostRequestBody) {
-        writer.writeStringValue("challengeToken", validatePermissionPostRequestBody.challengeToken);
-        writer.writeStringValue("password", validatePermissionPostRequestBody.password);
-        writer.writeAdditionalData(validatePermissionPostRequestBody.additionalData);
-    }
+export function serializeValidatePermissionPostRequestBody(writer: SerializationWriter, validatePermissionPostRequestBody: Partial<ValidatePermissionPostRequestBody> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!validatePermissionPostRequestBody || isSerializingDerivedType) { return; }
+    writer.writeStringValue("challengeToken", validatePermissionPostRequestBody.challengeToken);
+    writer.writeStringValue("password", validatePermissionPostRequestBody.password);
+    writer.writeAdditionalData(validatePermissionPostRequestBody.additionalData);
 }
 export interface ValidatePermissionPostRequestBody extends AdditionalDataHolder, Parsable {
-    /**
-     * Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
-     */
-    additionalData?: Record<string, unknown>;
     /**
      * The challengeToken property
      */
