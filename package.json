@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/sunny-ivan/graph-drive-client.git"
   },
-  "version": "1.28.5",
+  "version": "1.28.6",
   "description": "",
   "scripts": {
     "build": "tsc",
