@@ -7514,7 +7514,7 @@ export interface Search extends Entity, Parsable {
 }
 export interface SecurityGroupEvidence extends AlertEvidence, Parsable {
     /**
-     * The activeDirectoryObjectGuid property
+     * The unique group identifier assigned by the on-premises Active Directory.
      */
     activeDirectoryObjectGuid?: Guid | null;
     /**
@@ -7522,11 +7522,11 @@ export interface SecurityGroupEvidence extends AlertEvidence, Parsable {
      */
     displayName?: string | null;
     /**
-     * The distinguishedName property
+     * The distinguished name of the security group.
      */
     distinguishedName?: string | null;
     /**
-     * The friendlyName property
+     * The friendly name of the security group.
      */
     friendlyName?: string | null;
     /**
@@ -7534,7 +7534,7 @@ export interface SecurityGroupEvidence extends AlertEvidence, Parsable {
      */
     securityGroupId?: string | null;
     /**
-     * The sid property
+     * The security identifier of the group.
      */
     sid?: string | null;
 }
@@ -11026,7 +11026,7 @@ export interface UserAccount extends AdditionalDataHolder, Parsable {
      */
     accountName?: string | null;
     /**
-     * The activeDirectoryObjectGuid property
+     * The unique user identifier assigned by the on-premises Active Directory.
      */
     activeDirectoryObjectGuid?: Guid | null;
     /**
