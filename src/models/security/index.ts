@@ -55,7 +55,7 @@ export interface Alert extends Entity, Parsable {
      */
     description?: string | null;
     /**
-     * Detection technology or sensor that identified the notable component or activity. Possible values are: unknown, microsoftDefenderForEndpoint, antivirus, smartScreen, customTi, microsoftDefenderForOffice365, automatedInvestigation, microsoftThreatExperts, customDetection, microsoftDefenderForIdentity, cloudAppSecurity, microsoft365Defender, azureAdIdentityProtection, manual, microsoftDataLossPrevention, appGovernancePolicy, appGovernanceDetection, unknownFutureValue, microsoftDefenderForCloud, microsoftDefenderForIoT, microsoftDefenderForServers, microsoftDefenderForStorage, microsoftDefenderForDNS, microsoftDefenderForDatabases, microsoftDefenderForContainers, microsoftDefenderForNetwork, microsoftDefenderForAppService, microsoftDefenderForKeyVault, microsoftDefenderForResourceManager, microsoftDefenderForApiManagement, microsoftSentinel, nrtAlerts, scheduledAlerts, microsoftDefenderThreatIntelligenceAnalytics, builtInMl, microsoftThreatIntelligence. Use the Prefer: include-unknown-enum-members request header to get the following values in this evolvable enum: microsoftDefenderForCloud, microsoftDefenderForIoT, microsoftDefenderForServers, microsoftDefenderForStorage, microsoftDefenderForDNS, microsoftDefenderForDatabases, microsoftDefenderForContainers, microsoftDefenderForNetwork, microsoftDefenderForAppService, microsoftDefenderForKeyVault, microsoftDefenderForResourceManager, microsoftDefenderForApiManagement, microsoftSentinel, nrtAlerts, scheduledAlerts, microsoftDefenderThreatIntelligenceAnalytics, builtInMl, microsoftThreatIntelligence.
+     * Detection technology or sensor that identified the notable component or activity. Possible values are: unknown, microsoftDefenderForEndpoint, antivirus, smartScreen, customTi, microsoftDefenderForOffice365, automatedInvestigation, microsoftThreatExperts, customDetection, microsoftDefenderForIdentity, cloudAppSecurity, microsoft365Defender, azureAdIdentityProtection, manual, microsoftDataLossPrevention, appGovernancePolicy, appGovernanceDetection, unknownFutureValue, microsoftDefenderForCloud, microsoftDefenderForIoT, microsoftDefenderForServers, microsoftDefenderForStorage, microsoftDefenderForDNS, microsoftDefenderForDatabases, microsoftDefenderForContainers, microsoftDefenderForNetwork, microsoftDefenderForAppService, microsoftDefenderForKeyVault, microsoftDefenderForResourceManager, microsoftDefenderForApiManagement, microsoftSentinel, nrtAlerts, scheduledAlerts, microsoftDefenderThreatIntelligenceAnalytics, builtInMl, microsoftThreatIntelligence, microsoftDefenderForAIServices, securityCopilot. Use the Prefer: include-unknown-enum-members request header to get the following values in this evolvable enum: microsoftDefenderForCloud, microsoftDefenderForIoT, microsoftDefenderForServers, microsoftDefenderForStorage, microsoftDefenderForDNS, microsoftDefenderForDatabases, microsoftDefenderForContainers, microsoftDefenderForNetwork, microsoftDefenderForAppService, microsoftDefenderForKeyVault, microsoftDefenderForResourceManager, microsoftDefenderForApiManagement, microsoftSentinel, nrtAlerts, scheduledAlerts, microsoftDefenderThreatIntelligenceAnalytics, builtInMl, microsoftThreatIntelligence, microsoftDefenderForAIServices, securityCopilot.
      */
     detectionSource?: DetectionSource | null;
     /**
@@ -474,6 +474,7 @@ export interface CasesRoot extends Entity, Parsable {
     ediscoveryCases?: EdiscoveryCase[] | null;
 }
 export type CaseStatus = (typeof CaseStatusObject)[keyof typeof CaseStatusObject];
+export type CaseType = (typeof CaseTypeObject)[keyof typeof CaseTypeObject];
 export interface CategoryTemplate extends FilePlanDescriptorTemplate, Parsable {
     /**
      * Represents all subcategories under a particular category.
@@ -3090,8 +3091,10 @@ export function deserializeIntoEdiscoveryCase(ediscoveryCase: Partial<Ediscovery
 export function deserializeIntoEdiscoveryCaseSettings(ediscoveryCaseSettings: Partial<EdiscoveryCaseSettings> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(ediscoveryCaseSettings),
+        "caseType": n => { ediscoveryCaseSettings.caseType = n.getEnumValue<CaseType>(CaseTypeObject); },
         "ocr": n => { ediscoveryCaseSettings.ocr = n.getObjectValue<OcrSettings>(createOcrSettingsFromDiscriminatorValue); },
         "redundancyDetection": n => { ediscoveryCaseSettings.redundancyDetection = n.getObjectValue<RedundancyDetectionSettings>(createRedundancyDetectionSettingsFromDiscriminatorValue); },
+        "reviewSetSettings": n => { ediscoveryCaseSettings.reviewSetSettings = n.getCollectionOfEnumValues<ReviewSetSettings>(ReviewSetSettingsObject); },
         "topicModeling": n => { ediscoveryCaseSettings.topicModeling = n.getObjectValue<TopicModelingSettings>(createTopicModelingSettingsFromDiscriminatorValue); },
     }
 }
@@ -5343,6 +5346,10 @@ export interface EdiscoveryCase extends CaseEscaped, Parsable {
 }
 export interface EdiscoveryCaseSettings extends Entity, Parsable {
     /**
+     * The caseType property
+     */
+    caseType?: CaseType | null;
+    /**
      * The OCR (Optical Character Recognition) settings for the case.
      */
     ocr?: OcrSettings | null;
@@ -5350,6 +5357,10 @@ export interface EdiscoveryCaseSettings extends Entity, Parsable {
      * The redundancy (near duplicate and email threading) detection settings for the case.
      */
     redundancyDetection?: RedundancyDetectionSettings | null;
+    /**
+     * The settings of the review set for the case. Possible values are: none, disableGrouping, unknownFutureValue.
+     */
+    reviewSetSettings?: ReviewSetSettings[] | null;
     /**
      * The Topic Modeling (Themes) settings for the case.
      */
@@ -7440,6 +7451,7 @@ export interface RetentionLabel extends Entity, Parsable {
     retentionTrigger?: RetentionTrigger | null;
 }
 export type RetentionTrigger = (typeof RetentionTriggerObject)[keyof typeof RetentionTriggerObject];
+export type ReviewSetSettings = (typeof ReviewSetSettingsObject)[keyof typeof ReviewSetSettingsObject];
 export interface SasTokenEvidence extends AlertEvidence, Parsable {
     /**
      * The allowedIpAddresses property
@@ -8427,8 +8439,10 @@ export function serializeEdiscoveryCase(writer: SerializationWriter, ediscoveryC
 export function serializeEdiscoveryCaseSettings(writer: SerializationWriter, ediscoveryCaseSettings: Partial<EdiscoveryCaseSettings> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!ediscoveryCaseSettings || isSerializingDerivedType) { return; }
     serializeEntity(writer, ediscoveryCaseSettings, isSerializingDerivedType)
+    writer.writeEnumValue<CaseType>("caseType", ediscoveryCaseSettings.caseType);
     writer.writeObjectValue<OcrSettings>("ocr", ediscoveryCaseSettings.ocr, serializeOcrSettings);
     writer.writeObjectValue<RedundancyDetectionSettings>("redundancyDetection", ediscoveryCaseSettings.redundancyDetection, serializeRedundancyDetectionSettings);
+    writer.writeEnumValue<ReviewSetSettings[]>("reviewSetSettings", ediscoveryCaseSettings.reviewSetSettings);
     writer.writeObjectValue<TopicModelingSettings>("topicModeling", ediscoveryCaseSettings.topicModeling, serializeTopicModelingSettings);
 }
 /**
@@ -11432,6 +11446,11 @@ export const CaseStatusObject = {
     ClosedWithError: "closedWithError",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const CaseTypeObject = {
+    Standard: "standard",
+    Premium: "premium",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const ChildSelectabilityObject = {
     One: "One",
     Many: "Many",
@@ -11793,6 +11812,11 @@ export const RetentionTriggerObject = {
     DateCreated: "dateCreated",
     DateModified: "dateModified",
     DateOfEvent: "dateOfEvent",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const ReviewSetSettingsObject = {
+    None: "none",
+    DisableGrouping: "disableGrouping",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const SensorHealthStatusObject = {
