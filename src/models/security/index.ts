@@ -438,7 +438,7 @@ export interface CaseEscaped extends Entity, Parsable {
 }
 export interface CaseOperation extends Entity, Parsable {
     /**
-     * The type of action the operation represents. Possible values are: contentExport,  applyTags, convertToPdf, index, estimateStatistics, addToReviewSet, holdUpdate, unknownFutureValue, purgeData, exportReport, exportResult. Use the Prefer: include-unknown-enum-members request header to get the following values from this evolvable enum: purgeData, exportReport, exportResult.
+     * The type of action the operation represents. Possible values are: contentExport,  applyTags, convertToPdf, index, estimateStatistics, addToReviewSet, holdUpdate, unknownFutureValue, purgeData, exportReport, exportResult, holdPolicySync. Use the Prefer: include-unknown-enum-members request header to get the following values from this evolvable enum: purgeData, exportReport, exportResult, holdPolicySync.
      */
     action?: CaseAction | null;
     /**
@@ -462,7 +462,7 @@ export interface CaseOperation extends Entity, Parsable {
      */
     resultInfo?: ResultInfo | null;
     /**
-     * The status of the case operation. Possible values are: notStarted, submissionFailed, running, succeeded, partiallySucceeded, failed.
+     * The status of the case operation. Possible values are: notStarted, submissionFailed, running, succeeded, partiallySucceeded, failed, unknownFutureValue.
      */
     status?: CaseOperationStatus | null;
 }
@@ -903,6 +903,8 @@ export function createCaseOperationFromDiscriminatorValue(parseNode: ParseNode |
                     return deserializeIntoEdiscoveryExportOperation;
                 case "#microsoft.graph.security.ediscoveryHoldOperation":
                     return deserializeIntoEdiscoveryHoldOperation;
+                case "#microsoft.graph.security.ediscoveryHoldPolicySyncOperation":
+                    return deserializeIntoEdiscoveryHoldPolicySyncOperation;
                 case "#microsoft.graph.security.ediscoveryIndexOperation":
                     return deserializeIntoEdiscoveryIndexOperation;
                 case "#microsoft.graph.security.ediscoveryPurgeDataOperation":
@@ -1179,6 +1181,15 @@ export function createEdiscoveryExportOperationFromDiscriminatorValue(parseNode:
 // @ts-ignore
 export function createEdiscoveryHoldOperationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoEdiscoveryHoldOperation;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {EdiscoveryHoldPolicySyncOperation}
+ */
+// @ts-ignore
+export function createEdiscoveryHoldPolicySyncOperationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEdiscoveryHoldPolicySyncOperation;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -3162,6 +3173,18 @@ export function deserializeIntoEdiscoveryExportOperation(ediscoveryExportOperati
 export function deserializeIntoEdiscoveryHoldOperation(ediscoveryHoldOperation: Partial<EdiscoveryHoldOperation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoCaseOperation(ediscoveryHoldOperation),
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param EdiscoveryHoldPolicySyncOperation The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEdiscoveryHoldPolicySyncOperation(ediscoveryHoldPolicySyncOperation: Partial<EdiscoveryHoldPolicySyncOperation> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoCaseOperation(ediscoveryHoldPolicySyncOperation),
+        "reportFileMetadata": n => { ediscoveryHoldPolicySyncOperation.reportFileMetadata = n.getCollectionOfObjectValues<ReportFileMetadata>(createReportFileMetadataFromDiscriminatorValue); },
     }
 }
 /**
@@ -5461,6 +5484,12 @@ export interface EdiscoveryExportOperation extends CaseOperation, Parsable {
     reviewSetQuery?: EdiscoveryReviewSetQuery | null;
 }
 export interface EdiscoveryHoldOperation extends CaseOperation, Parsable {
+}
+export interface EdiscoveryHoldPolicySyncOperation extends CaseOperation, Parsable {
+    /**
+     * Contains the properties for report file metadata, including downloadUrl, fileName, and size.
+     */
+    reportFileMetadata?: ReportFileMetadata[] | null;
 }
 export interface EdiscoveryIndexOperation extends CaseOperation, Parsable {
 }
@@ -8076,6 +8105,9 @@ export function serializeCaseOperation(writer: SerializationWriter, caseOperatio
         case "#microsoft.graph.security.ediscoveryHoldOperation":
             serializeEdiscoveryHoldOperation(writer, caseOperation, true);
         break;
+        case "#microsoft.graph.security.ediscoveryHoldPolicySyncOperation":
+            serializeEdiscoveryHoldPolicySyncOperation(writer, caseOperation, true);
+        break;
         case "#microsoft.graph.security.ediscoveryIndexOperation":
             serializeEdiscoveryIndexOperation(writer, caseOperation, true);
         break;
@@ -8510,6 +8542,18 @@ export function serializeEdiscoveryExportOperation(writer: SerializationWriter, 
 export function serializeEdiscoveryHoldOperation(writer: SerializationWriter, ediscoveryHoldOperation: Partial<EdiscoveryHoldOperation> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!ediscoveryHoldOperation || isSerializingDerivedType) { return; }
     serializeCaseOperation(writer, ediscoveryHoldOperation, isSerializingDerivedType)
+}
+/**
+ * Serializes information the current object
+ * @param EdiscoveryHoldPolicySyncOperation The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEdiscoveryHoldPolicySyncOperation(writer: SerializationWriter, ediscoveryHoldPolicySyncOperation: Partial<EdiscoveryHoldPolicySyncOperation> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!ediscoveryHoldPolicySyncOperation || isSerializingDerivedType) { return; }
+    serializeCaseOperation(writer, ediscoveryHoldPolicySyncOperation, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<ReportFileMetadata>("reportFileMetadata", ediscoveryHoldPolicySyncOperation.reportFileMetadata, serializeReportFileMetadata);
 }
 /**
  * Serializes information the current object
@@ -11427,6 +11471,7 @@ export const CaseActionObject = {
     PurgeData: "purgeData",
     ExportReport: "exportReport",
     ExportResult: "exportResult",
+    HoldPolicySync: "holdPolicySync",
 } as const;
 export const CaseOperationStatusObject = {
     NotStarted: "notStarted",
@@ -11559,6 +11604,8 @@ export const DetectionSourceObject = {
     BuiltInMl: "builtInMl",
     MicrosoftInsiderRiskManagement: "microsoftInsiderRiskManagement",
     MicrosoftThreatIntelligence: "microsoftThreatIntelligence",
+    MicrosoftDefenderForAIServices: "microsoftDefenderForAIServices",
+    SecurityCopilot: "securityCopilot",
     MicrosoftSentinel: "microsoftSentinel",
 } as const;
 export const DetectionStatusObject = {
