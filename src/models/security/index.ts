@@ -83,7 +83,7 @@ export interface Alert extends Entity, Parsable {
      */
     incidentWebUrl?: string | null;
     /**
-     * The investigationState property
+     * Information on the current status of the investigation. Possible values are: unknown, terminated, successfullyRemediated, benign, failed, partiallyRemediated, running, pendingApproval, pendingResource, queued, innerFailure, preexistingAlert, unsupportedOs, unsupportedAlertType, suppressedAlert, partiallyInvestigated, terminatedByUser, terminatedBySystem, unknownFutureValue.
      */
     investigationState?: InvestigationState | null;
     /**
