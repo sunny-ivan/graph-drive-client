@@ -6,11 +6,117 @@ import { createApplicationFromDiscriminatorValue, createCustomExtensionCallbackC
 // @ts-ignore
 import { type AdditionalDataHolder, type Parsable, type ParseNode, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
+export interface ActivateGroupScope extends ActivationScope, Parsable {
+    /**
+     * The group property
+     */
+    group?: Group | null;
+}
+export interface ActivateProcessingResultScope extends ActivationScope, Parsable {
+    /**
+     * The processingResults property
+     */
+    processingResults?: UserProcessingResult[] | null;
+    /**
+     * The taskScope property
+     */
+    taskScope?: ActivationTaskScopeType | null;
+}
+export interface ActivateRunScope extends ActivationScope, Parsable {
+    /**
+     * The run property
+     */
+    run?: Run | null;
+    /**
+     * The taskScope property
+     */
+    taskScope?: ActivationTaskScopeType | null;
+    /**
+     * The userScope property
+     */
+    userScope?: ActivationUserScopeType | null;
+}
+export interface ActivateUserScope extends ActivationScope, Parsable {
+    /**
+     * The users property
+     */
+    users?: User[] | null;
+}
+export interface ActivationScope extends AdditionalDataHolder, Parsable {
+    /**
+     * The OdataType property
+     */
+    odataType?: string | null;
+}
+export type ActivationTaskScopeType = (typeof ActivationTaskScopeTypeObject)[keyof typeof ActivationTaskScopeTypeObject];
+export type ActivationUserScopeType = (typeof ActivationUserScopeTypeObject)[keyof typeof ActivationUserScopeTypeObject];
 export interface AttributeChangeTrigger extends Parsable, WorkflowExecutionTrigger {
     /**
      * The trigger attribute being changed that triggers the workflowexecutiontrigger of a workflow.)
      */
     triggerAttributes?: TriggerAttribute[] | null;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ActivateGroupScope}
+ */
+// @ts-ignore
+export function createActivateGroupScopeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoActivateGroupScope;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ActivateProcessingResultScope}
+ */
+// @ts-ignore
+export function createActivateProcessingResultScopeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoActivateProcessingResultScope;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ActivateRunScope}
+ */
+// @ts-ignore
+export function createActivateRunScopeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoActivateRunScope;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ActivateUserScope}
+ */
+// @ts-ignore
+export function createActivateUserScopeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoActivateUserScope;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ActivationScope}
+ */
+// @ts-ignore
+export function createActivationScopeFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    if(!parseNode) throw new Error("parseNode cannot be undefined");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
+    if (mappingValueNode) {
+        const mappingValue = mappingValueNode.getStringValue();
+        if (mappingValue) {
+            switch (mappingValue) {
+                case "#microsoft.graph.identityGovernance.activateGroupScope":
+                    return deserializeIntoActivateGroupScope;
+                case "#microsoft.graph.identityGovernance.activateProcessingResultScope":
+                    return deserializeIntoActivateProcessingResultScope;
+                case "#microsoft.graph.identityGovernance.activateRunScope":
+                    return deserializeIntoActivateRunScope;
+                case "#microsoft.graph.identityGovernance.activateUserScope":
+                    return deserializeIntoActivateUserScope;
+            }
+        }
+    }
+    return deserializeIntoActivationScope;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -317,6 +423,68 @@ export interface CustomTaskExtensionCallbackConfiguration extends CustomExtensio
 }
 /**
  * The deserialization information for the current model
+ * @param ActivateGroupScope The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoActivateGroupScope(activateGroupScope: Partial<ActivateGroupScope> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoActivationScope(activateGroupScope),
+        "group": n => { activateGroupScope.group = n.getObjectValue<Group>(createGroupFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ActivateProcessingResultScope The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoActivateProcessingResultScope(activateProcessingResultScope: Partial<ActivateProcessingResultScope> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoActivationScope(activateProcessingResultScope),
+        "processingResults": n => { activateProcessingResultScope.processingResults = n.getCollectionOfObjectValues<UserProcessingResult>(createUserProcessingResultFromDiscriminatorValue); },
+        "taskScope": n => { activateProcessingResultScope.taskScope = n.getEnumValue<ActivationTaskScopeType>(ActivationTaskScopeTypeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ActivateRunScope The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoActivateRunScope(activateRunScope: Partial<ActivateRunScope> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoActivationScope(activateRunScope),
+        "run": n => { activateRunScope.run = n.getObjectValue<Run>(createRunFromDiscriminatorValue); },
+        "taskScope": n => { activateRunScope.taskScope = n.getEnumValue<ActivationTaskScopeType>(ActivationTaskScopeTypeObject); },
+        "userScope": n => { activateRunScope.userScope = n.getEnumValue<ActivationUserScopeType>(ActivationUserScopeTypeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ActivateUserScope The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoActivateUserScope(activateUserScope: Partial<ActivateUserScope> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoActivationScope(activateUserScope),
+        "users": n => { activateUserScope.users = n.getCollectionOfObjectValues<User>(createUserFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param ActivationScope The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoActivationScope(activationScope: Partial<ActivationScope> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "@odata.type": n => { activationScope.odataType = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param AttributeChangeTrigger The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -467,11 +635,13 @@ export function deserializeIntoRuleBasedSubjectSet(ruleBasedSubjectSet: Partial<
 export function deserializeIntoRun(run: Partial<Run> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoEntity(run),
+        "activatedOnScope": n => { run.activatedOnScope = n.getObjectValue<ActivationScope>(createActivationScopeFromDiscriminatorValue); },
         "completedDateTime": n => { run.completedDateTime = n.getDateValue(); },
         "failedTasksCount": n => { run.failedTasksCount = n.getNumberValue(); },
         "failedUsersCount": n => { run.failedUsersCount = n.getNumberValue(); },
         "lastUpdatedDateTime": n => { run.lastUpdatedDateTime = n.getDateValue(); },
         "processingStatus": n => { run.processingStatus = n.getEnumValue<LifecycleWorkflowProcessingStatus>(LifecycleWorkflowProcessingStatusObject); },
+        "reprocessedRuns": n => { run.reprocessedRuns = n.getCollectionOfObjectValues<Run>(createRunFromDiscriminatorValue); },
         "scheduledDateTime": n => { run.scheduledDateTime = n.getDateValue(); },
         "startedDateTime": n => { run.startedDateTime = n.getDateValue(); },
         "successfulUsersCount": n => { run.successfulUsersCount = n.getNumberValue(); },
@@ -611,6 +781,7 @@ export function deserializeIntoUserProcessingResult(userProcessingResult: Partia
         "completedDateTime": n => { userProcessingResult.completedDateTime = n.getDateValue(); },
         "failedTasksCount": n => { userProcessingResult.failedTasksCount = n.getNumberValue(); },
         "processingStatus": n => { userProcessingResult.processingStatus = n.getEnumValue<LifecycleWorkflowProcessingStatus>(LifecycleWorkflowProcessingStatusObject); },
+        "reprocessedRuns": n => { userProcessingResult.reprocessedRuns = n.getCollectionOfObjectValues<Run>(createRunFromDiscriminatorValue); },
         "scheduledDateTime": n => { userProcessingResult.scheduledDateTime = n.getDateValue(); },
         "startedDateTime": n => { userProcessingResult.startedDateTime = n.getDateValue(); },
         "subject": n => { userProcessingResult.subject = n.getObjectValue<User>(createUserFromDiscriminatorValue); },
@@ -799,6 +970,10 @@ export interface RuleBasedSubjectSet extends Parsable, SubjectSet {
 }
 export interface Run extends Entity, Parsable {
     /**
+     * The scope for which the workflow runs.
+     */
+    activatedOnScope?: ActivationScope | null;
+    /**
      * The date time that the run completed. Value is null if the workflow hasn't completed.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
     completedDateTime?: Date | null;
@@ -818,6 +993,10 @@ export interface Run extends Entity, Parsable {
      * The processingStatus property
      */
     processingStatus?: LifecycleWorkflowProcessingStatus | null;
+    /**
+     * The related reprocessed workflow run.
+     */
+    reprocessedRuns?: Run[] | null;
     /**
      * The date time that the run is scheduled to be executed for a workflow.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
@@ -854,6 +1033,83 @@ export interface Run extends Entity, Parsable {
      * The workflowExecutionType property
      */
     workflowExecutionType?: WorkflowExecutionType | null;
+}
+/**
+ * Serializes information the current object
+ * @param ActivateGroupScope The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeActivateGroupScope(writer: SerializationWriter, activateGroupScope: Partial<ActivateGroupScope> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!activateGroupScope || isSerializingDerivedType) { return; }
+    serializeActivationScope(writer, activateGroupScope, isSerializingDerivedType)
+    writer.writeObjectValue<Group>("group", activateGroupScope.group, serializeGroup);
+}
+/**
+ * Serializes information the current object
+ * @param ActivateProcessingResultScope The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeActivateProcessingResultScope(writer: SerializationWriter, activateProcessingResultScope: Partial<ActivateProcessingResultScope> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!activateProcessingResultScope || isSerializingDerivedType) { return; }
+    serializeActivationScope(writer, activateProcessingResultScope, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<UserProcessingResult>("processingResults", activateProcessingResultScope.processingResults, serializeUserProcessingResult);
+    writer.writeEnumValue<ActivationTaskScopeType>("taskScope", activateProcessingResultScope.taskScope);
+}
+/**
+ * Serializes information the current object
+ * @param ActivateRunScope The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeActivateRunScope(writer: SerializationWriter, activateRunScope: Partial<ActivateRunScope> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!activateRunScope || isSerializingDerivedType) { return; }
+    serializeActivationScope(writer, activateRunScope, isSerializingDerivedType)
+    writer.writeObjectValue<Run>("run", activateRunScope.run, serializeRun);
+    writer.writeEnumValue<ActivationTaskScopeType>("taskScope", activateRunScope.taskScope);
+    writer.writeEnumValue<ActivationUserScopeType>("userScope", activateRunScope.userScope);
+}
+/**
+ * Serializes information the current object
+ * @param ActivateUserScope The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeActivateUserScope(writer: SerializationWriter, activateUserScope: Partial<ActivateUserScope> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!activateUserScope || isSerializingDerivedType) { return; }
+    serializeActivationScope(writer, activateUserScope, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<User>("users", activateUserScope.users, serializeUser);
+}
+/**
+ * Serializes information the current object
+ * @param ActivationScope The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeActivationScope(writer: SerializationWriter, activationScope: Partial<ActivationScope> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!activationScope || isSerializingDerivedType) { return; }
+    writer.writeStringValue("@odata.type", activationScope.odataType);
+    writer.writeAdditionalData(activationScope.additionalData);
+    switch (activationScope.odataType) {
+        case "#microsoft.graph.identityGovernance.activateGroupScope":
+            serializeActivateGroupScope(writer, activationScope, true);
+        break;
+        case "#microsoft.graph.identityGovernance.activateProcessingResultScope":
+            serializeActivateProcessingResultScope(writer, activationScope, true);
+        break;
+        case "#microsoft.graph.identityGovernance.activateRunScope":
+            serializeActivateRunScope(writer, activationScope, true);
+        break;
+        case "#microsoft.graph.identityGovernance.activateUserScope":
+            serializeActivateUserScope(writer, activationScope, true);
+        break;
+    }
 }
 /**
  * Serializes information the current object
@@ -1009,11 +1265,13 @@ export function serializeRuleBasedSubjectSet(writer: SerializationWriter, ruleBa
 export function serializeRun(writer: SerializationWriter, run: Partial<Run> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!run || isSerializingDerivedType) { return; }
     serializeEntity(writer, run, isSerializingDerivedType)
+    writer.writeObjectValue<ActivationScope>("activatedOnScope", run.activatedOnScope, serializeActivationScope);
     writer.writeDateValue("completedDateTime", run.completedDateTime);
     writer.writeNumberValue("failedTasksCount", run.failedTasksCount);
     writer.writeNumberValue("failedUsersCount", run.failedUsersCount);
     writer.writeDateValue("lastUpdatedDateTime", run.lastUpdatedDateTime);
     writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", run.processingStatus);
+    writer.writeCollectionOfObjectValues<Run>("reprocessedRuns", run.reprocessedRuns, serializeRun);
     writer.writeDateValue("scheduledDateTime", run.scheduledDateTime);
     writer.writeDateValue("startedDateTime", run.startedDateTime);
     writer.writeNumberValue("successfulUsersCount", run.successfulUsersCount);
@@ -1154,6 +1412,7 @@ export function serializeUserProcessingResult(writer: SerializationWriter, userP
     writer.writeDateValue("completedDateTime", userProcessingResult.completedDateTime);
     writer.writeNumberValue("failedTasksCount", userProcessingResult.failedTasksCount);
     writer.writeEnumValue<LifecycleWorkflowProcessingStatus>("processingStatus", userProcessingResult.processingStatus);
+    writer.writeCollectionOfObjectValues<Run>("reprocessedRuns", userProcessingResult.reprocessedRuns, serializeRun);
     writer.writeDateValue("scheduledDateTime", userProcessingResult.scheduledDateTime);
     writer.writeDateValue("startedDateTime", userProcessingResult.startedDateTime);
     writer.writeObjectValue<User>("subject", userProcessingResult.subject, serializeUser);
@@ -1473,11 +1732,15 @@ export interface UserProcessingResult extends Entity, Parsable {
      */
     processingStatus?: LifecycleWorkflowProcessingStatus | null;
     /**
+     * The related reprocessed workflow run.
+     */
+    reprocessedRuns?: Run[] | null;
+    /**
      * The date time that the workflow is scheduled to be executed for a user.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
     scheduledDateTime?: Date | null;
     /**
-     * The date time that the workflow execution started. Value is null if the workflow execution has not started.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
+     * The date time that the workflow execution started. Value is null if the workflow execution hasn't started.Supports $filter(lt, le, gt, ge, eq, ne) and $orderby.
      */
     startedDateTime?: Date | null;
     /**
@@ -1636,6 +1899,16 @@ export interface WorkflowVersion extends Parsable, WorkflowBase {
      */
     versionNumber?: number | null;
 }
+export const ActivationTaskScopeTypeObject = {
+    AllTasks: "allTasks",
+    FailedTasks: "failedTasks",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const ActivationUserScopeTypeObject = {
+    AllUsers: "allUsers",
+    FailedUsers: "failedUsers",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const LifecycleTaskCategoryObject = {
     Joiner: "joiner",
     Leaver: "leaver",
@@ -1673,6 +1946,7 @@ export const WorkflowExecutionTypeObject = {
     Scheduled: "scheduled",
     OnDemand: "onDemand",
     UnknownFutureValue: "unknownFutureValue",
+    ActivatedWithScope: "activatedWithScope",
 } as const;
 export const WorkflowTriggerTimeBasedAttributeObject = {
     EmployeeHireDate: "employeeHireDate",
