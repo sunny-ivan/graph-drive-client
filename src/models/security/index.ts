@@ -6,9 +6,47 @@ import { createGroupFromDiscriminatorValue, createIdentitySetFromDiscriminatorVa
 // @ts-ignore
 import { type AdditionalDataHolder, type Duration, type Guid, type Parsable, type ParseNode, type SerializationWriter } from '@microsoft/kiota-abstractions';
 
+export interface Account extends AdditionalDataHolder, Parsable {
+    /**
+     * List of the type of action. The possible values are: disable, enable, forcePasswordReset, revokeAllSessions, requireUserToSignInAgain, markUserAsCompromised, unknownFutureValue.
+     */
+    actions?: Action[] | null;
+    /**
+     * The account ID.
+     */
+    identifier?: string | null;
+    /**
+     * The identityProvider property
+     */
+    identityProvider?: IdentityProvider | null;
+    /**
+     * The OdataType property
+     */
+    odataType?: string | null;
+}
+export type Action = (typeof ActionObject)[keyof typeof ActionObject];
 export type ActionAfterRetentionPeriod = (typeof ActionAfterRetentionPeriodObject)[keyof typeof ActionAfterRetentionPeriodObject];
 export type AdditionalDataOptions = (typeof AdditionalDataOptionsObject)[keyof typeof AdditionalDataOptionsObject];
 export type AdditionalOptions = (typeof AdditionalOptionsObject)[keyof typeof AdditionalOptionsObject];
+export interface AiAgentEvidence extends AlertEvidence, Parsable {
+    /**
+     * The unique identifier for the AI agent.
+     */
+    agentId?: string | null;
+    /**
+     * The display name for the AI agent.
+     */
+    agentName?: string | null;
+    /**
+     * Type of the platform the agent runs on. Possible values are: unknown, azureAIFoundry, copilotStudio, copilot, unknownFutureValue.
+     */
+    hostingPlatformType?: AiAgentPlatform | null;
+    /**
+     * The instructions of the agent.
+     */
+    instructions?: string | null;
+}
+export type AiAgentPlatform = (typeof AiAgentPlatformObject)[keyof typeof AiAgentPlatformObject];
 export interface Alert extends Entity, Parsable {
     /**
      * The adversary or activity group that is associated with this alert.
@@ -622,6 +660,24 @@ export type ContentFormat = (typeof ContentFormatObject)[keyof typeof ContentFor
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {Account}
+ */
+// @ts-ignore
+export function createAccountFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAccount;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {AiAgentEvidence}
+ */
+// @ts-ignore
+export function createAiAgentEvidenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoAiAgentEvidence;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AlertComment}
  */
 // @ts-ignore
@@ -641,6 +697,8 @@ export function createAlertEvidenceFromDiscriminatorValue(parseNode: ParseNode |
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
             switch (mappingValue) {
+                case "#microsoft.graph.security.aiAgentEvidence":
+                    return deserializeIntoAiAgentEvidence;
                 case "#microsoft.graph.security.amazonResourceEvidence":
                     return deserializeIntoAmazonResourceEvidence;
                 case "#microsoft.graph.security.analyzedMessageEvidence":
@@ -1694,6 +1752,26 @@ export function createHyperlinkFromDiscriminatorValue(parseNode: ParseNode | und
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {IdentityAccounts}
+ */
+// @ts-ignore
+export function createIdentityAccountsFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    if(!parseNode) throw new Error("parseNode cannot be undefined");
+    const mappingValueNode = parseNode?.getChildNode("@odata.type");
+    if (mappingValueNode) {
+        const mappingValue = mappingValueNode.getStringValue();
+        if (mappingValue) {
+            switch (mappingValue) {
+                case "#microsoft.graph.security.user":
+                    return deserializeIntoUser;
+            }
+        }
+    }
+    return deserializeIntoIdentityAccounts;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {IdentityContainer}
  */
 // @ts-ignore
@@ -2138,6 +2216,24 @@ export function createSecurityGroupEvidenceFromDiscriminatorValue(parseNode: Par
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {SensorCandidateActivationConfiguration}
+ */
+// @ts-ignore
+export function createSensorCandidateActivationConfigurationFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSensorCandidateActivationConfiguration;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {SensorCandidate}
+ */
+// @ts-ignore
+export function createSensorCandidateFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoSensorCandidate;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {Sensor}
  */
 // @ts-ignore
@@ -2338,6 +2434,15 @@ export function createUserEvidenceFromDiscriminatorValue(parseNode: ParseNode | 
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {User}
+ */
+// @ts-ignore
+export function createUserFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoUser;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {UserSource}
  */
 // @ts-ignore
@@ -2517,6 +2622,35 @@ export type DefenderAvStatus = (typeof DefenderAvStatusObject)[keyof typeof Defe
 export interface DepartmentTemplate extends FilePlanDescriptorTemplate, Parsable {
 }
 export type DeploymentStatus = (typeof DeploymentStatusObject)[keyof typeof DeploymentStatusObject];
+/**
+ * The deserialization information for the current model
+ * @param Account The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAccount(account: Partial<Account> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        "actions": n => { account.actions = n.getCollectionOfEnumValues<Action>(ActionObject); },
+        "identifier": n => { account.identifier = n.getStringValue(); },
+        "identityProvider": n => { account.identityProvider = n.getEnumValue<IdentityProvider>(IdentityProviderObject); },
+        "@odata.type": n => { account.odataType = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param AiAgentEvidence The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoAiAgentEvidence(aiAgentEvidence: Partial<AiAgentEvidence> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoAlertEvidence(aiAgentEvidence),
+        "agentId": n => { aiAgentEvidence.agentId = n.getStringValue(); },
+        "agentName": n => { aiAgentEvidence.agentName = n.getStringValue(); },
+        "hostingPlatformType": n => { aiAgentEvidence.hostingPlatformType = n.getEnumValue<AiAgentPlatform>(AiAgentPlatformObject); },
+        "instructions": n => { aiAgentEvidence.instructions = n.getStringValue(); },
+    }
+}
 /**
  * The deserialization information for the current model
  * @param Alert The instance to deserialize into.
@@ -3925,6 +4059,23 @@ export function deserializeIntoHyperlink(hyperlink: Partial<Hyperlink> | undefin
 }
 /**
  * The deserialization information for the current model
+ * @param IdentityAccounts The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoIdentityAccounts(identityAccounts: Partial<IdentityAccounts> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEntity(identityAccounts),
+        "accounts": n => { identityAccounts.accounts = n.getCollectionOfObjectValues<Account>(createAccountFromDiscriminatorValue); },
+        "cloudSecurityIdentifier": n => { identityAccounts.cloudSecurityIdentifier = n.getStringValue(); },
+        "displayName": n => { identityAccounts.displayName = n.getStringValue(); },
+        "domain": n => { identityAccounts.domain = n.getStringValue(); },
+        "isEnabled": n => { identityAccounts.isEnabled = n.getBooleanValue(); },
+        "onPremisesSecurityIdentifier": n => { identityAccounts.onPremisesSecurityIdentifier = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param IdentityContainer The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -3933,6 +4084,9 @@ export function deserializeIntoIdentityContainer(identityContainer: Partial<Iden
     return {
         ...deserializeIntoEntity(identityContainer),
         "healthIssues": n => { identityContainer.healthIssues = n.getCollectionOfObjectValues<HealthIssue>(createHealthIssueFromDiscriminatorValue); },
+        "identityAccounts": n => { identityContainer.identityAccounts = n.getCollectionOfObjectValues<IdentityAccounts>(createIdentityAccountsFromDiscriminatorValue); },
+        "sensorCandidateActivationConfiguration": n => { identityContainer.sensorCandidateActivationConfiguration = n.getObjectValue<SensorCandidateActivationConfiguration>(createSensorCandidateActivationConfigurationFromDiscriminatorValue); },
+        "sensorCandidates": n => { identityContainer.sensorCandidates = n.getCollectionOfObjectValues<SensorCandidate>(createSensorCandidateFromDiscriminatorValue); },
         "sensors": n => { identityContainer.sensors = n.getCollectionOfObjectValues<Sensor>(createSensorFromDiscriminatorValue); },
     }
 }
@@ -4693,6 +4847,32 @@ export function deserializeIntoSensor(sensor: Partial<Sensor> | undefined = {}) 
 }
 /**
  * The deserialization information for the current model
+ * @param SensorCandidate The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSensorCandidate(sensorCandidate: Partial<SensorCandidate> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEntity(sensorCandidate),
+        "computerDnsName": n => { sensorCandidate.computerDnsName = n.getStringValue(); },
+        "lastSeenDateTime": n => { sensorCandidate.lastSeenDateTime = n.getDateValue(); },
+        "senseClientVersion": n => { sensorCandidate.senseClientVersion = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param SensorCandidateActivationConfiguration The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoSensorCandidateActivationConfiguration(sensorCandidateActivationConfiguration: Partial<SensorCandidateActivationConfiguration> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEntity(sensorCandidateActivationConfiguration),
+        "activationMode": n => { sensorCandidateActivationConfiguration.activationMode = n.getEnumValue<SensorCandidateActivationMode>(SensorCandidateActivationModeObject); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param SensorSettings The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -4985,6 +5165,19 @@ export function deserializeIntoUrlEvidence(urlEvidence: Partial<UrlEvidence> | u
     return {
         ...deserializeIntoAlertEvidence(urlEvidence),
         "url": n => { urlEvidence.url = n.getStringValue(); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param User The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoUser(user: Partial<User> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoIdentityAccounts(user),
+        "emailAddress": n => { user.emailAddress = n.getStringValue(); },
+        "userPrincipalName": n => { user.userPrincipalName = n.getStringValue(); },
     }
 }
 /**
@@ -6437,16 +6630,55 @@ export interface Hyperlink extends AdditionalDataHolder, Parsable {
      */
     url?: string | null;
 }
+export interface IdentityAccounts extends Entity, Parsable {
+    /**
+     * Collection of accounts of the identity in different identity providers.
+     */
+    accounts?: Account[] | null;
+    /**
+     * The cloud security identifier of the identityAccount.
+     */
+    cloudSecurityIdentifier?: string | null;
+    /**
+     * The  Active Directory display name of the identityAccount.
+     */
+    displayName?: string | null;
+    /**
+     * The Active Directory domain name of the identityAccount.
+     */
+    domain?: string | null;
+    /**
+     * Boolean indicating if the identityAccounts is enabled.
+     */
+    isEnabled?: boolean | null;
+    /**
+     * The on-premises security identifier of the identityAccount.
+     */
+    onPremisesSecurityIdentifier?: string | null;
+}
 export interface IdentityContainer extends Entity, Parsable {
     /**
      * Represents potential issues identified by Microsoft Defender for Identity within a customer's Microsoft Defender for Identity configuration.
      */
     healthIssues?: HealthIssue[] | null;
     /**
+     * Represents an identity's details in the context of Microsoft Defender for Identity.
+     */
+    identityAccounts?: IdentityAccounts[] | null;
+    /**
+     * The sensorCandidateActivationConfiguration property
+     */
+    sensorCandidateActivationConfiguration?: SensorCandidateActivationConfiguration | null;
+    /**
+     * Represents Microsoft Defender for Identity sensors that are ready to be activated.
+     */
+    sensorCandidates?: SensorCandidate[] | null;
+    /**
      * Represents a customer's Microsoft Defender for Identity sensors.
      */
     sensors?: Sensor[] | null;
 }
+export type IdentityProvider = (typeof IdentityProviderObject)[keyof typeof IdentityProviderObject];
 export interface Incident extends Entity, Parsable {
     /**
      * The list of related alerts. Supports $expand.
@@ -7627,6 +7859,27 @@ export interface Sensor extends Entity, Parsable {
      */
     version?: string | null;
 }
+export interface SensorCandidate extends Entity, Parsable {
+    /**
+     * The DNS name of the computer associated with the sensor.
+     */
+    computerDnsName?: string | null;
+    /**
+     * The date and time when the sensor was last seen.
+     */
+    lastSeenDateTime?: Date | null;
+    /**
+     * The version of the Defender for Identity sensor client. Supports $filter (eq).
+     */
+    senseClientVersion?: string | null;
+}
+export interface SensorCandidateActivationConfiguration extends Entity, Parsable {
+    /**
+     * The activationMode property
+     */
+    activationMode?: SensorCandidateActivationMode | null;
+}
+export type SensorCandidateActivationMode = (typeof SensorCandidateActivationModeObject)[keyof typeof SensorCandidateActivationModeObject];
 export type SensorHealthStatus = (typeof SensorHealthStatusObject)[keyof typeof SensorHealthStatusObject];
 export interface SensorSettings extends AdditionalDataHolder, Parsable {
     /**
@@ -7651,6 +7904,37 @@ export interface SensorSettings extends AdditionalDataHolder, Parsable {
     odataType?: string | null;
 }
 export type SensorType = (typeof SensorTypeObject)[keyof typeof SensorTypeObject];
+/**
+ * Serializes information the current object
+ * @param Account The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAccount(writer: SerializationWriter, account: Partial<Account> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!account || isSerializingDerivedType) { return; }
+    if(account.actions)
+    writer.writeCollectionOfEnumValues<Action>("actions", account.actions);
+    writer.writeStringValue("identifier", account.identifier);
+    writer.writeEnumValue<IdentityProvider>("identityProvider", account.identityProvider);
+    writer.writeStringValue("@odata.type", account.odataType);
+    writer.writeAdditionalData(account.additionalData);
+}
+/**
+ * Serializes information the current object
+ * @param AiAgentEvidence The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeAiAgentEvidence(writer: SerializationWriter, aiAgentEvidence: Partial<AiAgentEvidence> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!aiAgentEvidence || isSerializingDerivedType) { return; }
+    serializeAlertEvidence(writer, aiAgentEvidence, isSerializingDerivedType)
+    writer.writeStringValue("agentId", aiAgentEvidence.agentId);
+    writer.writeStringValue("agentName", aiAgentEvidence.agentName);
+    writer.writeEnumValue<AiAgentPlatform>("hostingPlatformType", aiAgentEvidence.hostingPlatformType);
+    writer.writeStringValue("instructions", aiAgentEvidence.instructions);
+}
 /**
  * Serializes information the current object
  * @param Alert The instance to serialize from.
@@ -7731,6 +8015,9 @@ export function serializeAlertEvidence(writer: SerializationWriter, alertEvidenc
     writer.writeEnumValue<EvidenceVerdict>("verdict", alertEvidence.verdict);
     writer.writeAdditionalData(alertEvidence.additionalData);
     switch (alertEvidence.odataType) {
+        case "#microsoft.graph.security.aiAgentEvidence":
+            serializeAiAgentEvidence(writer, alertEvidence, true);
+        break;
         case "#microsoft.graph.security.amazonResourceEvidence":
             serializeAmazonResourceEvidence(writer, alertEvidence, true);
         break;
@@ -9357,6 +9644,28 @@ export function serializeHyperlink(writer: SerializationWriter, hyperlink: Parti
 }
 /**
  * Serializes information the current object
+ * @param IdentityAccounts The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeIdentityAccounts(writer: SerializationWriter, identityAccounts: Partial<IdentityAccounts> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!identityAccounts || isSerializingDerivedType) { return; }
+    serializeEntity(writer, identityAccounts, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<Account>("accounts", identityAccounts.accounts, serializeAccount);
+    writer.writeStringValue("cloudSecurityIdentifier", identityAccounts.cloudSecurityIdentifier);
+    writer.writeStringValue("displayName", identityAccounts.displayName);
+    writer.writeStringValue("domain", identityAccounts.domain);
+    writer.writeBooleanValue("isEnabled", identityAccounts.isEnabled);
+    writer.writeStringValue("onPremisesSecurityIdentifier", identityAccounts.onPremisesSecurityIdentifier);
+    switch (identityAccounts.odataType) {
+        case "#microsoft.graph.security.user":
+            serializeUser(writer, identityAccounts, true);
+        break;
+    }
+}
+/**
+ * Serializes information the current object
  * @param IdentityContainer The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -9366,6 +9675,9 @@ export function serializeIdentityContainer(writer: SerializationWriter, identity
     if (!identityContainer || isSerializingDerivedType) { return; }
     serializeEntity(writer, identityContainer, isSerializingDerivedType)
     writer.writeCollectionOfObjectValues<HealthIssue>("healthIssues", identityContainer.healthIssues, serializeHealthIssue);
+    writer.writeCollectionOfObjectValues<IdentityAccounts>("identityAccounts", identityContainer.identityAccounts, serializeIdentityAccounts);
+    writer.writeObjectValue<SensorCandidateActivationConfiguration>("sensorCandidateActivationConfiguration", identityContainer.sensorCandidateActivationConfiguration, serializeSensorCandidateActivationConfiguration);
+    writer.writeCollectionOfObjectValues<SensorCandidate>("sensorCandidates", identityContainer.sensorCandidates, serializeSensorCandidate);
     writer.writeCollectionOfObjectValues<Sensor>("sensors", identityContainer.sensors, serializeSensor);
 }
 /**
@@ -10159,6 +10471,32 @@ export function serializeSensor(writer: SerializationWriter, sensor: Partial<Sen
 /**
  * Serializes information the current object
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SensorCandidate The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSensorCandidate(writer: SerializationWriter, sensorCandidate: Partial<SensorCandidate> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sensorCandidate || isSerializingDerivedType) { return; }
+    serializeEntity(writer, sensorCandidate, isSerializingDerivedType)
+    writer.writeStringValue("computerDnsName", sensorCandidate.computerDnsName);
+    writer.writeDateValue("lastSeenDateTime", sensorCandidate.lastSeenDateTime);
+    writer.writeStringValue("senseClientVersion", sensorCandidate.senseClientVersion);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param SensorCandidateActivationConfiguration The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeSensorCandidateActivationConfiguration(writer: SerializationWriter, sensorCandidateActivationConfiguration: Partial<SensorCandidateActivationConfiguration> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!sensorCandidateActivationConfiguration || isSerializingDerivedType) { return; }
+    serializeEntity(writer, sensorCandidateActivationConfiguration, isSerializingDerivedType)
+    writer.writeEnumValue<SensorCandidateActivationMode>("activationMode", sensorCandidateActivationConfiguration.activationMode);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param SensorSettings The instance to serialize from.
  * @param writer Serialization writer to use to serialize this model
  */
@@ -10460,6 +10798,19 @@ export function serializeUrlEvidence(writer: SerializationWriter, urlEvidence: P
     if (!urlEvidence || isSerializingDerivedType) { return; }
     serializeAlertEvidence(writer, urlEvidence, isSerializingDerivedType)
     writer.writeStringValue("url", urlEvidence.url);
+}
+/**
+ * Serializes information the current object
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param User The instance to serialize from.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeUser(writer: SerializationWriter, user: Partial<User> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!user || isSerializingDerivedType) { return; }
+    serializeIdentityAccounts(writer, user, isSerializingDerivedType)
+    writer.writeStringValue("emailAddress", user.emailAddress);
+    writer.writeStringValue("userPrincipalName", user.userPrincipalName);
 }
 /**
  * Serializes information the current object
@@ -11085,6 +11436,16 @@ export interface UrlEvidence extends AlertEvidence, Parsable {
      */
     url?: string | null;
 }
+export interface User extends IdentityAccounts, Parsable {
+    /**
+     * Email address of the user.
+     */
+    emailAddress?: string | null;
+    /**
+     * The user principal name.
+     */
+    userPrincipalName?: string | null;
+}
 export interface UserAccount extends AdditionalDataHolder, Parsable {
     /**
      * The displayed name of the user account.
@@ -11384,6 +11745,15 @@ export const ActionAfterRetentionPeriodObject = {
     Relabel: "relabel",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const ActionObject = {
+    Disable: "disable",
+    Enable: "enable",
+    ForcePasswordReset: "forcePasswordReset",
+    RevokeAllSessions: "revokeAllSessions",
+    RequireUserToSignInAgain: "requireUserToSignInAgain",
+    MarkUserAsCompromised: "markUserAsCompromised",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const AdditionalDataOptionsObject = {
     AllVersions: "allVersions",
     LinkedFiles: "linkedFiles",
@@ -11411,6 +11781,13 @@ export const AdditionalOptionsObject = {
     FriendlyName: "friendlyName",
     SplitSource: "splitSource",
     IncludeReport: "includeReport",
+} as const;
+export const AiAgentPlatformObject = {
+    Unknown: "unknown",
+    AzureAIFoundry: "azureAIFoundry",
+    CopilotStudio: "copilotStudio",
+    Copilot: "copilot",
+    UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const AlertClassificationObject = {
     Unknown: "unknown",
@@ -11789,6 +12166,12 @@ export const HostReputationRuleSeverityObject = {
     High: "high",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
+export const IdentityProviderObject = {
+    EntraID: "entraID",
+    ActiveDirectory: "activeDirectory",
+    Okta: "okta",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
 export const IncidentStatusObject = {
     Active: "active",
     Resolved: "resolved",
@@ -11892,6 +12275,11 @@ export const RetentionTriggerObject = {
 export const ReviewSetSettingsObject = {
     None: "none",
     DisableGrouping: "disableGrouping",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const SensorCandidateActivationModeObject = {
+    Manual: "manual",
+    Automated: "automated",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const SensorHealthStatusObject = {
