@@ -1758,7 +1758,7 @@ export interface TriggerAttribute extends AdditionalDataHolder, Parsable {
 }
 export interface UserInactivityTrigger extends Parsable, WorkflowExecutionTrigger {
     /**
-     * The inactivityPeriodInDays property
+     * The number of days a user must be inactive before triggering workflow execution.
      */
     inactivityPeriodInDays?: number | null;
 }
