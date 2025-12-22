@@ -31,7 +31,7 @@ export interface CallRecord extends Entity, Parsable {
      */
     lastModifiedDateTime?: Date | null;
     /**
-     * List of all the modalities used in the call. Possible values are: unknown, audio, video, videoBasedScreenSharing, data, screenSharing, unknownFutureValue.
+     * List of all the modalities used in the call. The possible values are: unknown, audio, video, videoBasedScreenSharing, data, screenSharing, unknownFutureValue.
      */
     modalities?: Modality[] | null;
     /**
@@ -855,7 +855,7 @@ export interface Media extends AdditionalDataHolder, Parsable {
 }
 export interface MediaStream extends AdditionalDataHolder, Parsable {
     /**
-     * Codec name used to encode audio for transmission on the network. Possible values are: unknown, invalid, cn, pcma, pcmu, amrWide, g722, g7221, g7221c, g729, multiChannelAudio, muchv2, opus, satin, satinFullband, rtAudio8, rtAudio16, silk, silkNarrow, silkWide, siren, xmsRta, unknownFutureValue.
+     * Codec name used to encode audio for transmission on the network. The possible values are: unknown, invalid, cn, pcma, pcmu, amrWide, g722, g7221, g7221c, g729, multiChannelAudio, muchv2, opus, satin, satinFullband, rtAudio8, rtAudio16, silk, silkNarrow, silkWide, siren, xmsRta, unknownFutureValue.
      */
     audioCodec?: AudioCodec | null;
     /**
@@ -971,7 +971,7 @@ export interface MediaStream extends AdditionalDataHolder, Parsable {
      */
     streamId?: string | null;
     /**
-     * Codec name used to encode video for transmission on the network. Possible values are: unknown, invalid, av1, h263, h264, h264s, h264uc, h265, rtvc1, rtVideo, xrtvc1, unknownFutureValue.
+     * Codec name used to encode video for transmission on the network. The possible values are: unknown, invalid, av1, h263, h264, h264s, h264uc, h265, rtvc1, rtVideo, xrtvc1, unknownFutureValue.
      */
     videoCodec?: VideoCodec | null;
     /**
@@ -1610,7 +1610,7 @@ export interface Session extends Entity, Parsable {
      */
     isTest?: boolean | null;
     /**
-     * List of modalities present in the session. Possible values are: unknown, audio, video, videoBasedScreenSharing, data, screenSharing, unknownFutureValue.
+     * List of modalities present in the session. The possible values are: unknown, audio, video, videoBasedScreenSharing, data, screenSharing, unknownFutureValue.
      */
     modalities?: Modality[] | null;
     /**
