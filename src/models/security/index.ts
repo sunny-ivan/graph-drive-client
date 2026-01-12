@@ -26,6 +26,16 @@ export interface Account extends AdditionalDataHolder, Parsable {
 }
 export type Action = (typeof ActionObject)[keyof typeof ActionObject];
 export type ActionAfterRetentionPeriod = (typeof ActionAfterRetentionPeriodObject)[keyof typeof ActionAfterRetentionPeriodObject];
+export interface ActiveDirectoryDomainEvidence extends AlertEvidence, Parsable {
+    /**
+     * The activeDirectoryDomainName property
+     */
+    activeDirectoryDomainName?: string | null;
+    /**
+     * The trustedDomains property
+     */
+    trustedDomains?: ActiveDirectoryDomainEvidence[] | null;
+}
 export type AdditionalDataOptions = (typeof AdditionalDataOptionsObject)[keyof typeof AdditionalDataOptionsObject];
 export type AdditionalOptions = (typeof AdditionalOptionsObject)[keyof typeof AdditionalOptionsObject];
 export interface AiAgentEvidence extends AlertEvidence, Parsable {
@@ -669,6 +679,15 @@ export function createAccountFromDiscriminatorValue(parseNode: ParseNode | undef
 /**
  * Creates a new instance of the appropriate class based on discriminator value
  * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {ActiveDirectoryDomainEvidence}
+ */
+// @ts-ignore
+export function createActiveDirectoryDomainEvidenceFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoActiveDirectoryDomainEvidence;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
  * @returns {AiAgentEvidence}
  */
 // @ts-ignore
@@ -697,6 +716,8 @@ export function createAlertEvidenceFromDiscriminatorValue(parseNode: ParseNode |
         const mappingValue = mappingValueNode.getStringValue();
         if (mappingValue) {
             switch (mappingValue) {
+                case "#microsoft.graph.security.activeDirectoryDomainEvidence":
+                    return deserializeIntoActiveDirectoryDomainEvidence;
                 case "#microsoft.graph.security.aiAgentEvidence":
                     return deserializeIntoAiAgentEvidence;
                 case "#microsoft.graph.security.amazonResourceEvidence":
@@ -1198,6 +1219,15 @@ export function createEdiscoveryAddToReviewSetOperationFromDiscriminatorValue(pa
 // @ts-ignore
 export function createEdiscoveryCaseFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
     return deserializeIntoEdiscoveryCase;
+}
+/**
+ * Creates a new instance of the appropriate class based on discriminator value
+ * @param parseNode The parse node to use to read the discriminator value and create the object
+ * @returns {EdiscoveryCaseMember}
+ */
+// @ts-ignore
+export function createEdiscoveryCaseMemberFromDiscriminatorValue(parseNode: ParseNode | undefined) : ((instance?: Parsable) => Record<string, (node: ParseNode) => void>) {
+    return deserializeIntoEdiscoveryCaseMember;
 }
 /**
  * Creates a new instance of the appropriate class based on discriminator value
@@ -2638,6 +2668,19 @@ export function deserializeIntoAccount(account: Partial<Account> | undefined = {
 }
 /**
  * The deserialization information for the current model
+ * @param ActiveDirectoryDomainEvidence The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoActiveDirectoryDomainEvidence(activeDirectoryDomainEvidence: Partial<ActiveDirectoryDomainEvidence> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoAlertEvidence(activeDirectoryDomainEvidence),
+        "activeDirectoryDomainName": n => { activeDirectoryDomainEvidence.activeDirectoryDomainName = n.getStringValue(); },
+        "trustedDomains": n => { activeDirectoryDomainEvidence.trustedDomains = n.getCollectionOfObjectValues<ActiveDirectoryDomainEvidence>(createActiveDirectoryDomainEvidenceFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
  * @param AiAgentEvidence The instance to deserialize into.
  * @returns {Record<string, (node: ParseNode) => void>}
  */
@@ -3148,6 +3191,7 @@ export function deserializeIntoDeviceEvidence(deviceEvidence: Partial<DeviceEvid
         "osPlatform": n => { deviceEvidence.osPlatform = n.getStringValue(); },
         "rbacGroupId": n => { deviceEvidence.rbacGroupId = n.getNumberValue(); },
         "rbacGroupName": n => { deviceEvidence.rbacGroupName = n.getStringValue(); },
+        "resourceAccessEvents": n => { deviceEvidence.resourceAccessEvents = n.getCollectionOfObjectValues<ResourceAccessEvent>(createResourceAccessEventFromDiscriminatorValue); },
         "riskScore": n => { deviceEvidence.riskScore = n.getEnumValue<DeviceRiskScore>(DeviceRiskScoreObject); },
         "version": n => { deviceEvidence.version = n.getStringValue(); },
         "vmMetadata": n => { deviceEvidence.vmMetadata = n.getObjectValue<VmMetadata>(createVmMetadataFromDiscriminatorValue); },
@@ -3220,6 +3264,7 @@ export function deserializeIntoEdiscoveryAddToReviewSetOperation(ediscoveryAddTo
 export function deserializeIntoEdiscoveryCase(ediscoveryCase: Partial<EdiscoveryCase> | undefined = {}) : Record<string, (node: ParseNode) => void> {
     return {
         ...deserializeIntoCaseEscaped(ediscoveryCase),
+        "caseMembers": n => { ediscoveryCase.caseMembers = n.getCollectionOfObjectValues<EdiscoveryCaseMember>(createEdiscoveryCaseMemberFromDiscriminatorValue); },
         "closedBy": n => { ediscoveryCase.closedBy = n.getObjectValue<IdentitySet>(createIdentitySetFromDiscriminatorValue); },
         "closedDateTime": n => { ediscoveryCase.closedDateTime = n.getDateValue(); },
         "custodians": n => { ediscoveryCase.custodians = n.getCollectionOfObjectValues<EdiscoveryCustodian>(createEdiscoveryCustodianFromDiscriminatorValue); },
@@ -3230,6 +3275,20 @@ export function deserializeIntoEdiscoveryCase(ediscoveryCase: Partial<Ediscovery
         "searches": n => { ediscoveryCase.searches = n.getCollectionOfObjectValues<EdiscoverySearch>(createEdiscoverySearchFromDiscriminatorValue); },
         "settings": n => { ediscoveryCase.settings = n.getObjectValue<EdiscoveryCaseSettings>(createEdiscoveryCaseSettingsFromDiscriminatorValue); },
         "tags": n => { ediscoveryCase.tags = n.getCollectionOfObjectValues<EdiscoveryReviewTag>(createEdiscoveryReviewTagFromDiscriminatorValue); },
+    }
+}
+/**
+ * The deserialization information for the current model
+ * @param EdiscoveryCaseMember The instance to deserialize into.
+ * @returns {Record<string, (node: ParseNode) => void>}
+ */
+// @ts-ignore
+export function deserializeIntoEdiscoveryCaseMember(ediscoveryCaseMember: Partial<EdiscoveryCaseMember> | undefined = {}) : Record<string, (node: ParseNode) => void> {
+    return {
+        ...deserializeIntoEntity(ediscoveryCaseMember),
+        "displayName": n => { ediscoveryCaseMember.displayName = n.getStringValue(); },
+        "recipientType": n => { ediscoveryCaseMember.recipientType = n.getCollectionOfEnumValues<RecipientType>(RecipientTypeObject); },
+        "smtpAddress": n => { ediscoveryCaseMember.smtpAddress = n.getStringValue(); },
     }
 }
 /**
@@ -5372,7 +5431,7 @@ export interface DeviceEvidence extends AlertEvidence, Parsable {
      */
     azureAdDeviceId?: string | null;
     /**
-     * State of the Defender AntiMalware engine. The possible values are: notReporting, disabled, notUpdated, updated, unknown, notSupported, unknownFutureValue.
+     * State of the Defender anti-malware engine. The possible values are: notReporting, disabled, notUpdated, updated, unknown, notSupported, unknownFutureValue.
      */
     defenderAvStatus?: DefenderAvStatus | null;
     /**
@@ -5439,6 +5498,10 @@ export interface DeviceEvidence extends AlertEvidence, Parsable {
      * The name of the RBAC device group.
      */
     rbacGroupName?: string | null;
+    /**
+     * Information on resource access attempts made by the user account.
+     */
+    resourceAccessEvents?: ResourceAccessEvent[] | null;
     /**
      * Risk score as evaluated by Microsoft Defender for Endpoint. The possible values are: none, informational, low, medium, high, unknownFutureValue.
      */
@@ -5525,6 +5588,10 @@ export interface EdiscoveryAddToReviewSetOperation extends CaseOperation, Parsab
 }
 export interface EdiscoveryCase extends CaseEscaped, Parsable {
     /**
+     * Represents members of an eDiscovery case.
+     */
+    caseMembers?: EdiscoveryCaseMember[] | null;
+    /**
      * The user who closed the case.
      */
     closedBy?: IdentitySet | null;
@@ -5564,6 +5631,20 @@ export interface EdiscoveryCase extends CaseEscaped, Parsable {
      * Returns a list of ediscoveryReviewTag objects associated to this case.
      */
     tags?: EdiscoveryReviewTag[] | null;
+}
+export interface EdiscoveryCaseMember extends Entity, Parsable {
+    /**
+     * The display name of the eDiscovery case member. Allowed only for case members of type roleGroup.
+     */
+    displayName?: string | null;
+    /**
+     * Specifies the recipient type of the eDiscovery case member. The possible values are: user, roleGroup, unknownFutureValue.
+     */
+    recipientType?: RecipientType[] | null;
+    /**
+     * The smtp address of the eDiscovery case member. Allowed only for case members of type user.
+     */
+    smtpAddress?: string | null;
 }
 export interface EdiscoveryCaseSettings extends Entity, Parsable {
     /**
@@ -7205,27 +7286,27 @@ export interface LoggedOnUser extends AdditionalDataHolder, Parsable {
 }
 export interface MailboxConfigurationEvidence extends AlertEvidence, Parsable {
     /**
-     * The configurationId property
+     * The unique identifier of the mailbox configuration.
      */
     configurationId?: string | null;
     /**
-     * The configurationType property
+     * The type of mailbox configuration. The possible values are: mailForwardingRule, owaSettings, ewsSettings, mailDelegation, userInboxRule, unknownFutureValue.
      */
     configurationType?: MailboxConfigurationType | null;
     /**
-     * The displayName property
+     * The display name of the mailbox.
      */
     displayName?: string | null;
     /**
-     * The externalDirectoryObjectId property
+     * The external directory object identifier of the mailbox.
      */
     externalDirectoryObjectId?: Guid | null;
     /**
-     * The mailboxPrimaryAddress property
+     * The primary email address of the mailbox.
      */
     mailboxPrimaryAddress?: string | null;
     /**
-     * The upn property
+     * The user principal name (UPN) of the mailbox.
      */
     upn?: string | null;
 }
@@ -7445,6 +7526,7 @@ export interface ProcessEvidence extends AlertEvidence, Parsable {
 }
 export type ProtocolType = (typeof ProtocolTypeObject)[keyof typeof ProtocolTypeObject];
 export type QueryType = (typeof QueryTypeObject)[keyof typeof QueryTypeObject];
+export type RecipientType = (typeof RecipientTypeObject)[keyof typeof RecipientTypeObject];
 export interface RedundancyDetectionSettings extends AdditionalDataHolder, Parsable {
     /**
      * Indicates whether email threading and near duplicate detection are enabled.
@@ -7922,6 +8004,19 @@ export function serializeAccount(writer: SerializationWriter, account: Partial<A
 }
 /**
  * Serializes information the current object
+ * @param ActiveDirectoryDomainEvidence The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeActiveDirectoryDomainEvidence(writer: SerializationWriter, activeDirectoryDomainEvidence: Partial<ActiveDirectoryDomainEvidence> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!activeDirectoryDomainEvidence || isSerializingDerivedType) { return; }
+    serializeAlertEvidence(writer, activeDirectoryDomainEvidence, isSerializingDerivedType)
+    writer.writeStringValue("activeDirectoryDomainName", activeDirectoryDomainEvidence.activeDirectoryDomainName);
+    writer.writeCollectionOfObjectValues<ActiveDirectoryDomainEvidence>("trustedDomains", activeDirectoryDomainEvidence.trustedDomains, serializeActiveDirectoryDomainEvidence);
+}
+/**
+ * Serializes information the current object
  * @param AiAgentEvidence The instance to serialize from.
  * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
  * @param writer Serialization writer to use to serialize this model
@@ -8015,6 +8110,9 @@ export function serializeAlertEvidence(writer: SerializationWriter, alertEvidenc
     writer.writeEnumValue<EvidenceVerdict>("verdict", alertEvidence.verdict);
     writer.writeAdditionalData(alertEvidence.additionalData);
     switch (alertEvidence.odataType) {
+        case "#microsoft.graph.security.activeDirectoryDomainEvidence":
+            serializeActiveDirectoryDomainEvidence(writer, alertEvidence, true);
+        break;
         case "#microsoft.graph.security.aiAgentEvidence":
             serializeAiAgentEvidence(writer, alertEvidence, true);
         break;
@@ -8671,6 +8769,7 @@ export function serializeDeviceEvidence(writer: SerializationWriter, deviceEvide
     writer.writeStringValue("osPlatform", deviceEvidence.osPlatform);
     writer.writeNumberValue("rbacGroupId", deviceEvidence.rbacGroupId);
     writer.writeStringValue("rbacGroupName", deviceEvidence.rbacGroupName);
+    writer.writeCollectionOfObjectValues<ResourceAccessEvent>("resourceAccessEvents", deviceEvidence.resourceAccessEvents, serializeResourceAccessEvent);
     writer.writeEnumValue<DeviceRiskScore>("riskScore", deviceEvidence.riskScore);
     writer.writeStringValue("version", deviceEvidence.version);
     writer.writeObjectValue<VmMetadata>("vmMetadata", deviceEvidence.vmMetadata, serializeVmMetadata);
@@ -8744,6 +8843,7 @@ export function serializeEdiscoveryAddToReviewSetOperation(writer: Serialization
 export function serializeEdiscoveryCase(writer: SerializationWriter, ediscoveryCase: Partial<EdiscoveryCase> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
     if (!ediscoveryCase || isSerializingDerivedType) { return; }
     serializeCaseEscaped(writer, ediscoveryCase, isSerializingDerivedType)
+    writer.writeCollectionOfObjectValues<EdiscoveryCaseMember>("caseMembers", ediscoveryCase.caseMembers, serializeEdiscoveryCaseMember);
     writer.writeObjectValue<IdentitySet>("closedBy", ediscoveryCase.closedBy, serializeIdentitySet);
     writer.writeDateValue("closedDateTime", ediscoveryCase.closedDateTime);
     writer.writeCollectionOfObjectValues<EdiscoveryCustodian>("custodians", ediscoveryCase.custodians, serializeEdiscoveryCustodian);
@@ -8754,6 +8854,20 @@ export function serializeEdiscoveryCase(writer: SerializationWriter, ediscoveryC
     writer.writeCollectionOfObjectValues<EdiscoverySearch>("searches", ediscoveryCase.searches, serializeEdiscoverySearch);
     writer.writeObjectValue<EdiscoveryCaseSettings>("settings", ediscoveryCase.settings, serializeEdiscoveryCaseSettings);
     writer.writeCollectionOfObjectValues<EdiscoveryReviewTag>("tags", ediscoveryCase.tags, serializeEdiscoveryReviewTag);
+}
+/**
+ * Serializes information the current object
+ * @param EdiscoveryCaseMember The instance to serialize from.
+ * @param isSerializingDerivedType A boolean indicating whether the serialization is for a derived type.
+ * @param writer Serialization writer to use to serialize this model
+ */
+// @ts-ignore
+export function serializeEdiscoveryCaseMember(writer: SerializationWriter, ediscoveryCaseMember: Partial<EdiscoveryCaseMember> | undefined | null = {}, isSerializingDerivedType: boolean = false) : void {
+    if (!ediscoveryCaseMember || isSerializingDerivedType) { return; }
+    serializeEntity(writer, ediscoveryCaseMember, isSerializingDerivedType)
+    writer.writeStringValue("displayName", ediscoveryCaseMember.displayName);
+    writer.writeEnumValue<RecipientType[]>("recipientType", ediscoveryCaseMember.recipientType);
+    writer.writeStringValue("smtpAddress", ediscoveryCaseMember.smtpAddress);
 }
 /**
  * Serializes information the current object
@@ -12263,6 +12377,11 @@ export const ProtocolTypeObject = {
 export const QueryTypeObject = {
     Files: "files",
     Messages: "messages",
+    UnknownFutureValue: "unknownFutureValue",
+} as const;
+export const RecipientTypeObject = {
+    User: "user",
+    RoleGroup: "roleGroup",
     UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const RetentionTriggerObject = {
