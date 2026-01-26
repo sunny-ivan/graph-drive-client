@@ -103,7 +103,7 @@ export interface Alert extends Entity, Parsable {
      */
     description?: string | null;
     /**
-     * Detection technology or sensor that identified the notable component or activity. The possible values are: unknown, microsoftDefenderForEndpoint, antivirus, smartScreen, customTi, microsoftDefenderForOffice365, automatedInvestigation, microsoftThreatExperts, customDetection, microsoftDefenderForIdentity, cloudAppSecurity, microsoft365Defender, azureAdIdentityProtection, manual, microsoftDataLossPrevention, appGovernancePolicy, appGovernanceDetection, unknownFutureValue, microsoftDefenderForCloud, microsoftDefenderForIoT, microsoftDefenderForServers, microsoftDefenderForStorage, microsoftDefenderForDNS, microsoftDefenderForDatabases, microsoftDefenderForContainers, microsoftDefenderForNetwork, microsoftDefenderForAppService, microsoftDefenderForKeyVault, microsoftDefenderForResourceManager, microsoftDefenderForApiManagement, microsoftSentinel, nrtAlerts, scheduledAlerts, microsoftDefenderThreatIntelligenceAnalytics, builtInMl, microsoftThreatIntelligence, microsoftDefenderForAIServices, securityCopilot. Use the Prefer: include-unknown-enum-members request header to get the following values in this evolvable enum: microsoftDefenderForCloud, microsoftDefenderForIoT, microsoftDefenderForServers, microsoftDefenderForStorage, microsoftDefenderForDNS, microsoftDefenderForDatabases, microsoftDefenderForContainers, microsoftDefenderForNetwork, microsoftDefenderForAppService, microsoftDefenderForKeyVault, microsoftDefenderForResourceManager, microsoftDefenderForApiManagement, microsoftSentinel, nrtAlerts, scheduledAlerts, microsoftDefenderThreatIntelligenceAnalytics, builtInMl, microsoftThreatIntelligence, microsoftDefenderForAIServices, securityCopilot.
+     * Detection technology or sensor that identified the notable component or activity.
      */
     detectionSource?: DetectionSource | null;
     /**
@@ -4170,6 +4170,7 @@ export function deserializeIntoIncident(incident: Partial<Incident> | undefined 
         "incidentWebUrl": n => { incident.incidentWebUrl = n.getStringValue(); },
         "lastModifiedBy": n => { incident.lastModifiedBy = n.getStringValue(); },
         "lastUpdateDateTime": n => { incident.lastUpdateDateTime = n.getDateValue(); },
+        "priorityScore": n => { incident.priorityScore = n.getNumberValue(); },
         "redirectIncidentId": n => { incident.redirectIncidentId = n.getStringValue(); },
         "resolvingComment": n => { incident.resolvingComment = n.getStringValue(); },
         "severity": n => { incident.severity = n.getEnumValue<AlertSeverity>(AlertSeverityObject); },
@@ -4900,6 +4901,7 @@ export function deserializeIntoSensor(sensor: Partial<Sensor> | undefined = {}) 
         "healthStatus": n => { sensor.healthStatus = n.getEnumValue<SensorHealthStatus>(SensorHealthStatusObject); },
         "openHealthIssuesCount": n => { sensor.openHealthIssuesCount = n.getNumberValue(); },
         "sensorType": n => { sensor.sensorType = n.getEnumValue<SensorType>(SensorTypeObject); },
+        "serviceStatus": n => { sensor.serviceStatus = n.getEnumValue<ServiceStatus>(ServiceStatusObject); },
         "settings": n => { sensor.settings = n.getObjectValue<SensorSettings>(createSensorSettingsFromDiscriminatorValue); },
         "version": n => { sensor.version = n.getStringValue(); },
     }
@@ -4914,6 +4916,7 @@ export function deserializeIntoSensorCandidate(sensorCandidate: Partial<SensorCa
     return {
         ...deserializeIntoEntity(sensorCandidate),
         "computerDnsName": n => { sensorCandidate.computerDnsName = n.getStringValue(); },
+        "domainName": n => { sensorCandidate.domainName = n.getStringValue(); },
         "lastSeenDateTime": n => { sensorCandidate.lastSeenDateTime = n.getDateValue(); },
         "senseClientVersion": n => { sensorCandidate.senseClientVersion = n.getStringValue(); },
     }
@@ -6810,6 +6813,10 @@ export interface Incident extends Entity, Parsable {
      */
     lastUpdateDateTime?: Date | null;
     /**
+     * The priorityScore property
+     */
+    priorityScore?: number | null;
+    /**
      * Only populated in case an incident is grouped with another incident, as part of the logic that processes incidents. In such a case, the status property is redirected.
      */
     redirectIncidentId?: string | null;
@@ -7933,6 +7940,10 @@ export interface Sensor extends Entity, Parsable {
      */
     sensorType?: SensorType | null;
     /**
+     * The serviceStatus property
+     */
+    serviceStatus?: ServiceStatus | null;
+    /**
      * The settings property
      */
     settings?: SensorSettings | null;
@@ -7946,6 +7957,10 @@ export interface SensorCandidate extends Entity, Parsable {
      * The DNS name of the computer associated with the sensor.
      */
     computerDnsName?: string | null;
+    /**
+     * The domain name of the sensor.
+     */
+    domainName?: string | null;
     /**
      * The date and time when the sensor was last seen.
      */
@@ -9816,6 +9831,7 @@ export function serializeIncident(writer: SerializationWriter, incident: Partial
     writer.writeStringValue("incidentWebUrl", incident.incidentWebUrl);
     writer.writeStringValue("lastModifiedBy", incident.lastModifiedBy);
     writer.writeDateValue("lastUpdateDateTime", incident.lastUpdateDateTime);
+    writer.writeNumberValue("priorityScore", incident.priorityScore);
     writer.writeStringValue("redirectIncidentId", incident.redirectIncidentId);
     writer.writeStringValue("resolvingComment", incident.resolvingComment);
     writer.writeEnumValue<AlertSeverity>("severity", incident.severity);
@@ -10579,6 +10595,7 @@ export function serializeSensor(writer: SerializationWriter, sensor: Partial<Sen
     writer.writeEnumValue<SensorHealthStatus>("healthStatus", sensor.healthStatus);
     writer.writeNumberValue("openHealthIssuesCount", sensor.openHealthIssuesCount);
     writer.writeEnumValue<SensorType>("sensorType", sensor.sensorType);
+    writer.writeEnumValue<ServiceStatus>("serviceStatus", sensor.serviceStatus);
     writer.writeObjectValue<SensorSettings>("settings", sensor.settings, serializeSensorSettings);
     writer.writeStringValue("version", sensor.version);
 }
@@ -10593,6 +10610,7 @@ export function serializeSensorCandidate(writer: SerializationWriter, sensorCand
     if (!sensorCandidate || isSerializingDerivedType) { return; }
     serializeEntity(writer, sensorCandidate, isSerializingDerivedType)
     writer.writeStringValue("computerDnsName", sensorCandidate.computerDnsName);
+    writer.writeStringValue("domainName", sensorCandidate.domainName);
     writer.writeDateValue("lastSeenDateTime", sensorCandidate.lastSeenDateTime);
     writer.writeStringValue("senseClientVersion", sensorCandidate.senseClientVersion);
 }
@@ -11150,6 +11168,7 @@ export interface ServicePrincipalEvidence extends AlertEvidence, Parsable {
 }
 export type ServicePrincipalType = (typeof ServicePrincipalTypeObject)[keyof typeof ServicePrincipalTypeObject];
 export type ServiceSource = (typeof ServiceSourceObject)[keyof typeof ServiceSourceObject];
+export type ServiceStatus = (typeof ServiceStatusObject)[keyof typeof ServiceStatusObject];
 export interface SiteSource extends DataSource, Parsable {
     /**
      * The site property
@@ -12438,6 +12457,15 @@ export const ServiceSourceObject = {
     MicrosoftSentinel: "microsoftSentinel",
     MicrosoftInsiderRiskManagement: "microsoftInsiderRiskManagement",
     MicrosoftThreatIntelligence: "microsoftThreatIntelligence",
+} as const;
+export const ServiceStatusObject = {
+    Stopped: "stopped",
+    Starting: "starting",
+    Running: "running",
+    Disabled: "disabled",
+    Onboarding: "onboarding",
+    Unknown: "unknown",
+    UnknownFutureValue: "unknownFutureValue",
 } as const;
 export const SourceTypeObject = {
     Mailbox: "mailbox",
