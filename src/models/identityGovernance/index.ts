@@ -1855,7 +1855,7 @@ export interface Workflow extends Parsable, WorkflowBase {
 }
 export interface WorkflowBase extends AdditionalDataHolder, Parsable {
     /**
-     * The administrationScopeTargets property
+     * The administrative units in the scope of the workflow. Optional. Supports $expand.
      */
     administrationScopeTargets?: DirectoryObject[] | null;
     /**
